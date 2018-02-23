@@ -1,9 +1,15 @@
 // -----------------------------------------------------------------------------
-// (c) balarabe@protonmail.com                                   [zr/logging.go]
+// (c) balarabe@protonmail.com                                      License: MIT
+// :v: 2018-02-23 17:15:58 663E52                                [zr/logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
 
+// # Call Range Types:
+//   HideCallers struct{}
+//   MinDepth int
+//   MaxDepth int
+//
 // # Global Settings
 //   GetLastLogMessage() string
 //   GetShowSourceFileNames() bool
@@ -11,22 +17,36 @@ package zr
 //   GetVerboseMode() bool
 //   SetVerboseMode(val bool)
 //
-// # Utility Functions
+// # Config Settings
+//   DisableErrors(optDisable ...bool)
+//   EnableErrors(optEnable ...bool)
+//
+// # Functions
+//   AppendToTextFile(filename, text string)
 //   Assert(expect bool) bool
+//   Base64ErrorDetails(err error, data string)
+//   CallerList() []string
 //   Callers(options ...interface{}) string
+//   Error(args ...interface{}) error
+//   FuncName(callDepth int) string
+//   GetErrorCount() int
+//   IMPLEMENT(args ...interface{})
+//   LineNo(callDepth int) int
+//   Log(args ...interface{})
+//   Logf(format string, args ...interface{})
+//   NoE(any interface{}, err error) interface{}
+//   OBSOLETE(args ...interface{})
+//   PrintfAsync(format string, args ...interface{})
+//   TM(messages ...string)
+//   TraceCall()
+//   VerboseLog(args ...interface{})
+//   VerboseLogf(format string, args ...interface{})
+//
+// # Debugging Functions
 //   D(message string, args ...interface{})
 //   DC(message string, args ...interface{})
 //   DL(message string, args ...interface{})
 //   DLC(message string, args ...interface{})
-//   Error(args ...interface{}) error
-//   GetErrorCount() int
-//   Log(args ...interface{})
-//   Logf(format string, args ...interface{})
-//   PrintfAsync(format string, args ...interface{})
-//   Timestamp() string
-//   TM(messages ...string)
-//   VerboseLog(args ...interface{})
-//   VerboseLogf(format string, args ...interface{})
 //
 // # Internal Functions
 //   formatArgs(format string, args ...interface{}) string
@@ -35,47 +55,35 @@ package zr
 //   logLoopAsync()
 //   removeLogOptions(args []interface{}) (ret []interface{})
 
-import "bytes"       // standard
-import "fmt"         // standard
-import "os"          // standard
-import "runtime"     // standard
-import "strconv"     // standard
-import str "strings" // standard
-import "sync"        // standard
-import "time"        // standard
+import "bytes"   // standard
+import "fmt"     // standard
+import "os"      // standard
+import "runtime" // standard
+import "strconv" // standard
+import "sync"    // standard
+import "time"    // standard
 
 // -----------------------------------------------------------------------------
-// # Config Settings
+// # Call Range Types:
 
-// disableErrors disables or enables logging of errors.
-var disableErrors bool
+// HideCallers hides the call stack when passed as one of the arguments
+// to Error() and Callers(). It does not interfere with other output.
+type HideCallers struct{}
 
-// DisableErrors __
-func DisableErrors(optDisable ...bool) {
-	switch n := len(optDisable); {
-	case n == 1:
-		disableErrors = optDisable[0]
-	case n > 1:
-		Error(EInvalidArg, "optDisable", ":", optDisable)
-	default:
-		disableErrors = true
-	}
-} //                                                               DisableErrors
+// MinDepth specifies the closest caller in the call stack that should
+// be output by Error() and Callers(), when passed as one of the
+// arguments to these functions. The function that called the current
+// function is 1, etc. It does not interfere with other output.
+type MinDepth int
 
-// EnableErrors __
-func EnableErrors(optEnable ...bool) {
-	switch n := len(optEnable); {
-	case n == 1:
-		disableErrors = !optEnable[0]
-	case n > 1:
-		Error(EInvalidArg, "optEnable", ":", optEnable)
-	default:
-		disableErrors = false
-	}
-} //                                                                EnableErrors
+// MaxDepth specifies the highest caller in the call stack that should
+// be output by Error() and Callers(), when passed as one of the
+// arguments to these functions. The function that called the current
+// function is 1, etc. It does not interfere with other output.
+type MaxDepth int
 
 // -----------------------------------------------------------------------------
-// # Variables
+// # Private Variables
 
 // Config Variables
 
@@ -99,24 +107,6 @@ var lastLogMessage string
 
 // lastLogTime holds the time of the last logged entry or error.
 var lastLogTime time.Time
-
-// Call Range Types:
-
-// HideCallers hides the call stack when passed as one of the arguments
-// to Error() and Callers(). It does not interfere with other output.
-type HideCallers struct{}
-
-// MinDepth specifies the closest caller in the call stack that should
-// be output by Error() and Callers(), when passed as one of the
-// arguments to these functions. The function that called the current
-// function is 1, etc. It does not interfere with other output.
-type MinDepth int
-
-// MaxDepth specifies the highest caller in the call stack that should
-// be output by Error() and Callers(), when passed as one of the
-// arguments to these functions. The function that called the current
-// function is 1, etc. It does not interfere with other output.
-type MaxDepth int
 
 // Private Variables
 var logChan = make(chan logArgs, 50000)
@@ -163,7 +153,50 @@ func SetVerboseMode(val bool) {
 } //                                                              SetVerboseMode
 
 // -----------------------------------------------------------------------------
-// # Utility Functions
+// # Config Settings
+
+// disableErrors disables or enables logging of errors.
+var disableErrors bool
+
+// DisableErrors __
+func DisableErrors(optDisable ...bool) {
+	switch n := len(optDisable); {
+	case n == 1:
+		disableErrors = optDisable[0]
+	case n > 1:
+		Error(EInvalidArg, "optDisable", ":", optDisable)
+	default:
+		disableErrors = true
+	}
+} //                                                               DisableErrors
+
+// EnableErrors __
+func EnableErrors(optEnable ...bool) {
+	switch n := len(optEnable); {
+	case n == 1:
+		disableErrors = !optEnable[0]
+	case n > 1:
+		Error(EInvalidArg, "optEnable", ":", optEnable)
+	default:
+		disableErrors = false
+	}
+} //                                                                EnableErrors
+
+// -----------------------------------------------------------------------------
+// # Functions
+
+// AppendToTextFile appends 'text' to file named 'filename'.
+func AppendToTextFile(filename, text string) {
+	var file *os.File
+	var err error
+	file, err = os.OpenFile(filename, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0)
+	defer file.Close()
+	if err != nil {
+		Error("Opening file", filename, ":", err)
+		return
+	}
+	file.WriteString(text)
+} //                                                            AppendToTextFile
 
 // Assert checks if the 'expect' condition is true. If the
 // condition is false, it outputs an 'ASSERTION FAILED' message
@@ -175,6 +208,94 @@ func Assert(expect bool) bool {
 	}
 	return expect
 } //                                                                      Assert
+
+// Base64ErrorDetails __
+func Base64ErrorDetails(err error, data string) {
+	const atInputByte = " at input byte "
+	var errStr = err.Error()
+	if !str.Contains(errStr, atInputByte) {
+		return
+	}
+	var at = str.Index(errStr, atInputByte)
+	at = Int(errStr[at+len(atInputByte):])
+	var from = at - 10
+	if from < 0 {
+		from = 0
+	}
+	var to = at + 10
+	if to > (len(data) - 1) {
+		to = (len(data) - 1)
+	}
+	for i := from; i <= to; i++ {
+		var isAt = " "
+		if i == at {
+			isAt = "*"
+		}
+		PrintfAsync("%s i:%d s:%q val:%d"+LB,
+			isAt, i, string(data[i]), data[i])
+	}
+} //                                                          Base64ErrorDetails
+
+// CallerList returns a human-friendly list of strings showing the
+// call stack with each calling method or function's name and line number.
+//
+// The most immediate callers are listed first, followed by their callers,
+// and so on. For brevity, 'runtime.*' and 'syscall.*'
+// and other top-level callers are not included.
+func CallerList() []string {
+	var ret []string
+	var i = 0
+	for {
+		i++
+		var programCounter, filename, lineNo, _ = runtime.Caller(i)
+		var funcName = runtime.FuncForPC(programCounter).Name()
+		// end loop on reaching a top-level runtime function
+		if funcName == "" ||
+			funcName == "runtime.goexit" ||
+			funcName == "runtime.main" ||
+			funcName == "testing.tRunner" ||
+			str.Contains(funcName, "HandlerFunc.ServeHTTP") {
+			break
+		}
+		// skip runtime/syscall functions, but continue the loop
+		if str.Contains(funcName, "zr.Callers") ||
+			str.Contains(funcName, "zr.CallerList") ||
+			str.Contains(funcName, "zr.Error") ||
+			str.Contains(funcName, "zr.Log") ||
+			str.Contains(funcName, "zr.logAsync") ||
+			str.HasPrefix(funcName, "runtime.") ||
+			str.HasPrefix(funcName, "syscall.") {
+			continue
+		}
+		// let the file name's path use the right kind of OS path separator
+		// (by default, the file name contains '/' on all platforms)
+		if string(os.PathSeparator) != "/" {
+			filename = str.Replace(filename, "/", string(os.PathSeparator), -1)
+		}
+		// remove parent module/function names
+		if index := str.LastIndex(funcName, "/"); index != -1 {
+			funcName = funcName[index+1:]
+		}
+		if str.Count(funcName, ".") > 1 {
+			funcName = funcName[str.Index(funcName, ".")+1:]
+		}
+		// remove unneeded punctuation from function names
+		for _, find := range []string{"(", ")", "*"} {
+			if str.Contains(funcName, find) {
+				funcName = str.Replace(funcName, find, "", -1)
+			}
+		}
+		var line string
+		if showSourceFileNames {
+			line = fmt.Sprintf("func:%-30s  ln:%4d  file:%-30s",
+				funcName, lineNo, filename)
+		} else {
+			line = fmt.Sprintf("%s:%d", funcName, lineNo)
+		}
+		ret = append(ret, line)
+	}
+	return ret
+} //                                                                  CallerList
 
 // Callers returns a human-friendly string showing the call stack with
 // each calling method or function's name and line number.
@@ -254,92 +375,6 @@ func Callers(options ...interface{}) string {
 	return retBuf.String()
 } //                                                                     Callers
 
-// CallerList returns a human-friendly list of strings showing the
-// call stack with each calling method or function's name and line number.
-//
-// The most immediate callers are listed first, followed by their callers,
-// and so on. For brevity, 'runtime.*' and 'syscall.*'
-// and other top-level callers are not included.
-func CallerList() []string {
-	var ret []string
-	var i = 0
-	for {
-		i++
-		var programCounter, filename, lineNo, _ = runtime.Caller(i)
-		var funcName = runtime.FuncForPC(programCounter).Name()
-		// end loop on reaching a top-level runtime function
-		if funcName == "" ||
-			funcName == "runtime.goexit" ||
-			funcName == "runtime.main" ||
-			funcName == "testing.tRunner" ||
-			str.Contains(funcName, "HandlerFunc.ServeHTTP") {
-			break
-		}
-		// skip runtime/syscall functions, but continue the loop
-		if str.Contains(funcName, "zr.Callers") ||
-			str.Contains(funcName, "zr.CallerList") ||
-			str.Contains(funcName, "zr.Error") ||
-			str.Contains(funcName, "zr.Log") ||
-			str.Contains(funcName, "zr.logAsync") ||
-			str.HasPrefix(funcName, "runtime.") ||
-			str.HasPrefix(funcName, "syscall.") {
-			continue
-		}
-		// let the file name's path use the right kind of OS path separator
-		// (by default, the file name contains '/' on all platforms)
-		if string(os.PathSeparator) != "/" {
-			filename = str.Replace(filename, "/", string(os.PathSeparator), -1)
-		}
-		// remove parent module/function names
-		if index := str.LastIndex(funcName, "/"); index != -1 {
-			funcName = funcName[index+1:]
-		}
-		if str.Count(funcName, ".") > 1 {
-			funcName = funcName[str.Index(funcName, ".")+1:]
-		}
-		// remove unneeded punctuation from function names
-		for _, find := range []string{"(", ")", "*"} {
-			if str.Contains(funcName, find) {
-				funcName = str.Replace(funcName, find, "", -1)
-			}
-		}
-		var line string
-		if showSourceFileNames {
-			line = fmt.Sprintf("func:%-30s  ln:%4d  file:%-30s",
-				funcName, lineNo, filename)
-		} else {
-			line = fmt.Sprintf("%s:%d", funcName, lineNo)
-		}
-		ret = append(ret, line)
-	}
-	return ret
-} //                                                                  CallerList
-
-// D writes a formatted debug message and to the console.
-// Same as fmt.Printf(), but appends a newline at the end.
-func D(message string, args ...interface{}) {
-	fmt.Printf(Timestamp()+message+LB, args...)
-} //                                                                           D
-
-// DC writes a formatted debug message and the call stack to the console.
-func DC(message string, args ...interface{}) {
-	fmt.Println(Timestamp() + fmt.Sprintf(message, args...) + Callers())
-} //                                                                          DC
-
-// DL writes a formatted debug message to log file 'run.log' saved in the
-// program's current directory. The message is not output to the console.
-func DL(message string, args ...interface{}) {
-	AppendToTextFile("run.log", Timestamp()+fmt.Sprintf(message, args...)+LB)
-} //                                                                          DL
-
-// DLC writes a formatted debug message and the call stack to log file
-// 'run.log' saved in the program's current directory.
-// The message is not output to the console.
-func DLC(message string, args ...interface{}) {
-	AppendToTextFile("run.log",
-		Timestamp()+fmt.Sprintf(message, args...)+Callers()+LB)
-} //                                                                         DLC
-
 // Error outputs an error message to the standard output and to a
 // log file named 'run.log' saved in the program's current directory,
 // It also outputs the call stack (names and line numbers of callers.)
@@ -355,10 +390,42 @@ func Error(args ...interface{}) error {
 	return fmt.Errorf(msg)
 } //                                                                       Error
 
+// FuncName returns the function name of the caller.
+func FuncName(callDepth int) string {
+	var programCounter, _, _, _ = runtime.Caller(callDepth)
+	var funcName = runtime.FuncForPC(programCounter).Name()
+	return funcName
+} //                                                                    FuncName
+
 // GetErrorCount returns the number of errors that occurred.
 func GetErrorCount() int {
 	return errorCount
 } //                                                               GetErrorCount
+
+// IMPLEMENT reports a call to an unimplemented function
+// or method at runtime, by printing the name of the
+// function and the function that called it.
+//
+// IMPLEMENT() should be placed on the first line of a function.
+//
+// You can specify additional arguments to print with Println().
+// There is no need to specify the name of the obsolete function
+// as it is automatically read from the call stack.
+func IMPLEMENT(args ...interface{}) {
+	if !GetDebugMode() {
+		return
+	}
+	var ar []interface{}
+	ar = append(ar, "IMPLEMENT", FuncName(2), "<", FuncName(3))
+	ar = append(ar, args...)
+	fmt.Println(ar...)
+} //                                                                   IMPLEMENT
+
+// LineNo returns the line number of the caller.
+func LineNo(callDepth int) int {
+	var _, _, lineNo, _ = runtime.Caller(callDepth)
+	return lineNo
+} //                                                                      LineNo
 
 // Log outputs a message string to the standard output and to a
 // log file named 'run.log' saved in the program's current directory.
@@ -376,6 +443,42 @@ func Logf(format string, args ...interface{}) {
 	logAsync(formatArgs(format, args...))
 } //                                                                        Logf
 
+// NoE strips the error result from a function returning
+// a value and an error. Cast the result to the correct type.
+// For example:
+// Eg. var data = NoE(ioutil.ReadFile(sourceFile)).([]byte)
+func NoE(any interface{}, err error) interface{} {
+	return any
+} //                                                                        NoE
+
+// OBSOLETE reports a call to an obsolete function or method at runtime,
+// by printing the name of the function and the function that called it.
+// The output is done using Println().
+//
+// You can rename obsolete functions by adding an 'OLD' suffix to obsolete
+// names. When one *OLD function calls another *OLD function, OBSOLETE
+// won't report further obsolete calls to reduce message clutter.
+//
+// OBSOLETE() should be placed on the first line of a function.
+//
+// You can specify additional arguments to print with Println().
+// There is no need to specify the name of the obsolete function
+// as it is automatically read from the call stack.
+func OBSOLETE(args ...interface{}) {
+	if !GetDebugMode() {
+		return
+	}
+	var funcName, calledBy = FuncName(2), FuncName(3)
+	if str.HasSuffix(funcName, "OLD") &&
+		str.HasSuffix(calledBy, "OLD") {
+		return
+	}
+	var ar []interface{}
+	ar = append(ar, "OBSOLETE", funcName, "<", calledBy)
+	ar = append(ar, args...)
+	fmt.Println(ar...)
+} //                                                                    OBSOLETE
+
 // PrintfAsync prints output to the standard output like fmt.Printf(),
 // but asynchronously using the log loop goroutine.
 // This prevents the program from being slowed down by output to console.
@@ -386,20 +489,6 @@ func PrintfAsync(format string, args ...interface{}) {
 		go logLoopAsync()
 	}
 } //                                                                 PrintfAsync
-
-// Timestamp returns a timestamp string using the current time.
-// The timestamp includes the date, time with seconds
-// and milliseconds, but no time zone.
-func Timestamp() string {
-	var ret = time.Now().String()
-	if len(ret) > 24 {
-		ret = ret[:24]
-	}
-	for len(ret) < 24 { // may need to add trailing zeros in milliseconds
-		ret += "0"
-	}
-	return ret + " "
-} //                                                                   Timestamp
 
 // TM outputs milliseconds elapsed between calls to TM() to standard output.
 // To start timing, call TM() without any arguments.
@@ -434,7 +523,35 @@ func TM(messages ...string) {
 		Error("Too many values in 'messages' argument")
 	}
 } //                                                                          TM
+
+// timings is used by TM
 var timings map[string]time.Time
+
+// TraceCall __
+func TraceCall() {
+	var programCounter, filename, lineNo, _ = runtime.Caller(1)
+	var funcName = runtime.FuncForPC(programCounter).Name()
+	{
+		// strip the following strings from the function name
+		for _, s := range []string{"(", ")", "*"} {
+			if str.Contains(funcName, s) {
+				funcName = str.Replace(funcName, s, "", -1)
+			}
+		}
+	}
+	if string(os.PathSeparator) != "/" {
+		filename = str.Replace(filename, "/", string(os.PathSeparator), -1)
+	}
+	var now = time.Now()
+	{
+		var elapsedMs = now.Sub(lastTraceCallTime).Nanoseconds() / 1000000
+		if elapsedMs > 1000 {
+			PrintfAsync(LB + str.Repeat("-", 80) + LB)
+		}
+	}
+	PrintfAsync("%-30s  %4d  %-30s"+LB, funcName, lineNo, filename)
+	lastTraceCallTime = now
+} //                                                                   TraceCall
 
 // VerboseLog sends output to the log loop,
 // but only when verbose mode is set to true.
@@ -458,6 +575,34 @@ func VerboseLogf(format string, args ...interface{}) {
 	}
 	logAsync(formatArgs(format, args...))
 } //                                                                 VerboseLogf
+
+// -----------------------------------------------------------------------------
+// # Debugging Functions
+
+// D writes a formatted debug message and to the console.
+// Same as fmt.Printf(), but appends a newline at the end.
+func D(message string, args ...interface{}) {
+	fmt.Printf(Timestamp()+message+LB, args...)
+} //                                                                           D
+
+// DC writes a formatted debug message and the call stack to the console.
+func DC(message string, args ...interface{}) {
+	fmt.Println(Timestamp() + fmt.Sprintf(message, args...) + Callers())
+} //                                                                          DC
+
+// DL writes a formatted debug message to log file 'run.log' saved in the
+// program's current directory. The message is not output to the console.
+func DL(message string, args ...interface{}) {
+	AppendToTextFile("run.log", Timestamp()+fmt.Sprintf(message, args...)+LB)
+} //                                                                          DL
+
+// DLC writes a formatted debug message and the call stack to log file
+// 'run.log' saved in the program's current directory.
+// The message is not output to the console.
+func DLC(message string, args ...interface{}) {
+	AppendToTextFile("run.log",
+		Timestamp()+fmt.Sprintf(message, args...)+Callers()+LB)
+} //                                                                         DLC
 
 // -----------------------------------------------------------------------------
 // # Internal Functions
@@ -582,5 +727,7 @@ func removeLogOptions(args []interface{}) (ret []interface{}) {
 	}
 	return ret
 } //                                                            removeLogOptions
+
+//TODO: send errors to standard error: fmt.Fprintf(os.Stderr, "%s\n", err)
 
 //end

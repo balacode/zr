@@ -1,5 +1,6 @@
 // -----------------------------------------------------------------------------
-// (c) balarabe@protonmail.com                              [zr/logging_test.go]
+// (c) balarabe@protonmail.com                                      License: MIT
+// :v: 2018-02-23 17:48:14 FD0DBA                           [zr/logging_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -13,8 +14,8 @@ to generate a test coverage report for the whole module use:
     go tool cover -html=cover.out
 */
 
-import str "strings" // standard
-import "testing"     // standard
+import "fmt"     // standard
+import "testing" // standard
 
 // go test --run Test_logg_CallerList_
 // only use standard testing functions in this unit test (not zr.Test...)
@@ -66,5 +67,15 @@ func Test_logg_CallerList_(t *testing.T) {
 		}
 	}
 } //                                                       Test_logg_CallerList_
+
+// go test --run Test_logg_NoE_
+func Test_logg_NoE_(t *testing.T) {
+	const check = "xyz"
+	var fn = func() (string, error) {
+		return "xyz", fmt.Errorf("error 123")
+	}
+	var s = NoE(fn()).(string)
+	TTrue(t, s == check)
+} //                                                              Test_logg_NoE_
 
 //end
