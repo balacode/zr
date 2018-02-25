@@ -1,6 +1,6 @@
 # [Zr] Zirconium Go Library - functions and classes to manipulate basic data types, unit test, etc.
 
-bool.go: functions to work with boolean values.
+*bool.go*: functions to work with boolean values.
 
 bytes.go: a class to handle a block of bytes, 
 with methods to insert, read, delete, etc.
