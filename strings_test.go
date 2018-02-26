@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-24 00:01:52 B75FF0                           [zr/strings_test.go]
+// :v: 2018-02-26 22:34:27 6F997B                           [zr/strings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -389,8 +389,8 @@ func Test_strs_JSUnescapeStruct_(t *testing.T) {
 		Main2: "ABC%20DEF",
 		Main3: "GHI%20JKL",
 		Items: []Item{
-			Item{Sub1: "mno%20pqr", Sub2: 456},
-			Item{Sub1: "stu%20vwx", Sub2: 789},
+			{Sub1: "mno%20pqr", Sub2: 456},
+			{Sub1: "stu%20vwx", Sub2: 789},
 		},
 	}
 	JSUnescapeStruct(&v)

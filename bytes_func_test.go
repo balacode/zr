@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-01 10:15:28 D913FF                        [zr/bytes_func_test.go]
+// :v: 2018-02-26 23:24:37 D8B95D                        [zr/bytes_func_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -342,7 +342,7 @@ func Test_bytf_RuneOffset_(t *testing.T) {
 	TTrue(t, RuneOffset(slice, 8) == 10)
 	TTrue(t, RuneOffset(slice, 9) == 13)
 	//
-	// try some out-of range values:
+	// try some out-of-range values:
 	TTrue(t, RuneOffset(slice, -2) == -1)
 	TTrue(t, RuneOffset(slice, -1) == -1)
 	TTrue(t, RuneOffset(slice, 10) == -1)

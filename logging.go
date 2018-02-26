@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:15:58 663E52                                [zr/logging.go]
+// :v: 2018-02-26 23:24:37 52383F                                [zr/logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -339,7 +339,7 @@ func Callers(options ...interface{}) string {
 			str.HasPrefix(funcName, "syscall.") {
 			continue
 		}
-		// increase depth counter and skip opt-of range functions
+		// increase depth counter and skip out-of-range functions
 		depth++
 		if minDepth != -1 && depth < minDepth {
 			continue
@@ -409,7 +409,7 @@ func GetErrorCount() int {
 // IMPLEMENT() should be placed on the first line of a function.
 //
 // You can specify additional arguments to print with Println().
-// There is no need to specify the name of the obsolete function
+// There is no need to specify the name of the unimplemented function
 // as it is automatically read from the call stack.
 func IMPLEMENT(args ...interface{}) {
 	if !GetDebugMode() {

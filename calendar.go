@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-26 14:12:39 F37C8B                               [zr/calendar.go]
+// :v: 2018-02-26 23:24:37 0BD759                               [zr/calendar.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -42,7 +42,7 @@ type calendarDay struct {
 	val interface{}
 } //                                                                 calendarDay
 
-// calendarMonth holds the data a single month,
+// calendarMonth holds the data for a single month,
 // with days arranged in a 6 x 7 grid.
 type calendarMonth struct {
 	year  int
