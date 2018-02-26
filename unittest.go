@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-24 00:01:52 2634E2                                  [zr/utest.go]
+// :v: 2018-02-26 02:10:40 8C7BB4                               [zr/unittest.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -328,6 +328,6 @@ func failedLocation() string {
 //TODO: BeginError() can redefine mod.Error()
 //      so there is no need for ErrorCount
 
-//TODO: write code to test the testing module (utest.go)
+//TODO: write code to test the testing module (unittest.go)
 
 //end                                 "Who is going to test the testers?" - Anon
