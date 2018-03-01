@@ -1,4 +1,12 @@
-# [Zr] Zirconium Go Library - functions and classes to manipulate basic data types, unit test, etc.
+## [Zr] Zircon-Go Library - functions and classes to manipulate basic data types, unit test, etc.
+This library module works on all build platforms. There are other related library packages, some of which may depend on a particular OS, mainly github.com/balacode/zr_win.
+
+## To Install:
+Just run:
+
+    go get github.com/balacode/zr
+
+## Summary:
 
 **bool.go**: functions to work with boolean values.
 
