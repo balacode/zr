@@ -1,4 +1,6 @@
 ## [Zr] Zircon-Go Library - functions and classes to manipulate basic data types, unit test, etc.
+[![Go Report Card](https://goreportcard.com/badge/github.com/balacode/zr)](https://goreportcard.com/report/github.com/balacode/zr)  
+
 This library module works on all build platforms. There are other related library packages, some of which may depend on a particular OS, mainly github.com/balacode/zr_win.
 
 ## To Install:
