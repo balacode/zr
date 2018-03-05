@@ -1,4 +1,5 @@
 ## [Zr] Zircon-Go Library  
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Go Report Card](https://goreportcard.com/badge/github.com/balacode/zr)](https://goreportcard.com/report/github.com/balacode/zr)  
 **Functions and classes to manipulate basic data types, unit test, etc.**  
 
