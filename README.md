@@ -1,6 +1,6 @@
 ## [Zr] Zircon-Go Library  
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Go Report Card](https://goreportcard.com/badge/github.com/balacode/zr)](https://goreportcard.com/report/github.com/balacode/zr)  
+[![Go Report Card](https://goreportcard.com/badge/github.com/balacode/zr)](https://goreportcard.com/report/github.com/balacode/zr)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)  
 **Functions and classes to manipulate basic data types, unit test, etc.**  
 
 This library module works on all build platforms. There are other related library packages, some of which may depend on a particular OS, mainly github.com/balacode/zr_win.
