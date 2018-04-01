@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:48:14 9BB8C7                                 [zr/module.go]
+// :v: 2018-04-01 12:06:39 AF1D20                                 [zr/module.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -26,7 +26,7 @@ import "time"          // standard
 // VersionTime returns the library version as a date/time string.
 func VersionTime() string {
 	// name capitalized to make it easy to locate
-	var VersionTime = "2018-02-21 16:05"
+	var VersionTime = "2018-02-27 17:03"
 	return VersionTime
 } //                                                                 VersionTime
 

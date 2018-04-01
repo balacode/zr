@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-26 23:24:37 0BD759                               [zr/calendar.go]
+// :v: 2018-04-01 12:06:52 48AECD                               [zr/calendar.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -18,7 +18,7 @@ package zr
 //  (ob *Calendar) String() string
 //
 // # Internal Methods/Functions
-//  (_ *Calendar) firstWeekday(year int, month time.Month) time.Weekday
+//  (*Calendar) firstWeekday(year int, month time.Month) time.Weekday
 //  (ob *Calendar) getMonth(year int, month time.Month) *calendarMonth
 
 import "bytes" // standard
@@ -273,7 +273,7 @@ func (ob *Calendar) String() string {
 
 // firstWeekday returns the day of
 // week on the first of the given month,
-func (_ *Calendar) firstWeekday(year int, month time.Month) time.Weekday {
+func (*Calendar) firstWeekday(year int, month time.Month) time.Weekday {
 	var date = time.Date(year, month, 1, 0, 0, 0, 0, time.UTC)
 	return date.Weekday()
 } //                                                                firstWeekday

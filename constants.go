@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:50:57 DAF4C0                              [zr/constants.go]
+// :v: 2018-04-01 12:06:39 C2CBAF                              [zr/constants.go]
 // -----------------------------------------------------------------------------
 
 // # Error Message Constants
@@ -50,7 +50,8 @@ const EOverflow = "Overflow"
 // -----------------------------------------------------------------------------
 // # String Constants
 
-// CR is a string with a single carriage return character (decimal 13, hex 0D)
+// CR is a string with a single carriage return
+// character (decimal 13, hex 0D)
 const CR = "\r"
 
 // LF is a string with a single line feed character (decimal 10, hex 0A)
