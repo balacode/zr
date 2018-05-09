@@ -1,11 +1,13 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 18:08:35 40381D                          [zr/calendar_test.go]
+// :v: 2018-05-09 01:03:18 338EC0                          [zr/calendar_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
 
-import "testing" // standard
+import (
+	"testing"
+)
 
 /*
 to test all items in calendar.go use:

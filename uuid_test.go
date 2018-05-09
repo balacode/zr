@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-01 10:59:26 B9E41A                              [zr/uuid_test.go]
+// :v: 2018-05-09 01:03:18 A71118                              [zr/uuid_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -21,9 +21,11 @@ to generate a test coverage report for the whole module use:
     go tool cover -html=cover.out
 */
 
-// import "crypto/rand" // used via mod.rand proxy
-import "fmt"     // standard
-import "testing" // standard
+import (
+	// "crypto/rand" // used via mod.rand proxy
+	"fmt"
+	"testing"
+)
 
 // -----------------------------------------------------------------------------
 // # Functions

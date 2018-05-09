@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-26 23:24:37 D8B95D                        [zr/bytes_func_test.go]
+// :v: 2018-05-09 01:03:18 0DCAC8                        [zr/bytes_func_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -26,9 +26,11 @@ to generate a test coverage report for the whole module use:
     go tool cover -html=cover.out
 */
 
-import "bytes"   // standard
-import "math"    // standard
-import "testing" // standard
+import (
+	"bytes"
+	"math"
+	"testing"
+)
 
 // -----------------------------------------------------------------------------
 // # Tests

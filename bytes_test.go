@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:50:57 CDC125                             [zr/bytes_test.go]
+// :v: 2018-05-09 01:03:18 FD2373                             [zr/bytes_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -40,12 +40,13 @@ to generate a test coverage report for the whole module use:
 	go tool cover -html=cover.out
 */
 
-import "testing" // standard
-
-// import "bytes"         // standard
-// import "compress/zlib" // standard
-// import "io"            // standard
-// import "unicode/utf8"  // standard
+import (
+	"testing"
+	// "bytes"
+	// "compress/zlib"
+	// "io"
+	// "unicode/utf8"
+)
 
 // -----------------------------------------------------------------------------
 // # Special Constructors

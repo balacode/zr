@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:48:14 0603FD                           [zr/go_lang_test.go]
+// :v: 2018-05-09 01:03:18 50BD3F                           [zr/go_lang_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -13,9 +13,11 @@ package zr
 //   golaTestStruct struct
 //   (ob golaTestStruct) GoString() string
 
-//import "fmt"   // standard
-import "math"    // standard
-import "testing" // standard
+import (
+	// "fmt"
+	"math"
+	"testing"
+)
 
 /*
 to test all items in strings.go use:

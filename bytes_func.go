@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 15:31:57 52485F                             [zr/bytes_func.go]
+// :v: 2018-05-09 01:03:18 FA20A9                             [zr/bytes_func.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -17,13 +17,15 @@ package zr
 //   UncompressBytes(data []byte) []byte
 //   XorBytes(data, cipher []byte) []byte
 
-import "bytes"         // standard
-import "compress/zlib" // standard
-import "fmt"           // standard
-import "io"            // standard
-import "math"          // standard
-import "math/big"      // standard
-import "unicode/utf8"  // standard
+import (
+	"bytes"
+	"compress/zlib"
+	"fmt"
+	"io"
+	"math"
+	"math/big"
+	"unicode/utf8"
+)
 
 // AppendRuneBytes appends a rune to the specified buffer, encoded as UTF-8.
 // Note that 'dest' is a pointer to a byte slice, to allow the slice to be

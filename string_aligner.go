@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-01 10:15:28 2FC2FA                         [zr/string_aligner.go]
+// :v: 2018-05-09 01:03:18 0B7318                         [zr/string_aligner.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -10,7 +10,9 @@ package zr
 //   (ob *StringAligner) Write(row ...string)
 //   (ob *StringAligner) String() string
 
-import "bytes" // standard
+import (
+	"bytes"
+)
 
 // StringAligner left-aligns columns of strings.
 type StringAligner struct {

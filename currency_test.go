@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:43:47 9967E7                          [zr/currency_test.go]
+// :v: 2018-05-09 01:03:18 0EE604                          [zr/currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -91,10 +91,12 @@ to generate a test coverage report for the whole module use:
 	go tool cover -html=cover.out
 */
 
-import "encoding/json" // standard
-import "fmt"           // standard
-import "math"          // standard
-import "testing"       // standard
+import (
+	"encoding/json"
+	"fmt"
+	"math"
+	"testing"
+)
 
 // -----------------------------------------------------------------------------
 // # Currency Factory:

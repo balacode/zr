@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:48:14 5FE889                             [zr/dates_test.go]
+// :v: 2018-05-09 01:03:18 AD0E7D                             [zr/dates_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -28,9 +28,11 @@ to generate a test coverage report for the whole module use:
     go tool cover -html=cover.out
 */
 
-import "fmt"     // standard
-import "time"    // standard
-import "testing" // standard
+import (
+	"fmt"
+	"testing"
+	"time"
+)
 
 // -----------------------------------------------------------------------------
 // # DateRange

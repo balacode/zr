@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-24 00:01:52 5C44DA                                [zr/strings.go]
+// :v: 2018-05-09 01:03:18 DDA8F4                                [zr/strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -59,13 +59,15 @@ package zr
 //   TokenGetEx(list string, index int, sep string, ignoreEnd bool) string
 //   WordIndex(s, word string, caseMode CaseMode) int
 
-import "bytes"        // standard
-import "fmt"          // standard
-import "reflect"      // standard
-import "sort"         // standard
-import "strconv"      // standard
-import "unicode"      // standard
-import "unicode/utf8" // standard
+import (
+	"bytes"
+	"fmt"
+	"reflect"
+	"sort"
+	"strconv"
+	"unicode"
+	"unicode/utf8"
+)
 
 // CaseMode type specifies if text comparisons are case sensitive.
 // Various functions have a CaseMode parameter.

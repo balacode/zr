@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-01 10:59:26 700B77                                   [zr/uuid.go]
+// :v: 2018-05-09 01:03:18 E07339                                   [zr/uuid.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -9,8 +9,10 @@ package zr
 //   IsUUID(val interface{}) bool
 //   UUID() string
 
-// import "crypto/rand" // used via mod.rand proxy
-import "fmt" // standard
+import (
+	// "crypto/rand" // used via mod.rand proxy
+	"fmt"
+)
 
 // -----------------------------------------------------------------------------
 // # Functions

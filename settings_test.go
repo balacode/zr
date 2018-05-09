@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:50:57 972508                          [zr/settings_test.go]
+// :v: 2018-05-09 01:03:18 BB0FFB                          [zr/settings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -24,7 +24,9 @@ to generate a test coverage report use:
 	go tool cover -html=cover.out
 */
 
-import "testing" // standard
+import (
+	"testing"
+)
 
 // -----------------------------------------------------------------------------
 // # Methods

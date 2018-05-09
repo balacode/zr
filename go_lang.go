@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-05 11:48:23 22AF6D                                [zr/go_lang.go]
+// :v: 2018-05-09 01:03:18 484D89                                [zr/go_lang.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -16,10 +16,12 @@ package zr
 // # Helper Function
 //   indentPos(optIndentAt []int) int
 
-import "bytes"   // standard
-import "fmt"     // standard
-import "reflect" // standard
-import "sort"    // standard
+import (
+	"bytes"
+	"fmt"
+	"reflect"
+	"sort"
+)
 
 // -----------------------------------------------------------------------------
 // # Interface

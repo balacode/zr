@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-26 14:12:40 8C7BB4                               [zr/unittest.go]
+// :v: 2018-05-09 01:03:18 8121B5                               [zr/unittest.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -33,12 +33,14 @@ package zr
 //   failedFuncAndLine() (funcName string, lineNo int)
 //   failedLocation() string
 
-import "bytes"   // standard
-import "fmt"     // standard
-import "reflect" // standard
-import "strconv" // standard
-import "time"    // standard
-import "testing" // standard
+import (
+	"bytes"
+	"fmt"
+	"reflect"
+	"strconv"
+	"testing"
+	"time"
+)
 
 // -----------------------------------------------------------------------------
 // # Global Counter

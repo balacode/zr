@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-04-01 12:06:52 48AECD                               [zr/calendar.go]
+// :v: 2018-05-09 01:03:18 85DA7C                               [zr/calendar.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -21,9 +21,11 @@ package zr
 //  (*Calendar) firstWeekday(year int, month time.Month) time.Weekday
 //  (ob *Calendar) getMonth(year int, month time.Month) *calendarMonth
 
-import "bytes" // standard
-import "fmt"   // standard
-import "time"  // standard
+import (
+	"bytes"
+	"fmt"
+	"time"
+)
 
 // -----------------------------------------------------------------------------
 // # Types

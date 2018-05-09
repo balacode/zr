@@ -1,14 +1,16 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-04-01 12:06:39 AF1D20                                 [zr/module.go]
+// :v: 2018-05-09 01:03:18 62ED08                                 [zr/module.go]
 // -----------------------------------------------------------------------------
 
 package zr
 
-import "crypto/rand"   // standard
-import "encoding/json" // standard
-import "fmt"           // standard
-import "time"          // standard
+import (
+	"crypto/rand"
+	"encoding/json"
+	"fmt"
+	"time"
+)
 
 // # Library Version
 //   VersionTime() string

@@ -5,7 +5,9 @@
 
 package zr
 
-import _strings "strings" // standard
+import (
+	_strings "strings"
+)
 
 var str StringsProvider = StringsModule{}
 

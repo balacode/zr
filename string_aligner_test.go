@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-01 10:15:28 8C4AED                    [zr/string_aligner_test.go]
+// :v: 2018-05-09 01:03:18 E6EEFB                    [zr/string_aligner_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -14,8 +14,10 @@ to generate a test coverage report for the whole module use:
     go tool cover -html=cover.out
 */
 
-import "fmt"     // standard
-import "testing" // standard
+import (
+	"fmt"
+	"testing"
+)
 
 // go test --run Test_stra_StringAligner_
 func Test_stra_StringAligner_(t *testing.T) {

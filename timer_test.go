@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-01 10:15:28 E07702                             [zr/timer_test.go]
+// :v: 2018-05-09 01:03:18 14DC6F                             [zr/timer_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -14,9 +14,11 @@ to generate a test coverage report for the whole module use:
     go tool cover -html=cover.out
 */
 
-import "testing" // standard
+import (
+	"testing"
 
-import "time" // standard
+	"time"
+)
 
 // go test --run Test_timr_
 func Test_timr_(t *testing.T) {

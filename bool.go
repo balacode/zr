@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 15:24:23 CFC996                                   [zr/bool.go]
+// :v: 2018-05-09 01:03:18 E66B4E                                   [zr/bool.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -9,8 +9,10 @@ package zr
 //   IsBool(val interface{}) bool
 //   TrueCount(values ...bool) int
 
-import "fmt"     // standard
-import "reflect" // standard
+import (
+	"fmt"
+	"reflect"
+)
 
 // Bool converts primitive types to a boolean value:
 // Converts nil to false.

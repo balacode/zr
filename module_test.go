@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:50:57 43BA59                            [zr/module_test.go]
+// :v: 2018-05-09 01:03:18 1F8DF8                            [zr/module_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -25,9 +25,11 @@ to generate a test coverage report use:
 	go tool cover -html=cover.out
 */
 
-import "fmt"     // standard
-import "strconv" // standard
-import "testing" // standard
+import (
+	"fmt"
+	"strconv"
+	"testing"
+)
 
 // -----------------------------------------------------------------------------
 // # Library Version

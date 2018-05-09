@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 15:57:29 FC9838                                [zr/numbers.go]
+// :v: 2018-05-09 01:03:18 809841                                [zr/numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -22,12 +22,14 @@ package zr
 //   CommaDelimit(number string, decimalPlaces int) string
 //   IntInWordsEN(number int64) string
 
-import "bytes"   // standard
-import "fmt"     // standard
-import "math"    // standard
-import "reflect" // standard
-import "sort"    // standard
-import "strconv" // standard
+import (
+	"bytes"
+	"fmt"
+	"math"
+	"reflect"
+	"sort"
+	"strconv"
+)
 
 // -----------------------------------------------------------------------------
 // # Constants

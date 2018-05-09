@@ -1,18 +1,20 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 15:31:57 1B0AA3                                  [zr/debug.go]
+// :v: 2018-05-09 01:03:18 A9E460                                  [zr/debug.go]
 // -----------------------------------------------------------------------------
 
 package zr
 
-import "bufio"         // standard
-import "bytes"         // standard
-import "fmt"           // standard
-import "os"            // standard
-import "reflect"       // standard
-import "runtime"       // standard
-import "runtime/debug" // standard
-import "time"          // standard
+import (
+	"bufio"
+	"bytes"
+	"fmt"
+	"os"
+	"reflect"
+	"runtime"
+	"runtime/debug"
+	"time"
+)
 
 // ConsumeGB consumes, then releases a large amount of RAM for testing.
 func ConsumeGB(gigabytes float64) {

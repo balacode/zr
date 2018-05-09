@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:50:57 DA9032                               [zr/currency.go]
+// :v: 2018-05-09 01:03:18 2A4F16                               [zr/currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -58,13 +58,15 @@ package zr
 // # Helper Function
 //   currencyOverflow(isNegative bool, a ...interface{}) Currency
 
-// import "encoding/json" // used via mod.json.* mockable
-import "bytes"    // standard
-import "fmt"      // standard
-import "math"     // standard
-import "math/big" // standard
-import "reflect"  // standard
-import "strconv"  // standard
+import (
+	// "encoding/json" // used via mod.json.* mockable
+	"bytes"
+	"fmt"
+	"math"
+	"math/big"
+	"reflect"
+	"strconv"
+)
 
 // -----------------------------------------------------------------------------
 // # Constants:

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:48:14 113150                           [zr/reflect_test.go]
+// :v: 2018-05-09 01:03:18 99817A                           [zr/reflect_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -14,7 +14,9 @@ to generate a test coverage report for the whole module use:
     go tool cover -html=cover.out
 */
 
-import "testing" // standard
+import (
+	"testing"
+)
 
 // go test --run Test_refl_IndexSliceStructValue_
 func Test_refl_IndexSliceStructValue_(t *testing.T) {

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-01 10:15:28 B27BD2                           [zr/numbers_test.go]
+// :v: 2018-05-09 01:03:18 1EB59F                           [zr/numbers_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -22,9 +22,11 @@ to generate a test coverage report use:
 	go tool cover -html=cover.out
 */
 
-import "fmt"     // standard
-import "math"    // standard
-import "testing" // standard
+import (
+	"fmt"
+	"math"
+	"testing"
+)
 
 // go test --run Test_nums_consts_
 func Test_nums_consts_(t *testing.T) {

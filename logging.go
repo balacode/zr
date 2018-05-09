@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-26 23:24:37 52383F                                [zr/logging.go]
+// :v: 2018-05-09 01:03:18 104E3C                                [zr/logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -55,13 +55,15 @@ package zr
 //   logLoopAsync()
 //   removeLogOptions(args []interface{}) (ret []interface{})
 
-import "bytes"   // standard
-import "fmt"     // standard
-import "os"      // standard
-import "runtime" // standard
-import "strconv" // standard
-import "sync"    // standard
-import "time"    // standard
+import (
+	"bytes"
+	"fmt"
+	"os"
+	"runtime"
+	"strconv"
+	"sync"
+	"time"
+)
 
 // -----------------------------------------------------------------------------
 // # Call Range Types:

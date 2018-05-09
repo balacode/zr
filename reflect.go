@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-02 13:14:50 49E945                                [zr/reflect.go]
+// :v: 2018-05-09 01:03:18 C43384                                [zr/reflect.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -20,8 +20,10 @@ package zr
 //   SetStructInt(structPtr interface{}, field string, val int) bool
 //   SetStructString(structPtr interface{}, field, val string) bool
 
-import "fmt"     // standard
-import "reflect" // standard
+import (
+	"fmt"
+	"reflect"
+)
 
 // -----------------------------------------------------------------------------
 // # Slices

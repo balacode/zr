@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:50:57 BE4336                                  [zr/timer.go]
+// :v: 2018-05-09 01:03:18 494F58                                  [zr/timer.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -20,10 +20,12 @@ package zr
 // # Private Method
 //   (ob *Timer) makeTasks()
 
-import "bytes" // standard
-import "fmt"   // standard
-import "sync"  // standard
-import "time"  // standard
+import (
+	"bytes"
+	"fmt"
+	"sync"
+	"time"
+)
 
 // SUGGESTION: new methods NewTimer() and StopPrint():
 // var tm = NewTimer("App.GoNextLine")

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:50:57 DA0131                                  [zr/bytes.go]
+// :v: 2018-05-09 01:03:18 0EA6AE                                  [zr/bytes.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -31,8 +31,10 @@ package zr
 //   (ob *Bytes) SetByte(index int, val byte)
 //   (ob *Bytes) Slice(beginIndex, endIndex int) Bytes
 
-import "bytes"        // standard
-import "unicode/utf8" // standard
+import (
+	"bytes"
+	"unicode/utf8"
+)
 
 // Bytes wraps an array of bytes and provides byte-manipulation methods.
 type Bytes struct {

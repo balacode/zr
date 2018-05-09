@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-26 22:34:27 6F997B                           [zr/strings_test.go]
+// :v: 2018-05-09 01:03:18 6BF4B3                           [zr/strings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -60,8 +60,10 @@ to generate a test coverage report use:
 	go tool cover -html=cover.out
 */
 
-import "fmt"     // standard
-import "testing" // standard
+import (
+	"fmt"
+	"testing"
+)
 
 // go test --run Test_strs_consts_
 func Test_strs_consts_(t *testing.T) {

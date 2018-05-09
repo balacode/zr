@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:38:44 3399F2                                  [zr/dates.go]
+// :v: 2018-05-09 01:03:18 8C4DD4                                  [zr/dates.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -37,10 +37,12 @@ package zr
 // # Private Functions
 //   stringDate(val interface{}, format string) string
 
-import "fmt"     // standard
-import "reflect" // standard
-import "regexp"  // standard
-import "time"    // standard
+import (
+	"fmt"
+	"reflect"
+	"regexp"
+	"time"
+)
 
 // Tip: Go uses the following date format reference:
 //      Mon Jan 2 15:04:05 -0700 MST 2006

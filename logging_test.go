@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:48:14 FD0DBA                           [zr/logging_test.go]
+// :v: 2018-05-09 01:03:18 6D04A2                           [zr/logging_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -14,8 +14,10 @@ to generate a test coverage report for the whole module use:
     go tool cover -html=cover.out
 */
 
-import "fmt"     // standard
-import "testing" // standard
+import (
+	"fmt"
+	"testing"
+)
 
 // go test --run Test_logg_CallerList_
 // only use standard testing functions in this unit test (not zr.Test...)

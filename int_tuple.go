@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-01 10:15:28 2F9E4A                              [zr/int_tuple.go]
+// :v: 2018-05-09 01:03:18 8DE78A                              [zr/int_tuple.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -17,7 +17,9 @@ package zr
 // # Stringer Interface
 //   (ob IntTuple) String() string
 
-import "fmt" // standard
+import (
+	"fmt"
+)
 
 // IntTuple holds a tuple (pair) of integer values.
 type IntTuple struct{ A, B int }

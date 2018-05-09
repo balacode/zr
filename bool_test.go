@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-01 10:15:28 DCD68F                              [zr/bool_test.go]
+// :v: 2018-05-09 01:03:18 BDEB9E                              [zr/bool_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -8,9 +8,11 @@ package zr
 //   Test_bool_Bool_
 //   Test_bool_TrueCount_
 
-import "math"    // standard
-import "reflect" // standard
-import "testing" // standard
+import (
+	"math"
+	"reflect"
+	"testing"
+)
 
 /*
 to test all items in bool.go use:
