@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 1F8DF8                            [zr/module_test.go]
+// :v: 2018-05-14 21:29:03 9AA59E                            [zr/module_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -13,7 +13,7 @@ package zr
 //   Test_mdle_vars_
 //
 // # Global Settings
-//   Test_mdle_GetDebugMode_
+//   Test_mdle_DebugMode_
 //   Test_mdle_SetDebugMode_
 
 /*
@@ -100,17 +100,17 @@ func Test_mdle_vars_(t *testing.T) {
 // -----------------------------------------------------------------------------
 // # Global Settings
 
-// go test --run Test_mdle_GetDebugMode_
-func Test_mdle_GetDebugMode_(t *testing.T) {
+// go test --run Test_mdle_DebugMode_
+func Test_mdle_DebugMode_(t *testing.T) {
 	TBegin(t)
-	// GetDebugMode() bool
+	// DebugMode() bool
 	//
 	debugMode = true
-	TEqual(t, GetDebugMode(), (true))
+	TEqual(t, DebugMode(), (true))
 	//
 	debugMode = false
-	TEqual(t, GetDebugMode(), (false))
-} //                                                     Test_mdle_GetDebugMode_
+	TEqual(t, DebugMode(), (false))
+} //                                                        Test_mdle_DebugMode_
 
 // go test --run Test_mdle_SetDebugMode_
 func Test_mdle_SetDebugMode_(t *testing.T) {

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 104E3C                                [zr/logging.go]
+// :v: 2018-05-14 21:29:03 FD07EF                                [zr/logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -414,7 +414,7 @@ func GetErrorCount() int {
 // There is no need to specify the name of the unimplemented function
 // as it is automatically read from the call stack.
 func IMPLEMENT(args ...interface{}) {
-	if !GetDebugMode() {
+	if !DebugMode() {
 		return
 	}
 	var ar []interface{}
@@ -467,7 +467,7 @@ func NoE(any interface{}, err error) interface{} {
 // There is no need to specify the name of the obsolete function
 // as it is automatically read from the call stack.
 func OBSOLETE(args ...interface{}) {
-	if !GetDebugMode() {
+	if !DebugMode() {
 		return
 	}
 	var funcName, calledBy = FuncName(2), FuncName(3)

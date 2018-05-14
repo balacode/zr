@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 62ED08                                 [zr/module.go]
+// :v: 2018-05-14 21:29:03 24ACDD                                 [zr/module.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -17,7 +17,7 @@ import (
 //
 // # String Constants
 // # Global Settings
-//   GetDebugMode() bool
+//   DebugMode() bool
 //   SetDebugMode(val bool)
 //
 // # Module Variables
@@ -35,10 +35,10 @@ func VersionTime() string {
 // -----------------------------------------------------------------------------
 // # Global Settings
 
-// GetDebugMode __
-func GetDebugMode() bool {
+// DebugMode __
+func DebugMode() bool {
 	return debugMode
-} //                                                                GetDebugMode
+} //                                                                   DebugMode
 
 // SetDebugMode __
 func SetDebugMode(val bool) {
@@ -93,7 +93,7 @@ var mod = thisMod{
 	},
 }
 
-// ModReset restored all mocked functions to the original standard functions.
+// ModReset restores all mocked functions to the original standard functions.
 func (ob *thisMod) Reset() {
 	ob.Error = Error
 	ob.json.Unmarshal = json.Unmarshal
