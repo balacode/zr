@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 338EC0                          [zr/calendar_test.go]
+// :v: 2018-05-19 20:29:26 86FBB0                          [zr/calendar_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -73,7 +73,7 @@ func Test_cldr_(t *testing.T) {
 	ret.Set("2018-02-18", 9.00)
 	ret.Set("2018-02-19", 10.00)
 	var got = ret.String()
-	var expect = `
+	const expect = `
 2018 JANUARY
 *--------------------------------------------------------------*
 |  Mon   |  Tue   |  Wed   |  Thu   |  Fri   |  Sat   |  Sun   |
@@ -123,9 +123,7 @@ func Test_cldr_(t *testing.T) {
 95.98
 	`
 	got = str.Trim(got, SPACES)
-	expect = str.Trim(expect, SPACES)
-	//
-	TEqual(t, got, expect)
+	TEqual(t, got, str.Trim(expect, SPACES))
 } //                                                                  Test_cldr_
 
 //end

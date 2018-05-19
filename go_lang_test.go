@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 50BD3F                           [zr/go_lang_test.go]
+// :v: 2018-05-19 20:29:26 481533                           [zr/go_lang_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -250,7 +250,7 @@ func Test_gola_GoString_(t *testing.T) {
 			{"rst", "uvw", "xyz"},
 			{"123", "456", "789"},
 		}
-		var expect = "" +
+		const expect = "" +
 			`[][]string{` + LF +
 			`    []string{"rst", "uvw", "xyz"},` + LF +
 			`    []string{"123", "456", "789"},` + LF +
@@ -262,7 +262,7 @@ func Test_gola_GoString_(t *testing.T) {
 			{CurrencyOf(321), CurrencyOf(654)},
 			{CurrencyOf(123), CurrencyOf(456)},
 		}
-		var expect = "" +
+		const expect = "" +
 			`[][]zr.Currency{` + LF +
 			`    []zr.Currency{zr.CurrencyOf(321), zr.CurrencyOf(654)},` + LF +
 			`    []zr.Currency{zr.CurrencyOf(123), zr.CurrencyOf(456)},` + LF +
