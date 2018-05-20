@@ -1,0 +1,24 @@
+# ------------------------------------------------------------------------------
+# (c) Active Systems Enterprises                         balarabe@protonmail.com
+# :v: 2018-05-20 02:37:37 CE4E65                                 [zr/.gitignore]
+# ------------------------------------------------------------------------------
+
+# scripts, shortcuts, zip archives
+*.bat
+*.lnk
+*.sh
+*.zip
+
+# log and debugging files
+*.log
+cover.out
+
+# drafts and temporary files
+*`*
+_*
+tmp.*
+
+# misc. files
+line_counts.txt
+
+#eof

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 14DC6F                             [zr/timer_test.go]
+// :v: 2018-05-20 02:37:37 F42E6D                             [zr/timer_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -16,7 +16,6 @@ to generate a test coverage report for the whole module use:
 
 import (
 	"testing"
-
 	"time"
 )
 

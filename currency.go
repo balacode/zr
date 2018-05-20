@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 2A4F16                               [zr/currency.go]
+// :v: 2018-05-20 02:37:37 0B9A3C                               [zr/currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -496,6 +496,8 @@ func (ob Currency) Mul(multiply ...Currency) Currency {
 			n.Div(n, bigCur4d)
 			//
 			// if result can't be stored in Currency, return overflow
+			//
+			//TODO: IsInt64() not available in some versions ``
 			var overflow = !n.IsInt64()
 			var ret int64
 			if !overflow {
