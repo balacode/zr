@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 8121B5                               [zr/unittest.go]
+// :v: 2018-05-21 22:42:29 33ACB6                               [zr/unittest.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -139,8 +139,21 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 			}
 		case fmt.Stringer:
 			ret = val.String()
+		//
+		//TODO: add handling of various arrays of simple types [in TEqual()]
 		case []string:
-			//TODO: add handling of various arrays of simple types [in TEqual()]
+			var buf bytes.Buffer
+			buf.WriteString("[")
+			for i, s := range val {
+				if i != 0 {
+					buf.WriteString(", ")
+				}
+				buf.WriteString(`"`)
+				buf.WriteString(str.Replace(s, `"`, `\"`, -1))
+				buf.WriteString(`"`)
+			}
+			buf.WriteString("]")
+			ret = buf.String()
 		default:
 			ret = fmt.Sprintf("(type: %v value: %v)",
 				reflect.TypeOf(val), val)
