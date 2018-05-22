@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 FA20A9                             [zr/bytes_func.go]
+// :v: 2018-05-22 15:24:11 7744B0                             [zr/bytes_func.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -12,6 +12,7 @@ package zr
 //   FoldXorBytes(ar []byte, returnLen int) []byte
 //   HexStringOfBytes(ar []byte) string
 //   InsertBytes(dest *[]byte, pos int, src ...[]byte)
+//   RandomBytes(length int) []byte
 //   RemoveBytes(dest *[]byte, pos, count int)
 //   RuneOffset(slice []byte, runeIndex int) (byteIndex int)
 //   UncompressBytes(data []byte) []byte
@@ -179,6 +180,19 @@ func InsertBytes(dest *[]byte, pos int, src ...[]byte) {
 		pos += len(part)
 	}
 } //                                                                 InsertBytes
+
+// RandomBytes generates and returns a random slice of bytes
+func RandomBytes(length int) []byte {
+	if length < 1 {
+		return []byte{}
+	}
+	var ret = make([]byte, length)
+	var _, err = mod.rand.Read(ret)
+	if err != nil {
+		return []byte{}
+	}
+	return ret
+} //                                                                 RandomBytes
 
 // RemoveBytes removes the specified number of bytes from a byte slice.
 func RemoveBytes(dest *[]byte, pos, count int) {
