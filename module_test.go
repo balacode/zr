@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-14 21:29:03 9AA59E                            [zr/module_test.go]
+// :v: 2018-05-23 20:08:21 F89F64                            [zr/module_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -17,7 +17,7 @@ package zr
 //   Test_mdle_SetDebugMode_
 
 /*
-to test all items in strings.go use:
+to test all items in module.go use:
 	go test --run Test_mdle_
 
 to generate a test coverage report use:

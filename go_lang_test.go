@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-19 20:29:26 481533                           [zr/go_lang_test.go]
+// :v: 2018-05-23 20:08:21 E4BBE5                           [zr/go_lang_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -20,7 +20,7 @@ import (
 )
 
 /*
-to test all items in strings.go use:
+to test all items in go_lang.go use:
 	go test --run Test_gola_
 
 to generate a test coverage report use:
