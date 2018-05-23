@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-22 15:24:11 7744B0                             [zr/bytes_func.go]
+// :v: 2018-05-23 19:18:00 DCF5AB                             [zr/bytes_func.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -242,6 +242,9 @@ func UncompressBytes(data []byte) []byte {
 
 // XorBytes __
 func XorBytes(data, cipher []byte) []byte {
+	if len(data) == 0 || len(cipher) == 0 {
+		return data
+	}
 	var ret = bytes.NewBuffer(make([]byte, 0, len(data)))
 	var i, l = 0, len(cipher)
 	for _, b := range data {
