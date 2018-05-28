@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 809841                                [zr/numbers.go]
+// :v: 2018-05-28 03:41:43 1FAC5C                                [zr/numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -94,8 +94,9 @@ func Float64(val interface{}) float64 {
 		}
 		return 0.0
 	case *bool:
-		return Float64(*val)
-	//
+		if val != nil {
+			return Float64(*val)
+		}
 	// strings
 	case string:
 		var ret, err = strconv.ParseFloat(val, 64)
@@ -104,7 +105,9 @@ func Float64(val interface{}) float64 {
 		}
 		return ret
 	case *string:
-		return Float64(*val)
+		if val != nil {
+			return Float64(*val)
+		}
 	case fmt.Stringer:
 		return Float64(val.String())
 	case fmt.GoStringer:
@@ -124,16 +127,25 @@ func Float64(val interface{}) float64 {
 		//
 		// pointers to signed integers
 	case *int:
-		return float64(*val)
+		if val != nil {
+			return float64(*val)
+		}
 	case *int8:
-		return float64(*val)
+		if val != nil {
+			return float64(*val)
+		}
 	case *int16:
-		return float64(*val)
+		if val != nil {
+			return float64(*val)
+		}
 	case *int32:
-		return float64(*val)
+		if val != nil {
+			return float64(*val)
+		}
 	case *int64:
-		return float64(*val)
-		//
+		if val != nil {
+			return float64(*val)
+		}
 		// unsigned integers
 	case uint:
 		return float64(val)
@@ -148,16 +160,25 @@ func Float64(val interface{}) float64 {
 		//
 		// pointers to unsigned integers
 	case *uint:
-		return float64(*val)
+		if val != nil {
+			return float64(*val)
+		}
 	case *uint8:
-		return float64(*val)
+		if val != nil {
+			return float64(*val)
+		}
 	case *uint16:
-		return float64(*val)
+		if val != nil {
+			return float64(*val)
+		}
 	case *uint32:
-		return float64(*val)
+		if val != nil {
+			return float64(*val)
+		}
 	case *uint64:
-		return float64(*val)
-		//
+		if val != nil {
+			return float64(*val)
+		}
 		// floating-point numbers
 	case float32:
 		return float64(val)
@@ -166,9 +187,13 @@ func Float64(val interface{}) float64 {
 		//
 		// pointers to floating-point numbers
 	case *float32:
-		return float64(*val)
+		if val != nil {
+			return float64(*val)
+		}
 	case *float64:
-		return *val
+		if val != nil {
+			return *val
+		}
 	}
 	mod.Error("Can not convert",
 		reflect.TypeOf(val), "to float64:", val)
@@ -217,8 +242,9 @@ func Int(val interface{}) int {
 		}
 		return 0
 	case *bool:
-		return Int(*val)
-	//
+		if val != nil {
+			return Int(*val)
+		}
 	// strings
 	case string:
 		var ret = 0
@@ -259,7 +285,9 @@ func Int(val interface{}) int {
 		}
 		return ret
 	case *string:
-		return Int(*val)
+		if val != nil {
+			return Int(*val)
+		}
 	case fmt.Stringer:
 		return Int(val.String())
 	case fmt.GoStringer:
@@ -279,16 +307,25 @@ func Int(val interface{}) int {
 	//
 	// pointers to signed integers
 	case *int:
-		return int(*val)
+		if val != nil {
+			return int(*val)
+		}
 	case *int8:
-		return int(*val)
+		if val != nil {
+			return int(*val)
+		}
 	case *int16:
-		return int(*val)
+		if val != nil {
+			return int(*val)
+		}
 	case *int32:
-		return int(*val)
+		if val != nil {
+			return int(*val)
+		}
 	case *int64:
-		return int(*val)
-	//
+		if val != nil {
+			return int(*val)
+		}
 	// unsigned integers
 	case uint:
 		return int(val)
@@ -303,17 +340,26 @@ func Int(val interface{}) int {
 	//
 	// pointers to unsigned integers
 	case *uint:
-		return int(*val)
+		if val != nil {
+			return int(*val)
+		}
 	case *uint8:
-		return int(*val)
+		if val != nil {
+			return int(*val)
+		}
 	case *uint16:
-		return int(*val)
+		if val != nil {
+			return int(*val)
+		}
 	case *uint32:
-		//TODO: check for overflow (in other locations too)
-		return int(*val)
+		if val != nil {
+			//TODO: check for overflow (in other locations too)
+			return int(*val)
+		}
 	case *uint64:
-		return int(*val)
-	//
+		if val != nil {
+			return int(*val)
+		}
 	// floating-point numbers
 	case float32:
 		//TODO: find how to find out the limit of int
@@ -333,9 +379,13 @@ func Int(val interface{}) int {
 	//
 	// pointers to floating-point numbers
 	case *float32:
-		return int(*val)
+		if val != nil {
+			return int(*val)
+		}
 	case *float64:
-		return int(*val)
+		if val != nil {
+			return int(*val)
+		}
 	}
 	mod.Error("Can not convert", reflect.TypeOf(val), "to int:", val)
 	return 0
@@ -391,7 +441,9 @@ func IsNumber(val interface{}) bool {
 		}
 		return hasDigit
 	case *string:
-		return IsNumber(*val)
+		if val != nil {
+			return IsNumber(*val)
+		}
 	case fmt.Stringer:
 		return IsNumber(val.String())
 	}

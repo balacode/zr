@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 DDA8F4                                [zr/strings.go]
+// :v: 2018-05-28 03:41:43 D4C344                                [zr/strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -1165,33 +1165,61 @@ func String(val interface{}) string {
 		return ""
 	// pointer types:
 	case *bool:
-		return String(*val)
+		if val != nil {
+			return String(*val)
+		}
 	case *float32:
-		return String(*val)
+		if val != nil {
+			return String(*val)
+		}
 	case *float64:
-		return String(*val)
+		if val != nil {
+			return String(*val)
+		}
 	case *int:
-		return String(*val)
+		if val != nil {
+			return String(*val)
+		}
 	case *int16:
-		return String(*val)
+		if val != nil {
+			return String(*val)
+		}
 	case *int32:
-		return String(*val)
+		if val != nil {
+			return String(*val)
+		}
 	case *int64:
-		return String(*val)
+		if val != nil {
+			return String(*val)
+		}
 	case *int8:
-		return String(*val)
+		if val != nil {
+			return String(*val)
+		}
 	case *string:
-		return String(*val)
+		if val != nil {
+			return String(*val)
+		}
 	case *uint:
-		return String(*val)
+		if val != nil {
+			return String(*val)
+		}
 	case *uint16:
-		return String(*val)
+		if val != nil {
+			return String(*val)
+		}
 	case *uint32:
-		return String(*val)
+		if val != nil {
+			return String(*val)
+		}
 	case *uint64:
-		return String(*val)
+		if val != nil {
+			return String(*val)
+		}
 	case *uint8:
-		return String(*val)
+		if val != nil {
+			return String(*val)
+		}
 	}
 	mod.Error("Type", reflect.TypeOf(val), "not handled; =", val)
 	return ""

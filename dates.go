@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 8C4DD4                                  [zr/dates.go]
+// :v: 2018-05-28 03:41:43 CAFDC6                                  [zr/dates.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -132,7 +132,9 @@ func DateOf(val interface{}) time.Time {
 		}
 		return DateOf(ret)
 	case *string:
-		return DateOf(*val)
+		if val != nil {
+			return DateOf(*val)
+		}
 	case fmt.Stringer:
 		return DateOf(val.String())
 	}

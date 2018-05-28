@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-20 02:37:37 0B9A3C                               [zr/currency.go]
+// :v: 2018-05-28 03:41:43 F8D9DE                               [zr/currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -159,34 +159,55 @@ func CurrencyOf(val interface{}) Currency {
 	//
 	// integer pointers
 	case *int:
-		return CurrencyOf(int64(*val))
+		if val != nil {
+			return CurrencyOf(int64(*val))
+		}
 	case *int8:
-		return CurrencyOf(*val)
+		if val != nil {
+			return CurrencyOf(*val)
+		}
 	case *int16:
-		return CurrencyOf(*val)
+		if val != nil {
+			return CurrencyOf(*val)
+		}
 	case *int32:
-		return CurrencyOf(*val)
+		if val != nil {
+			return CurrencyOf(*val)
+		}
 	case *int64:
-		return CurrencyOf(*val)
-	//
+		if val != nil {
+			return CurrencyOf(*val)
+		}
 	// unsigned integer pointers
 	case *uint:
-		return CurrencyOf(uint64(*val))
+		if val != nil {
+			return CurrencyOf(uint64(*val))
+		}
 	case *uint8:
-		return CurrencyOf(*val)
+		if val != nil {
+			return CurrencyOf(*val)
+		}
 	case *uint16:
-		return CurrencyOf(*val)
+		if val != nil {
+			return CurrencyOf(*val)
+		}
 	case *uint32:
-		return CurrencyOf(*val)
+		if val != nil {
+			return CurrencyOf(*val)
+		}
 	case *uint64:
-		return CurrencyOf(*val)
-	//
+		if val != nil {
+			return CurrencyOf(*val)
+		}
 	// float pointers
 	case *float32:
-		return CurrencyOf(*val)
+		if val != nil {
+			return CurrencyOf(*val)
+		}
 	case *float64:
-		return CurrencyOf(*val)
-	//
+		if val != nil {
+			return CurrencyOf(*val)
+		}
 	// strings
 	case string:
 		var minus bool
@@ -223,7 +244,9 @@ func CurrencyOf(val interface{}) Currency {
 		}
 		return ret
 	case *string:
-		return CurrencyOf(*val)
+		if val != nil {
+			return CurrencyOf(*val)
+		}
 	case fmt.Stringer:
 		return CurrencyOf(val.String())
 	}

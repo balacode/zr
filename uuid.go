@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 E07339                                   [zr/uuid.go]
+// :v: 2018-05-28 03:41:43 F13CAB                                   [zr/uuid.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -48,7 +48,9 @@ func IsUUID(val interface{}) bool {
 	case fmt.Stringer:
 		return IsUUID(val.String())
 	case *string:
-		return IsUUID(*val)
+		if val != nil {
+			return IsUUID(*val)
+		}
 	}
 	return false
 } //                                                                      IsUUID

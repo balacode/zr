@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 E66B4E                                   [zr/bool.go]
+// :v: 2018-05-28 03:41:43 1B4C64                                   [zr/bool.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -27,8 +27,9 @@ func Bool(val interface{}) bool {
 	case bool:
 		return val
 	case *bool:
-		return *val
-	//
+		if val != nil {
+			return *val
+		}
 	// strings:
 	case string:
 		switch str.ToUpper(str.Trim(val, SPACES)) {
@@ -38,7 +39,9 @@ func Bool(val interface{}) bool {
 			return true
 		}
 	case *string:
-		return Bool(*val)
+		if val != nil {
+			return Bool(*val)
+		}
 	case fmt.Stringer:
 		return Bool(val.String())
 	//
@@ -54,16 +57,25 @@ func Bool(val interface{}) bool {
 	case int64:
 		return val != 0
 	case *int:
-		return *val != 0
+		if val != nil {
+			return *val != 0
+		}
 	case *int8:
-		return *val != 0
+		if val != nil {
+			return *val != 0
+		}
 	case *int16:
-		return *val != 0
+		if val != nil {
+			return *val != 0
+		}
 	case *int32:
-		return *val != 0
+		if val != nil {
+			return *val != 0
+		}
 	case *int64:
-		return *val != 0
-	//
+		if val != nil {
+			return *val != 0
+		}
 	// unsigned integers:
 	case uint:
 		return val != 0
@@ -76,25 +88,38 @@ func Bool(val interface{}) bool {
 	case uint64:
 		return val != 0
 	case *uint:
-		return *val != 0
+		if val != nil {
+			return *val != 0
+		}
 	case *uint8:
-		return *val != 0
+		if val != nil {
+			return *val != 0
+		}
 	case *uint16:
-		return *val != 0
+		if val != nil {
+			return *val != 0
+		}
 	case *uint32:
-		return *val != 0
+		if val != nil {
+			return *val != 0
+		}
 	case *uint64:
-		return *val != 0
-	//
+		if val != nil {
+			return *val != 0
+		}
 	// floating-point numbers:
 	case float32:
 		return val != 0
 	case float64:
 		return val != 0
 	case *float32:
-		return *val != 0
+		if val != nil {
+			return *val != 0
+		}
 	case *float64:
-		return *val != 0
+		if val != nil {
+			return *val != 0
+		}
 	}
 	mod.Error("Can not convert", reflect.TypeOf(val), "to bool:", val)
 	return false
@@ -118,7 +143,9 @@ func IsBool(val interface{}) bool {
 			return false
 		}
 	case *string:
-		return IsBool(*val)
+		if val != nil {
+			return IsBool(*val)
+		}
 	case fmt.Stringer:
 		return IsBool(val.String())
 	case // boolean:
