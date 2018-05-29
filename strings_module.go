@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-20 02:37:37 D72C7F                         [zr/strings_module.go]
+// :v: 2018-05-28 18:55:45 DE23EA                         [zr/strings_module.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -30,9 +30,10 @@ type StringsProvider interface {
 	Replace(s, old, new string, n int) string
 	Split(s, sep string) []string
 	ToLower(s string) string
-	Trim(s, trim string) string
-	TrimRight(s, trim string) string
 	ToUpper(s string) string
+	Trim(s, trim string) string
+	TrimLeft(s, trim string) string
+	TrimRight(s, trim string) string
 } //                                                             StringsProvider
 
 // StringsModule provides all the functions in the standard
@@ -115,19 +116,24 @@ func (ob StringsModule) ToLower(s string) string {
 	return _strings.ToLower(s)
 } //                                                                     ToLower
 
+// ToUpper is the same as strings.ToUpper
+func (ob StringsModule) ToUpper(s string) string {
+	return _strings.ToUpper(s)
+} //                                                                     ToUpper
+
 // Trim is the same as strings.Trim
 func (ob StringsModule) Trim(s, trim string) string {
 	return _strings.Trim(s, trim)
 } //                                                                        Trim
 
+// TrimLeft is the same as strings.TrimLeft
+func (ob StringsModule) TrimLeft(s, trim string) string {
+	return _strings.TrimLeft(s, trim)
+} //                                                                    TrimLeft
+
 // TrimRight is the same as strings.TrimRight
 func (ob StringsModule) TrimRight(s, trim string) string {
 	return _strings.TrimRight(s, trim)
 } //                                                                   TrimRight
-
-// ToUpper is the same as strings.ToUpper
-func (ob StringsModule) ToUpper(s string) string {
-	return _strings.ToUpper(s)
-} //                                                                     ToUpper
 
 //end
