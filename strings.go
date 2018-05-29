@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-28 03:41:43 D4C344                                [zr/strings.go]
+// :v: 2018-05-29 09:40:32 EB8482                                [zr/strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -256,16 +256,23 @@ func First(s string, count int) string {
 	return s[:count]
 } //                                                                       First
 
-// GetPart __
+// GetPart returns the substring between 'prefix' and 'suffix'.
+// When the prefix is blank, returns the part from the beginning of 's'.
+// When the suffix is blank, returns the part up to the end of 's'.
+// I.e. if prefix and suffix are both blank, returns 's'.
+// When either prefix or suffix is not found, returns a zero-length string.
 func GetPart(s, prefix, suffix string) string {
 	var at = str.Index(s, prefix)
 	if at == -1 {
 		return ""
 	}
 	s = s[at+len(prefix):]
+	if suffix == "" {
+		return s
+	}
 	at = str.Index(s, suffix)
 	if at == -1 {
-		return s
+		return ""
 	}
 	return s[:at]
 } //                                                                     GetPart

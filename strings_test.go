@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 6BF4B3                           [zr/strings_test.go]
+// :v: 2018-05-29 09:25:37 7D230E                           [zr/strings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -310,12 +310,26 @@ func Test_strs_GetPart_(t *testing.T) {
 	TBegin(t)
 	// GetPart(s, prefix, suffix string) string
 	//
+	// both prefix and suffix are blank: return 's' as it is
+	TEqual(t, GetPart("name:cat;", "", ""), "name:cat;")
+	//
+	// prefix is blank, suffix specified: return everything before the suffix
+	TEqual(t, GetPart("name:cat;", "", ";"), "name:cat")
+	//
+	// prefix specified, suffix is blank: return everything after the prefix
+	TEqual(t, GetPart("name:cat;", "name:", ""), "cat;")
+	//
+	// both prefix and suffix specified: return the substring between them
+	TEqual(t, GetPart("name:cat;", "name:", ";"), "cat")
+	//
+	// non-existent prefix: return a blank string
 	TEqual(t, GetPart("name:cat;", "age:", ""), "")
-	TEqual(t, GetPart("name:cat;", "name:", "."), "cat;")
-	TEqual(t,
-		GetPart("xyz xyz xyz class::sum; 123 123", "class::", ";"),
-		"sum",
-	)
+	//
+	// non-existent suffix: return a blank string
+	TEqual(t, GetPart("name:cat;", "name:", "."), "")
+	//
+	// additional test
+	TEqual(t, GetPart("xyz class::sum; 123", "class::", ";"), "sum")
 } //                                                          Test_strs_GetPart_
 
 // go test --run Test_strs_IfString_
