@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-28 03:41:43 EB093B                               zr/[currency.go]
+// :v: 2018-06-29 16:46:18 8BAEC6                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -46,7 +46,11 @@ package zr
 //   (ob Currency) Float64() float64
 //   (ob Currency) Int() int
 //   (ob Currency) Int64() int64
-//   (ob Currency) IsEqual(val Currency) bool
+//   (ob Currency) IsEqual(val interface{}) bool
+//   (ob Currency) IsGreater(val interface{}) bool
+//   (ob Currency) IsGreaterOrEqual(val interface{}) bool
+//   (ob Currency) IsLesser(val interface{}) bool
+//   (ob Currency) IsLesserOrEqual(val interface{}) bool
 //   (ob Currency) IsNegative() bool
 //   (ob Currency) IsZero() bool
 //   (ob Currency) Overflow() int
@@ -690,6 +694,26 @@ func (ob Currency) Int64() int64 {
 func (ob Currency) IsEqual(val interface{}) bool {
 	return ob.val == CurrencyOf(val).val
 } //                                                                     IsEqual
+
+// IsGreater returns true if the object is greater than val.
+func (ob Currency) IsGreater(val interface{}) bool {
+	return ob.val > CurrencyOf(val).val
+} //                                                                   IsGreater
+
+// IsGreaterOrEqual returns true if the object is greater or equal to val.
+func (ob Currency) IsGreaterOrEqual(val interface{}) bool {
+	return ob.val >= CurrencyOf(val).val
+} //                                                            IsGreaterOrEqual
+
+// IsLesser returns true if the object is lesser than val.
+func (ob Currency) IsLesser(val interface{}) bool {
+	return ob.val < CurrencyOf(val).val
+} //                                                                    IsLesser
+
+// IsLesserOrEqual returns true if the object is lesser or equal to val.
+func (ob Currency) IsLesserOrEqual(val interface{}) bool {
+	return ob.val <= CurrencyOf(val).val
+} //                                                             IsLesserOrEqual
 
 // IsNegative returns true if the value of the currency object is negative.
 func (ob Currency) IsNegative() bool {
