@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 1C7657                                  zr/[bytes.go]
+// :v: 2018-07-25 23:25:29 23116D                                  zr/[bytes.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -10,26 +10,26 @@ package zr
 //   BytesAllocUTF8(s string) Bytes
 //   BytesWrap(ar []byte) Bytes
 //
-// # Read-Only Properties / Methods
-//   (ob *Bytes) Cap() int
-//   (ob *Bytes) FindByte(b byte) int
-//   (ob *Bytes) GetByte(index int) byte
-//   (ob *Bytes) GetChar() CharSize
-//   (ob *Bytes) Size() int
+// # Read-Only Properties / Methods (ob *Bytes)
+//   ) Cap() int
+//   ) FindByte(b byte) int
+//   ) GetByte(index int) byte
+//   ) GetChar(index int) CharSize
+//   ) Size() int
 //
-// # String Conversion Method (Stringer Interface)
-//   (ob *Bytes) String() string
+// # Stringer Interface (ob *Bytes)
+//   ) String() string
 //
-// # Methods
-//   (ob *Bytes) Append(b Bytes)
-//   (ob *Bytes) AppendChar(ch rune) int
-//   (ob *Bytes) GetBytes() []byte
-//   (ob *Bytes) Insert(index int, data Bytes, count int) int
-//   (ob *Bytes) Remove(index, count int)
-//   (ob *Bytes) Reset()
-//   (ob *Bytes) Resize(size int)
-//   (ob *Bytes) SetByte(index int, val byte)
-//   (ob *Bytes) Slice(beginIndex, endIndex int) Bytes
+// # Methods (ob *Bytes)
+//   ) Append(b Bytes)
+//   ) AppendChar(ch rune) int
+//   ) GetBytes() []byte
+//   ) Insert(index int, data Bytes, count int) int
+//   ) Remove(index, count int)
+//   ) Reset()
+//   ) Resize(size int)
+//   ) SetByte(index int, val byte)
+//   ) Slice(beginIndex, endIndex int) Bytes
 
 import (
 	"bytes"
@@ -67,7 +67,7 @@ func BytesWrap(ar []byte) Bytes {
 } //                                                                   BytesWrap
 
 // -----------------------------------------------------------------------------
-// # Read-Only Properties / Methods
+// # Read-Only Properties / Methods (ob *Bytes)
 
 // Cap returns the allocated capacity of this object.
 func (ob *Bytes) Cap() int {
@@ -118,7 +118,7 @@ func (ob *Bytes) Size() int {
 } //                                                                        Size
 
 // -----------------------------------------------------------------------------
-// # Stringer Interface Method
+// # Stringer Interface (ob *Bytes)
 
 // String returns a string based on previously-written bytes
 // and implements the Stringer Interface.
@@ -131,7 +131,7 @@ func (ob *Bytes) String() string {
 } //                                                                      String
 
 // -----------------------------------------------------------------------------
-// # Methods
+// # Methods (ob *Bytes)
 
 // Append appends another Bytes object to the end of this object.
 func (ob *Bytes) Append(b Bytes) {

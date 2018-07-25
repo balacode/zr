@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:50:57 15A5AB                               zr/[settings.go]
+// :v: 2018-07-25 14:11:15 B5D622                               zr/[settings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -9,21 +9,21 @@ package zr
 //   SettingsAccessor interface
 //   Settings struct
 //
-// # Methods
-//   (ob *Settings) GetSetting(name string) string
-//   (ob *Settings) HasSetting(name string) bool
-//   (ob *Settings) SetSetting(name string, val interface{})
+// # Methods (ob *Settings)
+//   ) GetSetting(name string) string
+//   ) HasSetting(name string) bool
+//   ) SetSetting(name string, val interface{})
 //
-// # Extenders
-//   (ob *Settings) ExtendGet(
-//                      handler func(name, val string, exists bool) string,
-//                  )
-//   (ob *Settings) ExtendHas(
-//                      handler func(name, val string, exists bool) bool,
-//                  )
-//   (ob *Settings) ExtendSet(
-//                      handler func(name string, old, val interface{}) *string,
-//                  )
+// # Extenders (ob *Settings)
+//   ) ExtendGet(
+//       handler func(name, val string, exists bool) string,
+//   )
+//   ) ExtendHas(
+//       handler func(name, val string, exists bool) bool,
+//   )
+//   ) ExtendSet(
+//       handler func(name string, old, val interface{}) *string,
+//   )
 
 // SettingsAccessor __
 type SettingsAccessor interface {
@@ -41,7 +41,7 @@ type Settings struct {
 } //                                                                    Settings
 
 // -----------------------------------------------------------------------------
-// # Methods
+// # Methods (ob *Settings)
 
 // GetSetting __
 func (ob *Settings) GetSetting(name string) string {
@@ -108,7 +108,7 @@ func (ob *Settings) SetSetting(name string, val interface{}) {
 } //                                                                  SetSetting
 
 // -----------------------------------------------------------------------------
-// # Extenders
+// # Extenders (ob *Settings)
 
 // ExtendGet makes 'handler' process every call to GetSetting()
 func (ob *Settings) ExtendGet(

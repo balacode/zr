@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 CE8D6B                             zr/[bytes_test.go]
+// :v: 2018-07-25 14:11:25 46D21F                             zr/[bytes_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -17,7 +17,7 @@ package zr
 //   Test_byts_Bytes_GetChar_
 //   Test_byts_Bytes_Size_
 //
-// # String Conversion Method (Stringer Interface)
+// # Stringer Interface
 //   Test_byts_Bytes_String_
 //
 // # Methods

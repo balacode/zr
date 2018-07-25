@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 8FC089                               zr/[calendar.go]
+// :v: 2018-07-25 23:29:45 DE7355                               zr/[calendar.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -11,11 +11,11 @@ package zr
 //   calendarMonth struct
 //   calendarWeekdaysEN = []string
 //
-// # Methods
-//  (ob *Calendar) AddMonth(year int, month time.Month) error
-//  (ob *Calendar) HasMonth(year int, month time.Month) bool
-//  (ob *Calendar) Set(date, value interface{})
-//  (ob *Calendar) String() string
+// # Methods (ob *Calendar)
+//   ) AddMonth(year int, month time.Month) error
+//   ) HasMonth(year int, month time.Month) bool
+//   ) Set(date, value interface{})
+//   ) String() string
 //
 // # Internal Methods/Functions
 //  (*Calendar) firstWeekday(year int, month time.Month) time.Weekday
@@ -64,7 +64,7 @@ var calendarWeekdaysEN = []string{
 } //                                                          calendarWeekdaysEN
 
 // -----------------------------------------------------------------------------
-// # Methods
+// # Methods (ob *Calendar)
 
 // AddMonth adds a month to the calendar, without setting any values.
 // The year must range from 1 to 9999.
@@ -273,8 +273,7 @@ func (ob *Calendar) String() string {
 // -----------------------------------------------------------------------------
 // # Internal Methods/Functions
 
-// firstWeekday returns the day of
-// week on the first of the given month,
+// firstWeekday returns the day of week on the first of the given month
 func (*Calendar) firstWeekday(year int, month time.Month) time.Weekday {
 	var date = time.Date(year, month, 1, 0, 0, 0, 0, time.UTC)
 	return date.Weekday()

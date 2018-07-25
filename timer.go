@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 4EC42D                                  zr/[timer.go]
+// :v: 2018-07-25 23:29:00 7B1302                                  zr/[timer.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -9,16 +9,16 @@ package zr
 //   Timer struct
 //   TimerTask struct
 //
-// # Methods
-//   (ob *Timer) GetTasks() map[string]*TimerTask
-//   (ob *Timer) Print()
-//   (ob *Timer) Start(taskName string)
-//   (ob *Timer) Stop(taskName string)
-//   (ob *Timer) String()
-//   (ob *Timer) Reset()
+// # Methods (ob *Timer)
+//   ) GetTasks() map[string]*TimerTask
+//   ) Print()
+//   ) Start(taskName string)
+//   ) Stop(taskName string)
+//   ) String()
+//   ) Reset()
 //
-// # Private Method
-//   (ob *Timer) makeTasks()
+// # Private Method (ob *Timer)
+//   ) makeTasks()
 
 import (
 	"bytes"
@@ -64,7 +64,7 @@ type TimerTask struct {
 } //                                                                   TimerTask
 
 // -----------------------------------------------------------------------------
-// # Methods
+// # Methods (ob *Timer)
 
 // GetTasks returns a map of named tasks and their timing statistics.
 func (ob *Timer) GetTasks() map[string]*TimerTask {
@@ -178,7 +178,7 @@ func (ob *Timer) Reset() {
 } //                                                                       Reset
 
 // -----------------------------------------------------------------------------
-// # Private Method
+// # Private Method (ob *Timer)
 
 // makeTasks initializes ob.Tasks
 func (ob *Timer) makeTasks() {
