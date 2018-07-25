@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 180EE8                           zr/[numbers_test.go]
+// :v: 2018-07-25 13:43:08 CE2158                           zr/[numbers_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -455,21 +455,21 @@ func Test_nums_MinMaxGap_(t *testing.T) {
 	test([]int{1, 1, 2, 2, 3, 3, 4}, MaxInt, MinInt)
 } //                                                        Test_nums_MinMaxGap_
 
-// go test --run Test_nums_GetMaxInt_
-func Test_nums_GetMaxInt_(t *testing.T) {
+// go test --run Test_nums_MaxIntOf_
+func Test_nums_MaxIntOf_(t *testing.T) {
 	TBegin(t)
-	// GetMaxInt(values []int) (max int, found bool)
+	// MaxIntOf(values []int) (max int, found bool)
 	//
 	var test = func(values []int, expectMax int, expectFound bool) {
 		// save old array
 		var oldValues = make([]int, len(values))
 		copy(oldValues, values)
 		//
-		var gotMax, gotFound = GetMaxInt(values)
+		var gotMax, gotFound = MaxIntOf(values)
 		//
 		if gotMax != expectMax || gotFound != expectFound {
 			TFail(t,
-				`GetMaxInt(`, GoString(values), `)`,
+				`MaxIntOf(`, GoString(values), `)`,
 				` returned (`, gotMax, gotFound, `).`,
 				` must be (`, expectMax, expectFound, `)`,
 			)
@@ -491,6 +491,6 @@ func Test_nums_GetMaxInt_(t *testing.T) {
 	test([]int{1, 5, 7}, 7, true)
 	test([]int{3, 1, 6, 4, 9, 2}, 9, true)
 	test([]int{789, 456, 23, 1}, 789, true)
-} //                                                        Test_nums_GetMaxInt_
+} //                                                         Test_nums_MaxIntOf_
 
 //end

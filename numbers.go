@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-28 03:41:43 BA3313                                zr/[numbers.go]
+// :v: 2018-07-25 13:43:08 D8659F                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -12,9 +12,9 @@ package zr
 //
 // # Numeric Functions
 //   Float64(val interface{}) float64
-//   GetMaxInt(values []int) (max int, found bool)
 //   Int(val interface{}) int
 //   IsNumber(val interface{}) bool
+//   MaxIntOf(values []int) (max int, found bool)
 //   MinMaxGap(values []int) (min, max int)
 //
 // # Formatting Functions
@@ -199,21 +199,6 @@ func Float64(val interface{}) float64 {
 		reflect.TypeOf(val), "to float64:", val)
 	return 0.0
 } //                                                                     Float64
-
-// GetMaxInt returns the maximum value in a slice of integers (and true
-// in the second returned value) or 0 and false if the slice is empty.
-func GetMaxInt(values []int) (max int, found bool) {
-	if len(values) == 0 {
-		return 0, false
-	}
-	for _, n := range values {
-		if n > max || !found {
-			max = n
-			found = true
-		}
-	}
-	return max, found
-} //                                                                   GetMaxInt
 
 // Int converts primitive types, fmt.Stringer and
 // fmt.GoStringer to an integer number (int type):
@@ -483,6 +468,21 @@ func MinMaxGap(values []int) (min, max int) {
 	}
 	return min, max
 } //                                                                   MinMaxGap
+
+// MaxIntOf returns the maximum value in a slice of integers (and true
+// in the second returned value) or 0 and false if the slice is empty.
+func MaxIntOf(values []int) (max int, found bool) {
+	if len(values) == 0 {
+		return 0, false
+	}
+	for _, n := range values {
+		if n > max || !found {
+			max = n
+			found = true
+		}
+	}
+	return max, found
+} //                                                                    MaxIntOf
 
 // -----------------------------------------------------------------------------
 // # Formatting Functions
