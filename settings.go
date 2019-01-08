@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-07-25 14:11:15 B5D622                               zr/[settings.go]
+// :v: 2019-01-08 10:35:48 5706AF                               zr/[settings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -25,11 +25,16 @@ package zr
 //       handler func(name string, old, val interface{}) *string,
 //   )
 
+import (
+	"fmt"
+)
+
 // SettingsAccessor __
 type SettingsAccessor interface {
 	GetSetting(name string) string
 	HasSetting(name string) bool
 	SetSetting(name string, val interface{})
+	Dump()
 } //                                                            SettingsAccessor
 
 // Settings __
@@ -42,6 +47,19 @@ type Settings struct {
 
 // -----------------------------------------------------------------------------
 // # Methods (ob *Settings)
+
+// Dump prints out all settings and their stored values to console.
+func (ob *Settings) Dump() {
+	if ob == nil {
+		mod.Error(ENilReceiver)
+		return
+	}
+	fmt.Println("Dump:", len(ob.m), "settings")
+	for name, val := range ob.m {
+		fmt.Println("name:", name, "value:", val)
+	}
+	fmt.Println("end")
+} //                                                                        Dump
 
 // GetSetting __
 func (ob *Settings) GetSetting(name string) string {
