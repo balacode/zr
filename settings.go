@@ -50,7 +50,7 @@ func (ob *Settings) GetSetting(name string) string {
 		mod.Error(ENilReceiver)
 		return erv
 	}
-	name = str.ToLower(str.Trim(name, SPACES))
+	name = str.Trim(name, SPACES)
 	if name == "" {
 		mod.Error(EInvalidArg, "^name")
 		return erv
@@ -69,7 +69,7 @@ func (ob *Settings) HasSetting(name string) bool {
 		mod.Error(ENilReceiver)
 		return erv
 	}
-	name = str.ToLower(str.Trim(name, SPACES))
+	name = str.Trim(name, SPACES)
 	if name == "" {
 		mod.Error(EInvalidArg, "^name")
 		return erv
@@ -87,7 +87,7 @@ func (ob *Settings) SetSetting(name string, val interface{}) {
 		mod.Error(ENilReceiver)
 		return
 	}
-	name = str.ToLower(str.Trim(name, SPACES))
+	name = str.Trim(name, SPACES)
 	if name == "" {
 		mod.Error(EInvalidArg, "^name")
 		return
