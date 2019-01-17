@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-23 19:18:00 2DB813                             zr/[bytes_func.go]
+// :v: 2019-01-17 14:50:56 BDABBB                             zr/[bytes_func.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -229,14 +229,14 @@ func RuneOffset(slice []byte, runeIndex int) (byteIndex int) {
 
 // UncompressBytes uncompresses a ZLIB-compressed array of bytes.
 func UncompressBytes(data []byte) []byte {
-	var retBuf = bytes.NewReader(data)
-	var rd, err = zlib.NewReader(retBuf)
+	var readCloser, err = zlib.NewReader(bytes.NewReader(data))
 	if err != nil {
 		mod.Error("UncompressBytes:", err)
+		return []byte{}
 	}
 	var ret = bytes.NewBuffer(make([]byte, 0, 8192))
-	io.Copy(ret, rd)
-	rd.Close()
+	io.Copy(ret, readCloser)
+	readCloser.Close()
 	return ret.Bytes()
 } //                                                             UncompressBytes
 
