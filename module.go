@@ -9,7 +9,6 @@ import (
 	"crypto/rand"
 	"encoding/json"
 	"fmt"
-	"time"
 )
 
 // # Library Version
@@ -56,9 +55,6 @@ var VL = VerboseLog
 
 // debugMode makes the library print verbose output to assist debugging.
 var debugMode = false
-
-// lastTraceCallTime __
-var lastTraceCallTime = time.Now()
 
 // TabSpace specifies the string to use as a single tab
 // (used by GoStringEx() to indent code)

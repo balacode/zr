@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-14 21:29:03 067910                                zr/[logging.go]
+// :v: 2019-03-04 20:18:51 5B1135                                zr/[logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -38,7 +38,6 @@ package zr
 //   OBSOLETE(args ...interface{})
 //   PrintfAsync(format string, args ...interface{})
 //   TM(messages ...string)
-//   TraceCall()
 //   VerboseLog(args ...interface{})
 //   VerboseLogf(format string, args ...interface{})
 //
@@ -528,32 +527,6 @@ func TM(messages ...string) {
 
 // timings is used by TM
 var timings map[string]time.Time
-
-// TraceCall __
-func TraceCall() {
-	var programCounter, filename, lineNo, _ = runtime.Caller(1)
-	var funcName = runtime.FuncForPC(programCounter).Name()
-	{
-		// strip the following strings from the function name
-		for _, s := range []string{"(", ")", "*"} {
-			if str.Contains(funcName, s) {
-				funcName = str.Replace(funcName, s, "", -1)
-			}
-		}
-	}
-	if string(os.PathSeparator) != "/" {
-		filename = str.Replace(filename, "/", string(os.PathSeparator), -1)
-	}
-	var now = time.Now()
-	{
-		var elapsedMs = now.Sub(lastTraceCallTime).Nanoseconds() / 1000000
-		if elapsedMs > 1000 {
-			PrintfAsync(LB + str.Repeat("-", 80) + LB)
-		}
-	}
-	PrintfAsync("%-30s  %4d  %-30s"+LB, funcName, lineNo, filename)
-	lastTraceCallTime = now
-} //                                                                   TraceCall
 
 // VerboseLog sends output to the log loop,
 // but only when verbose mode is set to true.

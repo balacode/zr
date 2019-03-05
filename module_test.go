@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-23 20:08:21 0407B0                            zr/[module_test.go]
+// :v: 2019-03-04 20:18:51 DCE688                            zr/[module_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -92,9 +92,6 @@ func Test_mdle_vars_(t *testing.T) {
 	//
 	TEqual(t, PL, (fmt.Println))
 	TEqual(t, VL, (VerboseLog))
-	//
-	TFalse(t, lastTraceCallTime.IsZero())
-	TTrue(t, lastTraceCallTime.Year() >= 2018)
 } //                                                             Test_mdle_vars_
 
 // -----------------------------------------------------------------------------

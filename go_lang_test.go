@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-23 20:08:21 B14D4D                           zr/[go_lang_test.go]
+// :v: 2019-03-04 20:18:51 DA0CC1                           zr/[go_lang_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -36,7 +36,6 @@ func Test_gola_GoName_(t *testing.T) {
 	TBegin(t)
 	// GoName_(s string) string
 	//
-	//X 	// <traceCall>
 	//X 	var ret = Trim(s, SPACES)
 	//X 	if len(ret) == 0 {
 	//X 		return ""

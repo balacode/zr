@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-07-25 13:43:08 D8659F                                zr/[numbers.go]
+// :v: 2019-02-21 13:08:17 0B774D                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -506,6 +506,7 @@ func BlankZero(s string) string {
 	return ""
 } //                                                                   BlankZero
 
+//TODO: CommaDelimit should accept interface{} in number
 // CommaDelimit delimits a numeric string with commas (grouped every
 // three digits) and also sets the required number of decimal places.
 // Numbers are not rounded, just cut at the required number of decimals.
