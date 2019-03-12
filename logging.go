@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-03-04 20:18:51 5B1135                                zr/[logging.go]
+// :v: 2019-03-12 23:29:23 27D89A                                zr/[logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -383,6 +383,9 @@ func Callers(options ...interface{}) string {
 // Returns an error value initialized with the message.
 func Error(args ...interface{}) error {
 	errorCount++
+	if len(args) == 0 {
+		return nil
+	}
 	var msg = joinArgs("ERR: ", args...)
 	lastLogMessage = msg
 	if !disableErrors {
