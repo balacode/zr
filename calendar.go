@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-07-25 23:29:45 DE7355                               zr/[calendar.go]
+// :v: 2019-03-13 00:22:41 F072A9                               zr/[calendar.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -291,4 +291,4 @@ func (ob *Calendar) getMonth(year int, month time.Month) *calendarMonth {
 	return nil
 } //                                                                    getMonth
 
-// end
+//end
