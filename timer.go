@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-07-25 23:29:00 7B1302                                  zr/[timer.go]
+// :v: 2019-03-14 00:30:40 0E4727                                  zr/[timer.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -14,6 +14,7 @@ package zr
 //   ) Print()
 //   ) Start(taskName string)
 //   ) Stop(taskName string)
+//   ) StopLast()
 //   ) String()
 //   ) Reset()
 //
@@ -51,8 +52,9 @@ import (
 // The current version of Timer should not be used
 // to time the same task running in parallel.
 type Timer struct {
-	Mutex sync.RWMutex
-	Tasks map[string]*TimerTask
+	Mutex        sync.RWMutex
+	Tasks        map[string]*TimerTask
+	LastTaskName string
 } //                                                                       Timer
 
 // TimerTask holds the timing statistics of a timed task.
@@ -101,6 +103,7 @@ func (ob *Timer) Start(taskName string) {
 	if ob.Tasks == nil {
 		ob.makeTasks()
 	}
+	ob.LastTaskName = taskName
 	var task, exists = ob.Tasks[taskName]
 	if exists {
 		task.StartTime = now
@@ -135,6 +138,15 @@ func (ob *Timer) Stop(taskName string) {
 	task.StartTime = now
 	task.TotalMs += ms
 } //                                                                        Stop
+
+// StopLast __
+func (ob *Timer) StopLast() {
+	if ob.LastTaskName == "" {
+		return
+	}
+	ob.Stop(ob.LastTaskName)
+	ob.LastTaskName = ""
+} //                                                                    StopLast
 
 // String returns the timing report as a string,
 // and implements the Stringer interface.
