@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-06-29 16:46:18 8BAEC6                               zr/[currency.go]
+// :v: 2019-03-18 00:33:21 42C418                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -13,8 +13,10 @@ package zr
 // # Currency Type:
 //   Currency struct
 //
-// # Currency Factory:
-//   CurrencyOf(val interface{}) Currency
+// # Currency Factories:
+//   CurrencyOf(value interface{}) Currency
+//   CurrencyOfS(s string) Currency
+//   CurrencyRaw(raw int64) Currency
 //
 // # String Output:
 //   (ob Currency) GoString() string
@@ -54,6 +56,7 @@ package zr
 //   (ob Currency) IsNegative() bool
 //   (ob Currency) IsZero() bool
 //   (ob Currency) Overflow() int
+//   (ob Currency) Raw() int64
 //
 // # JSON:
 //   (ob Currency) MarshalJSON() ([]byte, error)
@@ -109,13 +112,17 @@ type Currency struct {
 } //                                                                    Currency
 
 // -----------------------------------------------------------------------------
-// # Currency Factory:
+// # Currency Factories:
 
 // CurrencyOf converts any compatible value type to a Currency.
-// This includes all numeric types and strings. If a string is not numeric,
-// logs an error and sets the Currency to zero.
-func CurrencyOf(val interface{}) Currency {
-	switch val := val.(type) {
+// This includes all numeric types and strings. If a string is
+// not numeric, logs an error and sets the Currency to zero.
+func CurrencyOf(value interface{}) Currency {
+	switch val := value.(type) {
+	//
+	// Currency already?
+	case Currency:
+		return val
 	//
 	// integers
 	case int8:
@@ -214,49 +221,62 @@ func CurrencyOf(val interface{}) Currency {
 		}
 	// strings
 	case string:
-		var minus bool
-		var fract bool
-		var dp int
-		var ret Currency
-		for _, r := range val {
-			if r == '-' {
-				minus = true
-			} else if r == '.' {
-				fract = true
-			} else if r >= '0' && r <= '9' {
-				if fract {
-					dp++
-					if dp > 4 {
-						break
-					}
-				}
-				ret.val *= 10
-				ret.val += int64(r - '0')
-			} else if r != ',' &&
-				r != ' ' && r != '\a' && r != '\b' && r != '\f' &&
-				r != '\n' && r != '\r' && r != '\t' && r != '\v' {
-				mod.Error("Non-numeric string:^", val)
-				break
-			}
-		}
-		for dp < 4 {
-			dp++
-			ret.val *= 10
-		}
-		if minus {
-			ret.val = -ret.val
-		}
-		return ret
+		return CurrencyOfS(val)
 	case *string:
 		if val != nil {
-			return CurrencyOf(*val)
+			return CurrencyOfS(*val)
 		}
 	case fmt.Stringer:
-		return CurrencyOf(val.String())
+		return CurrencyOfS(val.String())
 	}
-	mod.Error("Type", reflect.TypeOf(val), "not handled; =", val)
+	mod.Error("Type", reflect.TypeOf(value), "not handled; =", value)
 	return Currency{}
 } //                                                                  CurrencyOf
+
+// CurrencyOfS converts a numeric string to a Currency.
+// If the string is not numeric, logs an error and sets the Currency to zero.
+func CurrencyOfS(s string) Currency {
+	var minus bool
+	var fract bool
+	var dp int
+	var ret Currency
+	for _, r := range s {
+		if r == '-' {
+			minus = true
+		} else if r == '.' {
+			fract = true
+		} else if r >= '0' && r <= '9' {
+			if fract {
+				dp++
+				if dp > 4 {
+					break
+				}
+			}
+			ret.val *= 10
+			ret.val += int64(r - '0')
+		} else if r != ',' &&
+			r != ' ' && r != '\a' && r != '\b' && r != '\f' &&
+			r != '\n' && r != '\r' && r != '\t' && r != '\v' {
+			mod.Error("Non-numeric string:^", s)
+			break
+		}
+	}
+	for dp < 4 {
+		dp++
+		ret.val *= 10
+	}
+	if minus {
+		ret.val = -ret.val
+	}
+	return ret
+} //                                                                 CurrencyOfS
+
+// CurrencyRaw initializes a currency value from a scaled 64-bit integer.
+// The decimal point is moved left 4 decimal places. For example, a raw value
+// of 15500 results in a currency value of 1.55
+func CurrencyRaw(raw int64) Currency {
+	return Currency{val: raw}
+} //                                                                 CurrencyRaw
 
 // -----------------------------------------------------------------------------
 // # String Output:
@@ -524,7 +544,7 @@ func (ob Currency) Mul(multiply ...Currency) Currency {
 			//
 			// if result can't be stored in Currency, return overflow
 			//
-			//TODO: IsInt64() not available in some versions ``
+			//TODO: IsInt64() is not available in older Go versions ``
 			var overflow = !n.IsInt64()
 			var ret int64
 			if !overflow {
@@ -738,6 +758,11 @@ func (ob Currency) Overflow() int {
 	}
 	return 0
 } //                                                                    Overflow
+
+// Raw returns the raw int64 used to store the currency value
+func (ob Currency) Raw() int64 {
+	return ob.val
+} //                                                                         Raw
 
 // -----------------------------------------------------------------------------
 // # JSON:
