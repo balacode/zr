@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-28 03:41:43 83D04E                                   zr/[bool.go]
+// :v: 2019-03-18 00:33:21 AFCCEA                                   zr/[bool.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -35,7 +35,7 @@ func Bool(val interface{}) bool {
 		switch str.ToUpper(str.Trim(val, SPACES)) {
 		case "FALSE", "0", "":
 			return false
-		case "TRUE", "1":
+		case "TRUE", "1", "-1":
 			return true
 		}
 	case *string:
