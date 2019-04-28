@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 35B9BE                                  zr/[dates.go]
+// :v: 2019-04-28 17:47:59 359379                                  zr/[dates.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -124,7 +124,7 @@ func DateOf(val interface{}) time.Time {
 		if len(val) > 10 {
 			val = val[:10]
 		}
-		var ret, err = time.Parse(time.RFC3339, val+"T00:00:00Z")
+		ret, err := time.Parse(time.RFC3339, val+"T00:00:00Z")
 		if err != nil || ret.IsZero() {
 			if err != nil {
 				mod.Error(err)
@@ -158,18 +158,18 @@ func DateRangeOf(s string) DateRange {
 	for strings.Contains(s, "-TO-") {
 		s = strings.Replace(s, "-TO-", "~", -1)
 	}
-	var y1, m1, d1 = 0, time.January, 1
-	var y2, m2, d2 = 0, time.December, 31
+	y1, m1, d1 := 0, time.January, 1
+	y2, m2, d2 := 0, time.December, 31
 	// date range
 	if i := strings.Index(s, "~"); i != -1 {
-		var r1 = DateRangeOf(s[:i])
-		var r2 = DateRangeOf(s[i+1:])
+		r1 := DateRangeOf(s[:i])
+		r2 := DateRangeOf(s[i+1:])
 		y1, m1, d1 = r1.From.Year(), r1.From.Month(), r1.From.Day()
 		y2, m2, d2 = r2.To.Year(), r2.To.Month(), r2.To.Day()
 	}
 	// year only
 	if len(s) == 4 {
-		var dt, err = time.Parse("2006", s)
+		dt, err := time.Parse("2006", s)
 		if err == nil {
 			y1, m1, d1 = dt.Year(), 1, 1
 			y2, m2, d2 = dt.Year(), 12, 31
@@ -178,9 +178,9 @@ func DateRangeOf(s string) DateRange {
 	// month only
 	if y1 == 0 {
 		for _, format := range []string{"Jan", "January"} {
-			var dt, err = time.Parse(format, s)
+			dt, err := time.Parse(format, s)
 			if err == nil {
-				var now = time.Now()
+				now := time.Now()
 				y1, m1, d1 = now.Year(), dt.Month(), 1
 				y2, m2, d2 = now.Year(), dt.Month(),
 					DaysInMonth(now.Year(), dt.Month())
@@ -202,7 +202,7 @@ func DateRangeOf(s string) DateRange {
 			"Jan-2-2006",
 			"Jan-2006-2",
 		} {
-			var dt, err = time.Parse(format, s)
+			dt, err := time.Parse(format, s)
 			if err == nil {
 				y1, m1, d1 = dt.Year(), dt.Month(), dt.Day()
 				y2, m2, d2 = dt.Year(), dt.Month(), dt.Day()
@@ -224,7 +224,7 @@ func DateRangeOf(s string) DateRange {
 			"January-2006",
 			"January2006",
 		} {
-			var dt, err = time.Parse(format, s)
+			dt, err := time.Parse(format, s)
 			if err == nil {
 				y1, m1, d1 = dt.Year(), dt.Month(), 1
 				y2, m2, d2 = dt.Year(), dt.Month(),
@@ -245,9 +245,9 @@ func DateRangeOf(s string) DateRange {
 			"January-2",
 			"January2",
 		} {
-			var dt, err = time.Parse(format, s)
+			dt, err := time.Parse(format, s)
 			if err == nil {
-				var now = time.Now()
+				now := time.Now()
 				y1, m1, d1 = now.Year(), dt.Month(), dt.Day()
 				y2, m2, d2 = now.Year(), dt.Month(), dt.Day()
 				break
@@ -270,7 +270,7 @@ func DayMth(val interface{}) string {
 // DaysInMonth returns the number of days in the specified year and month.
 // (If year is less than 1 or greater than 9999, returns 0)
 func DaysInMonth(year int, month time.Month) int {
-	var mth = int(month)
+	mth := int(month)
 	if year < 0 || year > 9999 || mth < 1 || mth > 12 {
 		return 0
 	}
@@ -284,17 +284,17 @@ func DaysInMonth(year int, month time.Month) int {
 	if mth == 2 && (((year%4 == 0) && (year%100 != 0)) || (year%400 == 0)) {
 		return 29
 	}
-	var mdays = []int{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+	mdays := []int{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
 	return mdays[mth-1]
 } //                                                                 DaysInMonth
 
 // FormatDateEN formats date using the specified format.
 // Uses English language names, hence the 'EN' suffix.
 func FormatDateEN(format string, date time.Time) string {
-	var year = date.Year()
-	var month = int(date.Month())
-	var day = date.Day()
-	var ret = format
+	year := date.Year()
+	month := int(date.Month())
+	day := date.Day()
+	ret := format
 	//TODO: implement day formats in FormatDateEN()
 	// ReplaceWord(ret, "dddd", "d", MatchCase)
 	// ReplaceWord(ret, "Dddd", "f", MatchCase)
@@ -304,8 +304,8 @@ func FormatDateEN(format string, date time.Time) string {
 	// ReplaceWord(ret, "DDD", "g", MatchCase)
 	/*
 	   TODO: create new code that can use this function
-	   var change = func(word string, caseMode CaseMode, to string) {
-	       var has = Contains
+	   change := func(word string, caseMode CaseMode, to string) {
+	       has := Contains
 	       if caseMode == IgnoreCase {
 	           has = ContainsI
 	       }
@@ -367,7 +367,7 @@ func FormatDateEN(format string, date time.Time) string {
 
 // IsDate returns true if the specified value can be converted to a date.
 func IsDate(val interface{}) bool {
-	var ret, reason = func(val interface{}) (bool, int) {
+	ret, reason := func(val interface{}) (bool, int) {
 		switch val := val.(type) {
 		case time.Time:
 			return true, 1
@@ -376,17 +376,17 @@ func IsDate(val interface{}) bool {
 				return false, 2
 			}
 			{ // try to use time.Parse() to quickly parse 'yyyy-mm-dd' dates
-				var s = val
+				s := val
 				if len(s) >= 10 {
 					s = s[:10]
 				}
-				var parsed, err = time.Parse(time.RFC3339, s+"T00:00:00Z")
+				parsed, err := time.Parse(time.RFC3339, s+"T00:00:00Z")
 				if err == nil && !parsed.IsZero() {
 					return true, 3
 				}
 			}
 			// if time.Parse() can't parse the date, try using ParseDate()
-			var y, m, d = ParseDate(val)
+			y, m, d := ParseDate(val)
 			if y == 0 || m == 0 || d == 0 {
 				return false, 4
 			}
@@ -411,12 +411,12 @@ func IsDateOnly(tm time.Time) bool {
 // E.g. "January", "February", etc.
 // Uses English language names, hence the 'EN' suffix.
 func MonthNameEN(monthNo int, shortName ...bool) string {
-	var isShortName = len(shortName) > 0 && shortName[0]
+	isShortName := len(shortName) > 0 && shortName[0]
 	if monthNo < 1 || monthNo > 12 {
 		mod.Error("Month", monthNo, "out of range")
 		return ""
 	}
-	var ret = MonthNamesEN[monthNo-1]
+	ret := MonthNamesEN[monthNo-1]
 	if isShortName {
 		ret = ret[:3]
 	}
@@ -451,7 +451,7 @@ func ParseDate(s string) (year, month, day int) {
 	if s == "" {
 		return 0, 0, 0
 	}
-	var change = func(from, to string) {
+	change := func(from, to string) {
 		if strings.Contains(s, from) {
 			s = strings.Replace(s, from, to, -1)
 		}
@@ -459,11 +459,11 @@ func ParseDate(s string) (year, month, day int) {
 	change("-", "/")
 	change(".", "/")
 	change("\\", "/")
-	var parts = strings.Split(s, "/")
+	parts := strings.Split(s, "/")
 	if len(parts) != 3 {
 		return 0, 0, 0
 	}
-	var patterns = []struct {
+	patterns := []struct {
 		pat     string
 		y, m, d int
 	}{
@@ -472,14 +472,14 @@ func ParseDate(s string) (year, month, day int) {
 		{`^\d{4}/\d{1,2}/\d{1,2}$`, 0, 1, 2},            // yyyy/mm/dd
 	}
 	for _, t := range patterns {
-		var match, err = regexp.MatchString(t.pat, s)
+		match, err := regexp.MatchString(t.pat, s)
 		if err != nil {
 			mod.Error("Failed matching^", s, "to^", t.pat, ":", err)
 		}
 		if !match {
 			continue
 		}
-		var year = Int(parts[t.y])
+		year := Int(parts[t.y])
 		if year < 1 || year > 9999 {
 			year = 0
 		}
@@ -490,11 +490,11 @@ func ParseDate(s string) (year, month, day int) {
 				year += 2000
 			}
 		}
-		var month = Int(parts[t.m])
+		month := Int(parts[t.m])
 		if month < 1 || month > 12 {
 			month = MonthNumberEN(parts[t.m])
 		}
-		var day = Int(parts[t.d])
+		day := Int(parts[t.d])
 		if day < 1 || day > 31 {
 			day = 0
 		}
@@ -514,23 +514,23 @@ func StringDateDMY(s string) string {
 		return ""
 	}
 	// try the faster parsing method
-	var tm, err = time.Parse(time.RFC3339, s+"T00:00:00Z")
+	tm, err := time.Parse(time.RFC3339, s+"T00:00:00Z")
 	if err == nil {
 		return fmt.Sprintf("%d/%s/%d",
 			tm.Day(), tm.Month().String()[:3], tm.Year())
 	}
 	// if that didn't work, try the slower method
-	var y, m, d = ParseDate(s)
+	y, m, d := ParseDate(s)
 	if m == 0 || d == 0 {
 		return ""
 	}
-	var mth = MonthNameEN(m)[:3]
+	mth := MonthNameEN(m)[:3]
 	return fmt.Sprintf("%d/%s/%04d", d, mth, y)
 } //                                                               StringDateDMY
 
 // StringDateYMD returns a short date using the "yyyy-mm-dd" format.
 func StringDateYMD(s string) string {
-	var y, m, d = ParseDate(s)
+	y, m, d := ParseDate(s)
 	if m == 0 || d == 0 {
 		return ""
 	}
@@ -540,7 +540,7 @@ func StringDateYMD(s string) string {
 // StringYear __
 func StringYear(val interface{}) string {
 	if IsNumber(val) {
-		var year = Int(val)
+		year := Int(val)
 		if year < 1 || year > 9999 {
 			mod.Error("Numeric year out of range:", year)
 		}
@@ -565,7 +565,7 @@ func Timestamp(optWithMS ...bool) string {
 		withMS = optWithMS[0]
 	}
 	if withMS {
-		var ret = time.Now().String()
+		ret := time.Now().String()
 		if len(ret) > 24 {
 			ret = ret[:24]
 		}
@@ -577,13 +577,13 @@ func Timestamp(optWithMS ...bool) string {
 	return time.Now().String()[:19]
 	//
 	// longer way to get the same result:
-	// var ret = time.Now().Format(time.RFC3339)[:19]
+	// ret := time.Now().Format(time.RFC3339)[:19]
 	// ret = strings.Replace(ret, "T", " ", -1)
 } //                                                                   Timestamp
 
 // YMD returns a date using the 'yyyy-mm-dd' format.
 func YMD(t time.Time) string {
-	var y, m, d = t.Year(), int(t.Month()), t.Day()
+	y, m, d := t.Year(), int(t.Month()), t.Day()
 	if m == 0 || d == 0 {
 		return ""
 	}
@@ -607,7 +607,7 @@ func stringDate(val interface{}, format string) string {
 		if len(val) >= 10 {
 			val = val[:10]
 		}
-		var parsed, err = time.Parse(time.RFC3339, val+"T00:00:00Z")
+		parsed, err := time.Parse(time.RFC3339, val+"T00:00:00Z")
 		if err != nil || parsed.IsZero() {
 			if err != nil {
 				mod.Error(EFailedParsing, "string^", val, ":", err)

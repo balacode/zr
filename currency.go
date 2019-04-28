@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 55E0BF                               zr/[currency.go]
+// :v: 2019-04-28 17:49:48 512B89                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -237,10 +237,12 @@ func CurrencyOf(value interface{}) Currency {
 // CurrencyOfS converts a numeric string to a Currency.
 // If the string is not numeric, logs an error and sets the Currency to zero.
 func CurrencyOfS(s string) Currency {
-	var minus bool
-	var fract bool
-	var dp int
-	var ret Currency
+	var (
+		minus bool
+		fract bool
+		dp    int
+		ret   Currency
+	)
 	for _, r := range s {
 		if r == '-' {
 			minus = true
@@ -294,13 +296,15 @@ func (ob Currency) GoString() string {
 // When decimalPlaces is negative, the resulting
 // number's decimals will vary.
 func (ob Currency) Fmt(decimalPlaces int) string {
-	var retBuf = bytes.NewBuffer(make([]byte, 0, 25))
-	var ws = retBuf.WriteString
-	var wr = retBuf.WriteRune
-	var intLen = 0
-	var intPart = ob.val / cur4d         // integer part of the number
-	var decPart = ob.val - intPart*cur4d // decimal part (as an int)
-	var neg = ob.val < 0                 // is it negative? use absolute value
+	var (
+		retBuf  = bytes.NewBuffer(make([]byte, 0, 25))
+		ws      = retBuf.WriteString
+		wr      = retBuf.WriteRune
+		intLen  = 0
+		intPart = ob.val / cur4d         // integer part of the number
+		decPart = ob.val - intPart*cur4d // decimal part (as an int)
+		neg     = ob.val < 0             // is it negative? use absolute value
+	)
 	if neg {
 		intPart = -intPart
 		ws("-")
@@ -317,14 +321,14 @@ func (ob Currency) Fmt(decimalPlaces int) string {
 	if intLen == 0 {
 		ws("0")
 	} else {
-		var write = false
-		var power = int64(100000000000000) // 10^14
-		var digits = intLen % 3
+		write := false
+		power := int64(100000000000000) // 10^14
+		digits := intLen % 3
 		if digits == 0 {
 			digits = 3
 		}
 		for power > 0 {
-			var n = intPart / power
+			n := intPart / power
 			if n > 0 {
 				write = true
 			}
@@ -343,8 +347,8 @@ func (ob Currency) Fmt(decimalPlaces int) string {
 	}
 	// write fractional part
 	if decimalPlaces != 0 {
-		var power = int64(1000) // 10^3
-		var unfixed = decPart > 0 && decimalPlaces < 0
+		power := int64(1000) // 10^3
+		unfixed := decPart > 0 && decimalPlaces < 0
 		if unfixed {
 			decimalPlaces = 4
 		}
@@ -353,7 +357,7 @@ func (ob Currency) Fmt(decimalPlaces int) string {
 		}
 		for decimalPlaces > 0 {
 			decimalPlaces--
-			var n = int64(0)
+			n := int64(0)
 			if power > 0 {
 				n = decPart / power
 				decPart -= n * power
@@ -397,28 +401,30 @@ func (ob Currency) Fmt(decimalPlaces int) string {
 //          (11.02,"Euro")          "Eleven Euros"
 //          (11.02,"Pound;;;Pence") "Eleven Pounds and Two Pence"
 func (ob Currency) InWordsEN(fmt string) string {
-	var n = ob.val
+	n := ob.val
 	if n < 0 {
 		n = -ob.val
 	}
-	var bigUnits = n / cur4d
-	var smlUnits = (n - bigUnits*cur4d) / 100
-	var hasOnly = strings.HasSuffix(strings.ToLower(fmt), "only")
+	bigUnits := n / cur4d
+	smlUnits := (n - bigUnits*cur4d) / 100
+	hasOnly := strings.HasSuffix(strings.ToLower(fmt), "only")
 	if hasOnly {
 		fmt = fmt[:len(fmt)-4]
 	}
-	var getPart = func(partNo int) string {
-		var parts = strings.Split(fmt, ";")
+	getPart := func(partNo int) string {
+		parts := strings.Split(fmt, ";")
 		if partNo < 0 || partNo >= len(parts) {
 			return ""
 		}
 		return parts[partNo]
 	}
-	var big1 = getPart(0)
-	var bigN = getPart(1)
-	var sml1 = getPart(2)
-	var smlN = getPart(3)
-	var ret = ""
+	var (
+		big1 = getPart(0)
+		bigN = getPart(1)
+		sml1 = getPart(2)
+		smlN = getPart(3)
+		ret  = ""
+	)
 	if bigUnits > 0 && (big1+bigN) != "" {
 		ret += IntInWordsEN(bigUnits) + " "
 		if big1 == "" && bigN != "" {
@@ -467,11 +473,13 @@ func (ob Currency) InWordsEN(fmt string) string {
 // String returns a string representing the currency value
 // and implements the Stringer Interface.
 func (ob Currency) String() string {
-	var i = ob.val / cur4d              // integer value
-	var d = ob.val - i*cur4d            // decimal value
-	var sint = strconv.FormatInt(i, 10) // integer part
-	var sdec string                     // decimal part
-	if d != 0 {                         // format decimals
+	var (
+		i    = ob.val / cur4d           // integer value
+		d    = ob.val - i*cur4d         // decimal value
+		sint = strconv.FormatInt(i, 10) // integer part
+		sdec string                     // decimal part
+	)
+	if d != 0 { // format decimals
 		if d < 0 { // adjust for negative value
 			d = -d
 			if i == 0 {
@@ -526,27 +534,27 @@ func (ob Currency) DivInt(divide ...int) Currency {
 // and returns the result. The object's value isn't changed.
 func (ob Currency) Mul(multiply ...Currency) Currency {
 	for _, cur := range multiply {
-		var a = ob.val
-		var b = cur.val
+		a := ob.val
+		b := cur.val
 		//
 		// return zero if either number is zero
 		if a == 0 || b == 0 {
 			return Currency{0}
 		}
 		// if direct multiplication will overflow int64, use big.Int
-		var lim = MaxCurrencyI64 / a
+		lim := MaxCurrencyI64 / a
 		if lim < 0 {
 			lim = -lim
 		}
 		if b >= lim || b <= -lim {
-			var n = big.NewInt(a)
+			n := big.NewInt(a)
 			n.Mul(n, big.NewInt(b))
 			n.Div(n, bigCur4d)
 			//
 			// if result can't be stored in Currency, return overflow
 			//
 			//TODO: IsInt64() is not available in older Go versions ``
-			var overflow = !n.IsInt64()
+			overflow := !n.IsInt64()
 			var ret int64
 			if !overflow {
 				ret = n.Int64()
@@ -570,10 +578,10 @@ func (ob Currency) Mul(multiply ...Currency) Currency {
 // MulFloat multiplies a currency object by one or more floating-point
 // numbers and returns the result. The object's value isn't changed.
 func (ob Currency) MulFloat(multiply ...float64) Currency {
-	var a = float64(ob.val)
+	a := float64(ob.val)
 	for _, b := range multiply {
 		// check for negative or positive overflow
-		var lim = MaxCurrencyI64 / a
+		lim := MaxCurrencyI64 / a
 		if lim < 0 {
 			lim = -lim
 		}
@@ -607,9 +615,9 @@ func (ob Currency) MulInt(multiply ...int) Currency {
 // math.MinInt64 or math.MaxInt64 depending on if the result is negative.
 func (ob Currency) Add(add ...Currency) Currency {
 	for _, itm := range add {
-		var a = ob.val
-		var b = itm.val
-		var c = a + b
+		a := ob.val
+		b := itm.val
+		c := a + b
 		//
 		// check for overflow
 		if c < MinCurrencyI64 || (a < 0 && b < 0 && b < (MinCurrencyI64-a)) {
@@ -627,7 +635,7 @@ func (ob Currency) Add(add ...Currency) Currency {
 // object and returns the result. The object's value isn't changed.
 func (ob Currency) AddFloat(add ...float64) Currency {
 	const lim float64 = math.MaxInt64 / cur4d
-	var a = ob.val
+	a := ob.val
 	for _, b := range add {
 		//
 		// check for overflow
@@ -659,9 +667,9 @@ func (ob Currency) AddInt(add ...int) Currency {
 // and returns the result. The object's value isn't changed.
 func (ob Currency) Sub(subtract ...Currency) Currency {
 	for _, n := range subtract {
-		var a = ob.val
-		var b = n.val
-		var c = a - b
+		a := ob.val
+		b := n.val
+		c := a - b
 		//
 		// check for overflow
 		if c < MinCurrencyI64 || (a < 0 && b > 0 && b > (-MinCurrencyI64+a)) {
@@ -774,9 +782,9 @@ func (ob Currency) MarshalJSON() ([]byte, error) {
 	//      There are faster ways to build a number with 4 decimals.
 	//      Create a benchmark to find the fastest method.
 	//
-	var i = ob.val / cur4d   // integer part
-	var d = ob.val - i*cur4d // decimal part
-	var ret = fmt.Sprintf("%d", i)
+	i := ob.val / cur4d   // integer part
+	d := ob.val - i*cur4d // decimal part
+	ret := fmt.Sprintf("%d", i)
 	if d != 0 {
 		ret += strings.TrimRight(
 			fmt.Sprintf("%0.4f", float32(d)/cur4d)[1:],
@@ -794,7 +802,7 @@ func (ob *Currency) UnmarshalJSON(data []byte) error {
 		return mod.Error(ENilReceiver)
 	}
 	var n float64
-	var err = mod.json.Unmarshal(data, &n)
+	err := mod.json.Unmarshal(data, &n)
 	if err != nil {
 		return err
 	}

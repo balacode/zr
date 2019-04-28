@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-07-25 14:11:25 46D21F                             zr/[bytes_test.go]
+// :v: 2019-04-28 17:47:58 C123A1                             zr/[bytes_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -56,7 +56,7 @@ func Test_byts_BytesAlloc_(t *testing.T) {
 	TBegin(t)
 	// BytesAlloc(size int) Bytes
 	//
-	var o = BytesAlloc(4096) // 4KiB
+	o := BytesAlloc(4096) // 4KiB
 	TEqual(t, cap(o.ar), 4096)
 } //                                                       Test_byts_BytesAlloc_
 
@@ -65,7 +65,7 @@ func Test_byts_BytesAllocUTF8_(t *testing.T) {
 	TBegin(t)
 	// BytesAllocUTF8(s string) Bytes
 	//
-	var o = BytesAllocUTF8("Привет !")
+	o := BytesAllocUTF8("Привет !")
 	TEqual(t, len(o.ar), 14)
 } //                                                   Test_byts_BytesAllocUTF8_
 
@@ -74,8 +74,8 @@ func Test_byts_BytesWrap_(t *testing.T) {
 	TBegin(t)
 	// BytesWrap(ar []byte) Bytes
 	//
-	var ar = []byte{'H', 'e', 'l', 'l', 'o', '!'}
-	var o = BytesWrap(ar)
+	ar := []byte{'H', 'e', 'l', 'l', 'o', '!'}
+	o := BytesWrap(ar)
 	TEqual(t, len(o.ar), 6)
 	//
 	//TODO: Test how 'ar' is affected when object is changed
@@ -93,12 +93,12 @@ func Test_byts_Bytes_Cap_(t *testing.T) {
 		// method call on a nil receiver must log an error
 		TBeginError()
 		var np *Bytes
-		var result = np.Cap()
+		result := np.Cap()
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, 0)
 	}
 	const CAP = 1234
-	var o = BytesAlloc(CAP)
+	o := BytesAlloc(CAP)
 	TEqual(t, cap(o.ar), CAP)
 	TEqual(t, o.Cap(), CAP)
 } //                                                        Test_byts_Bytes_Cap_
@@ -112,7 +112,7 @@ func Test_byts_Bytes_FindByte_(t *testing.T) {
 		// method call on a nil receiver must log an error
 		TBeginError()
 		var np *Bytes
-		var result = np.FindByte('A')
+		result := np.FindByte('A')
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, 0)
 	}
@@ -128,7 +128,7 @@ func Test_byts_Bytes_GetByte_(t *testing.T) {
 		// method call on a nil receiver must log an error
 		TBeginError()
 		var np *Bytes
-		var result = np.GetByte(0)
+		result := np.GetByte(0)
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, 0)
 	}
@@ -144,11 +144,11 @@ func Test_byts_Bytes_GetChar_(t *testing.T) {
 		// method call on a nil receiver must log an error
 		TBeginError()
 		var np *Bytes
-		var result = np.GetChar(0)
+		result := np.GetChar(0)
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, CharSize{})
 	}
-	//TODO: TEST var r, size = utf8.DecodeRune(ob.ar[index:])
+	//TODO: TEST r, size := utf8.DecodeRune(ob.ar[index:])
 	//TODO: TEST return CharSize{Val: r, Size: size}
 } //                                                    Test_byts_Bytes_GetChar_
 
@@ -161,7 +161,7 @@ func Test_byts_Bytes_Size_(t *testing.T) {
 		// method call on a nil receiver must log an error
 		TBeginError()
 		var np *Bytes
-		var result = np.Size()
+		result := np.Size()
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, 0)
 	}
@@ -180,7 +180,7 @@ func Test_byts_Bytes_String_(t *testing.T) {
 		// method call on a nil receiver must log an error
 		TBeginError()
 		var np *Bytes
-		var result = np.String()
+		result := np.String()
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, "")
 	}
@@ -218,13 +218,13 @@ func Test_byts_Bytes_AppendChar_(t *testing.T) {
 		TCheckError(t, ENilReceiver)
 	}
 	//TODO: TEST Bytes.AppendChar():
-	// 	var size = utf8.RuneLen(ch)
+	// 	size := utf8.RuneLen(ch)
 	// 	if size == -1 {
 	// 		Error("utf8.RuneLen(ch) == -1")
 	// 		return -1
 	// 	}
 	// 	var buf [utf8.UTFMax]byte
-	// 	var ret = utf8.EncodeRune(buf[:], ch)
+	// 	ret := utf8.EncodeRune(buf[:], ch)
 	// 	ob.ar = append(ob.ar, buf[:ret]...)
 	// 	return ret
 } //                                                 Test_byts_Bytes_AppendChar_
@@ -238,7 +238,7 @@ func Test_byts_Bytes_GetBytes_(t *testing.T) {
 		// method call on a nil receiver must log an error
 		TBeginError()
 		var np *Bytes
-		var result = np.GetBytes()
+		result := np.GetBytes()
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, []byte{})
 	}
@@ -254,7 +254,7 @@ func Test_byts_Bytes_Insert_(t *testing.T) {
 		// method call on a nil receiver must log an error
 		TBeginError()
 		var np *Bytes
-		var result = np.Insert(0, Bytes{[]byte{'A'}}, 1)
+		result := np.Insert(0, Bytes{[]byte{'A'}}, 1)
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, 0)
 	}
@@ -263,11 +263,11 @@ func Test_byts_Bytes_Insert_(t *testing.T) {
 	// 		Error("Index", index, "out of range; array:", len(ob.ar))
 	// 		return 0
 	// 	}
-	// 	var src = data.ar
+	// 	src := data.ar
 	// 	if count != -1 {
 	// 		src = data.ar[:count]
 	// 	}
-	// 	var srcLen = len(src)
+	// 	srcLen := len(src)
 	// 	if srcLen == 0 {
 	// 		return 0
 	// 	}
@@ -330,15 +330,15 @@ func Test_byts_Bytes_Resize_(t *testing.T) {
 		TCheckError(t, ENilReceiver)
 	}
 	//TODO: TEST Bytes.Resize():
-	// 	var current = len(ob.ar)
+	// 	current := len(ob.ar)
 	// 	if size == current {
 	// 		return
 	// 	}
 	// 	if size < current {
 	// 		ob.ar = ob.ar[:size]
 	// 	} else if size > current {
-	// 		var extra = size - current
-	// 		var zeros = bytes.Repeat([]byte{0}, extra)
+	// 		extra := size - current
+	// 		zeros := bytes.Repeat([]byte{0}, extra)
 	// 		ob.ar = append(ob.ar, zeros...)
 	// 	}
 } //                                                     Test_byts_Bytes_Resize_
@@ -368,7 +368,7 @@ func Test_byts_Bytes_Slice_(t *testing.T) {
 		// method call on a nil receiver must log an error
 		TBeginError()
 		var np *Bytes
-		var result = np.Slice(0, 0)
+		result := np.Slice(0, 0)
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, Bytes{[]byte{}})
 	}

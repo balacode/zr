@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 6D6884                                zr/[numbers.go]
+// :v: 2019-04-28 17:47:59 0EBFD8                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -100,7 +100,7 @@ func Float64(val interface{}) float64 {
 		}
 	// strings
 	case string:
-		var ret, err = strconv.ParseFloat(val, 64)
+		ret, err := strconv.ParseFloat(val, 64)
 		if err != nil {
 			ret = 0.0
 		}
@@ -233,7 +233,7 @@ func Int(val interface{}) int {
 		}
 	// strings
 	case string:
-		var ret = 0
+		ret := 0
 		var hasDigit, hasMinus, hasPlus bool
 	loop:
 		for _, ch := range val {
@@ -394,7 +394,7 @@ func IsNumber(val interface{}) bool {
 		*float32, *float64:
 		return true
 	case string:
-		var s = strings.Trim(val, SPACES)
+		s := strings.Trim(val, SPACES)
 		if len(s) < 1 {
 			return false
 		}
@@ -447,7 +447,7 @@ func MinMaxGap(values []int) (min, max int) {
 		return MaxInt, MinInt
 	}
 	// copy and sort the input slice, so original is unchanged
-	var ar = make([]int, len(values))
+	ar := make([]int, len(values))
 	copy(ar, values)
 	sort.Ints(ar)
 	//
@@ -512,11 +512,12 @@ func BlankZero(s string) string {
 // three digits) and also sets the required number of decimal places.
 // Numbers are not rounded, just cut at the required number of decimals.
 func CommaDelimit(number string, decimalPlaces int) string {
-	var retBuf = bytes.NewBuffer(make([]byte, 0, 32))
-	var ws = retBuf.WriteString
-	var intLen = 0
-	var decAt = strings.Index(number, ".")
-	//
+	var (
+		retBuf = bytes.NewBuffer(make([]byte, 0, 32))
+		ws     = retBuf.WriteString
+		intLen = 0
+		decAt  = strings.Index(number, ".")
+	)
 	// calculate length of number's integer part
 	if decAt == -1 {
 		intLen = len(number)
@@ -524,9 +525,9 @@ func CommaDelimit(number string, decimalPlaces int) string {
 		intLen = decAt
 	}
 	{ // write delimited integer part
-		var groups = (intLen / 3) + 1
-		var digits = intLen % 3
-		var at = 0
+		groups := (intLen / 3) + 1
+		digits := intLen % 3
+		at := 0
 		for groups > 0 {
 			ws(number[at : at+digits])
 			if groups > 1 && digits != 0 {
@@ -542,7 +543,7 @@ func CommaDelimit(number string, decimalPlaces int) string {
 	}
 	if decimalPlaces > 0 { // write fractional part
 		ws(".")
-		var decLen = 0
+		decLen := 0
 		if decAt != -1 {
 			decLen = len(number[decAt+1:])
 		}
@@ -570,7 +571,7 @@ func IntInWordsEN(number int64) string {
 		return DigitNamesEN[0]
 	}
 	// divide number into billions, millions, thousands, units, etc.
-	var groups = []struct {
+	groups := []struct {
 		n    int64
 		unit string
 		base int64
@@ -585,9 +586,9 @@ func IntInWordsEN(number int64) string {
 		// math.MaxInt64 = 9223372036854775807
 	}
 	{
-		var n = number
+		n := number
 		for i := len(groups) - 1; i >= 0; i-- {
-			var gr = &groups[i]
+			gr := &groups[i]
 			if n < gr.base {
 				continue
 			}
@@ -596,20 +597,20 @@ func IntInWordsEN(number int64) string {
 		}
 	}
 	var retBuf bytes.Buffer
-	var ws = retBuf.WriteString
+	ws := retBuf.WriteString
 	for i := len(groups) - 1; i >= 0; i-- {
-		var n = groups[i].n
+		n := groups[i].n
 		if n == 0 {
 			continue
 		}
-		var unit = groups[i].unit
+		unit := groups[i].unit
 		//
 		// count hundreds, tens and units
-		var n100 = n / 100
+		n100 := n / 100
 		n -= n100 * 100
-		var n10 = n / 10
+		n10 := n / 10
 		n -= n10 * 10
-		var n1 = n
+		n1 := n
 		//
 		// append names of hundreds to result
 		if n100 != 0 {

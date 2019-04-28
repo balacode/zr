@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 1E2DBB                              zr/[uuid_test.go]
+// :v: 2019-04-28 17:47:59 4B20E7                              zr/[uuid_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -35,13 +35,14 @@ func Test_uuid_IsUUID_(t *testing.T) {
 	// func IsUUID_(val interface{}) bool
 	TBegin(t)
 	printSampleUUIDs(0)
-	var uuid1 = "B2368D91-BBF8-4184-B4A4-4E3372565324"
-	var uuid2 = "606F02A3-87DF-406E-9E81-69911B53DD6D"
-	var uuid3 = "F10D9ACB-EC6D-438D-BD02-33123801E9F4"
-	var goodStr = NewTStringer("226369EA-1773-44AA-8DDC-C90D4A4D2571")
-	var badStr = NewTStringer("BBDB0DBF-FB03-Z0F7-9682-3B15859E01CB")
-	//
-	var tests = []struct {
+	var (
+		uuid1   = "B2368D91-BBF8-4184-B4A4-4E3372565324"
+		uuid2   = "606F02A3-87DF-406E-9E81-69911B53DD6D"
+		uuid3   = "F10D9ACB-EC6D-438D-BD02-33123801E9F4"
+		goodStr = NewTStringer("226369EA-1773-44AA-8DDC-C90D4A4D2571")
+		badStr  = NewTStringer("BBDB0DBF-FB03-Z0F7-9682-3B15859E01CB")
+	)
+	tests := []struct {
 		input  interface{}
 		expect bool
 	}{
@@ -75,7 +76,7 @@ func Test_uuid_IsUUID_(t *testing.T) {
 		{goodStr, true},
 	}
 	for i, test := range tests {
-		var got = IsUUID(test.input)
+		got := IsUUID(test.input)
 		if got != test.expect {
 			TFail(t,
 				"#", i, " input: ", test.input,
@@ -95,7 +96,7 @@ func Test_uuid_UUID_(t *testing.T) {
 			return 0, nil
 		}
 		const expect = "00000000-0000-4000-8000-000000000000"
-		var uuid = UUID()
+		uuid := UUID()
 		if uuid != expect {
 			TFail(t, "Mocked rand.Read() produced '", uuid, "'.",
 				" must be '", expect, "'")
@@ -107,7 +108,7 @@ func Test_uuid_UUID_(t *testing.T) {
 		mod.rand.Read = func([]byte) (int, error) {
 			return 0, fmt.Errorf("something wrong")
 		}
-		var uuid = UUID()
+		uuid := UUID()
 		if uuid != "" {
 			TFail(t,
 				"UUID() must return a zero-length string"+
@@ -115,9 +116,9 @@ func Test_uuid_UUID_(t *testing.T) {
 		}
 		mod.Reset() // restore standard functions!
 	}
-	var m = map[string]bool{}
+	m := map[string]bool{}
 	for i := 0; i < 1000; i++ {
-		var uuid = UUID()
+		uuid := UUID()
 		// all characters must be '0'-'9', 'A'-'F' or '-'
 		for i, ch := range uuid {
 			if !((ch >= '0' && ch <= '9') ||

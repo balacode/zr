@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 0BCA58                              zr/[int_tuple.go]
+// :v: 2019-04-28 17:47:59 6398B5                              zr/[int_tuple.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -40,7 +40,7 @@ func (ob IntTuples) Len() int {
 // 'i' should sort before element[j].
 // (sort.Interface)
 func (ob IntTuples) Less(i, j int) bool {
-	var ti, tj = ob[i], ob[j]
+	ti, tj := ob[i], ob[j]
 	return ti.A < tj.A || (ti.A == tj.A && ti.B < tj.B)
 } //                                                                        Less
 

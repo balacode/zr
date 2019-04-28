@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 780C01                               zr/[unittest.go]
+// :v: 2019-04-28 17:47:59 595B27                               zr/[unittest.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -86,8 +86,8 @@ func (ob TStringer) String() string {
 // TArrayEqual checks if two arrays are equal
 func TArrayEqual(t *testing.T, expect, val interface{}) bool {
 	//TODO: TArrayEqual is not necessary, can be handled by Equal()
-	var a = fmt.Sprintf("%v", expect)
-	var b = fmt.Sprintf("%v", val)
+	a := fmt.Sprintf("%v", expect)
+	b := fmt.Sprintf("%v", val)
 	if a != b {
 		fmt.Printf("%s expected: %s got: %s"+LB, TCaller(), a, b)
 		t.Fail()
@@ -106,7 +106,7 @@ func TBytesEqual(t *testing.T, a, b []byte) {
 
 // TEqual asserts that result is equal to expect.
 func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
-	var makeStr = func(val interface{}) string {
+	makeStr := func(val interface{}) string {
 		var ret string
 		switch val := val.(type) {
 		case nil:
@@ -121,7 +121,7 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 			uint, uint8, uint16, uint32, uint64, uintptr:
 			ret = fmt.Sprintf("%d", val)
 		case float32, float64:
-			var ret = fmt.Sprintf("%f", val)
+			ret := fmt.Sprintf("%f", val)
 			if strings.Contains(ret, ".") {
 				for strings.HasSuffix(ret, "0") {
 					ret = ret[:len(ret)-1]
@@ -201,14 +201,14 @@ func TTrue(t *testing.T, result bool) bool {
 // TBegin prints a heading with the name of the tested module.
 func TBegin(t *testing.T) {
 	// get list of calls on the call stack, remove calls into this file
-	var list = CallerList()
+	list := CallerList()
 	for len(list) > 0 &&
 		(strings.Trim(list[0], SPACES) == "" ||
 			strings.Contains(list[0], "TBegin")) {
 		list = list[1:]
 	}
 	// pick the first list item as the test's name
-	var testName = "<test-name>"
+	testName := "<test-name>"
 	if len(list) > 0 {
 		testName = strings.Trim(list[0], SPACES)
 	}
@@ -264,7 +264,7 @@ func TCaller() string {
 //
 func TCheckError(t *testing.T, expectMessages ...string) {
 	EnableErrors()
-	var count = GetErrorCount()
+	count := GetErrorCount()
 	if count != TErrorCount+1 {
 		TFail(t, "Expected 1 error, but got ", count-TErrorCount)
 		return
@@ -279,8 +279,8 @@ func TCheckError(t *testing.T, expectMessages ...string) {
 	}
 	// if any error message fragments were supplied,
 	// check if any is found in the logged error
-	var found = len(expectMessages) == 0
-	var errm = GetLastLogMessage()
+	found := len(expectMessages) == 0
+	errm := GetLastLogMessage()
 	for _, find := range expectMessages {
 		find = strings.ToUpper(find)
 		if strings.Contains(strings.ToUpper(errm), find) {
@@ -300,7 +300,7 @@ func TCheckError(t *testing.T, expectMessages ...string) {
 
 // TFail __
 func TFail(t *testing.T, a ...interface{}) {
-	var msg = failedLocation() + fmt.Sprint(a...)
+	msg := failedLocation() + fmt.Sprint(a...)
 	t.Error(msg)
 	t.Fail()
 } //                                                                       TFail
@@ -318,12 +318,12 @@ func TFailf(t *testing.T, format string, a ...interface{}) {
 // failedFuncAndLine returns the function
 // name and line number of a failed test.
 func failedFuncAndLine() (funcName string, lineNo int) {
-	var ar = strings.Split(TCaller(), ":")
+	ar := strings.Split(TCaller(), ":")
 	if len(ar) > 0 {
 		funcName = ar[0]
 	}
 	if len(ar) > 1 {
-		var ln, err = strconv.Atoi(ar[1])
+		ln, err := strconv.Atoi(ar[1])
 		if err != nil {
 			ln = -1
 		}
@@ -335,7 +335,7 @@ func failedFuncAndLine() (funcName string, lineNo int) {
 // failedLocation returns the location message
 // used in TFail() and TFailf()
 func failedLocation() string {
-	var funcName, lineNo = failedFuncAndLine()
+	funcName, lineNo := failedFuncAndLine()
 	return LF +
 		"FAILED FUNC: " + funcName + LF +
 		"FAILED LINE: " + strconv.Itoa(lineNo) + LF

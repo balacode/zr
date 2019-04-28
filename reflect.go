@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 1048FD                                zr/[reflect.go]
+// :v: 2019-04-28 17:47:59 2396C4                                zr/[reflect.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -74,29 +74,29 @@ func DescribeStruct(structPtr interface{}) string {
 	// the function is recursive, so it needs to be declared before use
 	var unwrap func(interface{}, int) string
 	unwrap = func(structPtr interface{}, indentAt int) string {
-		var ty, ok = GetStructType(structPtr)
+		ty, ok := GetStructType(structPtr)
 		if !ok {
 			return ""
 		}
-		var max = 0 // maximum width of a column
+		max := 0 // maximum width of a column
 		for i, count := 0, ty.NumField(); i < count; i++ {
-			var l = len(ty.Field(i).Name)
+			l := len(ty.Field(i).Name)
 			if l > max {
 				max = l
 			}
 		}
-		var s = fmt.Sprintf("%s {"+LB, ty.Name())
-		var printf = func(format string, a ...interface{}) {
+		s := fmt.Sprintf("%s {"+LB, ty.Name())
+		printf := func(format string, a ...interface{}) {
 			s += strings.Repeat(TabSpace, indentAt) + fmt.Sprintf(format, a...)
 		}
 		indentAt += 1
 		for i, count := 0, ty.NumField(); i < count; i++ {
-			var name = ty.Field(i).Name
-			var pad = strings.Repeat(" ", max-len(name))
-			var val = reflect.ValueOf(structPtr).Elem().Field(i)
+			name := ty.Field(i).Name
+			pad := strings.Repeat(" ", max-len(name))
+			val := reflect.ValueOf(structPtr).Elem().Field(i)
 			if val.Kind() == reflect.Slice {
 				{
-					var stype = reflect.TypeOf(val.Interface()).String()
+					stype := reflect.TypeOf(val.Interface()).String()
 					if strings.Contains(stype, "[]main.") {
 						stype = strings.Replace(stype, "[]main.", "[]", -1)
 					}
@@ -104,7 +104,7 @@ func DescribeStruct(structPtr interface{}) string {
 					indentAt += 1
 				}
 				for rowNo := 0; rowNo < val.Len(); rowNo++ {
-					var val = val.Index(rowNo).Addr().Interface()
+					val := val.Index(rowNo).Addr().Interface()
 					printf("%s", unwrap(val, indentAt)+","+LB)
 				}
 				indentAt -= 1
@@ -125,13 +125,13 @@ func DescribeStruct(structPtr interface{}) string {
 // GetStructInt returns the string value from the named field in a struct.
 // If the field is not found, returns ("", false).
 func GetStructInt(structPtr interface{}, field string) (int, bool) {
-	var ty, ok = GetStructType(structPtr)
+	ty, ok := GetStructType(structPtr)
 	if !ok {
 		return 0, false
 	}
 	for i, count := 0, ty.NumField(); i < count; i++ {
 		if ty.Field(i).Name == field {
-			var val = reflect.ValueOf(structPtr).Elem().Field(i)
+			val := reflect.ValueOf(structPtr).Elem().Field(i)
 			if val, ok := val.Interface().(int); ok {
 				return val, true
 			}
@@ -144,13 +144,13 @@ func GetStructInt(structPtr interface{}, field string) (int, bool) {
 // the named field in a struct. If the field is not found,
 // returns ("", false).
 func GetStructString(structPtr interface{}, field string) (string, bool) {
-	var ty, ok = GetStructType(structPtr)
+	ty, ok := GetStructType(structPtr)
 	if !ok {
 		return "", false
 	}
 	for i, count := 0, ty.NumField(); i < count; i++ {
 		if ty.Field(i).Name == field {
-			var val = reflect.ValueOf(structPtr).Elem().Field(i)
+			val := reflect.ValueOf(structPtr).Elem().Field(i)
 			if s, ok := val.Interface().(string); ok {
 				return s, true
 			}
@@ -162,7 +162,7 @@ func GetStructString(structPtr interface{}, field string) (string, bool) {
 // GetStructType gets the reflection type of a pointer to a struct,
 // or returns (nil, false) if it does not point to a struct.
 func GetStructType(structPtr interface{}) (reflect.Type, bool) {
-	var ty = reflect.TypeOf(structPtr)
+	ty := reflect.TypeOf(structPtr)
 	if ty.Kind() != reflect.Ptr {
 		mod.Error(EInvalidArg, "^structPtr", "is not a pointer to a struct;",
 			"it is^", ty.Kind())
@@ -179,7 +179,7 @@ func GetStructType(structPtr interface{}) (reflect.Type, bool) {
 
 // SetStructInt __
 func SetStructInt(structPtr interface{}, field string, val int) bool {
-	var ty, ok = GetStructType(structPtr)
+	ty, ok := GetStructType(structPtr)
 	if !ok {
 		return false
 	}
@@ -194,7 +194,7 @@ func SetStructInt(structPtr interface{}, field string, val int) bool {
 
 // SetStructString __
 func SetStructString(structPtr interface{}, field, val string) bool {
-	var ty, ok = GetStructType(structPtr)
+	ty, ok := GetStructType(structPtr)
 	if !ok {
 		return false
 	}

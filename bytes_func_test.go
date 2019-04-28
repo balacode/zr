@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 C67987                        zr/[bytes_func_test.go]
+// :v: 2019-04-28 17:47:58 3FD2E5                        zr/[bytes_func_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -40,10 +40,10 @@ func Test_bytf_AppendRuneBytes_(t *testing.T) {
 	TBegin(t)
 	//   AppendRuneBytes(dest *[]byte, r rune) int
 	//
-	var r = 'Б'
-	var buf = make([]byte, 0, 10)
+	r := 'Б'
+	buf := make([]byte, 0, 10)
 	AppendRuneBytes(&buf, r)
-	var expect = []byte{208, 145}
+	expect := []byte{208, 145}
 	if bytes.Compare(buf, expect) != 0 {
 		t.Errorf("FAILED: buf became %v instead of %v", buf, expect)
 	}
@@ -54,8 +54,8 @@ func Test_bytf_ByteSizeString_(t *testing.T) {
 	TBegin(t)
 	// ByteSizeString(sizeInBytes int64, useSI bool) string
 	//
-	var test = func(sizeInBytes int64, useSI bool, expect string) {
-		var got = ByteSizeString(sizeInBytes, useSI)
+	test := func(sizeInBytes int64, useSI bool, expect string) {
+		got := ByteSizeString(sizeInBytes, useSI)
 		if got != expect {
 			TFail(t,
 				`ByteSizeString(`, sizeInBytes, `, `, useSI, `)`,
@@ -149,9 +149,9 @@ func Test_bytf_ClearBytes_(t *testing.T) {
 	TBegin(t)
 	//   ClearBytes(slice *[]byte)
 	//
-	var slice = make([]byte, 0, 0)
+	slice := make([]byte, 0, 0)
 	slice = append(slice, []byte{1, 2, 3}...)
-	var initialCap = cap(slice)
+	initialCap := cap(slice)
 	ClearBytes(&slice)
 	if len(slice) != 0 {
 		t.Errorf("len(slice) != 0 (%v != 0)", len(slice))
@@ -172,7 +172,7 @@ func Test_bytf_CompressBytes_(t *testing.T) {
 	// 		return []byte{}
 	// 	}
 	// 	var retBuf bytes.Buffer
-	// 	var w = zlib.NewWriter(&retBuf)
+	// 	w := zlib.NewWriter(&retBuf)
 	// 	defer w.Close()
 	// 	var_, err = w.Write([]byte(data))
 	// 	if err != nil {
@@ -194,7 +194,7 @@ func Test_bytf_FoldXorBytes_(t *testing.T) {
 	}{
 		{[]byte{0xAA, 0xBB, 0xCC}, 1, []byte{0xDD}}, // UNTESTED
 	} {
-		var got = FoldXorBytes(test.ar, test.returnLen)
+		got := FoldXorBytes(test.ar, test.returnLen)
 		if !TArrayEqual(t, got, test.expect) {
 			TFail(t, "#", i,
 				` ar `, GoString(test.ar),
@@ -211,8 +211,8 @@ func Test_bytf_HexStringOfBytes_(t *testing.T) {
 	TBegin(t)
 	//   HexStringOfBytes(ar []byte) string
 	//
-	var test = func(ar []byte, expect string) {
-		var got = HexStringOfBytes(ar)
+	test := func(ar []byte, expect string) {
+		got := HexStringOfBytes(ar)
 		if got != expect {
 			TFail(t,
 				`HexStringOfBytes(`, GoString(ar), `) `,
@@ -236,12 +236,12 @@ func Test_bytf_InsertBytes_(t *testing.T) {
 	//   InsertBytes(dest *[]byte, pos int, src ...[]byte)
 	//
 	{
-		var dest = []byte("ABCD")
-		var pos = 2
-		var src1 = []byte("12")
-		var src2 = []byte("3")
-		var got = []byte(string(dest))
-		var expect = []byte("AB123CD")
+		dest := []byte("ABCD")
+		pos := 2
+		src1 := []byte("12")
+		src2 := []byte("3")
+		got := []byte(string(dest))
+		expect := []byte("AB123CD")
 		InsertBytes(&got, pos, src1, src2)
 		if len(got) != 7 {
 			t.Errorf("len(got) is %d instead of 7", len(got))
@@ -254,7 +254,7 @@ func Test_bytf_InsertBytes_(t *testing.T) {
 		}
 	}
 	{
-		var slc = make([]byte, 0, 0)
+		slc := make([]byte, 0, 0)
 		slc = append(slc, []byte{1, 2, 3}...)
 		InsertBytes(&slc, 1, []byte{10, 20, 30})
 		if !bytes.Equal(slc, []byte{1, 10, 20, 30, 2, 3}) {
@@ -264,10 +264,10 @@ func Test_bytf_InsertBytes_(t *testing.T) {
 		InsertBytes(&slc, 0, []byte{6})
 		TBytesEqual(t, slc, []byte{6, 1, 2, 3, 4, 5})
 	}
-	var des1 = []byte("ABCDEFGH")
-	var src1 = []byte("123")
-	var des2 = []byte("ABC")
-	var src2 = []byte("12345")
+	des1 := []byte("ABCDEFGH")
+	src1 := []byte("123")
+	des2 := []byte("ABC")
+	src2 := []byte("12345")
 	//TODO: use test() function instead of loop
 	for _, test := range []struct {
 		des    []byte
@@ -289,7 +289,7 @@ func Test_bytf_InsertBytes_(t *testing.T) {
 		{des2, 2, src2, []byte("AB12345C")},
 		{des2, 3, src2, []byte("ABC12345")},
 	} {
-		var got = []byte(string(test.des))
+		got := []byte(string(test.des))
 		InsertBytes(&got, test.pos, test.src)
 		if string(got) != string(test.expect) {
 			t.Errorf("InsertBytes(%q, %d, %q)"+
@@ -306,22 +306,22 @@ func Test_bytf_RemoveBytes_(t *testing.T) {
 	//   RemoveBytes(dest *[]byte, pos, count int)
 	//
 	if true {
-		var slice = []byte{1, 2, 3}
+		slice := []byte{1, 2, 3}
 		RemoveBytes(&slice, 0, 3)
 		TBytesEqual(t, slice, []byte{})
 	}
 	if true {
-		var slice = []byte{1, 2, 3}
+		slice := []byte{1, 2, 3}
 		RemoveBytes(&slice, 0, 1)
 		TBytesEqual(t, slice, []byte{2, 3})
 	}
 	if true {
-		var slice = []byte{1, 2, 3}
+		slice := []byte{1, 2, 3}
 		RemoveBytes(&slice, 1, 1)
 		TBytesEqual(t, slice, []byte{1, 3})
 	}
 	if true {
-		var slice = []byte{1, 2, 3}
+		slice := []byte{1, 2, 3}
 		RemoveBytes(&slice, 2, 1)
 		TBytesEqual(t, slice, []byte{1, 2})
 	}
@@ -332,7 +332,7 @@ func Test_bytf_RuneOffset_(t *testing.T) {
 	TBegin(t)
 	//   RuneOffset(slice []byte, runeIndex int) (byteIndex int)
 	//
-	var slice = []byte("Hello, 世界")
+	slice := []byte("Hello, 世界")
 	TTrue(t, RuneOffset(slice, 0) == 0)
 	TTrue(t, RuneOffset(slice, 1) == 1)
 	TTrue(t, RuneOffset(slice, 2) == 2)
@@ -356,12 +356,12 @@ func Test_bytf_UncompressBytes_(t *testing.T) {
 	// UncompressBytes(data []byte) []byte
 	//
 	//TODO: TEST UncompressBytes():
-	// 	var retBuf = bytes.NewReader(data)
-	// 	var rd, err = zlib.NewReader(retBuf)
+	// 	retBuf := bytes.NewReader(data)
+	// 	rd, err := zlib.NewReader(retBuf)
 	// 	if err != nil {
 	// 		Error("Uncompressing:", err)
 	// 	}
-	// 	var ret = bytes.NewBuffer(make([]byte, 0, 8192))
+	// 	ret := bytes.NewBuffer(make([]byte, 0, 8192))
 	// 	io.Copy(ret, rd)
 	// 	rd.Close()
 	// 	return ret.Bytes()
@@ -373,8 +373,8 @@ func Test_bytf_XorBytes_(t *testing.T) {
 	// XorBytes(data, cipher []byte) []byte
 	//
 	//TODO: TEST XorBytes():
-	// 	var ret = bytes.NewBuffer(make([]byte, 0, len(data)))
-	// 	var i, l = 0, len(cipher)
+	// 	ret := bytes.NewBuffer(make([]byte, 0, len(data)))
+	// 	i, l := 0, len(cipher)
 	// 	for_, b := range data {
 	// 		ret.WriteByte(b ^ cipher[i])
 	// 		i++

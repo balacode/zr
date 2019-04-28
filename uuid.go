@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 2AB803                                   zr/[uuid.go]
+// :v: 2019-04-28 17:47:59 DFA81D                                   zr/[uuid.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -60,8 +60,8 @@ func IsUUID(val interface{}) bool {
 // The format is 'XXXXXXXX-XXXX-4XXX-ZXXX-XXXXXXXXXXXX' where every X is a
 // random upper-case hex digit, and Z must be one of '8', '9', 'A' or 'B'.
 func UUID() string {
-	var b = make([]byte, 16)
-	var _, err = mod.rand.Read(b)
+	b := make([]byte, 16)
+	_, err := mod.rand.Read(b)
 	if err != nil {
 		return ""
 	}

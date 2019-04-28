@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 276CAF                                zr/[strings.go]
+// :v: 2019-04-28 17:47:59 FC4742                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -114,9 +114,9 @@ func After(s string, find ...string) string {
 	if s == "" {
 		return ""
 	}
-	var at = -1
+	at := -1
 	for _, f := range find {
-		var i = strings.Index(s, f)
+		i := strings.Index(s, f)
 		if i != -1 {
 			i += len(f)
 			if i > at {
@@ -133,8 +133,8 @@ func After(s string, find ...string) string {
 // CamelCase converts an identifier from underscore naming convention
 // to camel case naming convention: 'some_name' becomes 'someName'.
 func CamelCase(s string) string {
-	var retBuf = bytes.NewBuffer(make([]byte, 0, len(s)))
-	var ws = retBuf.WriteString
+	retBuf := bytes.NewBuffer(make([]byte, 0, len(s)))
+	ws := retBuf.WriteString
 	var ucase bool
 	for _, ch := range s {
 		if ch == '_' {
@@ -224,7 +224,7 @@ func FindInSlice(s string, start, end int, substr string) int {
 	if start == 0 && end == -1 {
 		return strings.Index(s, substr)
 	}
-	var sLen = len(s)
+	sLen := len(s)
 	if start < 0 || start > sLen {
 		mod.Error(EInvalidArg, "start index:", start)
 		if start < 0 {
@@ -249,7 +249,7 @@ func First(s string, count int) string {
 		mod.Error("Negative count:", count)
 		return ""
 	}
-	var sLen = len(s)
+	sLen := len(s)
 	if count > sLen {
 		mod.Error(EInvalidArg, "count", count, "out of range", sLen)
 		count = sLen
@@ -263,7 +263,7 @@ func First(s string, count int) string {
 // I.e. if prefix and suffix are both blank, returns 's'.
 // When either prefix or suffix is not found, returns a zero-length string.
 func GetPart(s, prefix, suffix string) string {
-	var at = strings.Index(s, prefix)
+	at := strings.Index(s, prefix)
 	if at == -1 {
 		return ""
 	}
@@ -324,10 +324,10 @@ func IsWhiteSpace(s string) bool {
 // % is followed by a 2-digit hex value.
 // e.g. escaped string "%25" becomes "%", "%20" becomes " ", etc.
 func JSUnescape(s string) string {
-	var retBuf = bytes.NewBuffer(make([]byte, 0, len(s)))
-	var wr = retBuf.WriteRune
-	var hexPower = 0
-	var hexVal = rune(0)
+	retBuf := bytes.NewBuffer(make([]byte, 0, len(s)))
+	wr := retBuf.WriteRune
+	hexPower := 0
+	hexVal := rune(0)
 	for _, ch := range s {
 		if ch == '%' {
 			hexPower = 2
@@ -361,7 +361,7 @@ func JSUnescape(s string) string {
 // In such escaped strings: % is followed by a 2-digit
 // hex value. e.g. escaped string "%25" becomes "%", "%20" becomes " ", etc.
 func JSUnescapeStruct(structPtr interface{}) {
-	var structT = reflect.TypeOf(structPtr)
+	structT := reflect.TypeOf(structPtr)
 	if structT.Kind() != reflect.Ptr {
 		mod.Error(EInvalidArg, "^structPtr", "is not a pointer;",
 			"it is^", structT.Kind())
@@ -373,10 +373,10 @@ func JSUnescapeStruct(structPtr interface{}) {
 		return
 	}
 	structT = structT.Elem()
-	var structV = reflect.ValueOf(structPtr).Elem()
+	structV := reflect.ValueOf(structPtr).Elem()
 	for i := 0; i < structT.NumField(); i++ {
-		var fieldV = structV.Field(i)
-		var fieldK = fieldV.Kind()
+		fieldV := structV.Field(i)
+		fieldK := fieldV.Kind()
 		if fieldK == reflect.String {
 			fieldV.SetString(JSUnescape(strings.Trim(fieldV.String(), SPACES)))
 		} else if fieldK == reflect.Slice {
@@ -393,7 +393,7 @@ func Last(s string, count int) string {
 		mod.Error("Negative count:", count)
 		return ""
 	}
-	var sLen = len(s)
+	sLen := len(s)
 	if count > sLen {
 		mod.Error(EInvalidArg, "count", count, "out of range", sLen)
 		count = sLen
@@ -403,7 +403,7 @@ func Last(s string, count int) string {
 
 // LineBeginIndex __
 func LineBeginIndex(s string, index int) int {
-	var sLen = len(s)
+	sLen := len(s)
 	if index == -1 {
 		index = sLen
 	}
@@ -415,8 +415,8 @@ func LineBeginIndex(s string, index int) int {
 			index = sLen
 		}
 	}
-	var cr = strings.LastIndexByte(s[:index], '\r')
-	var lf = strings.LastIndexByte(s[:index], '\n')
+	cr := strings.LastIndexByte(s[:index], '\r')
+	lf := strings.LastIndexByte(s[:index], '\n')
 	if cr > lf {
 		return cr + 1
 	}
@@ -425,7 +425,7 @@ func LineBeginIndex(s string, index int) int {
 
 // LineBeginIndexB __
 func LineBeginIndexB(s []byte, index int) int {
-	var sLen = len(s)
+	sLen := len(s)
 	if index == -1 {
 		index = sLen
 	}
@@ -437,8 +437,8 @@ func LineBeginIndexB(s []byte, index int) int {
 			index = sLen
 		}
 	}
-	var cr = bytes.LastIndexByte(s[:index], '\r')
-	var lf = bytes.LastIndexByte(s[:index], '\n')
+	cr := bytes.LastIndexByte(s[:index], '\r')
+	lf := bytes.LastIndexByte(s[:index], '\n')
 	if cr > lf {
 		return cr + 1
 	}
@@ -447,7 +447,7 @@ func LineBeginIndexB(s []byte, index int) int {
 
 // LineEndIndex __
 func LineEndIndex(s string, index int) int {
-	var sLen = len(s)
+	sLen := len(s)
 	if index == -1 {
 		return sLen
 	} else if index < -1 || index > sLen {
@@ -458,8 +458,8 @@ func LineEndIndex(s string, index int) int {
 			index = sLen
 		}
 	}
-	var cr = strings.IndexByte(s[index:], '\r')
-	var lf = strings.IndexByte(s[index:], '\n')
+	cr := strings.IndexByte(s[index:], '\r')
+	lf := strings.IndexByte(s[index:], '\n')
 	var i int
 	if (cr < lf && cr != -1) || lf == -1 {
 		i = cr
@@ -474,7 +474,7 @@ func LineEndIndex(s string, index int) int {
 
 // LineEndIndexB __
 func LineEndIndexB(s []byte, index int) int {
-	var sLen = len(s)
+	sLen := len(s)
 	if index == -1 {
 		index = 0
 	} else if index < -1 || index > sLen {
@@ -485,9 +485,9 @@ func LineEndIndexB(s []byte, index int) int {
 			index = sLen
 		}
 	}
-	var cr = bytes.IndexByte(s[index:], '\r')
-	var lf = bytes.IndexByte(s[index:], '\n')
-	var i = lf
+	cr := bytes.IndexByte(s[index:], '\r')
+	lf := bytes.IndexByte(s[index:], '\n')
+	i := lf
 	if cr != -1 && cr < lf {
 		i = cr
 	}
@@ -502,8 +502,8 @@ func LineOfIndex(s string, index int) string {
 	if index < 0 || index > len(s) {
 		return ""
 	}
-	var begin = LineBeginIndex(s, index)
-	var end = LineEndIndex(s, index)
+	begin := LineBeginIndex(s, index)
+	end := LineEndIndex(s, index)
 	return s[begin:end]
 } //                                                                 LineOfIndex
 
@@ -518,8 +518,8 @@ func LineOffsetUTF8(data []byte, lineIndex int) (byteOffset, charOffset int) {
 	if lineIndex == 0 {
 		return 0, 0
 	}
-	var end = len(data) - 1
-	var cc = 0 // number of utf8 continuation characters
+	end := len(data) - 1
+	cc := 0 // number of utf8 continuation characters
 	for i, b := range data {
 		byteOffset++
 		if cc > 0 {
@@ -594,13 +594,13 @@ func ReplaceEx1(s, find, repl string, count int, caseMode CaseMode) string {
 	if find == repl || count == 0 {
 		return s // avoid allocation
 	}
-	var sLen = len(s)
-	var findLen = len(find)
+	sLen := len(s)
+	findLen := len(find)
 	//
 	// pre-allocate a buffer (assume each char uses 2 bytes on average)
-	var retBuf = bytes.NewBuffer(make([]byte, 0,
+	retBuf := bytes.NewBuffer(make([]byte, 0,
 		2*int(float64(sLen)/float64(findLen)*float64(len(repl)+1))))
-	var ws = retBuf.WriteString
+	ws := retBuf.WriteString
 	//
 	// lowercase of 's' and 'find' used when caseMode is IgnoreCase
 	var sLw, findLw string
@@ -608,8 +608,8 @@ func ReplaceEx1(s, find, repl string, count int, caseMode CaseMode) string {
 		sLw = strings.ToLower(s)
 		findLw = strings.ToLower(find)
 	}
-	var replRemain = count // number of replacements remaining
-	var pos, prev = 0, 0
+	replRemain := count // number of replacements remaining
+	pos, prev := 0, 0
 	for pos < sLen {
 		// find the next index of 'find' in 's'
 		var i int
@@ -639,7 +639,7 @@ func ReplaceEx1(s, find, repl string, count int, caseMode CaseMode) string {
 
 // ReplaceI replaces 'find' with 'repl' ignoring case.
 func ReplaceI(s, find, repl string, optCount ...int) string {
-	var count = -1
+	count := -1
 	switch n := len(optCount); {
 	case n == 1:
 		count = optCount[0]
@@ -714,12 +714,12 @@ func ReplaceMany(
 	}
 
 	// getBatches __
-	var getBatches = func(finds, repls []string) ([]int, map[int]*batch) {
+	getBatches := func(finds, repls []string) ([]int, map[int]*batch) {
 		var lengths []int
-		var batches = map[int]*batch{}
+		batches := map[int]*batch{}
 		for i, find := range finds {
-			var n = utf8.RuneCountInString(find)
-			var b, has = batches[n]
+			n := utf8.RuneCountInString(find)
+			b, has := batches[n]
 			if !has {
 				batches[n] = &batch{findLen: n}
 				lengths = append(lengths, n)
@@ -736,19 +736,18 @@ func ReplaceMany(
 	}
 
 	// getTree __
-	var getTree = func(finds, repls []string, caseMode CaseMode,
-	) (ret tree) {
+	getTree := func(finds, repls []string, caseMode CaseMode) (ret tree) {
 		ret.sub = make(map[rune]*tree)
 		for f, find := range finds {
-			var i = 0
-			var node = &ret
-			var last = utf8.RuneCountInString(find)
+			i := 0
+			node := &ret
+			last := utf8.RuneCountInString(find)
 			for _, ch := range find {
 				i++ // ^ don't use the index in for, that's a byte index
 				if caseMode == IgnoreCase {
 					ch = unicode.ToLower(ch)
 				}
-				var _, exist = node.sub[ch]
+				_, exist := node.sub[ch]
 				var sub *tree
 				if exist {
 					sub = node.sub[ch]
@@ -767,7 +766,7 @@ func ReplaceMany(
 	}
 
 	// replaceMany __
-	var replaceMany = func(
+	replaceMany := func(
 		s string,
 		finds []string,
 		repls []string,
@@ -775,23 +774,25 @@ func ReplaceMany(
 		caseMode CaseMode,
 		wordMode WordMode,
 	) string {
-		var src = []rune(s)
-		var srcLen = len(src)
-		var root = getTree(finds, repls, caseMode)
-		var node = &root // *tree pointing to current branch
-		var match = 0    // <- number of matching characters
-		var prev = 0
-		var retBuf = bytes.NewBuffer(make([]byte, 0, int(1.5*float64(len(s)))))
-		var ws = retBuf.WriteString
+		var (
+			src    = []rune(s)
+			srcLen = len(src)
+			root   = getTree(finds, repls, caseMode)
+			node   = &root // *tree pointing to current branch
+			match  = 0     // <- number of matching characters
+			prev   = 0
+			retBuf = bytes.NewBuffer(make([]byte, 0, int(1.5*float64(len(s)))))
+			ws     = retBuf.WriteString
+		)
 		for i := 0; i < srcLen; i++ {
-			var ch = src[i]
+			ch := src[i]
 			if caseMode == IgnoreCase {
 				ch = unicode.ToLower(ch)
 			}
 			// check if the character is found under the current branch
 			// if not, reset matching count and start over from root
 			{
-				var sub, found = node.sub[ch]
+				sub, found := node.sub[ch]
 				if !found {
 					node = &root
 					i -= match
@@ -801,7 +802,7 @@ func ReplaceMany(
 				match++
 				node = sub
 			}
-			var findLen = utf8.RuneCountInString(node.find)
+			findLen := utf8.RuneCountInString(node.find)
 			if findLen == 0 || findLen != match {
 				continue
 			}
@@ -838,7 +839,7 @@ func ReplaceMany(
 		//TODO: Use an array instead of bytes.Buffer. See Replace() in library.
 	}
 
-	var run = func() string {
+	run := func() string {
 		// validate arguments
 		const erv = ""
 		if len(finds) != len(repls) {
@@ -856,9 +857,9 @@ func ReplaceMany(
 				"^wordMode", ":", wordMode, "defaulting to 'IgnoreWord'")
 			wordMode = IgnoreWord
 		}
-		var lengths, batches = getBatches(finds, repls)
+		lengths, batches := getBatches(finds, repls)
 		for _, n := range lengths {
-			var b, _ = batches[n]
+			b, _ := batches[n]
 			s = replaceMany(s, b.finds, b.repls, count, caseMode, wordMode)
 		}
 		return s
@@ -876,18 +877,20 @@ func ReplaceWord(s, find, repl string, caseMode CaseMode) string {
 	if find == repl {
 		return s // avoid allocation
 	}
-	var sLen = len(s)
-	var findLen = len(find)
-	var pos = 0
-	var prev = 0
-	var ret = ""
-	var sLw = "" // lowercase of 's' and 'find' when caseMode is IgnoreCase
-	var findLw = ""
+	var (
+		sLen    = len(s)
+		findLen = len(find)
+		pos     = 0
+		prev    = 0
+		ret     = ""
+		sLw     = "" // lowercase of 's' and 'find' when caseMode is IgnoreCase
+		findLw  = ""
+	)
 	if caseMode == IgnoreCase {
 		sLw = strings.ToLower(s)
 		findLw = strings.ToLower(find)
 	}
-	var nonWord = func(ch byte) bool {
+	nonWord := func(ch byte) bool {
 		//TODO: wrongly returns 'false' for non-Latin Unicode letters
 		return !((ch >= '0' && ch <= '9') || ch == '_' ||
 			(ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z'))
@@ -908,17 +911,17 @@ func ReplaceWord(s, find, repl string, caseMode CaseMode) string {
 		}
 		ret += s[prev:pos] // text between words
 		// left word boundary:
-		var c = byte(0)
+		c := byte(0)
 		if pos > 0 {
 			c = s[pos-1]
 		}
-		var onLeft = nonWord(c)
+		onLeft := nonWord(c)
 		// right word boundary:
 		c = 0
 		if pos+findLen < sLen {
 			c = s[pos+findLen]
 		}
-		var onRight = nonWord(c)
+		onRight := nonWord(c)
 		// an isolated word?
 		if onLeft && onRight {
 			ret += repl // append replacement
@@ -933,12 +936,12 @@ func ReplaceWord(s, find, repl string, caseMode CaseMode) string {
 
 // SetPart __ //TODO: describe and create unit test
 func SetPart(s, prefix, suffix, part string) string {
-	var at = strings.Index(s, prefix)
+	at := strings.Index(s, prefix)
 	if at == -1 {
 		return s + prefix + part + suffix
 	}
-	var head = s[:at+len(prefix)]
-	var tail = s[at+len(prefix):]
+	head := s[:at+len(prefix)]
+	tail := s[at+len(prefix):]
 	at = strings.Index(tail, suffix)
 	if at == -1 {
 		tail = suffix
@@ -953,7 +956,7 @@ func SetSlice(s string, start, end int, substr string) string {
 	if start == 0 && end == -1 {
 		return substr
 	}
-	var sLen = len(s)
+	sLen := len(s)
 	if start < 0 || start > sLen {
 		mod.Error(EInvalidArg, "start index:", start)
 		if start < 0 {
@@ -998,7 +1001,7 @@ func ShowSpaces(s string) string {
 
 // SkipChars __
 func SkipChars(s string, start int, chars string) int {
-	var n = len(s)
+	n := len(s)
 	if start >= n {
 		return n
 	}
@@ -1022,11 +1025,11 @@ func SkipChars(s string, start int, chars string) int {
 
 // SkipName __
 func SkipName(s string, start int) int {
-	var n = len(s)
+	n := len(s)
 	if start >= n {
 		return start
 	}
-	var isPrefix = true
+	isPrefix := true
 	for i, a := range s[start:] {
 		if a != '_' && !unicode.IsLetter(a) &&
 			(isPrefix || (!isPrefix && !unicode.IsNumber(a))) {
@@ -1075,14 +1078,17 @@ func Slice(s string, beginIndex, endIndex int) string {
 // quotes of other types, which are treated as normal characters
 // until the substring is closed.
 func SplitQuoted(s string) []string {
-	const BQ = '`'
-	const DQ = '"'
-	const SQ = '\''
-	//
-	var part string
-	var qmode = rune(0) // quote mode
-	var next = false
-	var ret []string
+	const (
+		BQ = '`'
+		DQ = '"'
+		SQ = '\''
+	)
+	var (
+		part  string
+		qmode = rune(0) // quote mode
+		next  = false
+		ret   []string
+	)
 	for _, ch := range s + " " {
 		if ch == BQ && (qmode == BQ || qmode == 0) {
 			// toggle back-quote mode
@@ -1146,7 +1152,7 @@ func String(val interface{}) string {
 		}
 		return "false"
 	case float32, float64:
-		var ret = fmt.Sprintf("%f", val)
+		ret := fmt.Sprintf("%f", val)
 		if strings.Contains(ret, ".") {
 			ret = strings.TrimRight(ret, "0")
 			ret = strings.TrimRight(ret, ".")
@@ -1237,7 +1243,7 @@ func String(val interface{}) string {
 // substring length (charCount). If the length is -1, returns a string
 // of all characters starting from the given index.
 func Substr(s string, charIndex, charCount int) string {
-	var sLen = len(s)
+	sLen := len(s)
 	if charIndex == 0 && sLen == 0 && charCount == 0 {
 		return ""
 	}
@@ -1254,13 +1260,13 @@ func Substr(s string, charIndex, charCount int) string {
 		charCount = sLen - charIndex
 	}
 	var retBuf bytes.Buffer // prepare output buffer with some space reserved
-	var wr = retBuf.WriteRune
+	wr := retBuf.WriteRune
 	if charCount <= -1 {
 		retBuf.Grow(sLen)
 	} else {
 		retBuf.Grow(charCount * 3)
 	}
-	var i = 0
+	i := 0
 	for _, ch := range s {
 		if i >= charIndex {
 			if charCount == -1 {
@@ -1279,9 +1285,9 @@ func Substr(s string, charIndex, charCount int) string {
 
 // TitleCase changes a string to title case.
 func TitleCase(s string) string {
-	var retBuf = bytes.NewBuffer(make([]byte, 0, len(s)))
-	var wr = retBuf.WriteRune
-	var up = true
+	retBuf := bytes.NewBuffer(make([]byte, 0, len(s)))
+	wr := retBuf.WriteRune
+	up := true
 	for _, ch := range s {
 		if up {
 			ch = unicode.ToUpper(ch)
@@ -1301,8 +1307,8 @@ func TokenGet(list string, index int, sep string) string {
 
 // TokenGetEx __
 func TokenGetEx(list string, index int, sep string, ignoreEnd bool) string {
-	var listLen = len(list)
-	var sepLen = len(sep)
+	listLen := len(list)
+	sepLen := len(sep)
 	if sepLen >= listLen {
 		return ""
 	}
@@ -1312,9 +1318,9 @@ func TokenGetEx(list string, index int, sep string, ignoreEnd bool) string {
 		}
 		return ""
 	}
-	var curr = 0
-	var next = strings.Index(list, sep)
-	var i = index
+	curr := 0
+	next := strings.Index(list, sep)
+	i := index
 	for i > 0 {
 		i--
 		if next == -1 {
@@ -1340,7 +1346,7 @@ func TokenGetEx(list string, index int, sep string, ignoreEnd bool) string {
 // or -1 if word is not present in s.
 // Specify MatchCase or IgnoreCase for case mode.
 func WordIndex(s, word string, caseMode CaseMode) int {
-	var wordLen = len(word)
+	wordLen := len(word)
 	if wordLen == 0 {
 		return 0
 	}
@@ -1349,18 +1355,18 @@ func WordIndex(s, word string, caseMode CaseMode) int {
 		s = strings.ToLower(s)
 		word = strings.ToLower(word)
 	}
-	var i = 0
+	i := 0
 	for {
 		{ // find the next index of 'word' in 's'
-			var at = strings.Index(s[i:], word)
+			at := strings.Index(s[i:], word)
 			if at == -1 {
 				break // return -1
 			}
 			i += at
 		}
 		// read the runes to the left and right of word
-		var lr, _ = utf8.DecodeLastRune([]byte(s[:i]))
-		var rr, _ = utf8.DecodeRune([]byte(s[i+wordLen:]))
+		lr, _ := utf8.DecodeLastRune([]byte(s[:i]))
+		rr, _ := utf8.DecodeRune([]byte(s[i+wordLen:]))
 		if lr != '_' && !unicode.IsLetter(lr) && !unicode.IsNumber(lr) &&
 			rr != '_' && !unicode.IsLetter(rr) && !unicode.IsNumber(rr) {
 			return i

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 AAB304                           zr/[logging_test.go]
+// :v: 2019-04-28 17:47:59 9D71DF                           zr/[logging_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -25,7 +25,7 @@ import (
 func Test_logg_CallerList_(t *testing.T) {
 	// test without deep nesting
 	{
-		var ar = CallerList()
+		ar := CallerList()
 		if len(ar) != 1 {
 			t.Error("Expected 1 item in returned slice, but got", len(ar))
 		}
@@ -41,9 +41,9 @@ func Test_logg_CallerList_(t *testing.T) {
 	// test call stack with nested functions
 	{
 		var ar []string
-		var f1 = func() {
-			var f2 = func() {
-				var f3 = func() {
+		f1 := func() {
+			f2 := func() {
+				f3 := func() {
 					ar = CallerList()
 				}
 				f3()
@@ -74,10 +74,10 @@ func Test_logg_CallerList_(t *testing.T) {
 // go test --run Test_logg_NoE_
 func Test_logg_NoE_(t *testing.T) {
 	const check = "xyz"
-	var fn = func() (string, error) {
+	fn := func() (string, error) {
 		return "xyz", fmt.Errorf("error 123")
 	}
-	var s = NoE(fn()).(string)
+	s := NoE(fn()).(string)
 	TTrue(t, s == check)
 } //                                                              Test_logg_NoE_
 

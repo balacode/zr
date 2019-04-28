@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-07-25 23:25:29 23116D                                  zr/[bytes.go]
+// :v: 2019-04-28 17:47:58 1950FD                                  zr/[bytes.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -104,7 +104,7 @@ func (ob *Bytes) GetChar(index int) CharSize {
 		mod.Error(ENilReceiver)
 		return CharSize{}
 	}
-	var r, size = utf8.DecodeRune(ob.ar[index:])
+	r, size := utf8.DecodeRune(ob.ar[index:])
 	return CharSize{Val: r, Size: size}
 } //                                                                     GetChar
 
@@ -151,13 +151,13 @@ func (ob *Bytes) AppendChar(ch rune) int {
 		mod.Error(ENilReceiver)
 		return 0
 	}
-	var size = utf8.RuneLen(ch)
+	size := utf8.RuneLen(ch)
 	if size == -1 {
 		mod.Error("utf8.RuneLen(ch) == -1")
 		return -1
 	}
 	var buf [utf8.UTFMax]byte
-	var ret = utf8.EncodeRune(buf[:], ch)
+	ret := utf8.EncodeRune(buf[:], ch)
 	ob.ar = append(ob.ar, buf[:ret]...)
 	return ret
 } //                                                                  AppendChar
@@ -183,11 +183,11 @@ func (ob *Bytes) Insert(index int, data Bytes, count int) int {
 		mod.Error("Index", index, "out of range; array:", len(ob.ar))
 		return 0
 	}
-	var src = data.ar
+	src := data.ar
 	if count != -1 {
 		src = data.ar[:count]
 	}
-	var srcLen = len(src)
+	srcLen := len(src)
 	if srcLen == 0 {
 		return 0
 	}
@@ -231,15 +231,15 @@ func (ob *Bytes) Resize(size int) {
 		mod.Error(ENilReceiver)
 		return
 	}
-	var current = len(ob.ar)
+	current := len(ob.ar)
 	if size == current {
 		return
 	}
 	if size < current {
 		ob.ar = ob.ar[:size]
 	} else if size > current {
-		var extra = size - current
-		var zeros = bytes.Repeat([]byte{0}, extra)
+		extra := size - current
+		zeros := bytes.Repeat([]byte{0}, extra)
 		ob.ar = append(ob.ar, zeros...)
 	}
 } //                                                                      Resize

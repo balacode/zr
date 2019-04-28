@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 20EFC4                              zr/[bool_test.go]
+// :v: 2019-04-28 17:47:58 F5105C                              zr/[bool_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -28,8 +28,8 @@ func Test_bool_Bool_(t *testing.T) {
 	TBegin(t)
 	// Bool(val interface{}) bool
 	//
-	var test = func(val interface{}, expect bool) {
-		var got = Bool(val)
+	test := func(val interface{}, expect bool) {
+		got := Bool(val)
 		if got != expect {
 			TFailf(t, "Bool(%v) [Type:%v] returned %v instead of %v",
 				val, reflect.TypeOf(val), got, expect)
@@ -42,10 +42,10 @@ func Test_bool_Bool_(t *testing.T) {
 		test(false, false)
 		test(true, true)
 		//
-		var t = true
+		t := true
 		test(&t, true)
 		//
-		var f bool
+		f := false
 		test(&f, false)
 	}
 	{ // strings:
@@ -65,10 +65,10 @@ func Test_bool_Bool_(t *testing.T) {
 		test(" FALSE ", false)
 		test(" False ", false)
 		//
-		var t = "true"
+		t := "true"
 		test(&t, true)
 		//
-		var f = "false"
+		f := "false"
 		test(&f, false)
 	}
 	{ // Stringer
@@ -101,34 +101,34 @@ func Test_bool_Bool_(t *testing.T) {
 		test(int64(1), true)
 		test(int64(-1), true)
 		//
-		var fi = int(0)
+		fi := int(0)
 		test(&fi, false)
 		//
-		var fi8 = int8(0)
+		fi8 := int8(0)
 		test(&fi8, false)
 		//
-		var fi16 = int16(0)
+		fi16 := int16(0)
 		test(&fi16, false)
 		//
-		var fi32 = int32(0)
+		fi32 := int32(0)
 		test(&fi32, false)
 		//
-		var fi64 = int64(0)
+		fi64 := int64(0)
 		test(&fi64, false)
 		//
-		var ti = int(1)
+		ti := int(1)
 		test(&ti, true)
 		//
-		var ti8 = int8(1)
+		ti8 := int8(1)
 		test(&ti8, true)
 		//
-		var ti16 = int16(1)
+		ti16 := int16(1)
 		test(&ti16, true)
 		//
-		var ti32 = int32(1)
+		ti32 := int32(1)
 		test(&ti32, true)
 		//
-		var ti64 = int64(1)
+		ti64 := int64(1)
 		test(&ti64, true)
 	}
 	{ // unsigned integers:
@@ -153,34 +153,34 @@ func Test_bool_Bool_(t *testing.T) {
 		test(uint64(1), true)
 		test(uint64(0xFFFFFFFFFFFFFFFF), true)
 		//
-		var fu = uint(0)
+		fu := uint(0)
 		test(&fu, false)
 		//
-		var fu8 = uint8(0)
+		fu8 := uint8(0)
 		test(&fu8, false)
 		//
-		var fu16 = uint16(0)
+		fu16 := uint16(0)
 		test(&fu16, false)
 		//
-		var fu32 = uint32(0)
+		fu32 := uint32(0)
 		test(&fu32, false)
 		//
-		var fu64 = uint64(0)
+		fu64 := uint64(0)
 		test(&fu64, false)
 		//
-		var tu = uint(1)
+		tu := uint(1)
 		test(&tu, true)
 		//
-		var tu8 = uint8(1)
+		tu8 := uint8(1)
 		test(&tu8, true)
 		//
-		var tu16 = uint16(1)
+		tu16 := uint16(1)
 		test(&tu16, true)
 		//
-		var tu32 = uint32(1)
+		tu32 := uint32(1)
 		test(&tu32, true)
 		//
-		var tu64 = uint64(1)
+		tu64 := uint64(1)
 		test(&tu64, true)
 	}
 	{ // floating-point numbers:
@@ -197,16 +197,16 @@ func Test_bool_Bool_(t *testing.T) {
 		test(float64(1), true)
 		test(float64(math.MaxFloat64), true)
 		//
-		var false32 = float32(0)
+		false32 := float32(0)
 		test(&false32, false)
 		//
-		var false64 = float64(0)
+		false64 := float64(0)
 		test(&false64, false)
 		//
-		var true32 = float32(1)
+		true32 := float32(1)
 		test(&true32, true)
 		//
-		var true64 = float64(1)
+		true64 := float64(1)
 		test(&true64, true)
 	}
 	{ // error conditions
@@ -224,8 +224,8 @@ func Test_bool_IsBool_(t *testing.T) {
 	TBegin(t)
 	// IsBool(val interface{}) bool
 	//
-	var test = func(val interface{}, expect bool) {
-		var got = IsBool(val)
+	test := func(val interface{}, expect bool) {
+		got := IsBool(val)
 		if got != expect {
 			TFailf(t, "Bool(%v) [Type:%v] returned %v instead of %v",
 				val, reflect.TypeOf(val), got, expect)
@@ -238,10 +238,10 @@ func Test_bool_IsBool_(t *testing.T) {
 		test(true, true)
 		test(false, true)
 		//
-		var t = true
+		t := true
 		test(&t, true)
 		//
-		var f bool
+		f := false
 		test(&f, true)
 	}
 	{ // strings:
@@ -258,8 +258,8 @@ func Test_bool_IsBool_(t *testing.T) {
 		test("TRUE", true)
 		test(" true ", true)
 		//
-		var f = "false"
-		var t = "true"
+		f := "false"
+		t := "true"
 		test(&f, true)
 		test(&t, true)
 		//
@@ -302,34 +302,34 @@ func Test_bool_IsBool_(t *testing.T) {
 		test(int64(1), true)
 		test(int64(-1), true)
 		//
-		var fi = int(0)
+		fi := int(0)
 		test(&fi, true)
 		//
-		var fi8 = int8(0)
+		fi8 := int8(0)
 		test(&fi8, true)
 		//
-		var fi16 = int16(0)
+		fi16 := int16(0)
 		test(&fi16, true)
 		//
-		var fi32 = int32(0)
+		fi32 := int32(0)
 		test(&fi32, true)
 		//
-		var fi64 = int64(0)
+		fi64 := int64(0)
 		test(&fi64, true)
 		//
-		var ti = int(1)
+		ti := int(1)
 		test(&ti, true)
 		//
-		var ti8 = int8(1)
+		ti8 := int8(1)
 		test(&ti8, true)
 		//
-		var ti16 = int16(1)
+		ti16 := int16(1)
 		test(&ti16, true)
 		//
-		var ti32 = int32(1)
+		ti32 := int32(1)
 		test(&ti32, true)
 		//
-		var ti64 = int64(1)
+		ti64 := int64(1)
 		test(&ti64, true)
 	}
 	{ // unsigned integers:
@@ -353,39 +353,39 @@ func Test_bool_IsBool_(t *testing.T) {
 		test(uint64(1), true)
 		test(uint64(0xFFFFFFFFFFFFFFFF), true)
 		//
-		var fu = uint(0)
+		fu := uint(0)
 		test(&fu, true)
 		//
-		var fu8 = uint8(0)
+		fu8 := uint8(0)
 		test(&fu8, true)
 		//
-		var fu16 = uint16(0)
+		fu16 := uint16(0)
 		test(&fu16, true)
 		//
-		var fu32 = uint32(0)
+		fu32 := uint32(0)
 		test(&fu32, true)
 		//
-		var fu64 = uint64(0)
+		fu64 := uint64(0)
 		test(&fu64, true)
 		//
-		var tu = uint(1)
+		tu := uint(1)
 		test(&tu, true)
 		//
-		var tu8 = uint8(1)
+		tu8 := uint8(1)
 		test(&tu8, true)
 		//
-		var tu16 = uint16(1)
+		tu16 := uint16(1)
 		test(&tu16, true)
 		//
-		var tu32 = uint32(1)
+		tu32 := uint32(1)
 		test(&tu32, true)
 		//
-		var tu64 = uint64(1)
+		tu64 := uint64(1)
 		test(&tu64, true)
 	}
 	{ // floating-point numbers:
-		var float32ptr = func(n float32) *float32 { return &n }
-		var float64ptr = func(n float64) *float64 { return &n }
+		float32ptr := func(n float32) *float32 { return &n }
+		float64ptr := func(n float64) *float64 { return &n }
 		//
 		test(float32(0), true)
 		test(float32(math.MaxFloat32), true)
@@ -417,8 +417,8 @@ func Test_bool_TrueCount_(t *testing.T) {
 	TBegin(t)
 	// TrueCount(values ...bool) int
 	//
-	var test = func(expect int, values ...bool) {
-		var got = TrueCount(values...)
+	test := func(expect int, values ...bool) {
+		got := TrueCount(values...)
 		if got != expect {
 			t.Errorf("TrueCount(%v) returned %v", values, got)
 		}

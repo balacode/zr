@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 0A62C8                                zr/[go_lang.go]
+// :v: 2019-04-28 17:47:59 E67C36                                zr/[go_lang.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -40,7 +40,7 @@ type GoStringerEx interface {
 // GoName converts a name to a Go language convention name.
 // It removes underscores from names and changes names to 'TitleCase'.
 func GoName(s string) string {
-	var ret = strings.Trim(s, SPACES)
+	ret := strings.Trim(s, SPACES)
 	if len(ret) == 0 {
 		return ""
 	}
@@ -73,8 +73,8 @@ func GoName(s string) string {
 //              to indent the output on multiple lines.
 //
 func GoString(val interface{}, optIndentAt ...int) string {
-	var useGoStringer = true
-	var indentAt = indentPos(optIndentAt)
+	useGoStringer := true
+	indentAt := indentPos(optIndentAt)
 	var buf bytes.Buffer
 	WriteGoString(val, useGoStringer, indentAt, &buf)
 	return buf.String()
@@ -102,12 +102,12 @@ func WriteGoString(
 	buf *bytes.Buffer,
 ) {
 	// write multiple strings to buffer
-	var ws = func(a ...string) {
+	ws := func(a ...string) {
 		for _, s := range a {
 			buf.WriteString(s)
 		}
 	}
-	var writeGoString = func(val interface{}) {
+	writeGoString := func(val interface{}) {
 		WriteGoString(val, useGoStringer, indentAt, buf)
 	}
 	if val == nil {
@@ -124,8 +124,8 @@ func WriteGoString(
 			return
 		}
 	}
-	var v = reflect.ValueOf(val)
-	var t = reflect.TypeOf(val)
+	v := reflect.ValueOf(val)
+	t := reflect.TypeOf(val)
 	switch v.Kind() {
 	case reflect.Bool:
 		if v.Bool() {
@@ -158,7 +158,7 @@ func WriteGoString(
 		// since MapKeys are returned in no specific order,
 		// append each key-value in map to a string array
 		// then sort it to ensure the result is consistent
-		var lines = make([]string, 0, v.Len())
+		lines := make([]string, 0, v.Len())
 		for _, key := range v.MapKeys() {
 			lines = append(lines,
 				TabSpace+GoString(key.Interface())+": "+
@@ -177,7 +177,7 @@ func WriteGoString(
 		return
 	case reflect.Slice:
 		ws(t.String(), "{")
-		var manyLines = v.Len() > 0 && v.Index(0).Kind() == reflect.Slice
+		manyLines := v.Len() > 0 && v.Index(0).Kind() == reflect.Slice
 		for i, n := 0, v.Len(); i < n; i++ {
 			if i > 0 {
 				ws(",")
@@ -229,8 +229,8 @@ func WriteGoString(
 
 // indentPos helps to read the indent position from the optinal argument
 func indentPos(optIndentAt []int) int {
-	var ret = -1
-	var n = len(optIndentAt)
+	ret := -1
+	n := len(optIndentAt)
 	switch {
 	case n == 1:
 		ret = optIndentAt[0]

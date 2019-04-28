@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 1618E7                                zr/[logging.go]
+// :v: 2019-04-28 17:52:51 DDC11E                                zr/[logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -214,22 +214,22 @@ func Assert(expect bool) bool {
 // Base64ErrorDetails __
 func Base64ErrorDetails(err error, data string) {
 	const atInputByte = " at input byte "
-	var errStr = err.Error()
+	errStr := err.Error()
 	if !strings.Contains(errStr, atInputByte) {
 		return
 	}
-	var at = strings.Index(errStr, atInputByte)
+	at := strings.Index(errStr, atInputByte)
 	at = Int(errStr[at+len(atInputByte):])
-	var from = at - 10
+	from := at - 10
 	if from < 0 {
 		from = 0
 	}
-	var to = at + 10
+	to := at + 10
 	if to > (len(data) - 1) {
 		to = (len(data) - 1)
 	}
 	for i := from; i <= to; i++ {
-		var isAt = " "
+		isAt := " "
 		if i == at {
 			isAt = "*"
 		}
@@ -246,11 +246,12 @@ func Base64ErrorDetails(err error, data string) {
 // and other top-level callers are not included.
 func CallerList() []string {
 	var ret []string
-	var i = 0
+	i := 0
 	for {
 		i++
-		var programCounter, filename, lineNo, _ = runtime.Caller(i)
-		var funcName = runtime.FuncForPC(programCounter).Name()
+		programCounter, filename, lineNo, _ := runtime.Caller(i)
+		funcName := runtime.FuncForPC(programCounter).Name()
+		//
 		// end loop on reaching a top-level runtime function
 		if funcName == "" ||
 			funcName == "runtime.goexit" ||
@@ -306,7 +307,7 @@ func CallerList() []string {
 // and so on. For brevity, 'runtime.*' and 'syscall.*' etc.
 // top-level callers are not included.
 func Callers(options ...interface{}) string {
-	var minDepth, maxDepth = -1, -1
+	minDepth, maxDepth := -1, -1
 	for _, opt := range options {
 		switch val := opt.(type) {
 		case HideCallers:
@@ -320,11 +321,12 @@ func Callers(options ...interface{}) string {
 	if maxDepth == 0 {
 		return ""
 	}
-	var retBuf = bytes.NewBuffer(make([]byte, 0, 1024))
-	var ws = retBuf.WriteString
+	retBuf := bytes.NewBuffer(make([]byte, 0, 1024))
+	ws := retBuf.WriteString
 	for i, depth := 0, 0; ; i++ {
-		var programCounter, filename, lineNo, _ = runtime.Caller(i)
-		var funcName = runtime.FuncForPC(programCounter).Name()
+		programCounter, filename, lineNo, _ := runtime.Caller(i)
+		funcName := runtime.FuncForPC(programCounter).Name()
+		//
 		// end loop on reaching a top-level runtime function
 		if funcName == "" ||
 			funcName == "runtime.goexit" ||
@@ -389,7 +391,7 @@ func Error(args ...interface{}) error {
 	if len(args) == 0 {
 		return nil
 	}
-	var msg = joinArgs("ERR: ", args...)
+	msg := joinArgs("ERR: ", args...)
 	lastLogMessage = msg
 	if !disableErrors {
 		logAsync(msg + Callers(args...))
@@ -399,8 +401,8 @@ func Error(args ...interface{}) error {
 
 // FuncName returns the function name of the caller.
 func FuncName(callDepth int) string {
-	var programCounter, _, _, _ = runtime.Caller(callDepth)
-	var funcName = runtime.FuncForPC(programCounter).Name()
+	programCounter, _, _, _ := runtime.Caller(callDepth)
+	funcName := runtime.FuncForPC(programCounter).Name()
 	return funcName
 } //                                                                    FuncName
 
@@ -430,7 +432,7 @@ func IMPLEMENT(args ...interface{}) {
 
 // LineNo returns the line number of the caller.
 func LineNo(callDepth int) int {
-	var _, _, lineNo, _ = runtime.Caller(callDepth)
+	_, _, lineNo, _ := runtime.Caller(callDepth)
 	return lineNo
 } //                                                                      LineNo
 
@@ -453,7 +455,7 @@ func Logf(format string, args ...interface{}) {
 // NoE strips the error result from a function returning
 // a value and an error. Cast the result to the correct type.
 // For example:
-// Eg. var data = NoE(ioutil.ReadFile(sourceFile)).([]byte)
+// Eg. data := NoE(ioutil.ReadFile(sourceFile)).([]byte)
 func NoE(any interface{}, err error) interface{} {
 	return any
 } //                                                                        NoE
@@ -475,7 +477,7 @@ func OBSOLETE(args ...interface{}) {
 	if !DebugMode() {
 		return
 	}
-	var funcName, calledBy = FuncName(2), FuncName(3)
+	funcName, calledBy := FuncName(2), FuncName(3)
 	if strings.HasSuffix(funcName, "OLD") &&
 		strings.HasSuffix(calledBy, "OLD") {
 		return
@@ -502,11 +504,11 @@ func PrintfAsync(format string, args ...interface{}) {
 func TM(messages ...string) {
 	var callLoc string
 	{
-		var buf = bytes.NewBuffer(make([]byte, 0, 128))
-		var ws = buf.WriteString
+		buf := bytes.NewBuffer(make([]byte, 0, 128))
+		ws := buf.WriteString
 		for i := 1; i <= 4; i++ {
-			var programCounter, _, _, _ = runtime.Caller(i)
-			var funcName = runtime.FuncForPC(programCounter).Name()
+			programCounter, _, _, _ := runtime.Caller(i)
+			funcName := runtime.FuncForPC(programCounter).Name()
 			ws("|")
 			ws(funcName)
 		}
@@ -515,13 +517,13 @@ func TM(messages ...string) {
 	if timings == nil {
 		timings = make(map[string]time.Time, 20)
 	}
-	var messagesLen = len(messages)
+	messagesLen := len(messages)
 	switch {
 	case messagesLen == 0 || (messagesLen == 1 && messages[0] == ""):
 		timings[callLoc] = time.Now()
 		return
 	case messagesLen == 1:
-		var now = time.Now()
+		now := time.Now()
 		fmt.Printf("TM % 8.2f ms: %s"+LB,
 			float32(now.Sub(timings[callLoc]).Nanoseconds())/1000000,
 			messages[0])
@@ -540,7 +542,7 @@ func VerboseLog(args ...interface{}) {
 	if !verboseMode {
 		return
 	}
-	var msg = fmt.Sprint(args...)
+	msg := fmt.Sprint(args...)
 	logAsync(msg)
 } //                                                                  VerboseLog
 
@@ -611,14 +613,16 @@ func formatArgs(format string, args ...interface{}) string {
 // and the next argument is quoted in the same way.
 func joinArgs(prefix string, args ...interface{}) string {
 	args = removeLogOptions(args)
-	var quoteNext bool
-	var lastChar byte
-	var retBuf bytes.Buffer
-	var ws = retBuf.WriteString
+	var (
+		quoteNext bool
+		lastChar  byte
+		retBuf    bytes.Buffer
+	)
+	ws := retBuf.WriteString
 	ws(prefix)
 	for i, arg := range args {
-		var s = fmt.Sprint(arg)
-		var firstChar = byte(0)
+		s := fmt.Sprint(arg)
+		firstChar := byte(0)
 		if len(s) > 0 {
 			firstChar = s[0]
 		}
@@ -628,7 +632,7 @@ func joinArgs(prefix string, args ...interface{}) string {
 			firstChar != ':' {
 			ws(" ")
 		}
-		var q = quoteNext
+		q := quoteNext
 		if strings.HasPrefix(s, "^") {
 			q = true
 			s = s[1:]
@@ -675,10 +679,10 @@ func logAsync(message string) {
 // running logLoopAsync() only stops when the main() function exists.
 func logLoopAsync() {
 	for {
-		var t = <-logChan
+		t := <-logChan
 		logMutex.Lock()
 		logSN++
-		var msg = t.msg
+		msg := t.msg
 		lastLogMessage = msg
 		lastLogTime = t.logTime
 		if !disableErrors {

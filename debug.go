@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 E5523C                                  zr/[debug.go]
+// :v: 2019-04-28 17:47:59 670F58                                  zr/[debug.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -25,9 +25,9 @@ func ConsumeGB(gigabytes float64) {
 		ByteSizeString(int64(mem.HeapSys), false))
 	{
 		fmt.Printf("allocating and filling %0.1f GB"+LB, gigabytes)
-		var max = int64(gigabytes * 1024 * 1024 * 1024)
-		var big = make([]byte, max)
-		var b = byte(0)
+		max := int64(gigabytes * 1024 * 1024 * 1024)
+		big := make([]byte, max)
+		b := byte(0)
 		for i := int64(0); i < max; i++ {
 			big[i] = b
 			b++
@@ -63,8 +63,8 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 		mod.Error(EInvalidArg, "optIndentAt", ":", optIndentAt)
 	}
 	var retBuf bytes.Buffer
-	var wr = retBuf.WriteRune
-	var ws = retBuf.WriteString
+	wr := retBuf.WriteRune
+	ws := retBuf.WriteString
 	switch val := val.(type) {
 	// nil:
 	case nil:
@@ -93,8 +93,8 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 	//
 	// string types:
 	case string:
-		var vals = []rune{'\a', '\b', '\f', '\n', '\r', 't', '\v'}
-		var chars = []rune{'a', 'b', 'f', 'n', 'r', 't', 'v'}
+		vals := []rune{'\a', '\b', '\f', '\n', '\r', 't', '\v'}
+		chars := []rune{'a', 'b', 'f', 'n', 'r', 't', 'v'}
 	mainLoop:
 		for _, ch := range val {
 			for i, cc := range vals {
@@ -112,7 +112,7 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 		}
 	case []string:
 		ws(fmt.Sprintf("[%d] ", len(val)))
-		var isMany = len(val) > 1
+		isMany := len(val) > 1
 		for i, val := range val {
 			if isMany {
 				ws(LF)
@@ -123,13 +123,13 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 		}
 	case [][]string:
 		ws(fmt.Sprintf("[%d] ", len(val)))
-		var isMany1 = len(val) > 1
+		isMany1 := len(val) > 1
 		for i1, val := range val { // range [][]string
 			if isMany1 {
 				ws(LF)
 				ws(strings.Repeat(TabSpace, indentAt+1))
 			}
-			var isMany2 = len(val) > 1
+			isMany2 := len(val) > 1
 			ws(fmt.Sprintf("%d: [%d]", i1, len(val)))
 			for i2, val := range val { // range []string
 				if isMany2 {
@@ -145,8 +145,8 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 
 	default:
 		//TODO: remove this code later
-		var a = fmt.Sprintf("%v", val)
-		var b = fmt.Sprint(val)
+		a := fmt.Sprintf("%v", val)
+		b := fmt.Sprint(val)
 		if a != b {
 			fmt.Printf("Sprintf->%q Sprint->%q %s", a, b, Callers())
 		}
@@ -169,8 +169,8 @@ func DV(label string, values ...interface{}) {
 	}
 	fmt.Print(label)
 	for _, val := range values {
-		var typeName = "<" + reflect.TypeOf(val).String() + ">"
-		var changeType = func(find, repl string) {
+		typeName := "<" + reflect.TypeOf(val).String() + ">"
+		changeType := func(find, repl string) {
 			for strings.Contains(typeName, find) {
 				typeName = strings.Replace(typeName, find, repl, -1)
 			}

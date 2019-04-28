@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 EEC067                         zr/[string_aligner.go]
+// :v: 2019-04-28 17:47:59 E355F0                         zr/[string_aligner.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -50,8 +50,8 @@ func (ob *StringAligner) WriteBreak() {
 // String outputs the previously-written rows with columns aligned by spaces
 // and implements the Stringer interface.
 func (ob *StringAligner) String() string {
-	var retBuf = bytes.NewBuffer(make([]byte, 0, 1024))
-	var ws = retBuf.WriteString
+	retBuf := bytes.NewBuffer(make([]byte, 0, 1024))
+	ws := retBuf.WriteString
 	for i, row := range ob.Values {
 		if i > 0 {
 			ws(LB)
@@ -62,7 +62,7 @@ func (ob *StringAligner) String() string {
 		for i, col := range row {
 			ws(col)
 			if i < len(row)-1 {
-				var spaces = ob.Width[i] - len(col) + ob.Padding
+				spaces := ob.Width[i] - len(col) + ob.Padding
 				if spaces > 0 {
 					ws(strings.Repeat(" ", spaces))
 				}

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 724B5F                           zr/[reflect_test.go]
+// :v: 2019-04-28 17:47:59 8D95B3                           zr/[reflect_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -20,7 +20,7 @@ import (
 
 // go test --run Test_refl_IndexSliceStructValue_
 func Test_refl_IndexSliceStructValue_(t *testing.T) {
-	var slice = []struct {
+	slice := []struct {
 		A string
 		B string
 	}{
@@ -31,7 +31,7 @@ func Test_refl_IndexSliceStructValue_(t *testing.T) {
 	DisableErrors()
 	// passing a nil input returns -1 and an error
 	{
-		var got, err = IndexSliceStructValue(nil, "A", nil)
+		got, err := IndexSliceStructValue(nil, "A", nil)
 		if err == nil {
 			t.Error("check", 1, "unexpectedly returned nil error.")
 		}
@@ -41,7 +41,7 @@ func Test_refl_IndexSliceStructValue_(t *testing.T) {
 	}
 	// passing a zero-length fieldName returns -1 and an error
 	{
-		var got, err = IndexSliceStructValue(slice, "", nil)
+		got, err := IndexSliceStructValue(slice, "", nil)
 		if err == nil {
 			t.Error("check", 2, "unexpectedly returned nil error.")
 		}
@@ -51,7 +51,7 @@ func Test_refl_IndexSliceStructValue_(t *testing.T) {
 	}
 	// passing a nil checker() returns -1 and an error
 	{
-		var got, err = IndexSliceStructValue(slice, "A", nil)
+		got, err := IndexSliceStructValue(slice, "A", nil)
 		if err == nil {
 			t.Error("check", 3, "unexpectedly returned nil error.")
 		}
@@ -62,7 +62,7 @@ func Test_refl_IndexSliceStructValue_(t *testing.T) {
 	EnableErrors()
 	//
 	// check if function returns expected results
-	var tests = []struct {
+	tests := []struct {
 		fieldName string
 		find      string
 		index     int
@@ -79,12 +79,12 @@ func Test_refl_IndexSliceStructValue_(t *testing.T) {
 	}
 	for i, test := range tests {
 		var callCount int
-		var checker = func(value interface{}) bool {
+		checker := func(value interface{}) bool {
 			callCount++
-			var s, _ = value.(string)
+			s, _ := value.(string)
 			return s == test.find
 		}
-		var got, err = IndexSliceStructValue(slice, test.fieldName, checker)
+		got, err := IndexSliceStructValue(slice, test.fieldName, checker)
 		if err != nil {
 			t.Error("subtest:", i, "unexpectedly returned error:", err)
 		}

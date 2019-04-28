@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 917B69                             zr/[dates_test.go]
+// :v: 2019-04-28 17:47:59 9FAD7A                             zr/[dates_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -43,9 +43,9 @@ func Test_date_DateRangeString_(t *testing.T) {
 	TBegin(t)
 	//TODO: declaration comment
 	//
-	var fr = time.Date(1900, time.January, 1, 1, 0, 0, 0, time.UTC)
-	var to = time.Date(9999, time.December, 31, 23, 59, 59, 0, time.UTC)
-	var rg = DateRange{From: fr, To: to}
+	fr := time.Date(1900, time.January, 1, 1, 0, 0, 0, time.UTC)
+	to := time.Date(9999, time.December, 31, 23, 59, 59, 0, time.UTC)
+	rg := DateRange{From: fr, To: to}
 	TEqual(t, rg.String(), ("1900-01-01 9999-12-31"))
 } //                                                  Test_date_DateRangeString_
 
@@ -57,8 +57,8 @@ func Test_date_DateOf_(t *testing.T) {
 	TBegin(t)
 	//TODO: declaration comment
 	//
-	var test = func(input interface{}, expect string) {
-		var got = DateOf(input)
+	test := func(input interface{}, expect string) {
+		got := DateOf(input)
 		TEqual(t, got.String(), (expect))
 	}
 	DisableErrors()
@@ -76,24 +76,24 @@ func Test_date_DateRangeOf_(t *testing.T) {
 	//
 	// useful for manual debugging: (keep condition false):
 	if false {
-		var s = "Oct23"
-		var rng = DateRangeOf(s)
+		s := "Oct23"
+		rng := DateRangeOf(s)
 		fmt.Printf(LB+LB+LB+"DateRangeOf(%q) -> %q"+LB+LB+LB,
 			s, rng.String())
 		return
 	}
 	if false {
-		var s = "January2"
-		var dt, err = time.Parse(s, s)
+		s := "January2"
+		dt, err := time.Parse(s, s)
 		fmt.Printf("s:%s dt:%v err:%v", s, dt, err)
 		return
 	}
-	var test = func(input, expect string) {
+	test := func(input, expect string) {
 		TEqual(t, DateRangeOf(input).String(), (expect))
 	}
 	// replaces 'yyyy' with current year
-	var thisYear = func(s string) string {
-		var year = String(int(time.Now().Year()))
+	thisYear := func(s string) string {
+		year := String(int(time.Now().Year()))
 		return strings.Replace(s, "yyyy", year, -1)
 	}
 	// month only
@@ -293,8 +293,8 @@ func Test_date_IsDate_(t *testing.T) {
 	TBegin(t)
 	// IsDate(val interface{}) bool
 	//
-	var test = func(val interface{}, expect bool) {
-		var got = IsDate(val)
+	test := func(val interface{}, expect bool) {
+		got := IsDate(val)
 		if got != expect {
 			t.Errorf("IsDate(%s) returned %v instead of %v",
 				val, got, expect)
@@ -324,8 +324,8 @@ func Test_date_ParseDate_(t *testing.T) {
 	TBegin(t)
 	//TODO: declaration comment
 	//
-	var test = func(input string, expectY, expectM, expectD int) {
-		var y, m, d = ParseDate(input)
+	test := func(input string, expectY, expectM, expectD int) {
+		y, m, d := ParseDate(input)
 		if y != expectY || m != expectM || d != expectD {
 			t.Errorf("ParseDate(%q)"+
 				" returned (%d %d %d) instead of (%d %d %d)",
@@ -393,8 +393,8 @@ func Test_date_StringDateDMY_(t *testing.T) {
 	TBegin(t)
 	//TODO: declaration comment
 	//
-	var test = func(input, expect string) {
-		var got = StringDateDMY(input)
+	test := func(input, expect string) {
+		got := StringDateDMY(input)
 		if got != expect {
 			t.Errorf("StringDateDMY(%q) returned %q instead of %q",
 				input, got, expect)
@@ -410,8 +410,8 @@ func Test_date_StringDateYMD_(t *testing.T) {
 	TBegin(t)
 	//TODO: declaration comment
 	//
-	var test = func(input, expect string) {
-		var got = StringDateYMD(input)
+	test := func(input, expect string) {
+		got := StringDateYMD(input)
 		if got != expect {
 			t.Errorf("StringDateYMD(%q) returned %q instead of %q",
 				input, got, expect)
@@ -427,7 +427,7 @@ func Test_date_Timestamp_(t *testing.T) {
 	TBegin(t)
 	//TODO: declaration comment
 	//
-	var s = Timestamp()
+	s := Timestamp()
 	// Expected format: YYYY-MM-DD hh:mm:ss
 	//                  0123456789012345678
 	TTrue(t, len(s) == 19)

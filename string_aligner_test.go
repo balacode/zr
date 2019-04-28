@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-19 20:29:26 9CC10A                    zr/[string_aligner_test.go]
+// :v: 2019-04-28 17:47:59 77FB28                    zr/[string_aligner_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -35,7 +35,7 @@ func Test_stra_StringAligner_(t *testing.T) {
 		ob.Write("A", "B", "C")
 		ob.Write("AA", "BB", "CC")
 		ob.Write("AAAA", "BBBB", "CCCC", "DDDD")
-		var result = ob.String()
+		result := ob.String()
 		const expect = "" +
 			"AAA BBB" + LB +
 			"A   B   C" + LB +
@@ -54,7 +54,7 @@ func Test_stra_StringAligner_(t *testing.T) {
 		ob.Write("A", "B", "C")
 		ob.Write("AA", "BB", "CC")
 		ob.Write("AAAA", "BBBB", "CCCC", "DDDD")
-		var result = ob.String()
+		result := ob.String()
 		const expect = "" +
 			"AAA   BBB" + LB +
 			"A     B     C" + LB +

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:50:50 303C27                          zr/[currency_test.go]
+// :v: 2019-04-28 17:52:51 479A52                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -108,8 +108,8 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 	// CurrencyOf(val interface{}) Currency
 	//
 	const cur4d = 10000 // reserved 4 decimal places
-	var test = func(input interface{}, expect Currency) {
-		var got = CurrencyOf(input)
+	test := func(input interface{}, expect Currency) {
+		got := CurrencyOf(input)
 		if got.val != expect.val {
 			TFailf(t, `CurrencyOf(%v) returned %v instead of %v`,
 				input, got, expect)
@@ -130,7 +130,7 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 	{
 		var ts TStringer
 		ts.Set("922337203685476")
-		var stringer = fmt.Stringer(ts)
+		stringer := fmt.Stringer(ts)
 		test(stringer, Currency{922337203685476 * cur4d})
 	}
 	{
@@ -189,119 +189,119 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 	//
 	// integer pointers
 	{
-		var n = int(-123456)
+		n := int(-123456)
 		test(&n, Currency{-(123456 * cur4d)})
 	}
 	{
-		var n = int8(math.MaxInt8)
+		n := int8(math.MaxInt8)
 		test(&n, Currency{127 * cur4d})
 	}
 	{
-		var n = int8(math.MinInt8)
+		n := int8(math.MinInt8)
 		test(&n, Currency{-128 * cur4d})
 	}
 	{
-		var n = int16(math.MaxInt16)
+		n := int16(math.MaxInt16)
 		test(&n, Currency{32767 * cur4d})
 	}
 	{
-		var n = int16(math.MinInt16)
+		n := int16(math.MinInt16)
 		test(&n, Currency{-32768 * cur4d})
 	}
 	{
-		var n = int32(math.MaxInt32)
+		n := int32(math.MaxInt32)
 		test(&n, Currency{2147483647 * cur4d})
 	}
 	{
-		var n = int32(math.MinInt32)
+		n := int32(math.MinInt32)
 		test(&n, Currency{-2147483648 * cur4d})
 	}
 	{
-		var n = int64(922337203685476)
+		n := int64(922337203685476)
 		test(&n, Currency{922337203685476 * cur4d})
 	}
 	{
-		var n = int64(-922337203685476)
+		n := int64(-922337203685476)
 		test(&n, Currency{-922337203685476 * cur4d})
 	}
 	// unsigned integer pointers
 	{
-		var n = uint(123456)
+		n := uint(123456)
 		test(&n, Currency{123456 * cur4d})
 	}
 	{
-		var n = uint8(math.MaxUint8)
+		n := uint8(math.MaxUint8)
 		test(&n, Currency{255 * cur4d})
 	}
 	{
-		var n = uint8(0)
+		n := uint8(0)
 		test(&n, Currency{0})
 	}
 	{
-		var n = uint16(math.MaxUint16)
+		n := uint16(math.MaxUint16)
 		test(&n, Currency{65535 * cur4d})
 	}
 	{
-		var n = uint16(0)
+		n := uint16(0)
 		test(&n, Currency{0})
 	}
 	{
-		var n = uint32(math.MaxUint32)
+		n := uint32(math.MaxUint32)
 		test(&n, Currency{4294967295 * cur4d})
 	}
 	{
-		var n = uint32(0)
+		n := uint32(0)
 		test(&n, Currency{0})
 	}
 	// pointers to floating-point numbers
 	{
-		var n = float32(1000)
+		n := float32(1000)
 		test(&n, Currency{1000 * cur4d})
 	}
 	{
-		var n = float32(1234.5)
+		n := float32(1234.5)
 		test(&n, Currency{1234.5 * cur4d})
 	}
 	{
-		var n = float64(1000)
+		n := float64(1000)
 		test(&n, Currency{1000 * cur4d})
 	}
 	{
-		var n = float64(12345.6789)
+		n := float64(12345.6789)
 		test(&n, Currency{12345.6789 * cur4d})
 	}
 	// pointer to string
 	{
-		var s = "922337203685476"
+		s := "922337203685476"
 		test(&s, Currency{922337203685476 * cur4d})
 	}
 	{
-		var s = "-922337203685476"
+		s := "-922337203685476"
 		test(&s, Currency{-922337203685476 * cur4d})
 	}
 	// test conditions that generate errors:
 	DisableErrors()
 	// non-numeric string
 	{
-		var ec1 = GetErrorCount()
+		ec1 := GetErrorCount()
 		test("abc", Currency{})
-		var ec2 = GetErrorCount()
+		ec2 := GetErrorCount()
 		if ec2 != ec1+1 {
 			TFail(t, `Expected 1 error, but got `, ec2-ec1)
 		}
 	}
 	// wrong type
 	{
-		var ec1 = GetErrorCount()
+		ec1 := GetErrorCount()
 		test(true, Currency{})
-		var ec2 = GetErrorCount()
+		ec2 := GetErrorCount()
 		if ec2 != ec1+1 {
 			TFail(t, `Expected 1 error, but got `, ec2-ec1)
 		}
 	}
 	// overflow
 	{
-		var ec1 = GetErrorCount()
+		ec1 := GetErrorCount()
 		//
 		// large floating-point numbers
 		test(float32(-10e20), Currency{math.MinInt64})
@@ -312,22 +312,22 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 		// max int64
 		test(int64(math.MaxInt64), Currency{math.MaxInt64})
 		{
-			var n = int64(math.MaxInt64)
+			n := int64(math.MaxInt64)
 			test(&n, Currency{math.MaxInt64})
 		}
 		// min int64
 		test(int64(math.MinInt64), Currency{math.MinInt64})
 		{
-			var n = int64(math.MinInt64)
+			n := int64(math.MinInt64)
 			test(&n, Currency{math.MinInt64})
 		}
 		// max uint64
 		test(uint64(math.MaxUint64), Currency{math.MaxInt64})
 		{
-			var n = uint64(math.MaxUint64)
+			n := uint64(math.MaxUint64)
 			test(&n, Currency{math.MaxInt64})
 		}
-		var ec2 = GetErrorCount()
+		ec2 := GetErrorCount()
 		if ec2 != ec1+10 {
 			TFail(t, `Expected 10 errors, but got `, ec2-ec1)
 		}
@@ -343,9 +343,9 @@ func Test_crcy_Currency_Fmt_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) Fmt(decimalPlaces int) string
 	//
-	var test = func(input interface{}, decimalPlaces int, expect string) {
-		var n = cur(input)
-		var got = n.Fmt(decimalPlaces)
+	test := func(input interface{}, decimalPlaces int, expect string) {
+		n := cur(input)
+		got := n.Fmt(decimalPlaces)
 		if got != expect {
 			TFailf(t, `Currency(%s).Fmt(%v) returned %q instead of %q`,
 				n, decimalPlaces, got, expect)
@@ -429,8 +429,8 @@ func Test_crcy_Currency_Fmt_(t *testing.T) {
 // go test --run Test_crcy_Currency_InWordsEN_
 func Test_crcy_Currency_InWordsEN_(t *testing.T) {
 	// (ob Currency) InWordsEN(fmt string) string
-	var test = func(ob Currency, fmt, expect string) {
-		var got = ob.InWordsEN(fmt)
+	test := func(ob Currency, fmt, expect string) {
+		got := ob.InWordsEN(fmt)
 		if got != expect {
 			TFail(t,
 				`Currency(`+ob.String()+`).Fmt("`+fmt+`")`+
@@ -528,9 +528,9 @@ func Test_crcy_Currency_String_(t *testing.T) {
 		{Currency{math.MinInt64}, "-922337203685477.5808"},
 		{Currency{math.MaxInt64}, "922337203685477.5807"},
 	} {
-		var input = test.input
-		var init = input
-		var got = input.String()
+		input := test.input
+		init := input
+		got := input.String()
 		if got != test.expect {
 			TFail(t,
 				`#`, i, ` (`, input, `).String()`,
@@ -551,11 +551,11 @@ func Test_crcy_Currency_Div_(t *testing.T) {
 	TBegin(t)
 	// func (ob Currency) Div(divide ...Currency) Currency
 	//
-	var test = func(ob Currency, divide []Currency, expect Currency) {
-		var init = ob
+	test := func(ob Currency, divide []Currency, expect Currency) {
+		init := ob
 		for _, n := range divide {
-			var old = ob
-			var got = ob.Div(n)
+			old := ob
+			got := ob.Div(n)
 			// object of invoked method must not change
 			if ob.val != old.val {
 				TFail(t, `(`, init, `) mutated from `, old, ` to `, ob)
@@ -578,7 +578,7 @@ func Test_crcy_Currency_DivFloat_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) DivFloat(divide ...float64) Currency
 	//
-	var test = func(ob Currency, divide []float64, expect Currency) {
+	test := func(ob Currency, divide []float64, expect Currency) {
 		curFloatOpTest(t, "DivFloat", ob.DivFloat, ob, divide, expect, 0)
 	}
 	//           12345.6789 / 1.0  =            12345.6789
@@ -591,7 +591,7 @@ func Test_crcy_Currency_DivFloat_(t *testing.T) {
 // go test --run Test_crcy_Currency_DivInt_
 func Test_crcy_Currency_DivInt_(t *testing.T) {
 	// (ob Currency) DivInt(divide ...int) Currency
-	var test = func(ob Currency, divide []int, expect Currency) {
+	test := func(ob Currency, divide []int, expect Currency) {
 		curIntOpTest(t, "DivInt", ob.DivInt, ob, divide, expect, 0)
 	}
 	TBegin(t)
@@ -612,7 +612,7 @@ func Test_crcy_Currency_Mul_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) Mul(multiply ...Currency) Currency
 	//
-	var test = func(ob Currency, multiply []Currency, expect Currency) {
+	test := func(ob Currency, multiply []Currency, expect Currency) {
 		curOpTest(t, "Mul", ob.Mul, ob, multiply, expect, 0)
 	}
 	test(cur(0), arC(0), cur(0))
@@ -656,7 +656,7 @@ func Test_crcy_Currency_MulFloat_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) MulFloat(multiply ...float64) Currency
 	//
-	var test = func(ob Currency, add []float64, expect Currency) {
+	test := func(ob Currency, add []float64, expect Currency) {
 		curFloatOpTest(t, "MulFloat", ob.MulFloat, ob, add, expect, 0)
 	}
 	//            0   *   1.0   =        0
@@ -702,7 +702,7 @@ func Test_crcy_Currency_MulFloat_(t *testing.T) {
 // go test --run Test_crcy_Currency_MulInt_
 func Test_crcy_Currency_MulInt_(t *testing.T) {
 	// (ob Currency) MulInt(multiply ...int) Currency
-	var test = func(ob Currency, multiply []int, expect Currency) {
+	test := func(ob Currency, multiply []int, expect Currency) {
 		curIntOpTest(t, "MulInt", ob.MulInt, ob, multiply, expect, 0)
 	}
 	//            0   *   1   =        0
@@ -729,7 +729,7 @@ func Test_crcy_Currency_Add_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) Add(add ...Currency) Currency
 	//
-	var test = func(ob Currency, add []Currency, expect Currency) {
+	test := func(ob Currency, add []Currency, expect Currency) {
 		curOpTest(t, "Add", ob.Add, ob, add, expect, 0)
 	}
 	// test additions within range of Currency:
@@ -835,7 +835,7 @@ func Test_crcy_Currency_AddFloat_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) AddFloat(add ...float64) Currency
 	//
-	var test = func(ob Currency, add []float64, expect Currency) {
+	test := func(ob Currency, add []float64, expect Currency) {
 		curFloatOpTest(t, "AddFloat", ob.AddFloat, ob, add, expect, 0)
 	}
 	test(cur(0), arF(0), cur(0))
@@ -856,7 +856,7 @@ func Test_crcy_Currency_AddFloat_(t *testing.T) {
 // go test --run Test_crcy_Currency_AddInt_
 func Test_crcy_Currency_AddInt_(t *testing.T) {
 	// (ob Currency) AddInt(add ...int) Currency
-	var test = func(ob Currency, add []int, expect Currency) {
+	test := func(ob Currency, add []int, expect Currency) {
 		curIntOpTest(t, "AddInt", ob.AddInt, ob, add, expect, 0)
 	}
 	test(cur(0), arI(0), cur(0))
@@ -870,7 +870,7 @@ func Test_crcy_Currency_Sub_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) Sub(subtract ...Currency) Currency
 	//
-	var test = func(ob Currency, subtract []Currency, expect Currency) {
+	test := func(ob Currency, subtract []Currency, expect Currency) {
 		curOpTest(t, "Sub", ob.Sub, ob, subtract, expect, 0)
 	}
 	//
@@ -981,7 +981,7 @@ func Test_crcy_Currency_SubFloat_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) SubFloat(subtract ...float64) Currency
 	//
-	var test = func(ob Currency, subtract []float64, expect Currency) {
+	test := func(ob Currency, subtract []float64, expect Currency) {
 		curFloatOpTest(t, "SubFloat", ob.SubFloat, ob, subtract, expect, 0)
 	}
 	test(cur(0), arF(0), cur(0))
@@ -992,7 +992,7 @@ func Test_crcy_Currency_SubInt_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) SubInt(subtract ...int) Currency
 	//
-	var test = func(ob Currency, subtract []int, expect Currency) {
+	test := func(ob Currency, subtract []int, expect Currency) {
 		curIntOpTest(t, "SubInt", ob.SubInt, ob, subtract, expect, 0)
 	}
 	test(cur(0), arI(0), cur(0))
@@ -1007,8 +1007,8 @@ func Test_crcy_Currency_Float64_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) Float64() float64
 	//
-	var test = func(ob Currency, expect float64) {
-		var got = ob.Float64()
+	test := func(ob Currency, expect float64) {
+		got := ob.Float64()
 		if got != expect {
 			TFail(t,
 				`(`, ob, `).Float64() returned `, got, `. must be `, expect,
@@ -1029,7 +1029,7 @@ func Test_crcy_Currency_Int_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) Int() int64
 	//
-	var test = func(ob Currency, expect int64) {
+	test := func(ob Currency, expect int64) {
 		if ob.Int() != expect {
 			TFail(
 				t, `(`, ob.String(), `).Int()`,
@@ -1048,7 +1048,7 @@ func Test_crcy_Currency_Int64_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) Int64() int64
 	//
-	var test = func(ob Currency, expect int64) {
+	test := func(ob Currency, expect int64) {
 		if ob.Int64() != expect {
 			TFail(
 				t, `(`, ob.String(), `).Int64()`,
@@ -1067,8 +1067,8 @@ func Test_crcy_Currency_IsEqual_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) IsEqual() bool
 	//
-	var test = func(ob, val Currency, expect bool) {
-		var got = ob.IsEqual(val)
+	test := func(ob, val Currency, expect bool) {
+		got := ob.IsEqual(val)
 		if got != expect {
 			TFail(
 				t, `(`, ob, `).IsEqual(`, val, `)`,
@@ -1088,8 +1088,8 @@ func Test_crcy_Currency_IsNegative_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) IsNegative() bool
 	//
-	var test = func(ob Currency, expect bool) {
-		var got = ob.IsNegative()
+	test := func(ob Currency, expect bool) {
+		got := ob.IsNegative()
 		if got != expect {
 			TFail(
 				t, `(`, ob, `).IsNegative()`,
@@ -1114,8 +1114,8 @@ func Test_crcy_Currency_IsZero_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) IsZero() bool
 	//
-	var test = func(ob Currency, expect bool) {
-		var got = ob.IsZero()
+	test := func(ob Currency, expect bool) {
+		got := ob.IsZero()
 		if got != expect {
 			TFail(
 				t, `(`, ob, `).IsZero() returned`, got, `. must be `, expect,
@@ -1158,8 +1158,8 @@ func Test_crcy_Currency_Overflow_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) Overflow() int
 	//
-	var test = func(ob Currency, expect int) {
-		var got = ob.Overflow()
+	test := func(ob Currency, expect int) {
+		got := ob.Overflow()
 		if got != expect {
 			TFail(t, `cur(`, ob, `) returned `, got, `. must be `, expect)
 		}
@@ -1181,15 +1181,15 @@ func Test_crcy_Currency_MarshalJSON_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) MarshalJSON() ([]byte, error)
 	//
-	var test = func(input interface{}, expect string) {
+	test := func(input interface{}, expect string) {
 		type T struct {
 			Val Currency
 		}
 		var ty T
 		ty.Val = cur(input)
-		var jsn, _ = json.MarshalIndent(ty, "", " ")
+		jsn, _ := json.MarshalIndent(ty, "", " ")
 		//                 ^  calls the object's MarshalIndent() method
-		var got = string(jsn)
+		got := string(jsn)
 		got = strings.Replace(got, "\n", "", -1)
 		got = strings.Replace(got, "{ ", "{", -1)
 		TEqual(t, got, (expect))
@@ -1232,7 +1232,7 @@ func Test_crcy_Currency_UnmarshalJSON_(t *testing.T) {
 	//
 	{
 		var n Currency
-		var err = n.UnmarshalJSON([]byte("123"))
+		err := n.UnmarshalJSON([]byte("123"))
 		if err != nil {
 			TFail(t, err)
 		}
@@ -1244,7 +1244,7 @@ func Test_crcy_Currency_UnmarshalJSON_(t *testing.T) {
 	{
 		DisableErrors()
 		var ob *Currency
-		var err = ob.UnmarshalJSON([]byte("123"))
+		err := ob.UnmarshalJSON([]byte("123"))
 		if err == nil {
 			TFail(t, `Did not return an error when called on nil receiver.`)
 		}
@@ -1263,7 +1263,7 @@ func Test_crcy_Currency_UnmarshalJSON_(t *testing.T) {
 		//
 		// do the test
 		var n Currency
-		var err = n.UnmarshalJSON([]byte("123"))
+		err := n.UnmarshalJSON([]byte("123"))
 		//
 		if err == nil {
 			TFail(t, err)
@@ -1360,11 +1360,12 @@ func curFloatOpTest(
 	expect Currency,
 	expectErrors int,
 ) {
-	var old = ob
-	var ec1 = GetErrorCount()
-	var got = opFunc(values...)
-	var ec2 = GetErrorCount()
-	//
+	var (
+		old = ob
+		ec1 = GetErrorCount()
+		got = opFunc(values...)
+		ec2 = GetErrorCount()
+	)
 	if expectErrors == 0 {
 		// must have no errors
 		if ec2 != ec1 {
@@ -1398,11 +1399,12 @@ func curIntOpTest(
 	expect Currency,
 	expectErrors int,
 ) {
-	var old = ob
-	var ec1 = GetErrorCount()
-	var got = opFunc(values...)
-	var ec2 = GetErrorCount()
-	//
+	var (
+		old = ob
+		ec1 = GetErrorCount()
+		got = opFunc(values...)
+		ec2 = GetErrorCount()
+	)
 	if expectErrors == 0 {
 		// must have no errors
 		if ec2 != ec1 {
@@ -1436,11 +1438,12 @@ func curOpTest(
 	expect Currency,
 	expectErrors int,
 ) {
-	var old = ob
-	var ec1 = GetErrorCount()
-	var got = opFunc(values...)
-	var ec2 = GetErrorCount()
-	//
+	var (
+		old = ob
+		ec1 = GetErrorCount()
+		got = opFunc(values...)
+		ec2 = GetErrorCount()
+	)
 	if expectErrors == 0 {
 		// must have no errors
 		if ec2 != ec1 {

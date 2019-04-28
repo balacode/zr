@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-03-04 20:18:51 DA0CC1                           zr/[go_lang_test.go]
+// :v: 2019-04-28 17:47:59 677553                           zr/[go_lang_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -36,7 +36,7 @@ func Test_gola_GoName_(t *testing.T) {
 	TBegin(t)
 	// GoName_(s string) string
 	//
-	//X 	var ret = Trim(s, SPACES)
+	//X 	ret := Trim(s, SPACES)
 	//X 	if len(ret) == 0 {
 	//X 		return ""
 	//X 	}
@@ -64,8 +64,8 @@ func Test_gola_GoString_(t *testing.T) {
 	TEqual(t, GoString(nil), "nil")
 	//
 	// bool
-	var falseBool = false
-	var trueBool = true
+	falseBool := false
+	trueBool := true
 	TEqual(t, GoString(&falseBool), "false")
 	TEqual(t, GoString(&trueBool), "true")
 	TEqual(t, GoString(falseBool), "false")
@@ -73,80 +73,80 @@ func Test_gola_GoString_(t *testing.T) {
 	//
 	// int
 	TEqual(t, GoString(int(0)), "0")
-	var maxI = int(math.MaxInt32)
-	var minI = int(math.MinInt32)
+	maxI := int(math.MaxInt32)
+	minI := int(math.MinInt32)
 	TEqual(t, GoString(&maxI), "2147483647")
 	TEqual(t, GoString(&minI), "-2147483648")
 	TEqual(t, GoString(maxI), "2147483647")
 	TEqual(t, GoString(minI), "-2147483648")
 	//
 	// int8
-	var maxI8 = int8(math.MaxInt8)
-	var minI8 = int8(math.MinInt8)
+	maxI8 := int8(math.MaxInt8)
+	minI8 := int8(math.MinInt8)
 	TEqual(t, GoString(&maxI8), "127")
 	TEqual(t, GoString(&minI8), "-128")
 	TEqual(t, GoString(maxI8), "127")
 	TEqual(t, GoString(minI8), "-128")
 	//
 	// int16
-	var maxI16 = int16(math.MaxInt16)
-	var minI16 = int16(math.MinInt16)
+	maxI16 := int16(math.MaxInt16)
+	minI16 := int16(math.MinInt16)
 	TEqual(t, GoString(&maxI16), "32767")
 	TEqual(t, GoString(&minI16), "-32768")
 	TEqual(t, GoString(maxI16), "32767")
 	TEqual(t, GoString(minI16), "-32768")
 	//
 	// int32
-	var maxI32 = int32(math.MaxInt32)
-	var minI32 = int32(math.MinInt32)
+	maxI32 := int32(math.MaxInt32)
+	minI32 := int32(math.MinInt32)
 	TEqual(t, GoString(&maxI32), "2147483647")
 	TEqual(t, GoString(&minI32), "-2147483648")
 	TEqual(t, GoString(maxI32), "2147483647")
 	TEqual(t, GoString(minI32), "-2147483648")
 	//
 	// int64
-	var maxI64 = int64(math.MaxInt64)
-	var minI64 = int64(math.MinInt64)
+	maxI64 := int64(math.MaxInt64)
+	minI64 := int64(math.MinInt64)
 	TEqual(t, GoString(&maxI64), "9223372036854775807")
 	TEqual(t, GoString(&minI64), "-9223372036854775808")
 	TEqual(t, GoString(maxI64), "9223372036854775807")
 	TEqual(t, GoString(minI64), "-9223372036854775808")
 	//
 	// uint
-	var maxU = uint(math.MaxUint32)
-	var minU = uint(0)
+	maxU := uint(math.MaxUint32)
+	minU := uint(0)
 	TEqual(t, GoString(&maxU), "4294967295")
 	TEqual(t, GoString(&minU), "0")
 	TEqual(t, GoString(maxU), "4294967295")
 	TEqual(t, GoString(minU), "0")
 	//
 	// uint8
-	var maxU8 = uint8(math.MaxUint8)
-	var minU8 = uint8(0)
+	maxU8 := uint8(math.MaxUint8)
+	minU8 := uint8(0)
 	TEqual(t, GoString(&maxU8), "255")
 	TEqual(t, GoString(&minU8), "0")
 	TEqual(t, GoString(maxU8), "255")
 	TEqual(t, GoString(minU8), "0")
 	//
 	// uint16
-	var maxU16 = uint16(math.MaxUint16)
-	var minU16 = uint16(0)
+	maxU16 := uint16(math.MaxUint16)
+	minU16 := uint16(0)
 	TEqual(t, GoString(&maxU16), "65535")
 	TEqual(t, GoString(&minU16), "0")
 	TEqual(t, GoString(maxU16), "65535")
 	TEqual(t, GoString(minU16), "0")
 	//
 	// uint32
-	var maxU32 = uint32(math.MaxUint32)
-	var minU32 = uint32(0)
+	maxU32 := uint32(math.MaxUint32)
+	minU32 := uint32(0)
 	TEqual(t, GoString(&maxU32), "4294967295")
 	TEqual(t, GoString(&minU32), "0")
 	TEqual(t, GoString(maxU32), "4294967295")
 	TEqual(t, GoString(minU32), "0")
 	//
 	// uint64
-	var maxU64 = uint64(math.MaxUint64)
-	var minU64 = uint64(0)
+	maxU64 := uint64(math.MaxUint64)
+	minU64 := uint64(0)
 	TEqual(t, GoString(&maxU64), "18446744073709551615")
 	TEqual(t, GoString(&minU64), "0")
 	TEqual(t, GoString(maxU64), "18446744073709551615")
@@ -155,15 +155,15 @@ func Test_gola_GoString_(t *testing.T) {
 	//TODO: uintptr
 	//
 	// float32
-	var float32a = float32(1.234567)
-	var float32b = float32(1.2345678)
+	float32a := float32(1.234567)
+	float32b := float32(1.2345678)
 	TEqual(t, GoString(&float32a), `1.234567`)
 	TEqual(t, GoString(&float32b), `1.234568`)
 	TEqual(t, GoString(float32a), `1.234567`)
 	TEqual(t, GoString(float32b), `1.234568`)
 	//
 	// float64
-	var float64v = CurrencyOf(12345.6789)
+	float64v := CurrencyOf(12345.6789)
 	TEqual(t, GoString(&float64v), `zr.CurrencyOf(12345.6789)`)
 	TEqual(t, GoString(float64v), `zr.CurrencyOf(12345.6789)`)
 	//
@@ -176,12 +176,12 @@ func Test_gola_GoString_(t *testing.T) {
 	//
 	// map
 	{
-		var m = map[string]int{
+		m := map[string]int{
 			"a":   1,
 			"bb":  22,
 			"ccc": 333,
 		}
-		var s = "" +
+		s := "" +
 			`map[string]int{` + LF +
 			`    "a": 1,` + LF +
 			`    "bb": 22,` + LF +
@@ -210,7 +210,7 @@ func Test_gola_GoString_(t *testing.T) {
 	}
 	// string
 	{
-		var s = "XYZ"
+		s := "XYZ"
 		TEqual(t, GoString(&s), `"XYZ"`)
 		TEqual(t, GoString(s), `"XYZ"`)
 	}
@@ -221,13 +221,13 @@ func Test_gola_GoString_(t *testing.T) {
 			StrVal string
 			IntVal IntType
 		}
-		var itm = StructType{StrVal: "XYZ", IntVal: 123}
+		itm := StructType{StrVal: "XYZ", IntVal: 123}
 		TEqual(t, GoString(itm), `zr.StructType{StrVal: "XYZ", IntVal: 123}`)
 	}
 	{
 		// once a struct implements fmt.GoStringer, GoString() should
 		// use that method instead of reading the object itself
-		var itm = golaTestStruct{strField: "ABC", intField: 123}
+		itm := golaTestStruct{strField: "ABC", intField: 123}
 		TEqual(t, GoString(itm), `golaTestStruct{<custom>}`)
 	}
 	//TODO: handle UnsafePointer
@@ -245,7 +245,7 @@ func Test_gola_GoString_(t *testing.T) {
 	//
 	{
 		//TODO: syntactically correct, but doesn't split into multiple lines
-		var ar = [][]string{
+		ar := [][]string{
 			{"rst", "uvw", "xyz"},
 			{"123", "456", "789"},
 		}
@@ -257,7 +257,7 @@ func Test_gola_GoString_(t *testing.T) {
 		TEqual(t, GoString(ar), expect)
 	}
 	{
-		var curAr = [][]Currency{
+		curAr := [][]Currency{
 			{CurrencyOf(321), CurrencyOf(654)},
 			{CurrencyOf(123), CurrencyOf(456)},
 		}

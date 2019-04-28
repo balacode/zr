@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 DE4882                                   zr/[bool.go]
+// :v: 2019-04-28 17:47:58 993948                                   zr/[bool.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -167,7 +167,7 @@ func IsBool(val interface{}) bool {
 
 // TrueCount __
 func TrueCount(values ...bool) int {
-	var ret = 0
+	ret := 0
 	for _, v := range values {
 		if v {
 			ret++

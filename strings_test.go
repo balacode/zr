@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-29 09:25:37 6087F5                           zr/[strings_test.go]
+// :v: 2019-04-28 17:47:59 89112A                           zr/[strings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -83,8 +83,8 @@ func Test_strs_After_(t *testing.T) {
 	TBegin(t)
 	// After(s string, find ...string) string
 	//
-	var test = func(s string, find []string, expect string) {
-		var got = After(s, find...)
+	test := func(s string, find []string, expect string) {
+		got := After(s, find...)
 		TEqual(t, got, (expect))
 	}
 	{
@@ -123,8 +123,8 @@ func Test_strs_CamelCase_(t *testing.T) {
 	TBegin(t)
 	// CamelCase(s string) string
 	//
-	var test = func(s, expect string) {
-		var got = CamelCase(s)
+	test := func(s, expect string) {
+		got := CamelCase(s)
 		TEqual(t, got, (expect))
 	}
 	test("", "")
@@ -202,7 +202,7 @@ func Test_strs_ContainsWord_(t *testing.T) {
 	TBegin(t)
 	// ContainsWord(s, word string, caseMode CaseMode) bool
 	//
-	var s = "abc defg hijk"
+	s := "abc defg hijk"
 	{
 		TTrue(t, ContainsWord(s, "abc", MatchCase))
 		TTrue(t, ContainsWord(s, "defg", MatchCase))
@@ -241,8 +241,8 @@ func Test_strs_EqualStringSlices_(t *testing.T) {
 	TBegin(t)
 	// EqualStringSlices(a, b []string) bool
 	//
-	var a = []string{"first", "second", "third"}
-	var b = []string{"first", "second", "third"}
+	a := []string{"first", "second", "third"}
+	b := []string{"first", "second", "third"}
 	//
 	// return true when comparing an object to itself
 	TTrue(t, EqualStringSlices(a, a))
@@ -276,9 +276,9 @@ func Test_strs_FindInSlice_(t *testing.T) {
 	TBegin(t)
 	// FindInSlice(s string, start, end int, substr string) int
 	//
-	var test = func(s string, start, end int, substr string,
+	test := func(s string, start, end int, substr string,
 		expect int) {
-		var got = FindInSlice(s, start, end, substr)
+		got := FindInSlice(s, start, end, substr)
 		TEqual(t, got, (expect))
 	}
 	test("AA BA CA", 3, 5, "A", 4)
@@ -400,7 +400,7 @@ func Test_strs_JSUnescapeStruct_(t *testing.T) {
 		Main3 string
 		Items []Item
 	}
-	var v = Test{
+	v := Test{
 		Main1: 123,
 		Main2: "ABC%20DEF",
 		Main3: "GHI%20JKL",
@@ -410,7 +410,7 @@ func Test_strs_JSUnescapeStruct_(t *testing.T) {
 		},
 	}
 	JSUnescapeStruct(&v)
-	var got = fmt.Sprintf("%v", v)
+	got := fmt.Sprintf("%v", v)
 	if got != "{123 ABC DEF GHI JKL [{mno pqr 456} {stu vwx 789}]}" {
 		t.Errorf("test failed")
 	}
@@ -442,7 +442,7 @@ func Test_strs_LineBeginIndexB_(t *testing.T) {
 	TBegin(t)
 	// LineBeginIndexB(s []byte, index int) int
 	//
-	var ar = []byte{
+	ar := []byte{
 		'a', '\r', 'b', 'c', '\r', '\n', 'd', 'e', 'f'}
 	//   0     1    2    3     4     5    6    7    8
 	TEqual(t, LineBeginIndexB(ar, 0), (0))
@@ -473,7 +473,7 @@ func Test_strs_LineBeginIndex_(t *testing.T) {
 	TBegin(t)
 	// LineBeginIndex(s string, index int) int
 	//
-	var s = "A\rBC\rDEF"
+	s := "A\rBC\rDEF"
 	//
 	// test with CR:
 	TEqual(t, LineBeginIndex(s, 0), (0))
@@ -530,7 +530,7 @@ func Test_strs_LineEndIndex_(t *testing.T) {
 	//
 	// test with CR:
 	//       0 123 4567
-	var s = "A\nBC\nDEF"
+	s := "A\nBC\nDEF"
 	TEqual(t, LineEndIndex(s, 0), (1))
 	TEqual(t, LineEndIndex(s, 1), (1))
 	TEqual(t, LineEndIndex(s, 2), (4))
@@ -566,7 +566,7 @@ func Test_strs_LineOfIndex_(t *testing.T) {
 	TBegin(t)
 	// LineOfIndex(s string, index int) string
 	//
-	var s = "01\n345\n789A"
+	s := "01\n345\n789A"
 	TEqual(t, LineOfIndex(s, 0), ("01"))
 	TEqual(t, LineOfIndex(s, 1), ("01"))
 	TEqual(t, LineOfIndex(s, 2), ("01"))
@@ -588,11 +588,11 @@ func Test_strs_LineOffsetUTF8_(t *testing.T) {
 	TBegin(t)
 	// LineOffsetUTF8(data []byte, lineIndex int) (byteOffset, charOffset int)
 	//
-	var test = func(
+	test := func(
 		data []byte, lineIndex,
 		expectByteOffset, expectCharOffset int,
 	) {
-		var byteOffset, charOffset = LineOffsetUTF8(data, lineIndex)
+		byteOffset, charOffset := LineOffsetUTF8(data, lineIndex)
 		if byteOffset != expectByteOffset || charOffset != expectCharOffset {
 			t.Errorf(
 				"LineOffsetUTF8(%q, %d) returned (%d, %d) instead of (%d, %d)",
@@ -603,7 +603,7 @@ func Test_strs_LineOffsetUTF8_(t *testing.T) {
 		}
 	}
 	{
-		var data = []byte("abc\r\nАБВ\n")
+		data := []byte("abc\r\nАБВ\n")
 		//        each Cyrillic ^ char is 2 bytes long in UTF8
 		test(data, 0,
 			0, 0)
@@ -615,7 +615,7 @@ func Test_strs_LineOffsetUTF8_(t *testing.T) {
 			-1, -1)
 	}
 	{
-		var data = []byte("岸\n123")
+		data := []byte("岸\n123")
 		// Chinese char ^ is 3 bytes long in UTF8
 		test(data, 0,
 			0, 0)
@@ -625,7 +625,7 @@ func Test_strs_LineOffsetUTF8_(t *testing.T) {
 			-1, -1)
 	}
 	{
-		var data = []byte("\r\r\r")
+		data := []byte("\r\r\r")
 		test(data, 0,
 			0, 0)
 		test(data, 1,
@@ -652,7 +652,7 @@ func Test_strs_ReplaceEx1_(t *testing.T) {
 	TBegin(t)
 	// ReplaceEx1(s, find, repl string, count int, caseMode CaseMode) string
 	//
-	var s = "ABC ABC ABC"
+	s := "ABC ABC ABC"
 	TEqual(t, ReplaceEx1(s, "A", "X", 0, MatchCase), ("ABC ABC ABC"))
 	TEqual(t, ReplaceEx1(s, "A", "X", 1, MatchCase), ("XBC ABC ABC"))
 	TEqual(t, ReplaceEx1(s, "A", "X", 2, MatchCase), ("XBC XBC ABC"))
@@ -698,16 +698,19 @@ func Test_strs_ReplaceMany_(t *testing.T) {
 	TBegin(t)
 	//TODO: declaration comment
 	//
-	const IC = IgnoreCase
-	const IW = IgnoreWord
-	const MC = MatchCase
-	const MW = MatchWord
-	//
-	var A = []string{"A"}
-	var X = []string{"X"}
-	var B = []string{"B"}
-	var AA = []string{"AA"}
-	var aa = []string{"aa"}
+	const (
+		IC = IgnoreCase
+		IW = IgnoreWord
+		MC = MatchCase
+		MW = MatchWord
+	)
+	var (
+		A  = []string{"A"}
+		X  = []string{"X"}
+		B  = []string{"B"}
+		AA = []string{"AA"}
+		aa = []string{"aa"}
+	)
 	//                                                     simplest replacements
 	TEqual(t,
 		ReplaceMany("X", []string{"X"}, []string{"9"}, -1, IC, MW),
@@ -795,7 +798,7 @@ func Test_strs_ReplaceMany_(t *testing.T) {
 	),
 		("123 DEF 456"),
 	)
-	var s = "ABC ABC ABC"
+	s := "ABC ABC ABC"
 	TEqual(t, ReplaceMany("A AA AAA", A, B, -1, MC, IW), ("B BB BBB"))
 	TEqual(t, ReplaceMany("A AA AAA", A, B, 3, MC, IW), ("B BB AAA"))
 	TEqual(t, ReplaceMany("ABC", A, A, -1, MC, IW), ("ABC"))
@@ -857,7 +860,7 @@ func Test_strs_ReplaceWord_(t *testing.T) {
 	TEqual(t, ReplaceWord("A", "A", "ZZZ", IgnoreCase), ("ZZZ"))
 	TEqual(t, ReplaceWord("A", "A", "ZZZ", MatchCase), ("ZZZ"))
 	TEqual(t, ReplaceWord("A A A", "A", "A", MatchCase), ("A A A"))
-	var tests = []struct {
+	tests := []struct {
 		s        string
 		find     string
 		repl     string
@@ -873,7 +876,7 @@ func Test_strs_ReplaceWord_(t *testing.T) {
 	}
 	//TODO: use test() function instead of loop
 	for i, test := range tests {
-		var got = ReplaceWord(test.s, test.find, test.repl, test.caseMode)
+		got := ReplaceWord(test.s, test.find, test.repl, test.caseMode)
 		if got != test.expect {
 			t.Errorf("T%d ReplaceWord(%q, %q, %q, %v)"+
 				" returned %q instead of %q",
@@ -900,9 +903,9 @@ func Test_strs_SetSlice_(t *testing.T) {
 	TBegin(t)
 	// SetSlice(s string, start, end int, substr string) string
 	//
-	var test = func(s string, start, end int, substr string,
+	test := func(s string, start, end int, substr string,
 		expect string) {
-		var got = SetSlice(s, start, end, substr)
+		got := SetSlice(s, start, end, substr)
 		TEqual(t, got, (expect))
 	}
 	test("", 0, -1, "ABC", "ABC")
@@ -928,8 +931,8 @@ func Test_strs_SkipChars_(t *testing.T) {
 	TBegin(t)
 	// SkipChars(s string, start int, chars string) int
 	//
-	var test = func(s string, start int, chars string, expect int) {
-		var got = SkipChars(s, start, chars)
+	test := func(s string, start int, chars string, expect int) {
+		got := SkipChars(s, start, chars)
 		TEqual(t, got, (expect))
 	}
 	test("ABC123", 0, "ABC", 3)
@@ -947,8 +950,8 @@ func Test_strs_SkipName_(t *testing.T) {
 	TBegin(t)
 	// SkipName(s string, start int) int
 	//
-	var test = func(s string, start, expect int) {
-		var got = SkipName(s, start)
+	test := func(s string, start, expect int) {
+		got := SkipName(s, start)
 		TEqual(t, got, (expect))
 	}
 	test("abc 123", 0, 3)
@@ -960,8 +963,8 @@ func Test_strs_SkipSpaces_(t *testing.T) {
 	TBegin(t)
 	// SkipSpaces(s string, start int) int
 	//
-	var test = func(s string, start, expect int) {
-		var got = SkipSpaces(s, start)
+	test := func(s string, start, expect int) {
+		got := SkipSpaces(s, start)
 		TEqual(t, got, (expect))
 	}
 	test("ABC   123", 3, 6)
@@ -1043,7 +1046,7 @@ func Test_strs_SplitQuoted_(t *testing.T) {
 		SplitQuoted("123 456 'ABC'"))
 	TArrayEqual(t, []string{"123", "456", "A B C"},
 		SplitQuoted("123   456   'A B C'"))
-	var tests = []struct {
+	tests := []struct {
 		s      string
 		expect []string
 	}{
@@ -1055,7 +1058,7 @@ func Test_strs_SplitQuoted_(t *testing.T) {
 	}
 	//TODO: use test() function instead of loop
 	for i, test := range tests {
-		var got = SplitQuoted(test.s)
+		got := SplitQuoted(test.s)
 		if !EqualStringSlices(got, test.expect) {
 			t.Errorf("T%d SplitQuoted(%q) returned %q instead of %v"+LB,
 				i, test.s, got, test.expect)
@@ -1077,8 +1080,8 @@ func Test_strs_String_(t *testing.T) {
 	TBegin(t)
 	// String(val interface{}) string
 	//
-	var test = func(input interface{}, expect string) {
-		var got = String(input)
+	test := func(input interface{}, expect string) {
+		got := String(input)
 		TEqual(t, got, (expect))
 	}
 	// floating-point values should not have trailing zeros
@@ -1177,7 +1180,7 @@ func Test_strs_Substr_(t *testing.T) {
 	//
 	//    // Run-time error '94': Invalid use of Null
 	//    //TEST( Mid( "abc", 77777777, Null )
-	var tests = []struct {
+	tests := []struct {
 		text      string
 		charIndex int
 		charCount int
@@ -1197,7 +1200,7 @@ func Test_strs_Substr_(t *testing.T) {
 	}
 	//TODO: use test() function instead of loop
 	for i, test := range tests {
-		var got = Substr(test.text, test.charIndex, test.charCount)
+		got := Substr(test.text, test.charIndex, test.charCount)
 		if got != test.expect {
 			t.Errorf("T%d Substr(%q, %d, %d) returned %q instead of %q",
 				i, test.text, test.charIndex, test.charCount, got, test.expect)
@@ -1212,7 +1215,7 @@ func Test_strs_TitleCase_(t *testing.T) {
 	//
 	TEqual(t, TitleCase("A TITLE"), ("A Title"))
 	TEqual(t, TitleCase("a title"), ("A Title"))
-	var tests = []struct {
+	tests := []struct {
 		input  string
 		expect string
 	}{
@@ -1226,7 +1229,7 @@ func Test_strs_TitleCase_(t *testing.T) {
 	}
 	//TODO: use test() function instead of loop
 	for i, test := range tests {
-		var got = TitleCase(test.input)
+		got := TitleCase(test.input)
 		if got != test.expect {
 			t.Errorf("T%d TitleCase(%q) returned %q instead of %q",
 				i, test.input, got, test.expect)
@@ -1239,7 +1242,7 @@ func Test_strs_TokenGetEx_(t *testing.T) {
 	TBegin(t)
 	// TokenGetEx(list string, index int, sep string, ignoreEnd bool) string
 	//
-	var FST = "first;second;third"
+	FST := "first;second;third"
 	TEqual(t, TokenGetEx(FST, 0, ";", false), ("first"))
 	TEqual(t, TokenGetEx(FST, 0, ";", false), ("first"))
 	TEqual(t, TokenGetEx(FST, 1, ";", false), ("second"))
@@ -1251,7 +1254,7 @@ func Test_strs_TokenGetEx_(t *testing.T) {
 	TEqual(t, TokenGetEx(FST, 1, ";", true), ("second;third"))
 	TEqual(t, TokenGetEx(FST, 2, ";", true), ("third"))
 	TEqual(t, TokenGetEx(FST, 3, ";", true), (""))
-	var ABC = "a;;;b;;;c"
+	ABC := "a;;;b;;;c"
 	TEqual(t, TokenGetEx(ABC, 0, "123456789", false), (""))
 	TEqual(t, TokenGetEx(ABC, 0, "1234567890", false), (""))
 	TEqual(t, TokenGetEx(ABC, 0, ";;;", false), ("a"))
@@ -1327,7 +1330,7 @@ func Test_strs_WordIndex_(t *testing.T) {
 	TEqual(t, WordIndex("one two three", "ONE", IgnoreCase), (0))
 	TEqual(t, WordIndex("one two three", "six", MatchCase), (-1))
 	TEqual(t, WordIndex("ones two three", "one", MatchCase), (-1))
-	var tests = []struct {
+	tests := []struct {
 		s        string
 		word     string
 		caseMode CaseMode
@@ -1373,7 +1376,7 @@ func Test_strs_WordIndex_(t *testing.T) {
 	}
 	//TODO: use test() function instead of loop
 	for i, test := range tests {
-		var got = WordIndex(test.s, test.word, test.caseMode)
+		got := WordIndex(test.s, test.word, test.caseMode)
 		if got != test.expect {
 			t.Errorf("T%d WordIndex(%q, %q, %v)"+
 				" returned %q instead of %q",

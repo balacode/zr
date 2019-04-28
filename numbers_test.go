@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-07-25 13:43:08 CE2158                           zr/[numbers_test.go]
+// :v: 2019-04-28 17:47:59 E300CA                           zr/[numbers_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -42,8 +42,8 @@ func Test_nums_BlankZero_(t *testing.T) {
 	TBegin(t)
 	// BlankZero(s string) string
 	//
-	var test = func(input, expect string) {
-		var got = BlankZero(input)
+	test := func(input, expect string) {
+		got := BlankZero(input)
 		if !TEqual(t, got, (expect)) {
 			fmt.Printf("INPUT: %s"+LF+LF, input)
 		}
@@ -83,8 +83,8 @@ func Test_nums_CommaDelimit_(t *testing.T) {
 	TBegin(t)
 	// CommaDelimit(number string, decimalPlaces int) string
 	//
-	var test = func(s string, decimalPlaces int, expect string) {
-		var got = CommaDelimit(s, decimalPlaces)
+	test := func(s string, decimalPlaces int, expect string) {
+		got := CommaDelimit(s, decimalPlaces)
 		if got != expect {
 			t.Errorf("CommaDelimit(%q, %d) returned %q instead of %q",
 				s, decimalPlaces, got, expect)
@@ -116,8 +116,8 @@ func Test_nums_IntInWordsEN_(t *testing.T) {
 	TBegin(t)
 	// IntInWordsEN(number int64) string
 	//
-	var test = func(input int64, expect string) {
-		var got = IntInWordsEN(input)
+	test := func(input int64, expect string) {
+		got := IntInWordsEN(input)
 		if got != expect {
 			t.Errorf("IntInWordsEN(%d) returned %q instead of %q",
 				input, got, expect)
@@ -252,8 +252,8 @@ func Test_nums_Int_(t *testing.T) {
 	TBegin(t)
 	// Int(val interface{}) int
 	//
-	var test = func(val interface{}, expect int) {
-		var got = Int(val)
+	test := func(val interface{}, expect int) {
+		got := Int(val)
 		if got != expect {
 			t.Errorf("Int(%q) returned %d instead of %d"+LB,
 				val, got, expect)
@@ -386,8 +386,8 @@ func Test_nums_IsNumber_(t *testing.T) {
 	TBegin(t)
 	// IsNumber(val interface{}) bool
 	//
-	var test = func(input string, expect bool) {
-		var got = IsNumber(input)
+	test := func(input string, expect bool) {
+		got := IsNumber(input)
 		if got != expect {
 			t.Errorf("IsNumber(%q) returned %v instead of %v",
 				input, got, expect)
@@ -411,12 +411,12 @@ func Test_nums_MinMaxGap_(t *testing.T) {
 	TBegin(t)
 	// MinMaxGap(values []int) (min, max int)
 	//
-	var test = func(values []int, expectMin, expectMax int) {
+	test := func(values []int, expectMin, expectMax int) {
 		// save old array
-		var prevValues = make([]int, len(values))
+		prevValues := make([]int, len(values))
 		copy(prevValues, values)
 		//
-		var gotMin, gotMax = MinMaxGap(values)
+		gotMin, gotMax := MinMaxGap(values)
 		if gotMin != expectMin || gotMax != expectMax {
 			TFail(t,
 				`MinMaxGap(`, GoString(values), `)`,
@@ -460,12 +460,12 @@ func Test_nums_MaxIntOf_(t *testing.T) {
 	TBegin(t)
 	// MaxIntOf(values []int) (max int, found bool)
 	//
-	var test = func(values []int, expectMax int, expectFound bool) {
+	test := func(values []int, expectMax int, expectFound bool) {
 		// save old array
-		var oldValues = make([]int, len(values))
+		oldValues := make([]int, len(values))
 		copy(oldValues, values)
 		//
-		var gotMax, gotFound = MaxIntOf(values)
+		gotMax, gotFound := MaxIntOf(values)
 		//
 		if gotMax != expectMax || gotFound != expectFound {
 			TFail(t,

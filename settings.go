@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 D3838C                               zr/[settings.go]
+// :v: 2019-04-28 17:47:59 D18EB7                               zr/[settings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -74,7 +74,7 @@ func (ob *Settings) GetSetting(name string) string {
 		mod.Error(EInvalidArg, "^name")
 		return erv
 	}
-	var ret, exists = ob.m[name]
+	ret, exists := ob.m[name]
 	if ob.extendGet != nil {
 		ret = ob.extendGet(name, ret, exists)
 	}
@@ -93,7 +93,7 @@ func (ob *Settings) HasSetting(name string) bool {
 		mod.Error(EInvalidArg, "^name")
 		return erv
 	}
-	var val, exists = ob.m[name]
+	val, exists := ob.m[name]
 	if ob.extendSet != nil {
 		return ob.extendHas(name, val, exists)
 	}
@@ -114,10 +114,10 @@ func (ob *Settings) SetSetting(name string, val interface{}) {
 	if ob.m == nil {
 		ob.m = map[string]string{}
 	}
-	var s = String(val)
+	s := String(val)
 	if ob.extendSet != nil {
-		var old = String(ob.m[name])
-		var result = ob.extendSet(name, old, s)
+		old := String(ob.m[name])
+		result := ob.extendSet(name, old, s)
 		if result == nil {
 			return
 		}

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:54:08 FAB601                          zr/[settings_test.go]
+// :v: 2019-04-28 17:47:59 B6641A                          zr/[settings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -52,7 +52,7 @@ func Test_sett_Settings_GetSetting_(t *testing.T) {
 	}
 	{
 		// check if settings are read properly
-		var o = Settings{
+		o := Settings{
 			m: map[string]string{
 				"alpha": "111",
 				"beta":  "222",
@@ -84,7 +84,7 @@ func Test_sett_Settings_HasSetting_(t *testing.T) {
 		// method call on a nil receiver must log an error
 		TBeginError()
 		var nulp *Settings
-		var res = nulp.HasSetting("alpha")
+		res := nulp.HasSetting("alpha")
 		TEqual(t, res, (false))
 		TCheckError(t, ENilReceiver)
 	}
@@ -97,7 +97,7 @@ func Test_sett_Settings_HasSetting_(t *testing.T) {
 	}
 	{
 		// check if settings are read properly
-		var o = Settings{
+		o := Settings{
 			m: map[string]string{
 				"alpha": "111",
 				"beta":  "222",
@@ -137,7 +137,7 @@ func Test_sett_Settings_SetSetting_(t *testing.T) {
 	}
 	{
 		// check if settings are set properly
-		var o = Settings{
+		o := Settings{
 			m: map[string]string{
 				"alpha": "111",
 				"beta":  "222",

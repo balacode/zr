@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-02-23 17:50:57 F71235                           zr/[string_stack.go]
+// :v: 2019-04-28 17:47:59 EC426A                           zr/[string_stack.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -23,12 +23,12 @@ func (ob *StringStack) ChangeTop(s string) string {
 		mod.Error(ENilReceiver)
 		return ""
 	}
-	var max = len(ob.ar) - 1
+	max := len(ob.ar) - 1
 	if max < 0 {
 		ob.ar = append(ob.ar, s)
 		return ""
 	}
-	var ret = ob.ar[max]
+	ret := ob.ar[max]
 	ob.ar[max] = s
 	return ret
 } //                                                                   ChangeTop
@@ -39,7 +39,7 @@ func (ob *StringStack) Pop() string {
 		mod.Error(ENilReceiver)
 		return ""
 	}
-	var max = len(ob.ar) - 1
+	max := len(ob.ar) - 1
 	if max < 0 {
 		mod.Error("Pop() on empty stack")
 		return ""
@@ -66,7 +66,7 @@ func (ob *StringStack) Top() string {
 		mod.Error(ENilReceiver)
 		return ""
 	}
-	var max = len(ob.ar) - 1
+	max := len(ob.ar) - 1
 	if max < 0 {
 		mod.Error("Top() on empty stack")
 		return ""

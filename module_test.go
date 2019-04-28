@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-03-04 20:18:51 DCE688                            zr/[module_test.go]
+// :v: 2019-04-28 17:47:59 63A8F5                            zr/[module_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -39,7 +39,7 @@ func Test_mdle_VersionTime_(t *testing.T) {
 	TBegin(t)
 	// VersionTime_() string
 	//
-	var s = VersionTime()
+	s := VersionTime()
 	TTrue(t, IsDate(s))
 	TTrue(t, len(VersionTime()) == 16)
 	//

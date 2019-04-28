@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-03-14 00:30:40 0E4727                                  zr/[timer.go]
+// :v: 2019-04-28 17:47:59 0E240B                                  zr/[timer.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -29,7 +29,7 @@ import (
 )
 
 // SUGGESTION: new methods NewTimer() and StopPrint():
-// var tm = NewTimer("App.GoNextLine")
+// tm := NewTimer("App.GoNextLine")
 // tm.StopPrint()
 
 // -----------------------------------------------------------------------------
@@ -85,7 +85,7 @@ func (ob *Timer) Print() {
 	if ob.Tasks == nil {
 		ob.makeTasks()
 	}
-	var s = ob.String()
+	s := ob.String()
 	fmt.Println(s)
 } //                                                                       Print
 
@@ -93,7 +93,7 @@ func (ob *Timer) Print() {
 // the task is complete. You can start and stop the same task multiple
 // times, provided you call Stop() after every Start().
 func (ob *Timer) Start(taskName string) {
-	var now = time.Now()
+	now := time.Now()
 	if ob == nil {
 		Error(ENilReceiver)
 		return
@@ -104,7 +104,7 @@ func (ob *Timer) Start(taskName string) {
 		ob.makeTasks()
 	}
 	ob.LastTaskName = taskName
-	var task, exists = ob.Tasks[taskName]
+	task, exists := ob.Tasks[taskName]
 	if exists {
 		task.StartTime = now
 		return
@@ -117,7 +117,7 @@ func (ob *Timer) Start(taskName string) {
 
 // Stop stops timing the named task and stores the time spent in the Timer.
 func (ob *Timer) Stop(taskName string) {
-	var now = time.Now()
+	now := time.Now()
 	if ob == nil {
 		Error(ENilReceiver)
 		return
@@ -127,13 +127,13 @@ func (ob *Timer) Stop(taskName string) {
 	if ob.Tasks == nil {
 		ob.makeTasks()
 	}
-	var task, exists = ob.Tasks[taskName]
+	task, exists := ob.Tasks[taskName]
 	if !exists {
 		Error("Never started timing^", taskName)
 		PL("THERE ARE", len(ob.Tasks), "TASKS")
 		return
 	}
-	var ms = float32(now.Sub(task.StartTime).Nanoseconds()) / 1000000
+	ms := float32(now.Sub(task.StartTime).Nanoseconds()) / 1000000
 	task.Count++
 	task.StartTime = now
 	task.TotalMs += ms
@@ -154,27 +154,27 @@ func (ob *Timer) String() string {
 	ob.Mutex.RLock()
 	defer ob.Mutex.RUnlock()
 	//
-	var serialMax = 0
+	serialMax := 0
 	for _, task := range ob.Tasks {
 		if task.SerialNo > serialMax {
 			serialMax = task.SerialNo
 		}
 	}
 	var buf bytes.Buffer
-	var ws = buf.WriteString
+	ws := buf.WriteString
 	ws("    --------------------------------- SECONDS:" + LB)
-	var sum = float64(0)
+	sum := float64(0)
 	for i := 0; i <= serialMax; i++ {
 		for taskName, task := range ob.Tasks {
 			if task.SerialNo == i {
-				var seconds = float64(task.TotalMs) / float64(1000)
+				seconds := float64(task.TotalMs) / float64(1000)
 				sum += seconds
 				ws(fmt.Sprintf("%14.5f: %s"+LB, seconds, taskName))
 			}
 		}
 	}
 	ws(fmt.Sprintf("%14.5f"+LB, sum))
-	var ret = buf.String()
+	ret := buf.String()
 	return ret
 } //                                                                      String
 

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 C5FCAE                               zr/[calendar.go]
+// :v: 2019-04-28 17:47:58 246ABF                               zr/[calendar.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -77,10 +77,10 @@ func (ob *Calendar) AddMonth(year int, month time.Month) error {
 	if ob.HasMonth(year, month) {
 		return Error("Month", month, year, "already added")
 	}
-	var mth = calendarMonth{year: year, month: month}
-	var weekday1 = ob.firstWeekday(year, month)
-	var last = DaysInMonth(year, month)
-	var day = 1
+	mth := calendarMonth{year: year, month: month}
+	weekday1 := ob.firstWeekday(year, month)
+	last := DaysInMonth(year, month)
+	day := 1
 loop:
 	for row := 0; row < 6; row++ {
 		for col := 0; col < 7; col++ {
@@ -112,23 +112,23 @@ func (ob *Calendar) HasMonth(year int, month time.Month) bool {
 // Set assigns the specified value to the specified date.
 // It automatically converts 'date' to time.Time
 func (ob *Calendar) Set(date, value interface{}) {
-	var dt = DateOf(date)
-	var year, month = dt.Year(), dt.Month()
+	dt := DateOf(date)
+	year, month := dt.Year(), dt.Month()
 	//
 	// if not existing already, add the month to the calendar
 	if !ob.HasMonth(year, month) {
 		ob.AddMonth(year, month)
 	}
 	// get a pointer to the calendar
-	var mth = ob.getMonth(year, month)
+	mth := ob.getMonth(year, month)
 	if mth == nil {
 		// ^ this condition should never occur
 		// (no warning here: a warning is already logged by getMonth)
 		return
 	}
 	// find the specified day and set its value
-	var day = dt.Day()
-	var found = false
+	day := dt.Day()
+	found := false
 	for row := 0; !found && row < 6; row++ {
 		for col := 0; !found && col < 7; col++ {
 			if mth.cells[row][col].day == day {
@@ -179,19 +179,19 @@ func (ob *Calendar) String() string {
 	const CELLWIDTH = 8
 	//
 	var retBuf bytes.Buffer
-	var ws = func(a ...string) {
+	ws := func(a ...string) {
 		for _, s := range a {
 			retBuf.WriteString(s)
 		}
 	}
 	ws(LF)
-	var blank = strings.Repeat(" ", CELLWIDTH)
-	var wdayFmt = fmt.Sprintf("  %%-%ds", CELLWIDTH-2)
-	var dayFmt = fmt.Sprintf(" %%-%dd", CELLWIDTH-1)
-	var valFmt = fmt.Sprintf(" %%%dv ", CELLWIDTH-2)
+	blank := strings.Repeat(" ", CELLWIDTH)
+	wdayFmt := fmt.Sprintf("  %%-%ds", CELLWIDTH-2)
+	dayFmt := fmt.Sprintf(" %%-%dd", CELLWIDTH-1)
+	valFmt := fmt.Sprintf(" %%%dv ", CELLWIDTH-2)
 	//
 	// draws the outer (top or bottom) horizontal divider
-	var outerHLine = func() {
+	outerHLine := func() {
 		ws(EDGE)
 		for i := 0; i < 7; i++ {
 			if i > 0 {
@@ -202,15 +202,15 @@ func (ob *Calendar) String() string {
 		ws(EDGE, LF)
 	}
 	// draws the inner horizontal divider
-	var innerHLine = func() {
+	innerHLine := func() {
 		for i := 0; i < 7; i++ {
 			ws(VDIV, strings.Repeat(HDIV, CELLWIDTH))
 		}
 		ws(VDIV, LF)
 	}
 	// formats numbers
-	var numStr = func(val float64) string {
-		var ret = fmt.Sprintf("%5.2f", val)
+	numStr := func(val float64) string {
+		ret := fmt.Sprintf("%5.2f", val)
 		if strings.Contains(ret, ".") {
 			ret = strings.TrimRight(ret, "0")
 			ret = strings.TrimRight(ret, ".")
@@ -238,7 +238,7 @@ func (ob *Calendar) String() string {
 			// days on current row
 			for col := 0; col < 7; col++ {
 				ws(VDIV)
-				var day = mth.cells[row][col].day
+				day := mth.cells[row][col].day
 				if day == 0 {
 					ws(blank)
 				} else {
@@ -250,12 +250,12 @@ func (ob *Calendar) String() string {
 			// values on current row
 			for col := 0; col < 7; col++ {
 				ws(VDIV)
-				var val = mth.cells[row][col].val
+				val := mth.cells[row][col].val
 				if val == nil {
 					ws(blank)
 				} else {
 					if val, ok := val.(float64); ok {
-						var s = numStr(val)
+						s := numStr(val)
 						sum += val
 						ws(fmt.Sprintf(valFmt, s))
 					} else {
@@ -276,7 +276,7 @@ func (ob *Calendar) String() string {
 
 // firstWeekday returns the day of week on the first of the given month
 func (*Calendar) firstWeekday(year int, month time.Month) time.Weekday {
-	var date = time.Date(year, month, 1, 0, 0, 0, 0, time.UTC)
+	date := time.Date(year, month, 1, 0, 0, 0, 0, time.UTC)
 	return date.Weekday()
 } //                                                                firstWeekday
 

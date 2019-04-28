@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 12CE53                             zr/[bytes_func.go]
+// :v: 2019-04-28 17:47:58 0DEE7E                             zr/[bytes_func.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -39,7 +39,7 @@ func AppendRuneBytes(dest *[]byte, r rune) int {
 		return -1
 	}
 	var buf [utf8.UTFMax]byte
-	var ret = utf8.EncodeRune(buf[:], r)
+	ret := utf8.EncodeRune(buf[:], r)
 	(*dest) = append((*dest), buf[:ret]...)
 	return ret
 } //                                                             AppendRuneBytes
@@ -49,7 +49,7 @@ func AppendRuneBytes(dest *[]byte, r rune) int {
 // If you set 'useSI' to true, uses multiples of 1000 (SI units)
 // instead of 1024 (binary units) and suffixes 'KB' instead of 'KiB', etc.
 func ByteSizeString(sizeInBytes int64, useSI bool) string {
-	var n int64 = 1024
+	n := int64(1024)
 	if useSI {
 		n = 1000
 	}
@@ -59,7 +59,7 @@ func ByteSizeString(sizeInBytes int64, useSI bool) string {
 	if !useSI && sizeInBytes == math.MinInt64 {
 		return "-7.9 EiB"
 	}
-	var neg = sizeInBytes < 0
+	neg := sizeInBytes < 0
 	var ret string
 	if neg {
 		sizeInBytes = -sizeInBytes
@@ -86,7 +86,7 @@ func ByteSizeString(sizeInBytes int64, useSI bool) string {
 			cut = float64(sizeInBytes) / float64(group.scale)
 			cut = float64(int64(cut*10)) / 10
 		} else {
-			var sz = big.NewInt(sizeInBytes)
+			sz := big.NewInt(sizeInBytes)
 			sz.Mul(sz, big.NewInt(10))
 			sz.Div(sz, big.NewInt(group.scale))
 			cut = float64(sz.Int64()) / 10
@@ -123,8 +123,8 @@ func CompressBytes(data []byte) []byte {
 	}
 	// zip data in standard manner
 	var b bytes.Buffer
-	var w = zlib.NewWriter(&b)
-	var _, err = w.Write(data)
+	w := zlib.NewWriter(&b)
+	_, err := w.Write(data)
 	w.Close()
 	//
 	// log any problem
@@ -133,7 +133,7 @@ func CompressBytes(data []byte) []byte {
 		mod.Error(ERRM, err)
 		return []byte{}
 	}
-	var ret = b.Bytes()
+	ret := b.Bytes()
 	if len(ret) < 3 {
 		mod.Error(ERRM, "length < 3")
 		return []byte{}
@@ -150,8 +150,8 @@ func FoldXorBytes(ar []byte, returnLen int) []byte {
 		mod.Error(EInvalidArg, "^returnLen", returnLen)
 		return []byte{}
 	}
-	var ret = make([]byte, returnLen)
-	var i = 0
+	ret := make([]byte, returnLen)
+	i := 0
 	for _, bt := range ar {
 		if i >= returnLen {
 			i = 0
@@ -170,7 +170,7 @@ func HexStringOfBytes(ar []byte) string {
 // InsertBytes inserts a copy of a byte slice into another byte slice.
 func InsertBytes(dest *[]byte, pos int, src ...[]byte) {
 	for _, part := range src {
-		var destLen, partLen = len(*dest), len(part)
+		destLen, partLen := len(*dest), len(part)
 		if pos < 0 || pos > destLen {
 			mod.Error("Position", pos, "out of range; len(*dest):", destLen)
 		} else if partLen != 0 {
@@ -187,8 +187,8 @@ func RandomBytes(length int) []byte {
 	if length < 1 {
 		return []byte{}
 	}
-	var ret = make([]byte, length)
-	var _, err = mod.rand.Read(ret)
+	ret := make([]byte, length)
+	_, err := mod.rand.Read(ret)
 	if err != nil {
 		return []byte{}
 	}
@@ -212,7 +212,7 @@ func RemoveBytes(dest *[]byte, pos, count int) {
 func RuneOffset(slice []byte, runeIndex int) (byteIndex int) {
 	for runeIndex > 0 {
 		runeIndex--
-		var _, size = utf8.DecodeRune(slice) // get size of the rune in bytes
+		_, size := utf8.DecodeRune(slice) // get size of the rune in bytes
 		if size == 0 {
 			break
 		}
@@ -230,12 +230,12 @@ func RuneOffset(slice []byte, runeIndex int) (byteIndex int) {
 
 // UncompressBytes uncompresses a ZLIB-compressed array of bytes.
 func UncompressBytes(data []byte) []byte {
-	var readCloser, err = zlib.NewReader(bytes.NewReader(data))
+	readCloser, err := zlib.NewReader(bytes.NewReader(data))
 	if err != nil {
 		mod.Error("UncompressBytes:", err)
 		return []byte{}
 	}
-	var ret = bytes.NewBuffer(make([]byte, 0, 8192))
+	ret := bytes.NewBuffer(make([]byte, 0, 8192))
 	io.Copy(ret, readCloser)
 	readCloser.Close()
 	return ret.Bytes()
@@ -246,8 +246,8 @@ func XorBytes(data, cipher []byte) []byte {
 	if len(data) == 0 || len(cipher) == 0 {
 		return data
 	}
-	var ret = bytes.NewBuffer(make([]byte, 0, len(data)))
-	var i, l = 0, len(cipher)
+	ret := bytes.NewBuffer(make([]byte, 0, len(data)))
+	i, l := 0, len(cipher)
 	for _, b := range data {
 		ret.WriteByte(b ^ cipher[i])
 		i++
