@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 54A975                          zr/[settings_test.go]
+// :v: 2019-04-28 16:54:08 FAB601                          zr/[settings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -59,11 +59,13 @@ func Test_sett_Settings_GetSetting_(t *testing.T) {
 				"blank": "",
 			},
 		}
-		// existing settings are looked-up irrespective of case
+		// existing settings are looked-up?
 		TEqual(t, o.GetSetting("alpha"), ("111"))
 		TEqual(t, o.GetSetting("beta"), ("222"))
-		TEqual(t, o.GetSetting("ALPHA"), ("111"))
-		TEqual(t, o.GetSetting("BETA"), ("222"))
+		//
+		// settings are case-sensitive?
+		TEqual(t, o.GetSetting("ALPHA"), (""))
+		TEqual(t, o.GetSetting("BETA"), (""))
 		//
 		// non-existent settings just return a blank string
 		TEqual(t, o.GetSetting("delta"), (""))
@@ -102,11 +104,13 @@ func Test_sett_Settings_HasSetting_(t *testing.T) {
 				"blank": "",
 			},
 		}
-		TEqual(t, o.HasSetting("ALPHA"), (true))
-		TEqual(t, o.HasSetting("BETA"), (true))
 		TEqual(t, o.HasSetting("alpha"), (true))
 		TEqual(t, o.HasSetting("beta"), (true))
 		TEqual(t, o.HasSetting("blank"), (true))
+		//
+		// settings are case-sensitive?
+		TEqual(t, o.HasSetting("ALPHA"), (false))
+		TEqual(t, o.HasSetting("BETA"), (false))
 		//
 		TEqual(t, o.HasSetting("delta"), (false))
 	}
