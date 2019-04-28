@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # (c) Active Systems Enterprises                         balarabe@protonmail.com
-# :v: 2018-05-20 02:37:37 7C62E8                                 zr/[.gitignore]
+# :v: 2019-04-28 16:41:12 2CB01B                                 zr/[.gitignore]
 # ------------------------------------------------------------------------------
 
 # scripts, shortcuts, zip archives
@@ -11,6 +11,7 @@
 
 # log and debugging files
 *.log
+*.test
 cover.out
 
 # drafts and temporary files
