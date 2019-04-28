@@ -1,13 +1,13 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-28 18:47:50 0E8876                                   zr/[flag.go]
+// :v: 2019-04-28 16:49:21 4D8E37                                   zr/[flag.go]
 // -----------------------------------------------------------------------------
 
 package zr
 
 import (
 	"os"
-	// str "strings" <- imported in strings_module.go
+	"strings"
 )
 
 // HasFlags returns true if the command line used to start the program
@@ -15,12 +15,12 @@ import (
 // more '-' characters. The comparison is case-sensitive.
 func HasFlags(flags ...string) bool {
 	for _, arg := range os.Args {
-		if !str.HasPrefix(arg, "-") {
+		if !strings.HasPrefix(arg, "-") {
 			continue
 		}
-		arg = str.TrimLeft(arg, "-")
+		arg = strings.TrimLeft(arg, "-")
 		for _, flag := range flags {
-			flag = str.TrimLeft(flag, "-")
+			flag = strings.TrimLeft(flag, "-")
 			if arg == flag {
 				return true
 			}

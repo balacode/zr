@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-03-13 00:22:41 F072A9                               zr/[calendar.go]
+// :v: 2019-04-28 16:49:21 C5FCAE                               zr/[calendar.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -24,6 +24,7 @@ package zr
 import (
 	"bytes"
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -184,7 +185,7 @@ func (ob *Calendar) String() string {
 		}
 	}
 	ws(LF)
-	var blank = str.Repeat(" ", CELLWIDTH)
+	var blank = strings.Repeat(" ", CELLWIDTH)
 	var wdayFmt = fmt.Sprintf("  %%-%ds", CELLWIDTH-2)
 	var dayFmt = fmt.Sprintf(" %%-%dd", CELLWIDTH-1)
 	var valFmt = fmt.Sprintf(" %%%dv ", CELLWIDTH-2)
@@ -196,30 +197,30 @@ func (ob *Calendar) String() string {
 			if i > 0 {
 				ws(HDIV)
 			}
-			ws(str.Repeat(HDIV, CELLWIDTH))
+			ws(strings.Repeat(HDIV, CELLWIDTH))
 		}
 		ws(EDGE, LF)
 	}
 	// draws the inner horizontal divider
 	var innerHLine = func() {
 		for i := 0; i < 7; i++ {
-			ws(VDIV, str.Repeat(HDIV, CELLWIDTH))
+			ws(VDIV, strings.Repeat(HDIV, CELLWIDTH))
 		}
 		ws(VDIV, LF)
 	}
 	// formats numbers
 	var numStr = func(val float64) string {
 		var ret = fmt.Sprintf("%5.2f", val)
-		if str.Contains(ret, ".") {
-			ret = str.TrimRight(ret, "0")
-			ret = str.TrimRight(ret, ".")
+		if strings.Contains(ret, ".") {
+			ret = strings.TrimRight(ret, "0")
+			ret = strings.TrimRight(ret, ".")
 		}
 		return ret
 	}
 	for _, mth := range ob.months {
 		//
 		// month heading
-		ws(str.ToUpper(fmt.Sprintf("%d %v", mth.year, mth.month)), LF)
+		ws(strings.ToUpper(fmt.Sprintf("%d %v", mth.year, mth.month)), LF)
 		outerHLine()
 		//
 		// weekday names

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-03-18 00:33:21 42C418                               zr/[currency.go]
+// :v: 2019-04-28 16:49:21 55E0BF                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -73,6 +73,7 @@ import (
 	"math/big"
 	"reflect"
 	"strconv"
+	"strings"
 )
 
 // -----------------------------------------------------------------------------
@@ -402,12 +403,12 @@ func (ob Currency) InWordsEN(fmt string) string {
 	}
 	var bigUnits = n / cur4d
 	var smlUnits = (n - bigUnits*cur4d) / 100
-	var hasOnly = str.HasSuffix(str.ToLower(fmt), "only")
+	var hasOnly = strings.HasSuffix(strings.ToLower(fmt), "only")
 	if hasOnly {
 		fmt = fmt[:len(fmt)-4]
 	}
 	var getPart = func(partNo int) string {
-		var parts = str.Split(fmt, ";")
+		var parts = strings.Split(fmt, ";")
 		if partNo < 0 || partNo >= len(parts) {
 			return ""
 		}
@@ -457,7 +458,7 @@ func (ob Currency) InWordsEN(fmt string) string {
 			}
 		}
 	}
-	if hasOnly && len(str.Trim(ret, SPACES)) > 0 {
+	if hasOnly && len(strings.Trim(ret, SPACES)) > 0 {
 		ret += " Only"
 	}
 	return ret
@@ -477,7 +478,7 @@ func (ob Currency) String() string {
 				sint = "-" + sint
 			}
 		}
-		sdec = "." + str.TrimRight(
+		sdec = "." + strings.TrimRight(
 			strconv.FormatInt(d+cur4d, 10)[1:],
 			"0",
 		)
@@ -777,7 +778,7 @@ func (ob Currency) MarshalJSON() ([]byte, error) {
 	var d = ob.val - i*cur4d // decimal part
 	var ret = fmt.Sprintf("%d", i)
 	if d != 0 {
-		ret += str.TrimRight(
+		ret += strings.TrimRight(
 			fmt.Sprintf("%0.4f", float32(d)/cur4d)[1:],
 			"0",
 		)

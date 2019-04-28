@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-28 03:41:43 AF9316                                   zr/[uuid.go]
+// :v: 2019-04-28 16:49:21 2AB803                                   zr/[uuid.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -12,6 +12,7 @@ package zr
 import (
 	// "crypto/rand" // used via mod.rand proxy
 	"fmt"
+	"strings"
 )
 
 // -----------------------------------------------------------------------------
@@ -24,8 +25,8 @@ import (
 func IsUUID(val interface{}) bool {
 	switch val := val.(type) {
 	case string:
-		for str.Contains(val, "-") {
-			val = str.Replace(val, "-", "", -1)
+		for strings.Contains(val, "-") {
+			val = strings.Replace(val, "-", "", -1)
 		}
 		if len(val) != 32 {
 			return false

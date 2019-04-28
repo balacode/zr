@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-29 09:40:32 481B7D                                zr/[strings.go]
+// :v: 2019-04-28 16:49:21 276CAF                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -65,6 +65,7 @@ import (
 	"reflect"
 	"sort"
 	"strconv"
+	"strings"
 	"unicode"
 	"unicode/utf8"
 )
@@ -115,7 +116,7 @@ func After(s string, find ...string) string {
 	}
 	var at = -1
 	for _, f := range find {
-		var i = str.Index(s, f)
+		var i = strings.Index(s, f)
 		if i != -1 {
 			i += len(f)
 			if i > at {
@@ -159,12 +160,12 @@ func CharsOf(s string) []rune {
 // E.g. "a\n b   c" becomes "a b c".
 func CompactSpaces(s string) string {
 	for _, ch := range "\a\b\f\n\r\t\v" { // <- no need to include a space here
-		if str.Contains(s, string(ch)) {
-			s = str.Replace(s, string(ch), " ", -1)
+		if strings.Contains(s, string(ch)) {
+			s = strings.Replace(s, string(ch), " ", -1)
 		}
 	}
-	for str.Contains(s, "  ") {
-		s = str.Replace(s, "  ", " ", -1)
+	for strings.Contains(s, "  ") {
+		s = strings.Replace(s, "  ", " ", -1)
 	}
 	return s
 } //                                                               CompactSpaces
@@ -172,8 +173,8 @@ func CompactSpaces(s string) string {
 // ContainsI returns true if 's' contains 'substr', ignoring case.
 // It always returns true if 'substr' is a blank string.
 func ContainsI(s, substr string) bool {
-	s, substr = str.ToLower(s), str.ToLower(substr)
-	return str.Contains(s, substr)
+	s, substr = strings.ToLower(s), strings.ToLower(substr)
+	return strings.Contains(s, substr)
 } //                                                                   ContainsI
 
 // ContainsWord returns true if 's' contains 'word', provided 'word'
@@ -215,13 +216,13 @@ func EqualStringSlices(a, b []string) bool {
 
 // FindChar __
 func FindChar(s string, ch byte, beginIndex int) int {
-	return beginIndex + str.IndexByte(s[beginIndex:], ch)
+	return beginIndex + strings.IndexByte(s[beginIndex:], ch)
 } //                                                                    FindChar
 
 // FindInSlice __
 func FindInSlice(s string, start, end int, substr string) int {
 	if start == 0 && end == -1 {
-		return str.Index(s, substr)
+		return strings.Index(s, substr)
 	}
 	var sLen = len(s)
 	if start < 0 || start > sLen {
@@ -239,7 +240,7 @@ func FindInSlice(s string, start, end int, substr string) int {
 		mod.Error("Start index", start, "> end index", end)
 		return -1
 	}
-	return start + str.Index(s[start:end], substr)
+	return start + strings.Index(s[start:end], substr)
 } //                                                                 FindInSlice
 
 // First __
@@ -262,7 +263,7 @@ func First(s string, count int) string {
 // I.e. if prefix and suffix are both blank, returns 's'.
 // When either prefix or suffix is not found, returns a zero-length string.
 func GetPart(s, prefix, suffix string) string {
-	var at = str.Index(s, prefix)
+	var at = strings.Index(s, prefix)
 	if at == -1 {
 		return ""
 	}
@@ -270,7 +271,7 @@ func GetPart(s, prefix, suffix string) string {
 	if suffix == "" {
 		return s
 	}
-	at = str.Index(s, suffix)
+	at = strings.Index(s, suffix)
 	if at == -1 {
 		return ""
 	}
@@ -377,7 +378,7 @@ func JSUnescapeStruct(structPtr interface{}) {
 		var fieldV = structV.Field(i)
 		var fieldK = fieldV.Kind()
 		if fieldK == reflect.String {
-			fieldV.SetString(JSUnescape(str.Trim(fieldV.String(), SPACES)))
+			fieldV.SetString(JSUnescape(strings.Trim(fieldV.String(), SPACES)))
 		} else if fieldK == reflect.Slice {
 			for rowNo := 0; rowNo < fieldV.Len(); rowNo++ {
 				JSUnescapeStruct(fieldV.Index(rowNo).Addr().Interface())
@@ -414,8 +415,8 @@ func LineBeginIndex(s string, index int) int {
 			index = sLen
 		}
 	}
-	var cr = str.LastIndexByte(s[:index], '\r')
-	var lf = str.LastIndexByte(s[:index], '\n')
+	var cr = strings.LastIndexByte(s[:index], '\r')
+	var lf = strings.LastIndexByte(s[:index], '\n')
 	if cr > lf {
 		return cr + 1
 	}
@@ -457,8 +458,8 @@ func LineEndIndex(s string, index int) int {
 			index = sLen
 		}
 	}
-	var cr = str.IndexByte(s[index:], '\r')
-	var lf = str.IndexByte(s[index:], '\n')
+	var cr = strings.IndexByte(s[index:], '\r')
+	var lf = strings.IndexByte(s[index:], '\n')
 	var i int
 	if (cr < lf && cr != -1) || lf == -1 {
 		i = cr
@@ -582,7 +583,7 @@ func LineOffsetUTF8(data []byte, lineIndex int) (byteOffset, charOffset int) {
 func Padf(minLength int, s string, args ...interface{}) string {
 	s = fmt.Sprintf(s, args...)
 	if len(s) < minLength {
-		return s + str.Repeat(" ", minLength-len(s))
+		return s + strings.Repeat(" ", minLength-len(s))
 	}
 	return s
 } //                                                                        Padf
@@ -604,8 +605,8 @@ func ReplaceEx1(s, find, repl string, count int, caseMode CaseMode) string {
 	// lowercase of 's' and 'find' used when caseMode is IgnoreCase
 	var sLw, findLw string
 	if caseMode == IgnoreCase {
-		sLw = str.ToLower(s)
-		findLw = str.ToLower(find)
+		sLw = strings.ToLower(s)
+		findLw = strings.ToLower(find)
 	}
 	var replRemain = count // number of replacements remaining
 	var pos, prev = 0, 0
@@ -613,9 +614,9 @@ func ReplaceEx1(s, find, repl string, count int, caseMode CaseMode) string {
 		// find the next index of 'find' in 's'
 		var i int
 		if caseMode == IgnoreCase {
-			i = str.Index(sLw[pos:], findLw)
+			i = strings.Index(sLw[pos:], findLw)
 		} else {
-			i = str.Index(s[pos:], find)
+			i = strings.Index(s[pos:], find)
 		}
 		// no more matches? append the rest
 		if i == -1 || replRemain == 0 {
@@ -883,8 +884,8 @@ func ReplaceWord(s, find, repl string, caseMode CaseMode) string {
 	var sLw = "" // lowercase of 's' and 'find' when caseMode is IgnoreCase
 	var findLw = ""
 	if caseMode == IgnoreCase {
-		sLw = str.ToLower(s)
-		findLw = str.ToLower(find)
+		sLw = strings.ToLower(s)
+		findLw = strings.ToLower(find)
 	}
 	var nonWord = func(ch byte) bool {
 		//TODO: wrongly returns 'false' for non-Latin Unicode letters
@@ -895,9 +896,9 @@ func ReplaceWord(s, find, repl string, caseMode CaseMode) string {
 		{ // find the next index of 'find' in 's'
 			var i int
 			if caseMode == IgnoreCase {
-				i = str.Index(sLw[pos:], findLw)
+				i = strings.Index(sLw[pos:], findLw)
 			} else {
-				i = str.Index(s[pos:], find)
+				i = strings.Index(s[pos:], find)
 			}
 			if i == -1 {
 				ret += s[prev:] // no more matches? append the rest
@@ -932,13 +933,13 @@ func ReplaceWord(s, find, repl string, caseMode CaseMode) string {
 
 // SetPart __ //TODO: describe and create unit test
 func SetPart(s, prefix, suffix, part string) string {
-	var at = str.Index(s, prefix)
+	var at = strings.Index(s, prefix)
 	if at == -1 {
 		return s + prefix + part + suffix
 	}
 	var head = s[:at+len(prefix)]
 	var tail = s[at+len(prefix):]
-	at = str.Index(tail, suffix)
+	at = strings.Index(tail, suffix)
 	if at == -1 {
 		tail = suffix
 	} else {
@@ -974,23 +975,23 @@ func SetSlice(s string, start, end int, substr string) string {
 // ShowSpaces replaces spaces, tabs and
 // line breaks with visible placeholders.
 func ShowSpaces(s string) string {
-	if str.Contains(s, " ") {
-		s = str.Replace(s, " ", "-", -1)
+	if strings.Contains(s, " ") {
+		s = strings.Replace(s, " ", "-", -1)
 	}
-	if str.Contains(s, "\t") {
-		s = str.Replace(s, "\t", "--->", -1)
+	if strings.Contains(s, "\t") {
+		s = strings.Replace(s, "\t", "--->", -1)
 	}
-	if str.Contains(s, CR+LF) {
-		s = str.Replace(s, CR+LF, "CRLF\x00", -1)
+	if strings.Contains(s, CR+LF) {
+		s = strings.Replace(s, CR+LF, "CRLF\x00", -1)
 	}
-	if str.Contains(s, CR) {
-		s = str.Replace(s, CR, "CR"+CR, -1)
+	if strings.Contains(s, CR) {
+		s = strings.Replace(s, CR, "CR"+CR, -1)
 	}
-	if str.Contains(s, LF) {
-		s = str.Replace(s, LF, "LF"+LF, -1)
+	if strings.Contains(s, LF) {
+		s = strings.Replace(s, LF, "LF"+LF, -1)
 	}
-	if str.Contains(s, "CRLF") {
-		s = str.Replace(s, "CRLF\x00", "CRLF"+CR+LF, -1)
+	if strings.Contains(s, "CRLF") {
+		s = strings.Replace(s, "CRLF\x00", "CRLF"+CR+LF, -1)
 	}
 	return s
 } //                                                                  ShowSpaces
@@ -1146,9 +1147,9 @@ func String(val interface{}) string {
 		return "false"
 	case float32, float64:
 		var ret = fmt.Sprintf("%f", val)
-		if str.Contains(ret, ".") {
-			ret = str.TrimRight(ret, "0")
-			ret = str.TrimRight(ret, ".")
+		if strings.Contains(ret, ".") {
+			ret = strings.TrimRight(ret, "0")
+			ret = strings.TrimRight(ret, ".")
 		}
 		return ret
 	case int:
@@ -1312,7 +1313,7 @@ func TokenGetEx(list string, index int, sep string, ignoreEnd bool) string {
 		return ""
 	}
 	var curr = 0
-	var next = str.Index(list, sep)
+	var next = strings.Index(list, sep)
 	var i = index
 	for i > 0 {
 		i--
@@ -1321,7 +1322,7 @@ func TokenGetEx(list string, index int, sep string, ignoreEnd bool) string {
 			break
 		}
 		curr = next + sepLen
-		next = str.Index(list[curr:], sep)
+		next = strings.Index(list[curr:], sep)
 		if next != -1 {
 			next += curr
 		}
@@ -1345,13 +1346,13 @@ func WordIndex(s, word string, caseMode CaseMode) int {
 	}
 	// convert strings to lower case when case-insensitive
 	if caseMode == IgnoreCase {
-		s = str.ToLower(s)
-		word = str.ToLower(word)
+		s = strings.ToLower(s)
+		word = strings.ToLower(word)
 	}
 	var i = 0
 	for {
 		{ // find the next index of 'word' in 's'
-			var at = str.Index(s[i:], word)
+			var at = strings.Index(s[i:], word)
 			if at == -1 {
 				break // return -1
 			}

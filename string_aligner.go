@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 339F66                         zr/[string_aligner.go]
+// :v: 2019-04-28 16:49:21 EEC067                         zr/[string_aligner.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -12,6 +12,7 @@ package zr
 
 import (
 	"bytes"
+	"strings"
 )
 
 // StringAligner left-aligns columns of strings.
@@ -63,7 +64,7 @@ func (ob *StringAligner) String() string {
 			if i < len(row)-1 {
 				var spaces = ob.Width[i] - len(col) + ob.Padding
 				if spaces > 0 {
-					ws(str.Repeat(" ", spaces))
+					ws(strings.Repeat(" ", spaces))
 				}
 			}
 		}

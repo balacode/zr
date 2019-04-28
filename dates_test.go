@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 20CC0F                             zr/[dates_test.go]
+// :v: 2019-04-28 16:49:21 917B69                             zr/[dates_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -30,6 +30,7 @@ to generate a test coverage report for the whole module use:
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 	"time"
 )
@@ -93,7 +94,7 @@ func Test_date_DateRangeOf_(t *testing.T) {
 	// replaces 'yyyy' with current year
 	var thisYear = func(s string) string {
 		var year = String(int(time.Now().Year()))
-		return str.Replace(s, "yyyy", year, -1)
+		return strings.Replace(s, "yyyy", year, -1)
 	}
 	// month only
 	test("MAY", thisYear("yyyy-05-01 yyyy-05-31"))

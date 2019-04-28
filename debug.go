@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 DECAF2                                  zr/[debug.go]
+// :v: 2019-04-28 16:49:21 E5523C                                  zr/[debug.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -13,6 +13,7 @@ import (
 	"reflect"
 	"runtime"
 	"runtime/debug"
+	"strings"
 	"time"
 )
 
@@ -115,7 +116,7 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 		for i, val := range val {
 			if isMany {
 				ws(LF)
-				ws(str.Repeat(TabSpace, indentAt+1))
+				ws(strings.Repeat(TabSpace, indentAt+1))
 				ws(fmt.Sprintf("%d:", i))
 			}
 			ws(DebugString(val, indentAt))
@@ -126,14 +127,14 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 		for i1, val := range val { // range [][]string
 			if isMany1 {
 				ws(LF)
-				ws(str.Repeat(TabSpace, indentAt+1))
+				ws(strings.Repeat(TabSpace, indentAt+1))
 			}
 			var isMany2 = len(val) > 1
 			ws(fmt.Sprintf("%d: [%d]", i1, len(val)))
 			for i2, val := range val { // range []string
 				if isMany2 {
 					ws(LF)
-					ws(str.Repeat(" ", indentAt+2))
+					ws(strings.Repeat(" ", indentAt+2))
 				}
 				ws(fmt.Sprintf(" %d:", i2))
 				ws(DebugString(val, indentAt+3)) // string
@@ -170,8 +171,8 @@ func DV(label string, values ...interface{}) {
 	for _, val := range values {
 		var typeName = "<" + reflect.TypeOf(val).String() + ">"
 		var changeType = func(find, repl string) {
-			for str.Contains(typeName, find) {
-				typeName = str.Replace(typeName, find, repl, -1)
+			for strings.Contains(typeName, find) {
+				typeName = strings.Replace(typeName, find, repl, -1)
 			}
 		}
 		changeType("bool", "t")

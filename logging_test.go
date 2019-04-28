@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 F3DEF6                           zr/[logging_test.go]
+// :v: 2019-04-28 16:49:21 AAB304                           zr/[logging_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -16,6 +16,7 @@ to generate a test coverage report for the whole module use:
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -29,7 +30,7 @@ func Test_logg_CallerList_(t *testing.T) {
 			t.Error("Expected 1 item in returned slice, but got", len(ar))
 		}
 		const ExpectName = "zr.Test_logg_CallerList_:"
-		if len(ar) == 1 && !str.HasPrefix(ar[0], ExpectName) {
+		if len(ar) == 1 && !strings.HasPrefix(ar[0], ExpectName) {
 			t.Errorf(
 				"Expected %q in returned slice, but got %q",
 				ExpectName,
@@ -60,7 +61,7 @@ func Test_logg_CallerList_(t *testing.T) {
 			"Test_logg_CallerList_.func1",
 			"zr.Test_logg_CallerList_",
 		} {
-			if !str.HasPrefix(ar[i], prefix) {
+			if !strings.HasPrefix(ar[i], prefix) {
 				t.Errorf(
 					"In returned slice at index %d: expected %q but got %q",
 					i, prefix, ar[i],

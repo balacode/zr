@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-03-18 00:33:21 AFCCEA                                   zr/[bool.go]
+// :v: 2019-04-28 16:49:21 DE4882                                   zr/[bool.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -12,6 +12,7 @@ package zr
 import (
 	"fmt"
 	"reflect"
+	"strings"
 )
 
 // Bool converts primitive types to a boolean value:
@@ -32,7 +33,7 @@ func Bool(val interface{}) bool {
 		}
 	// strings:
 	case string:
-		switch str.ToUpper(str.Trim(val, SPACES)) {
+		switch strings.ToUpper(strings.Trim(val, SPACES)) {
 		case "FALSE", "0", "":
 			return false
 		case "TRUE", "1", "-1":
@@ -136,7 +137,7 @@ func IsBool(val interface{}) bool {
 		return false
 	// strings:
 	case string:
-		switch str.ToUpper(str.Trim(val, SPACES)) {
+		switch strings.ToUpper(strings.Trim(val, SPACES)) {
 		case "FALSE", "TRUE", "0", "1":
 			return true
 		default:

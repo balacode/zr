@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-28 03:41:43 78E5EA                                  zr/[dates.go]
+// :v: 2019-04-28 16:49:21 35B9BE                                  zr/[dates.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -41,6 +41,7 @@ import (
 	"fmt"
 	"reflect"
 	"regexp"
+	"strings"
 	"time"
 )
 
@@ -145,22 +146,22 @@ func DateOf(val interface{}) time.Time {
 // DateRangeOf creates and returns a DateRange structure from a string. __
 func DateRangeOf(s string) DateRange {
 	// pre-format
-	s = str.ToUpper(str.Trim(s, SPACES))
+	s = strings.ToUpper(strings.Trim(s, SPACES))
 	for _, sep := range []string{" ", ".", "/", "\\", "_"} {
-		for str.Contains(s, sep) {
-			s = str.Replace(s, sep, "-", -1)
+		for strings.Contains(s, sep) {
+			s = strings.Replace(s, sep, "-", -1)
 		}
 	}
-	for str.Contains(s, "--") {
-		s = str.Replace(s, "--", "-", -1)
+	for strings.Contains(s, "--") {
+		s = strings.Replace(s, "--", "-", -1)
 	}
-	for str.Contains(s, "-TO-") {
-		s = str.Replace(s, "-TO-", "~", -1)
+	for strings.Contains(s, "-TO-") {
+		s = strings.Replace(s, "-TO-", "~", -1)
 	}
 	var y1, m1, d1 = 0, time.January, 1
 	var y2, m2, d2 = 0, time.December, 31
 	// date range
-	if i := str.Index(s, "~"); i != -1 {
+	if i := strings.Index(s, "~"); i != -1 {
 		var r1 = DateRangeOf(s[:i])
 		var r2 = DateRangeOf(s[i+1:])
 		y1, m1, d1 = r1.From.Year(), r1.From.Month(), r1.From.Day()
@@ -322,28 +323,28 @@ func FormatDateEN(format string, date time.Time) string {
 		ret = ReplaceWord(ret, "d", String(day), IgnoreCase)
 	}
 	// month (full)
-	if str.Contains(ret, "MMMM") {
+	if strings.Contains(ret, "MMMM") {
 		ret = ReplaceWord(ret, "MMMM",
-			str.ToUpper(MonthNameEN(month)), MatchCase)
+			strings.ToUpper(MonthNameEN(month)), MatchCase)
 	}
-	if str.Contains(ret, "Mmmm") {
+	if strings.Contains(ret, "Mmmm") {
 		ret = ReplaceWord(ret, "Mmmm", MonthNameEN(month), MatchCase)
 	}
-	if str.Contains(ret, "mmmm") {
+	if strings.Contains(ret, "mmmm") {
 		ret = ReplaceWord(ret, "mmmm",
-			str.ToLower(MonthNameEN(month)), MatchCase)
+			strings.ToLower(MonthNameEN(month)), MatchCase)
 	}
 	// month (3 letters)
-	if str.Contains(ret, "MMM") {
+	if strings.Contains(ret, "MMM") {
 		ret = ReplaceWord(ret, "MMM",
-			str.ToUpper(First(MonthNameEN(month), 3)), MatchCase)
+			strings.ToUpper(First(MonthNameEN(month), 3)), MatchCase)
 	}
-	if str.Contains(ret, "Mmm") {
+	if strings.Contains(ret, "Mmm") {
 		ret = ReplaceWord(ret, "Mmm", First(MonthNameEN(month), 3), MatchCase)
 	}
-	if str.Contains(ret, "mmm") {
+	if strings.Contains(ret, "mmm") {
 		ret = ReplaceWord(ret, "mmm",
-			str.ToLower(First(MonthNameEN(month), 3)), MatchCase)
+			strings.ToLower(First(MonthNameEN(month), 3)), MatchCase)
 	}
 	// month (2 digits)
 	if ContainsI(ret, "mm") {
@@ -428,9 +429,9 @@ func MonthNameEN(monthNo int, shortName ...bool) string {
 // If the string is not a month name, returns zero.
 // Uses English language names, hence the 'EN' suffix.
 func MonthNumberEN(monthName string) int {
-	monthName = str.ToUpper(str.Trim(monthName, SPACES))
+	monthName = strings.ToUpper(strings.Trim(monthName, SPACES))
 	for i, s := range MonthNamesEN {
-		s = str.ToUpper(s)
+		s = strings.ToUpper(s)
 		if monthName == s || monthName == s[:3] {
 			return i + 1
 		}
@@ -446,19 +447,19 @@ func MthYear(val interface{}) string {
 
 // ParseDate reads a date string and returns the year, month and day number.
 func ParseDate(s string) (year, month, day int) {
-	s = str.Trim(s, SPACES)
+	s = strings.Trim(s, SPACES)
 	if s == "" {
 		return 0, 0, 0
 	}
 	var change = func(from, to string) {
-		if str.Contains(s, from) {
-			s = str.Replace(s, from, to, -1)
+		if strings.Contains(s, from) {
+			s = strings.Replace(s, from, to, -1)
 		}
 	}
 	change("-", "/")
 	change(".", "/")
 	change("\\", "/")
-	var parts = str.Split(s, "/")
+	var parts = strings.Split(s, "/")
 	if len(parts) != 3 {
 		return 0, 0, 0
 	}
@@ -577,7 +578,7 @@ func Timestamp(optWithMS ...bool) string {
 	//
 	// longer way to get the same result:
 	// var ret = time.Now().Format(time.RFC3339)[:19]
-	// ret = str.Replace(ret, "T", " ", -1)
+	// ret = strings.Replace(ret, "T", " ", -1)
 } //                                                                   Timestamp
 
 // YMD returns a date using the 'yyyy-mm-dd' format.

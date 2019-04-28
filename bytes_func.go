@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-01-17 14:50:56 BDABBB                             zr/[bytes_func.go]
+// :v: 2019-04-28 16:49:21 12CE53                             zr/[bytes_func.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -25,6 +25,7 @@ import (
 	"io"
 	"math"
 	"math/big"
+	"strings"
 	"unicode/utf8"
 )
 
@@ -93,7 +94,7 @@ func ByteSizeString(sizeInBytes int64, useSI bool) string {
 		ret += fmt.Sprintf("%0.1f", cut)
 		//
 		// remove trailing zero decimal
-		if str.HasSuffix(ret, ".0") {
+		if strings.HasSuffix(ret, ".0") {
 			ret = ret[:len(ret)-2]
 		}
 		// append SI or binary units

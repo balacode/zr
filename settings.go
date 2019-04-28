@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-01-08 10:35:48 5706AF                               zr/[settings.go]
+// :v: 2019-04-28 16:49:21 D3838C                               zr/[settings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -27,6 +27,7 @@ package zr
 
 import (
 	"fmt"
+	"strings"
 )
 
 // SettingsAccessor __
@@ -68,7 +69,7 @@ func (ob *Settings) GetSetting(name string) string {
 		mod.Error(ENilReceiver)
 		return erv
 	}
-	name = str.Trim(name, SPACES)
+	name = strings.Trim(name, SPACES)
 	if name == "" {
 		mod.Error(EInvalidArg, "^name")
 		return erv
@@ -87,7 +88,7 @@ func (ob *Settings) HasSetting(name string) bool {
 		mod.Error(ENilReceiver)
 		return erv
 	}
-	name = str.Trim(name, SPACES)
+	name = strings.Trim(name, SPACES)
 	if name == "" {
 		mod.Error(EInvalidArg, "^name")
 		return erv
@@ -105,7 +106,7 @@ func (ob *Settings) SetSetting(name string, val interface{}) {
 		mod.Error(ENilReceiver)
 		return
 	}
-	name = str.Trim(name, SPACES)
+	name = strings.Trim(name, SPACES)
 	if name == "" {
 		mod.Error(EInvalidArg, "^name")
 		return

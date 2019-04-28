@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-03-12 23:29:23 27D89A                                zr/[logging.go]
+// :v: 2019-04-28 16:49:21 1618E7                                zr/[logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -60,6 +60,7 @@ import (
 	"os"
 	"runtime"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 )
@@ -214,10 +215,10 @@ func Assert(expect bool) bool {
 func Base64ErrorDetails(err error, data string) {
 	const atInputByte = " at input byte "
 	var errStr = err.Error()
-	if !str.Contains(errStr, atInputByte) {
+	if !strings.Contains(errStr, atInputByte) {
 		return
 	}
-	var at = str.Index(errStr, atInputByte)
+	var at = strings.Index(errStr, atInputByte)
 	at = Int(errStr[at+len(atInputByte):])
 	var from = at - 10
 	if from < 0 {
@@ -255,35 +256,36 @@ func CallerList() []string {
 			funcName == "runtime.goexit" ||
 			funcName == "runtime.main" ||
 			funcName == "testing.tRunner" ||
-			str.Contains(funcName, "HandlerFunc.ServeHTTP") {
+			strings.Contains(funcName, "HandlerFunc.ServeHTTP") {
 			break
 		}
 		// skip runtime/syscall functions, but continue the loop
-		if str.Contains(funcName, "zr.Callers") ||
-			str.Contains(funcName, "zr.CallerList") ||
-			str.Contains(funcName, "zr.Error") ||
-			str.Contains(funcName, "zr.Log") ||
-			str.Contains(funcName, "zr.logAsync") ||
-			str.HasPrefix(funcName, "runtime.") ||
-			str.HasPrefix(funcName, "syscall.") {
+		if strings.Contains(funcName, "zr.Callers") ||
+			strings.Contains(funcName, "zr.CallerList") ||
+			strings.Contains(funcName, "zr.Error") ||
+			strings.Contains(funcName, "zr.Log") ||
+			strings.Contains(funcName, "zr.logAsync") ||
+			strings.HasPrefix(funcName, "runtime.") ||
+			strings.HasPrefix(funcName, "syscall.") {
 			continue
 		}
 		// let the file name's path use the right kind of OS path separator
 		// (by default, the file name contains '/' on all platforms)
 		if string(os.PathSeparator) != "/" {
-			filename = str.Replace(filename, "/", string(os.PathSeparator), -1)
+			filename = strings.Replace(filename, "/", string(os.PathSeparator),
+				-1)
 		}
 		// remove parent module/function names
-		if index := str.LastIndex(funcName, "/"); index != -1 {
+		if index := strings.LastIndex(funcName, "/"); index != -1 {
 			funcName = funcName[index+1:]
 		}
-		if str.Count(funcName, ".") > 1 {
-			funcName = funcName[str.Index(funcName, ".")+1:]
+		if strings.Count(funcName, ".") > 1 {
+			funcName = funcName[strings.Index(funcName, ".")+1:]
 		}
 		// remove unneeded punctuation from function names
 		for _, find := range []string{"(", ")", "*"} {
-			if str.Contains(funcName, find) {
-				funcName = str.Replace(funcName, find, "", -1)
+			if strings.Contains(funcName, find) {
+				funcName = strings.Replace(funcName, find, "", -1)
 			}
 		}
 		var line string
@@ -328,16 +330,16 @@ func Callers(options ...interface{}) string {
 			funcName == "runtime.goexit" ||
 			funcName == "runtime.main" ||
 			funcName == "testing.tRunner" ||
-			str.Contains(funcName, "HandlerFunc.ServeHTTP") {
+			strings.Contains(funcName, "HandlerFunc.ServeHTTP") {
 			break
 		}
 		// skip runtime/syscall functions, but continue the loop
-		if str.Contains(funcName, "zr.Callers") ||
-			str.Contains(funcName, "zr.Error") ||
-			str.Contains(funcName, "zr.Log") ||
-			str.Contains(funcName, "zr.logAsync") ||
-			str.HasPrefix(funcName, "runtime.") ||
-			str.HasPrefix(funcName, "syscall.") {
+		if strings.Contains(funcName, "zr.Callers") ||
+			strings.Contains(funcName, "zr.Error") ||
+			strings.Contains(funcName, "zr.Log") ||
+			strings.Contains(funcName, "zr.logAsync") ||
+			strings.HasPrefix(funcName, "runtime.") ||
+			strings.HasPrefix(funcName, "syscall.") {
 			continue
 		}
 		// increase depth counter and skip out-of-range functions
@@ -351,19 +353,20 @@ func Callers(options ...interface{}) string {
 		// let the file name's path use the right kind of OS path separator
 		// (by default, the file name contains '/' on all platforms)
 		if string(os.PathSeparator) != "/" {
-			filename = str.Replace(filename, "/", string(os.PathSeparator), -1)
+			filename = strings.Replace(filename, "/", string(os.PathSeparator),
+				-1)
 		}
 		// remove parent module/function names
-		if index := str.LastIndex(funcName, "/"); index != -1 {
+		if index := strings.LastIndex(funcName, "/"); index != -1 {
 			funcName = funcName[index+1:]
 		}
-		if str.Count(funcName, ".") > 1 {
-			funcName = funcName[str.Index(funcName, ".")+1:]
+		if strings.Count(funcName, ".") > 1 {
+			funcName = funcName[strings.Index(funcName, ".")+1:]
 		}
 		// remove unneeded punctuation from function names
 		for _, find := range []string{"(", ")", "*"} {
-			if str.Contains(funcName, find) {
-				funcName = str.Replace(funcName, find, "", -1)
+			if strings.Contains(funcName, find) {
+				funcName = strings.Replace(funcName, find, "", -1)
 			}
 		}
 		ws(callerPrefix)
@@ -473,8 +476,8 @@ func OBSOLETE(args ...interface{}) {
 		return
 	}
 	var funcName, calledBy = FuncName(2), FuncName(3)
-	if str.HasSuffix(funcName, "OLD") &&
-		str.HasSuffix(calledBy, "OLD") {
+	if strings.HasSuffix(funcName, "OLD") &&
+		strings.HasSuffix(calledBy, "OLD") {
 		return
 	}
 	var ar []interface{}
@@ -592,7 +595,7 @@ func DLC(message string, args ...interface{}) {
 // and trims white spaces from the final result.
 func formatArgs(format string, args ...interface{}) string {
 	args = removeLogOptions(args)
-	return str.Trim(fmt.Sprintf(format, args...), SPACES)
+	return strings.Trim(fmt.Sprintf(format, args...), SPACES)
 } //                                                                  formatArgs
 
 // joinArgs returns a string built from a list of variadic arguments 'args',
@@ -626,11 +629,11 @@ func joinArgs(prefix string, args ...interface{}) string {
 			ws(" ")
 		}
 		var q = quoteNext
-		if str.HasPrefix(s, "^") {
+		if strings.HasPrefix(s, "^") {
 			q = true
 			s = s[1:]
 		}
-		quoteNext = str.HasSuffix(s, "^")
+		quoteNext = strings.HasSuffix(s, "^")
 		if quoteNext {
 			s = s[:len(s)-1]
 		}
@@ -680,7 +683,7 @@ func logLoopAsync() {
 		lastLogTime = t.logTime
 		if !disableErrors {
 			msg = Timestamp() + " #" + strconv.Itoa(logSN) + " " + msg
-			msg = str.Trim(msg, SPACES)
+			msg = strings.Trim(msg, SPACES)
 			fmt.Println(msg)
 			if t.writeFile {
 				AppendToTextFile("run.log", msg+LB)

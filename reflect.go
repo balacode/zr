@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 CD39A9                                zr/[reflect.go]
+// :v: 2019-04-28 16:49:21 1048FD                                zr/[reflect.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -23,6 +23,7 @@ package zr
 import (
 	"fmt"
 	"reflect"
+	"strings"
 )
 
 // -----------------------------------------------------------------------------
@@ -86,18 +87,18 @@ func DescribeStruct(structPtr interface{}) string {
 		}
 		var s = fmt.Sprintf("%s {"+LB, ty.Name())
 		var printf = func(format string, a ...interface{}) {
-			s += str.Repeat(TabSpace, indentAt) + fmt.Sprintf(format, a...)
+			s += strings.Repeat(TabSpace, indentAt) + fmt.Sprintf(format, a...)
 		}
 		indentAt += 1
 		for i, count := 0, ty.NumField(); i < count; i++ {
 			var name = ty.Field(i).Name
-			var pad = str.Repeat(" ", max-len(name))
+			var pad = strings.Repeat(" ", max-len(name))
 			var val = reflect.ValueOf(structPtr).Elem().Field(i)
 			if val.Kind() == reflect.Slice {
 				{
 					var stype = reflect.TypeOf(val.Interface()).String()
-					if str.Contains(stype, "[]main.") {
-						stype = str.Replace(stype, "[]main.", "[]", -1)
+					if strings.Contains(stype, "[]main.") {
+						stype = strings.Replace(stype, "[]main.", "[]", -1)
 					}
 					printf("%s: %s {"+LB, name, stype)
 					indentAt += 1

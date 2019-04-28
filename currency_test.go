@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-09 01:03:18 5939BE                          zr/[currency_test.go]
+// :v: 2019-04-28 16:49:21 2F78FC                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -95,6 +95,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
+	"strings"
 	"testing"
 )
 
@@ -1189,8 +1190,8 @@ func Test_crcy_Currency_MarshalJSON_(t *testing.T) {
 		var jsn, _ = json.MarshalIndent(ty, "", " ")
 		//                 ^  calls the object's MarshalIndent() method
 		var got = string(jsn)
-		got = str.Replace(got, "\n", "", -1)
-		got = str.Replace(got, "{ ", "{", -1)
+		got = strings.Replace(got, "\n", "", -1)
+		got = strings.Replace(got, "{ ", "{", -1)
 		TEqual(t, got, (expect))
 	}
 	test(-1, `{"Val": -1}`)

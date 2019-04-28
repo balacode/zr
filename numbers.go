@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-02-21 13:08:17 0B774D                                zr/[numbers.go]
+// :v: 2019-04-28 16:49:21 6D6884                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -29,6 +29,7 @@ import (
 	"reflect"
 	"sort"
 	"strconv"
+	"strings"
 )
 
 // -----------------------------------------------------------------------------
@@ -393,7 +394,7 @@ func IsNumber(val interface{}) bool {
 		*float32, *float64:
 		return true
 	case string:
-		var s = str.Trim(val, SPACES)
+		var s = strings.Trim(val, SPACES)
 		if len(s) < 1 {
 			return false
 		}
@@ -491,7 +492,7 @@ func MaxIntOf(values []int) (max int, found bool) {
 // containing only zeros, decimal points and white-spaces.
 // Any string that doesn't contain '0' is returned unchanged.
 func BlankZero(s string) string {
-	if !str.Contains(s, "0") {
+	if !strings.Contains(s, "0") {
 		return s
 	}
 	for _, ch := range s {
@@ -514,7 +515,7 @@ func CommaDelimit(number string, decimalPlaces int) string {
 	var retBuf = bytes.NewBuffer(make([]byte, 0, 32))
 	var ws = retBuf.WriteString
 	var intLen = 0
-	var decAt = str.Index(number, ".")
+	var decAt = strings.Index(number, ".")
 	//
 	// calculate length of number's integer part
 	if decAt == -1 {
@@ -642,7 +643,7 @@ func IntInWordsEN(number int64) string {
 		ws(" ")
 		ws(unit)
 	}
-	return str.Trim(retBuf.String(), SPACES)
+	return strings.Trim(retBuf.String(), SPACES)
 } //                                                                IntInWordsEN
 
 //end

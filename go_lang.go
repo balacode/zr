@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-03-04 20:18:51 FFA6AD                                zr/[go_lang.go]
+// :v: 2019-04-28 16:49:21 0A62C8                                zr/[go_lang.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"reflect"
 	"sort"
+	"strings"
 )
 
 // -----------------------------------------------------------------------------
@@ -39,13 +40,13 @@ type GoStringerEx interface {
 // GoName converts a name to a Go language convention name.
 // It removes underscores from names and changes names to 'TitleCase'.
 func GoName(s string) string {
-	var ret = str.Trim(s, SPACES)
+	var ret = strings.Trim(s, SPACES)
 	if len(ret) == 0 {
 		return ""
 	}
 	// replace undserscores with spaces to isolate words
-	if str.Contains(ret, "_") {
-		ret = str.Replace(ret, "_", " ", -1)
+	if strings.Contains(ret, "_") {
+		ret = strings.Replace(ret, "_", " ", -1)
 	}
 	// capitalize the fist letter of every word
 	ret = TitleCase(ret)
@@ -55,8 +56,8 @@ func GoName(s string) string {
 		ret = ReplaceWord(ret, "id", "ID", IgnoreCase)
 	}
 	// remove spaces to get a camel-case string
-	if str.Contains(ret, " ") {
-		ret = str.Replace(ret, " ", "", -1)
+	if strings.Contains(ret, " ") {
+		ret = strings.Replace(ret, " ", "", -1)
 	}
 	return ret
 } //                                                                      GoName
@@ -194,7 +195,7 @@ func WriteGoString(
 		ws("}")
 		return
 	case reflect.String:
-		ws(`"`, str.Replace(val.(string), `"`, `\"`, -1), `"`)
+		ws(`"`, strings.Replace(val.(string), `"`, `\"`, -1), `"`)
 		return
 	case reflect.Struct:
 		ws(t.String(), "{")

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-20 02:37:37 B1877A                             zr/[timer_test.go]
+// :v: 2019-04-28 16:49:21 8F9633                             zr/[timer_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -15,6 +15,7 @@ to generate a test coverage report for the whole module use:
 */
 
 import (
+	"strings"
 	"testing"
 	"time"
 )
@@ -27,7 +28,7 @@ func Test_timr_(t *testing.T) {
 	time.Sleep(300 * time.Millisecond)
 	tm.Stop("task")
 	//
-	var lines = str.Split(tm.String(), "\n")
+	var lines = strings.Split(tm.String(), "\n")
 	TEqual(t, len(lines), 4)
 	//
 	// Expected output like:
@@ -35,11 +36,11 @@ func Test_timr_(t *testing.T) {
 	// 1:        0.31356: task
 	// 2:        0.31356
 	// 3:
-	TTrue(t, str.Contains(lines[0], "---"))
-	TTrue(t, str.Contains(lines[0], "SECONDS:"))
-	TTrue(t, str.Contains(lines[1], "0.3"))
-	TTrue(t, str.Contains(lines[1], ": task"))
-	TTrue(t, str.Contains(lines[2], "0.3"))
+	TTrue(t, strings.Contains(lines[0], "---"))
+	TTrue(t, strings.Contains(lines[0], "SECONDS:"))
+	TTrue(t, strings.Contains(lines[1], "0.3"))
+	TTrue(t, strings.Contains(lines[1], ": task"))
+	TTrue(t, strings.Contains(lines[2], "0.3"))
 	TEqual(t, lines[3], "")
 } //                                                                  Test_timr_
 

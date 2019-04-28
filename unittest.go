@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-05-21 22:42:29 7788F2                               zr/[unittest.go]
+// :v: 2019-04-28 16:49:21 780C01                               zr/[unittest.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -38,6 +38,7 @@ import (
 	"fmt"
 	"reflect"
 	"strconv"
+	"strings"
 	"testing"
 	"time"
 )
@@ -121,11 +122,11 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 			ret = fmt.Sprintf("%d", val)
 		case float32, float64:
 			var ret = fmt.Sprintf("%f", val)
-			if str.Contains(ret, ".") {
-				for str.HasSuffix(ret, "0") {
+			if strings.Contains(ret, ".") {
+				for strings.HasSuffix(ret, "0") {
 					ret = ret[:len(ret)-1]
 				}
-				for str.HasSuffix(ret, ".") {
+				for strings.HasSuffix(ret, ".") {
 					ret = ret[:len(ret)-1]
 				}
 			}
@@ -134,7 +135,7 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 		case time.Time: // use date part without time and time zone
 			ret = val.Format(time.RFC3339) // format: 2006-01-02T15:04:05Z07:00
 			ret = ret[:19]
-			if str.HasSuffix(ret, "T00:00:00") {
+			if strings.HasSuffix(ret, "T00:00:00") {
 				ret = ret[:10]
 			}
 		case fmt.Stringer:
@@ -149,7 +150,7 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 					buf.WriteString(", ")
 				}
 				buf.WriteString(`"`)
-				buf.WriteString(str.Replace(s, `"`, `\"`, -1))
+				buf.WriteString(strings.Replace(s, `"`, `\"`, -1))
 				buf.WriteString(`"`)
 			}
 			buf.WriteString("]")
@@ -202,26 +203,26 @@ func TBegin(t *testing.T) {
 	// get list of calls on the call stack, remove calls into this file
 	var list = CallerList()
 	for len(list) > 0 &&
-		(str.Trim(list[0], SPACES) == "" ||
-			str.Contains(list[0], "TBegin")) {
+		(strings.Trim(list[0], SPACES) == "" ||
+			strings.Contains(list[0], "TBegin")) {
 		list = list[1:]
 	}
 	// pick the first list item as the test's name
 	var testName = "<test-name>"
 	if len(list) > 0 {
-		testName = str.Trim(list[0], SPACES)
+		testName = strings.Trim(list[0], SPACES)
 	}
 	// remove package name
-	if str.Contains(testName, ".") {
-		testName = str.Split(testName, ".")[1]
+	if strings.Contains(testName, ".") {
+		testName = strings.Split(testName, ".")[1]
 	}
 	// remove line number
-	if str.Contains(testName, ":") {
-		testName = str.Split(testName, ":")[0]
+	if strings.Contains(testName, ":") {
+		testName = strings.Split(testName, ":")[0]
 	}
 	// align the name to the right (within 80 columns)
 	if len(testName) < 80 {
-		testName = str.Repeat(" ", 80-len(testName)) + testName
+		testName = strings.Repeat(" ", 80-len(testName)) + testName
 	}
 	t.Log(testName)
 } //                                                                      TBegin
@@ -235,13 +236,13 @@ func TBeginError() {
 // TCaller returns the name of the unit test function.
 func TCaller() string {
 	for _, funcName := range CallerList() {
-		if str.HasPrefix(funcName, "TCaller") ||
-			str.HasPrefix(funcName, "TEqual") ||
-			str.HasPrefix(funcName, "TFail") ||
-			str.HasPrefix(funcName, "TFalse") ||
-			str.HasPrefix(funcName, "TTrue") ||
-			str.Contains(funcName, ".func") ||
-			!str.Contains(funcName, ".Test") {
+		if strings.HasPrefix(funcName, "TCaller") ||
+			strings.HasPrefix(funcName, "TEqual") ||
+			strings.HasPrefix(funcName, "TFail") ||
+			strings.HasPrefix(funcName, "TFalse") ||
+			strings.HasPrefix(funcName, "TTrue") ||
+			strings.Contains(funcName, ".func") ||
+			!strings.Contains(funcName, ".Test") {
 			continue
 		}
 		return funcName
@@ -281,8 +282,8 @@ func TCheckError(t *testing.T, expectMessages ...string) {
 	var found = len(expectMessages) == 0
 	var errm = GetLastLogMessage()
 	for _, find := range expectMessages {
-		find = str.ToUpper(find)
-		if str.Contains(str.ToUpper(errm), find) {
+		find = strings.ToUpper(find)
+		if strings.Contains(strings.ToUpper(errm), find) {
 			found = true
 			break
 		}
@@ -317,7 +318,7 @@ func TFailf(t *testing.T, format string, a ...interface{}) {
 // failedFuncAndLine returns the function
 // name and line number of a failed test.
 func failedFuncAndLine() (funcName string, lineNo int) {
-	var ar = str.Split(TCaller(), ":")
+	var ar = strings.Split(TCaller(), ":")
 	if len(ar) > 0 {
 		funcName = ar[0]
 	}
