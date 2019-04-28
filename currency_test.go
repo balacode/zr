@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 16:49:21 2F78FC                          zr/[currency_test.go]
+// :v: 2019-04-28 16:50:50 303C27                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -1032,7 +1032,7 @@ func Test_crcy_Currency_Int_(t *testing.T) {
 	var test = func(ob Currency, expect int64) {
 		if ob.Int() != expect {
 			TFail(
-				t, `(`, ob.String, `).Int()`,
+				t, `(`, ob.String(), `).Int()`,
 				` returned`, ob.Int(), `, must be `, expect,
 			)
 		}
@@ -1051,7 +1051,7 @@ func Test_crcy_Currency_Int64_(t *testing.T) {
 	var test = func(ob Currency, expect int64) {
 		if ob.Int64() != expect {
 			TFail(
-				t, `(`, ob.String, `).Int64()`,
+				t, `(`, ob.String(), `).Int64()`,
 				` returned`, ob.Int64(), `, must be `, expect,
 			)
 		}
