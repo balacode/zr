@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:52:51 479A52                          zr/[currency_test.go]
+// :v: 2019-05-01 22:47:17 DD185C                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -549,7 +549,8 @@ func Test_crcy_Currency_String_(t *testing.T) {
 // go test --run Test_crcy_Currency_Div_
 func Test_crcy_Currency_Div_(t *testing.T) {
 	TBegin(t)
-	// func (ob Currency) Div(divide ...Currency) Currency
+	//
+	// (ob Currency) Div(divide ...Currency) Currency
 	//
 	test := func(ob Currency, divide []Currency, expect Currency) {
 		init := ob
