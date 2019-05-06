@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:58 C123A1                             zr/[bytes_test.go]
+// :v: 2019-05-06 06:25:43 021861                             zr/[bytes_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -78,7 +78,7 @@ func Test_byts_BytesWrap_(t *testing.T) {
 	o := BytesWrap(ar)
 	TEqual(t, len(o.ar), 6)
 	//
-	//TODO: Test how 'ar' is affected when object is changed
+	// TODO: Test how 'ar' is affected when object is changed
 } //                                                        Test_byts_BytesWrap_
 
 // -----------------------------------------------------------------------------
@@ -116,7 +116,7 @@ func Test_byts_Bytes_FindByte_(t *testing.T) {
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, 0)
 	}
-	//TODO: TEST return bytes.IndexByte(ob.ar, b)
+	// TODO: TEST return bytes.IndexByte(ob.ar, b)
 } //                                                   Test_byts_Bytes_FindByte_
 
 // go test --run Test_byts_Bytes_GetByte_
@@ -132,7 +132,7 @@ func Test_byts_Bytes_GetByte_(t *testing.T) {
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, 0)
 	}
-	//TODO: TEST return ob.ar[index]
+	// TODO: TEST return ob.ar[index]
 } //                                                    Test_byts_Bytes_GetByte_
 
 // go test --run Test_byts_Bytes_GetChar_
@@ -148,8 +148,8 @@ func Test_byts_Bytes_GetChar_(t *testing.T) {
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, CharSize{})
 	}
-	//TODO: TEST r, size := utf8.DecodeRune(ob.ar[index:])
-	//TODO: TEST return CharSize{Val: r, Size: size}
+	// TODO: TEST r, size := utf8.DecodeRune(ob.ar[index:])
+	// TODO: TEST return CharSize{Val: r, Size: size}
 } //                                                    Test_byts_Bytes_GetChar_
 
 // go test --run Test_byts_Bytes_Size_
@@ -165,7 +165,7 @@ func Test_byts_Bytes_Size_(t *testing.T) {
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, 0)
 	}
-	//TODO: TEST return len(ob.ar)
+	// TODO: TEST return len(ob.ar)
 } //                                                       Test_byts_Bytes_Size_
 
 // -----------------------------------------------------------------------------
@@ -184,7 +184,7 @@ func Test_byts_Bytes_String_(t *testing.T) {
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, "")
 	}
-	//TODO: TEST return string(ob.ar)
+	// TODO: TEST return string(ob.ar)
 } //                                                     Test_byts_Bytes_String_
 
 // -----------------------------------------------------------------------------
@@ -202,12 +202,13 @@ func Test_byts_Bytes_Append_(t *testing.T) {
 		np.Append(Bytes{})
 		TCheckError(t, ENilReceiver)
 	}
-	//TODO: TEST ob.ar = append(ob.ar, b.ar...)
+	// TODO: TEST ob.ar = append(ob.ar, b.ar...)
 } //                                                     Test_byts_Bytes_Append_
 
 // go test --run Test_byts_Bytes_AppendChar_
 func Test_byts_Bytes_AppendChar_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Bytes) AppendChar(ch rune) int
 	//
 	{
@@ -217,7 +218,7 @@ func Test_byts_Bytes_AppendChar_(t *testing.T) {
 		np.AppendChar('A')
 		TCheckError(t, ENilReceiver)
 	}
-	//TODO: TEST Bytes.AppendChar():
+	//  TODO: TEST Bytes.AppendChar():
 	// 	size := utf8.RuneLen(ch)
 	// 	if size == -1 {
 	// 		Error("utf8.RuneLen(ch) == -1")
@@ -242,7 +243,7 @@ func Test_byts_Bytes_GetBytes_(t *testing.T) {
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, []byte{})
 	}
-	//TODO: TEST return ob.ar
+	// TODO: TEST return ob.ar
 } //                                                   Test_byts_Bytes_GetBytes_
 
 // go test --run Test_byts_Bytes_Insert_
@@ -258,7 +259,7 @@ func Test_byts_Bytes_Insert_(t *testing.T) {
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, 0)
 	}
-	//TODO: TEST Bytes.Insert():
+	// TODO: TEST Bytes.Insert():
 	// 	if index < 0 || index > len(ob.ar) {
 	// 		Error("Index", index, "out of range; array:", len(ob.ar))
 	// 		return 0
@@ -289,7 +290,7 @@ func Test_byts_Bytes_Remove_(t *testing.T) {
 		np.Remove(0, 0)
 		TCheckError(t, ENilReceiver)
 	}
-	//TODO: TEST Bytes.Remove():
+	// TODO: TEST Bytes.Remove():
 	// 	if index < 0 || index >= len(ob.ar) {
 	// 		Error("Index", index, "out of range; array:", len(ob.ar))
 	// 		return
@@ -313,10 +314,10 @@ func Test_byts_Bytes_Reset_(t *testing.T) {
 		np.Reset()
 		TCheckError(t, ENilReceiver)
 	}
-	//TODO: TEST ob.ar = ob.ar[:0]
+	// TODO: TEST ob.ar = ob.ar[:0]
 } //                                                      Test_byts_Bytes_Reset_
 
-//TODO: Bytes.Resize() can return old size and error
+// TODO: Bytes.Resize() can return old size and error
 // go test --run Test_byts_Bytes_Resize_
 func Test_byts_Bytes_Resize_(t *testing.T) {
 	TBegin(t)
@@ -329,7 +330,7 @@ func Test_byts_Bytes_Resize_(t *testing.T) {
 		np.Resize(1024)
 		TCheckError(t, ENilReceiver)
 	}
-	//TODO: TEST Bytes.Resize():
+	// TODO: TEST Bytes.Resize():
 	// 	current := len(ob.ar)
 	// 	if size == current {
 	// 		return
@@ -355,8 +356,8 @@ func Test_byts_Bytes_SetByte_(t *testing.T) {
 		np.SetByte(0, 128)
 		TCheckError(t, ENilReceiver)
 	}
-	//TODO: Implement Bytes.SetByte()
-	//TODO: Bytes.SetByte() can return previous byte
+	// TODO: Implement Bytes.SetByte()
+	// TODO: Bytes.SetByte() can return previous byte
 } //                                                    Test_byts_Bytes_SetByte_
 
 // go test --run Test_byts_Bytes_Slice_
@@ -372,7 +373,7 @@ func Test_byts_Bytes_Slice_(t *testing.T) {
 		TCheckError(t, ENilReceiver)
 		TEqual(t, result, Bytes{[]byte{}})
 	}
-	//TODO: TEST Bytes.Slice():
+	// TODO: TEST Bytes.Slice():
 	// 	if beginIndex < 0 {
 	// 		Error("Treating beginIndex", beginIndex, "as 0")
 	// 		beginIndex = 0

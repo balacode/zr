@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:58 3FD2E5                        zr/[bytes_func_test.go]
+// :v: 2019-05-06 06:25:43 D5DD22                        zr/[bytes_func_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -141,7 +141,7 @@ func Test_bytf_ByteSizeString_(t *testing.T) {
 		// edge cases
 		test(MiB-1, false, "1023.9 KiB")
 	}
-	//TODO: Test_bytf_ByteSizeString_(): test with SI units
+	// TODO: Test_bytf_ByteSizeString_(): test with SI units
 } //                                                   Test_bytf_ByteSizeString_
 
 // go test --run Test_bytf_ClearBytes_
@@ -167,7 +167,7 @@ func Test_bytf_CompressBytes_(t *testing.T) {
 	TBegin(t)
 	// CompressBytes(data []byte) []byte
 	//
-	//TODO: TEST:
+	// TODO: TEST:
 	// 	if len(data) == 0 {
 	// 		return []byte{}
 	// 	}
@@ -268,7 +268,7 @@ func Test_bytf_InsertBytes_(t *testing.T) {
 	src1 := []byte("123")
 	des2 := []byte("ABC")
 	src2 := []byte("12345")
-	//TODO: use test() function instead of loop
+	// TODO: use test() function instead of loop
 	for _, test := range []struct {
 		des    []byte
 		pos    int
@@ -355,7 +355,7 @@ func Test_bytf_UncompressBytes_(t *testing.T) {
 	TBegin(t)
 	// UncompressBytes(data []byte) []byte
 	//
-	//TODO: TEST UncompressBytes():
+	// TODO: TEST UncompressBytes():
 	// 	retBuf := bytes.NewReader(data)
 	// 	rd, err := zlib.NewReader(retBuf)
 	// 	if err != nil {
@@ -372,7 +372,7 @@ func Test_bytf_XorBytes_(t *testing.T) {
 	TBegin(t)
 	// XorBytes(data, cipher []byte) []byte
 	//
-	//TODO: TEST XorBytes():
+	// TODO: TEST XorBytes():
 	// 	ret := bytes.NewBuffer(make([]byte, 0, len(data)))
 	// 	i, l := 0, len(cipher)
 	// 	for_, b := range data {

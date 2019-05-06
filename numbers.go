@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 0EBFD8                                zr/[numbers.go]
+// :v: 2019-05-06 06:25:43 A7B7ED                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -339,7 +339,7 @@ func Int(val interface{}) int {
 		}
 	case *uint32:
 		if val != nil {
-			//TODO: check for overflow (in other locations too)
+			// TODO: check for overflow (in other locations too)
 			return int(*val)
 		}
 	case *uint64:
@@ -348,7 +348,7 @@ func Int(val interface{}) int {
 		}
 	// floating-point numbers
 	case float32:
-		//TODO: find how to find out the limit of int
+		// TODO: find how to find out the limit of int
 		//if val < -float32(CurrencyIntLimit) ||val > float32(m) {
 		//	return currencyOverflow(val < 0, "uint64 overflow:", val)
 		//}
@@ -507,7 +507,7 @@ func BlankZero(s string) string {
 	return ""
 } //                                                                   BlankZero
 
-//TODO: CommaDelimit should accept interface{} in number
+// TODO: CommaDelimit should accept interface{} in number
 // CommaDelimit delimits a numeric string with commas (grouped every
 // three digits) and also sets the required number of decimal places.
 // Numbers are not rounded, just cut at the required number of decimals.

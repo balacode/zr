@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 677553                           zr/[go_lang_test.go]
+// :v: 2019-05-06 06:25:43 C6C83E                           zr/[go_lang_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -53,7 +53,7 @@ func Test_gola_GoName_(t *testing.T) {
 	//X 	return ret
 } //                                                           Test_gola_GoName_
 
-//TODO: Test GoStringerEx interface.
+// TODO: Test GoStringerEx interface.
 
 // go test --run Test_gola_GoString_
 func Test_gola_GoString_(t *testing.T) {
@@ -152,7 +152,7 @@ func Test_gola_GoString_(t *testing.T) {
 	TEqual(t, GoString(maxU64), "18446744073709551615")
 	TEqual(t, GoString(minU64), "0")
 	//
-	//TODO: uintptr
+	// TODO: uintptr
 	//
 	// float32
 	float32a := float32(1.234567)
@@ -167,12 +167,12 @@ func Test_gola_GoString_(t *testing.T) {
 	TEqual(t, GoString(&float64v), `zr.CurrencyOf(12345.6789)`)
 	TEqual(t, GoString(float64v), `zr.CurrencyOf(12345.6789)`)
 	//
-	//TODO: handle Complex64
-	//TODO: handle Complex128
-	//TODO: handle Array
-	//TODO: handle Chan
-	//TODO: handle Func
-	//TODO: handle Interface
+	// TODO: handle Complex64
+	// TODO: handle Complex128
+	// TODO: handle Array
+	// TODO: handle Chan
+	// TODO: handle Func
+	// TODO: handle Interface
 	//
 	// map
 	{
@@ -189,7 +189,7 @@ func Test_gola_GoString_(t *testing.T) {
 			`}`
 		TEqual(t, GoString(m), s)
 	}
-	//TODO: handle Ptr
+	// TODO: handle Ptr
 	//
 	// slice
 	{
@@ -230,21 +230,21 @@ func Test_gola_GoString_(t *testing.T) {
 		itm := golaTestStruct{strField: "ABC", intField: 123}
 		TEqual(t, GoString(itm), `golaTestStruct{<custom>}`)
 	}
-	//TODO: handle UnsafePointer
+	// TODO: handle UnsafePointer
 	//
-	//TODO: test types that can't be converted
+	// TODO: test types that can't be converted
 	// TBeginError()
 	// TEqual(t, GoString(o), "")
 	// TCheckError(t, "not handled")
 	//
-	//TODO: Test_gola_GoString_: test with different indent values
+	// TODO: Test_gola_GoString_: test with different indent values
 	//
-	//TODO: Test_gola_GoString_: test with GoStringerEx
-	//TODO: Test_gola_GoString_: test with fmt.GoStringer
-	//TODO: Test_gola_GoString_: test with fmt.Stringer
+	// TODO: Test_gola_GoString_: test with GoStringerEx
+	// TODO: Test_gola_GoString_: test with fmt.GoStringer
+	// TODO: Test_gola_GoString_: test with fmt.Stringer
 	//
 	{
-		//TODO: syntactically correct, but doesn't split into multiple lines
+		// TODO: syntactically correct, but doesn't split into multiple lines
 		ar := [][]string{
 			{"rst", "uvw", "xyz"},
 			{"123", "456", "789"},

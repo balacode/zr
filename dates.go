@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 359379                                  zr/[dates.go]
+// :v: 2019-05-06 06:25:43 30E2AF                                  zr/[dates.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -295,7 +295,7 @@ func FormatDateEN(format string, date time.Time) string {
 	month := int(date.Month())
 	day := date.Day()
 	ret := format
-	//TODO: implement day formats in FormatDateEN()
+	// TODO: implement day formats in FormatDateEN()
 	// ReplaceWord(ret, "dddd", "d", MatchCase)
 	// ReplaceWord(ret, "Dddd", "f", MatchCase)
 	// ReplaceWord(ret, "DDDD", "h", MatchCase)
@@ -624,7 +624,7 @@ func stringDate(val interface{}, format string) string {
 	return date.Format(format)
 } //                                                                  stringDate
 
-//TODO: merge StringDateYMD() and YMD()
-//TODO: DateOf(): add unit test for zero-length string
+// TODO: merge StringDateYMD() and YMD()
+// TODO: DateOf(): add unit test for zero-length string
 
 //end

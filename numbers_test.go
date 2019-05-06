@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 E300CA                           zr/[numbers_test.go]
+// :v: 2019-05-06 06:25:43 C28530                           zr/[numbers_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -8,7 +8,7 @@ package zr
 // # Numeric Function Tests
 //   Test_nums_BlankZero_
 //   Test_nums_CommaDelimit_
-//   Test_nums_Float64_ //TODO: create unit test
+//   Test_nums_Float64_ // TODO: create unit test
 //   Test_nums_Int_
 //   Test_nums_IntInWordsEN_
 //   Test_nums_IsNumber_
@@ -378,7 +378,7 @@ func Test_nums_Int_(t *testing.T) {
 	test("8         ", 8)
 	test("9          ", 9)
 	// overflow
-	//TODO: test(10e20, MAX)
+	// TODO: test(10e20, MAX)
 } //                                                              Test_nums_Int_
 
 // go test --run Test_nums_IsNumber_

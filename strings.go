@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 FC4742                                zr/[strings.go]
+// :v: 2019-05-06 06:25:43 0E784D                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -53,7 +53,7 @@ package zr
 //   StrOneOf(s string, matches ...string) bool
 //   String(val interface{}) string
 //   Substr(s string, charIndex, charCount int) string
-//       //TODO: ^beginIndex, endIndex. Why Substr when there's Slice()?
+//       // TODO: ^beginIndex, endIndex. Why Substr when there's Slice()?
 //   TitleCase(s string) string
 //   TokenGet(list string, index int, sep string) string
 //   TokenGetEx(list string, index int, sep string, ignoreEnd bool) string
@@ -634,7 +634,7 @@ func ReplaceEx1(s, find, repl string, count int, caseMode CaseMode) string {
 		pos += findLen
 	}
 	return retBuf.String()
-	//TODO: Use an array instead of bytes.Buffer. See Replace() in library.
+	// TODO: Use an array instead of bytes.Buffer. See Replace() in library.
 } //                                                                  ReplaceEx1
 
 // ReplaceI replaces 'find' with 'repl' ignoring case.
@@ -836,7 +836,7 @@ func ReplaceMany(
 			ws(string(src[prev:]))
 		}
 		return retBuf.String()
-		//TODO: Use an array instead of bytes.Buffer. See Replace() in library.
+		// TODO: Use an array instead of bytes.Buffer. See Replace() in library.
 	}
 
 	run := func() string {
@@ -891,7 +891,7 @@ func ReplaceWord(s, find, repl string, caseMode CaseMode) string {
 		findLw = strings.ToLower(find)
 	}
 	nonWord := func(ch byte) bool {
-		//TODO: wrongly returns 'false' for non-Latin Unicode letters
+		// TODO: wrongly returns 'false' for non-Latin Unicode letters
 		return !((ch >= '0' && ch <= '9') || ch == '_' ||
 			(ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z'))
 	}
@@ -934,7 +934,7 @@ func ReplaceWord(s, find, repl string, caseMode CaseMode) string {
 	return ret
 } //                                                                 ReplaceWord
 
-// SetPart __ //TODO: describe and create unit test
+// SetPart __ // TODO: describe and create unit test
 func SetPart(s, prefix, suffix, part string) string {
 	at := strings.Index(s, prefix)
 	if at == -1 {
@@ -1040,7 +1040,7 @@ func SkipName(s string, start int) int {
 		}
 	}
 	return n
-} //                                                                   SkipName
+} //                                                                    SkipName
 
 // SkipSpaces __
 func SkipSpaces(s string, start int) int {
@@ -1300,7 +1300,7 @@ func TitleCase(s string) string {
 	return retBuf.String()
 } //                                                                   TitleCase
 
-// TokenGet __ //TODO: rename to GetToken, GetTokenEx. create SetToken
+// TokenGet __ // TODO: rename to GetToken, GetTokenEx. create SetToken
 func TokenGet(list string, index int, sep string) string {
 	return TokenGetEx(list, index, sep, false)
 } //                                                                    TokenGet
@@ -1376,6 +1376,6 @@ func WordIndex(s, word string, caseMode CaseMode) int {
 	return -1
 } //                                                                   WordIndex
 
-//TODO: IMPORTANT: check FindChar() usage
+// TODO: IMPORTANT: check FindChar() usage
 
 //end

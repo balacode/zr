@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 89112A                           zr/[strings_test.go]
+// :v: 2019-05-06 06:25:43 FD2E83                           zr/[strings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -193,8 +193,8 @@ func Test_strs_CountCRLF_(t *testing.T) {
 	TEqual(t, n, 4)
 	TEqual(t, cr, 2)
 	TEqual(t, lf, 2)
-	//TODO: CountCRLF() may need to be changed to count actual number
-	//      of CR+LF pairs, not just add count of CRs and LFs.
+	// TODO: CountCRLF() may need to be changed to count actual number
+	//       of CR+LF pairs, not just add count of CRs and LFs.
 } //                                                        Test_strs_CountCRLF_
 
 // go test --run Test_strs_ContainsWord_
@@ -382,7 +382,7 @@ func Test_strs_JSUnescape_(t *testing.T) {
 	TEqual(t, JSUnescape("%25"), "%")
 	TEqual(t, JSUnescape("%20"), " ")
 	//
-	//TODO: more unit test cases for JSUnescape()
+	// TODO: more unit test cases for JSUnescape()
 } //                                                       Test_strs_JSUnescape_
 
 // go test --run Test_strs_JSUnescapeStruct_
@@ -451,7 +451,7 @@ func Test_strs_LineBeginIndexB_(t *testing.T) {
 	TEqual(t, LineBeginIndexB(ar, 3), (2))
 	TEqual(t, LineBeginIndexB(ar, 4), (2))
 	//
-	//TODO: fix this wrong value (should be 2):
+	// TODO: fix this wrong value (should be 2):
 	TEqual(t, LineBeginIndexB(ar, 5), (5))
 	//
 	TEqual(t, LineBeginIndexB(ar, 6), (6))
@@ -520,7 +520,7 @@ func Test_strs_LineEndIndexB_(t *testing.T) {
 	//
 	TEqual(t, LineEndIndexB([]byte("abc"), 0), 3)
 	//
-	//TODO: more unit test cases for LineEndIndexB()
+	// TODO: more unit test cases for LineEndIndexB()
 } //                                                    Test_strs_LineEndIndexB_
 
 // go test --run Test_strs_LineEndIndex_
@@ -644,7 +644,7 @@ func Test_strs_Padf_(t *testing.T) {
 	//
 	TEqual(t, Padf(6, "%s", "abc"), "abc   ")
 	//
-	//TODO: more unit test cases for Padf()
+	// TODO: more unit test cases for Padf()
 } //                                                             Test_strs_Padf_
 
 // go test --run Test_strs_ReplaceEx1_
@@ -681,7 +681,7 @@ func Test_strs_ReplaceI_(t *testing.T) {
 	//
 	TEqual(t, ReplaceI("A AA aaa", "A", "B"), ("B BB BBB"))
 	//
-	//TODO: more unit test cases for ReplaceI()
+	// TODO: more unit test cases for ReplaceI()
 } //                                                         Test_strs_ReplaceI_
 
 // go test --run Test_strs_ReplaceMany_
@@ -696,7 +696,7 @@ func Test_strs_ReplaceMany_(t *testing.T) {
 	//  ) string
 	//
 	TBegin(t)
-	//TODO: declaration comment
+	// TODO: declaration comment
 	//
 	const (
 		IC = IgnoreCase
@@ -752,7 +752,7 @@ func Test_strs_ReplaceMany_(t *testing.T) {
 		("+1- +12- +123- 789"),
 	)
 	// each Cyrillic ^ char is 2 bytes long in UTF8
-	TEqual(t, ReplaceMany( //                                         similar words
+	TEqual(t, ReplaceMany( //                                      similar words
 		"+CBA-+AB-+A-",
 		[]string{"A", "AB", "CBA"},
 		[]string{"1", "12", "321"},
@@ -874,7 +874,7 @@ func Test_strs_ReplaceWord_(t *testing.T) {
 		{"A", "A", "ZZZ", MatchCase, "ZZZ"},
 		{"A A A", "A", "A", MatchCase, "A A A"},
 	}
-	//TODO: use test() function instead of loop
+	// TODO: use test() function instead of loop
 	for i, test := range tests {
 		got := ReplaceWord(test.s, test.find, test.repl, test.caseMode)
 		if got != test.expect {
@@ -975,7 +975,7 @@ func Test_strs_Slice_(t *testing.T) {
 	TBegin(t)
 	// Slice(s string, beginIndex, endIndex int) string
 	//
-	//TODO: use similar testing for Bytes.Slice()
+	// TODO: use similar testing for Bytes.Slice()
 	//
 	// expected range values:
 	TEqual(t, Slice("abc", 0, 0), (""))
@@ -1056,7 +1056,7 @@ func Test_strs_SplitQuoted_(t *testing.T) {
 		{"123 456 'ABC'", []string{"123", "456", "ABC"}},
 		{"123   456   'A B C'", []string{"123", "456", "A B C"}},
 	}
-	//TODO: use test() function instead of loop
+	// TODO: use test() function instead of loop
 	for i, test := range tests {
 		got := SplitQuoted(test.s)
 		if !EqualStringSlices(got, test.expect) {
@@ -1198,7 +1198,7 @@ func Test_strs_Substr_(t *testing.T) {
 		{"АБВГ", 2, 2, "ВГ"},
 		{"АБВГ", 3, 1, "Г"},
 	}
-	//TODO: use test() function instead of loop
+	// TODO: use test() function instead of loop
 	for i, test := range tests {
 		got := Substr(test.text, test.charIndex, test.charCount)
 		if got != test.expect {
@@ -1227,7 +1227,7 @@ func Test_strs_TitleCase_(t *testing.T) {
 		{"АБВ АБВ АБВ", "Абв Абв Абв"},
 		{"АБВ", "Абв"},
 	}
-	//TODO: use test() function instead of loop
+	// TODO: use test() function instead of loop
 	for i, test := range tests {
 		got := TitleCase(test.input)
 		if got != test.expect {
@@ -1374,7 +1374,7 @@ func Test_strs_WordIndex_(t *testing.T) {
 		{"one two three", "six", MatchCase, -1},
 		{"ones two three", "one", MatchCase, -1},
 	}
-	//TODO: use test() function instead of loop
+	// TODO: use test() function instead of loop
 	for i, test := range tests {
 		got := WordIndex(test.s, test.word, test.caseMode)
 		if got != test.expect {
@@ -1385,6 +1385,6 @@ func Test_strs_WordIndex_(t *testing.T) {
 	}
 } //                                                        Test_strs_WordIndex_
 
-//TODO: rename CharsOf to Runes.
+// TODO: rename CharsOf to Runes.
 
 //end

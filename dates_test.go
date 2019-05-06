@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 9FAD7A                             zr/[dates_test.go]
+// :v: 2019-05-06 06:25:43 03B2A5                             zr/[dates_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -41,7 +41,7 @@ import (
 // go test --run Test_date_DateRangeString_
 func Test_date_DateRangeString_(t *testing.T) {
 	TBegin(t)
-	//TODO: declaration comment
+	// TODO: declaration comment
 	//
 	fr := time.Date(1900, time.January, 1, 1, 0, 0, 0, time.UTC)
 	to := time.Date(9999, time.December, 31, 23, 59, 59, 0, time.UTC)
@@ -55,7 +55,7 @@ func Test_date_DateRangeString_(t *testing.T) {
 // go test --run Test_date_DateOf_
 func Test_date_DateOf_(t *testing.T) {
 	TBegin(t)
-	//TODO: declaration comment
+	// TODO: declaration comment
 	//
 	test := func(input interface{}, expect string) {
 		got := DateOf(input)
@@ -241,7 +241,7 @@ func Test_date_DateRangeOf_(t *testing.T) {
 // go test --run Test_date_DaysInMonth_
 func Test_date_DaysInMonth_(t *testing.T) {
 	TBegin(t)
-	//TODO: DaysInMonth() decl
+	// TODO: DaysInMonth() decl
 	//
 	// not a leap year
 	TEqual(t, DaysInMonth(2015, 2), (28))
@@ -264,7 +264,7 @@ func Test_date_DaysInMonth_(t *testing.T) {
 // go test --run Test_date_IsDateOnly_
 func Test_date_IsDateOnly_(t *testing.T) {
 	TBegin(t)
-	//TODO: IsDateOnly decl
+	// TODO: IsDateOnly decl
 	//
 	// false if any of the time fields are not zero
 	TFalse(t, IsDateOnly(time.Date(
@@ -322,7 +322,7 @@ func Test_date_IsDate_(t *testing.T) {
 // go test --run Test_date_ParseDate_
 func Test_date_ParseDate_(t *testing.T) {
 	TBegin(t)
-	//TODO: declaration comment
+	// TODO: declaration comment
 	//
 	test := func(input string, expectY, expectM, expectD int) {
 		y, m, d := ParseDate(input)
@@ -391,7 +391,7 @@ func Test_date_ParseDate_(t *testing.T) {
 // go test --run Test_date_StringDateDMY_
 func Test_date_StringDateDMY_(t *testing.T) {
 	TBegin(t)
-	//TODO: declaration comment
+	// TODO: declaration comment
 	//
 	test := func(input, expect string) {
 		got := StringDateDMY(input)
@@ -408,7 +408,7 @@ func Test_date_StringDateDMY_(t *testing.T) {
 // go test --run Test_date_StringDateYMD_
 func Test_date_StringDateYMD_(t *testing.T) {
 	TBegin(t)
-	//TODO: declaration comment
+	// TODO: declaration comment
 	//
 	test := func(input, expect string) {
 		got := StringDateYMD(input)
@@ -425,7 +425,7 @@ func Test_date_StringDateYMD_(t *testing.T) {
 // go test --run Test_date_Timestamp_
 func Test_date_Timestamp_(t *testing.T) {
 	TBegin(t)
-	//TODO: declaration comment
+	// TODO: declaration comment
 	//
 	s := Timestamp()
 	// Expected format: YYYY-MM-DD hh:mm:ss

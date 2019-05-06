@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 E67C36                                zr/[go_lang.go]
+// :v: 2019-05-06 06:25:43 485FA2                                zr/[go_lang.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -143,14 +143,14 @@ func WriteGoString(
 		ws(String(v.Uint()))
 		return
 	case reflect.Uintptr:
-		//TODO: handle Uintptr
+		// TODO: handle Uintptr
 		break
 	case reflect.Float32, reflect.Float64:
 		ws(String(v.Float()))
 		return
 	case reflect.Complex64, reflect.Complex128, reflect.Array,
 		reflect.Chan, reflect.Func, reflect.Interface:
-		//TODO: handle multiple types
+		// TODO: handle multiple types
 		break
 	case reflect.Map:
 		ws("map[", t.Key().String(), "]", t.Elem().String(), "{")
@@ -212,7 +212,7 @@ func WriteGoString(
 		ws("}")
 		return
 	case reflect.UnsafePointer:
-		break //TODO: reflect.UnsafePointer
+		break // TODO: reflect.UnsafePointer
 	}
 	// finally, try using fmt.Stringer (treat 'val' as a string)
 	if val, ok := val.(fmt.Stringer); ok {

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-01 22:47:17 DD185C                          zr/[currency_test.go]
+// :v: 2019-05-06 06:25:43 8DE8A1                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -146,7 +146,7 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 	test(int16(math.MinInt16), Currency{-32768 * cur4d})
 	test(int32(math.MaxInt32), Currency{2147483647 * cur4d})
 	test(int32(math.MinInt32), Currency{-2147483648 * cur4d})
-	//TODO: test with acceptable limit for int64
+	// TODO: test with acceptable limit for int64
 	test(int64(math.MaxInt32), Currency{2147483647 * cur4d})
 	test(int64(math.MinInt32), Currency{-2147483648 * cur4d})
 	//
@@ -439,11 +439,11 @@ func Test_crcy_Currency_InWordsEN_(t *testing.T) {
 		}
 	}
 	test(cur(int64(9000000000000)), "Unit", "Nine Trillion Units")
-	//TODO: test(int64(math.MaxInt64), "Unit", "")
-	//TODO: FAIL test(0, "Unit", "Zero")
-	//TODO: FAIL test(1, "", "One")
-	//TODO: ADD TEST FOR UNIT NAMES
-	//TODO: ADD TEST FOR GROUP NAMES
+	// TODO: test(int64(math.MaxInt64), "Unit", "")
+	// TODO: FAIL test(0, "Unit", "Zero")
+	// TODO: FAIL test(1, "", "One")
+	// TODO: ADD TEST FOR UNIT NAMES
+	// TODO: ADD TEST FOR GROUP NAMES
 	//
 	test(cur(1), "Unit", "One Unit")
 	test(cur(2), "Unit", "Two Units")
@@ -596,7 +596,7 @@ func Test_crcy_Currency_DivInt_(t *testing.T) {
 		curIntOpTest(t, "DivInt", ob.DivInt, ob, divide, expect, 0)
 	}
 	TBegin(t)
-	//TODO: declaration comment
+	// TODO: declaration comment
 	//
 	//       12345.6789 / 1   =               12345.6789
 	test(Currency{123456789}, arI(1), Currency{123456789})
@@ -718,7 +718,7 @@ func Test_crcy_Currency_MulInt_(t *testing.T) {
 	//           12345.6789   /   2   =       24691.3578
 	test(Currency{123456789}, arI(2), Currency{246913578})
 	//
-	//TODO: Try to cause failure in unit test:
+	// TODO: Try to cause failure in unit test:
 	//       pass MaxInt64 * just above currency limit.
 } //                                                  Test_crcy_Currency_MulInt_
 
@@ -997,7 +997,7 @@ func Test_crcy_Currency_SubInt_(t *testing.T) {
 		curIntOpTest(t, "SubInt", ob.SubInt, ob, subtract, expect, 0)
 	}
 	test(cur(0), arI(0), cur(0))
-	//TODO: more unit test cases
+	// TODO: more unit test cases
 } //                                                  Test_crcy_Currency_SubInt_
 
 // -----------------------------------------------------------------------------
@@ -1041,7 +1041,7 @@ func Test_crcy_Currency_Int_(t *testing.T) {
 	test(cur(-1), -1)
 	test(cur(0), 0)
 	test(cur(1), 1)
-	//TODO: more unit test cases
+	// TODO: more unit test cases
 } //                                                     Test_crcy_Currency_Int_
 
 // go test --run Test_crcy_Currency_Int64_
@@ -1060,7 +1060,7 @@ func Test_crcy_Currency_Int64_(t *testing.T) {
 	test(cur(-1), -1)
 	test(cur(0), 0)
 	test(cur(1), 1)
-	//TODO: more unit test cases
+	// TODO: more unit test cases
 } //                                                   Test_crcy_Currency_Int64_
 
 // go test --run Test_crcy_Currency_IsEqual_
@@ -1081,7 +1081,7 @@ func Test_crcy_Currency_IsEqual_(t *testing.T) {
 	test(cur(1), cur(1), true)
 	test(cur(0), cur(1), false)
 	test(cur(1), cur(0), false)
-	//TODO: more unit test cases
+	// TODO: more unit test cases
 } //                                                 Test_crcy_Currency_IsEqual_
 
 // go test --run Test_crcy_Currency_IsNegative_
@@ -1107,7 +1107,7 @@ func Test_crcy_Currency_IsNegative_(t *testing.T) {
 	test(cur(1), false)
 	test(cur(1000), false)
 	test(Currency{MaxCurrencyI64}, false)
-	//TODO: more unit test cases
+	// TODO: more unit test cases
 } //                                              Test_crcy_Currency_IsNegative_
 
 // go test --run Test_crcy_Currency_IsZero_
@@ -1147,10 +1147,10 @@ func Test_crcy_Currency_IsZero_(t *testing.T) {
 	test(cur("-922337203685476.9999"), false) // lowest currency value
 	test(cur("922337203685476.9999"), false)  // highest currency value
 	//
-	//TODO: more unit test cases
+	// TODO: more unit test cases
 	//
 	// logged with errors
-	//TODO: catch error here
+	// TODO: catch error here
 	//       {"XYZ", true}, // non-numeric strings are initialized to zero
 } //                                                  Test_crcy_Currency_IsZero_
 

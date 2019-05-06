@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:52:51 DDC11E                                zr/[logging.go]
+// :v: 2019-05-06 06:25:43 A4AF03                                zr/[logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -458,7 +458,7 @@ func Logf(format string, args ...interface{}) {
 // Eg. data := NoE(ioutil.ReadFile(sourceFile)).([]byte)
 func NoE(any interface{}, err error) interface{} {
 	return any
-} //                                                                        NoE
+} //                                                                         NoE
 
 // OBSOLETE reports a call to an obsolete function or method at runtime,
 // by printing the name of the function and the function that called it.
@@ -713,6 +713,6 @@ func removeLogOptions(args []interface{}) (ret []interface{}) {
 	return ret
 } //                                                            removeLogOptions
 
-//TODO: send errors to standard error: fmt.Fprintf(os.Stderr, "%s\n", err)
+// TODO: send errors to standard error: fmt.Fprintf(os.Stderr, "%s\n", err)
 
 //end

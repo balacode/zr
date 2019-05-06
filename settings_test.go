@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 B6641A                          zr/[settings_test.go]
+// :v: 2019-05-06 06:25:43 670CBB                          zr/[settings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -171,10 +171,10 @@ func Test_sett_Settings_ExtendGet_(t *testing.T) {
 		nulp.ExtendGet(nil)
 		TCheckError(t, ENilReceiver)
 	}
-	//TODO: check if extender function is called after this is set
-	//TODO: must not call extender function after being set to nil
-	//TODO: check if extender is passed correct arguments
-	//TODO: check if extender's result is used
+	// TODO: check if extender function is called after this is set
+	// TODO: must not call extender function after being set to nil
+	// TODO: check if extender is passed correct arguments
+	// TODO: check if extender's result is used
 } //                                               Test_sett_Settings_ExtendGet_
 
 // go test --run Test_sett_Settings_ExtendHas_
@@ -190,10 +190,10 @@ func Test_sett_Settings_ExtendHas_(t *testing.T) {
 		nulp.ExtendHas(nil)
 		TCheckError(t, ENilReceiver)
 	}
-	//TODO: check if extender function is called after this is set
-	//TODO: must not call extender function after being set to nil
-	//TODO: check if extender is passed correct arguments
-	//TODO: check if extender's result is used
+	// TODO: check if extender function is called after this is set
+	// TODO: must not call extender function after being set to nil
+	// TODO: check if extender is passed correct arguments
+	// TODO: check if extender's result is used
 } //                                               Test_sett_Settings_ExtendHas_
 
 // go test --run Test_sett_Settings_ExtendSet_
@@ -209,10 +209,10 @@ func Test_sett_Settings_ExtendSet_(t *testing.T) {
 		nulp.ExtendSet(nil)
 		TCheckError(t, ENilReceiver)
 	}
-	//TODO: check if extender function is called after this is set
-	//TODO: must not call extender function after being set to nil
-	//TODO: check if extender is passed correct arguments
-	//TODO: check if extender's result is used
+	// TODO: check if extender function is called after this is set
+	// TODO: must not call extender function after being set to nil
+	// TODO: check if extender is passed correct arguments
+	// TODO: check if extender's result is used
 } //                                               Test_sett_Settings_ExtendSet_
 
 //end

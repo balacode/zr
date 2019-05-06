@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:49:48 512B89                               zr/[currency.go]
+// :v: 2019-05-06 06:25:43 CC9049                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -553,7 +553,7 @@ func (ob Currency) Mul(multiply ...Currency) Currency {
 			//
 			// if result can't be stored in Currency, return overflow
 			//
-			//TODO: IsInt64() is not available in older Go versions ``
+			// TODO: IsInt64() is not available in older Go versions ``
 			overflow := !n.IsInt64()
 			var ret int64
 			if !overflow {
@@ -778,9 +778,9 @@ func (ob Currency) Raw() int64 {
 
 // MarshalJSON returns the JSON encoding of zr.Currency.
 func (ob Currency) MarshalJSON() ([]byte, error) {
-	//TODO: using fmt.Sprintf() may slow down performance.
-	//      There are faster ways to build a number with 4 decimals.
-	//      Create a benchmark to find the fastest method.
+	// TODO: using fmt.Sprintf() may slow down performance.
+	//       There are faster ways to build a number with 4 decimals.
+	//       Create a benchmark to find the fastest method.
 	//
 	i := ob.val / cur4d   // integer part
 	d := ob.val - i*cur4d // decimal part

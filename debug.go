@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 670F58                                  zr/[debug.go]
+// :v: 2019-05-06 06:25:43 0AF42D                                  zr/[debug.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -144,7 +144,7 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 		ws(fmt.Sprintf("[%d] ", len(val)))
 
 	default:
-		//TODO: remove this code later
+		// TODO: remove this code later
 		a := fmt.Sprintf("%v", val)
 		b := fmt.Sprint(val)
 		if a != b {

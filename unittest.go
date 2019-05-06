@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 595B27                               zr/[unittest.go]
+// :v: 2019-05-06 06:25:43 6B0FAF                               zr/[unittest.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -85,7 +85,7 @@ func (ob TStringer) String() string {
 
 // TArrayEqual checks if two arrays are equal
 func TArrayEqual(t *testing.T, expect, val interface{}) bool {
-	//TODO: TArrayEqual is not necessary, can be handled by Equal()
+	// TODO: TArrayEqual is not necessary, can be handled by Equal()
 	a := fmt.Sprintf("%v", expect)
 	b := fmt.Sprintf("%v", val)
 	if a != b {
@@ -98,7 +98,7 @@ func TArrayEqual(t *testing.T, expect, val interface{}) bool {
 
 // TBytesEqual checks if two byte slices have the same length and content
 func TBytesEqual(t *testing.T, a, b []byte) {
-	//TODO: TBytesEqual() is not necessary, can be handled by Equal()
+	// TODO: TBytesEqual() is not necessary, can be handled by Equal()
 	if !bytes.Equal(a, b) {
 		t.Errorf("FAILED AT LINE %d: %v != %v", LineNo(2), a, b)
 	}
@@ -141,7 +141,7 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 		case fmt.Stringer:
 			ret = val.String()
 		//
-		//TODO: add handling of various arrays of simple types [in TEqual()]
+		// TODO: add handling of various arrays of simple types [in TEqual()]
 		case []string:
 			var buf bytes.Buffer
 			buf.WriteString("[")
@@ -341,9 +341,9 @@ func failedLocation() string {
 		"FAILED LINE: " + strconv.Itoa(lineNo) + LF
 } //                                                              failedLocation
 
-//TODO: BeginError() can redefine mod.Error()
+// TODO: BeginError() can redefine mod.Error()
 //      so there is no need for ErrorCount
 
-//TODO: write code to test the testing module (unittest.go)
+// TODO: write code to test the testing module (unittest.go)
 
 //end                                 "Who is going to test the testers?" - Anon
