@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 A7B7ED                                zr/[numbers.go]
+// :v: 2019-05-08 11:29:09 C8A0D1                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -394,7 +394,7 @@ func IsNumber(val interface{}) bool {
 		*float32, *float64:
 		return true
 	case string:
-		s := strings.Trim(val, SPACES)
+		s := strings.TrimSpace(val)
 		if len(s) < 1 {
 			return false
 		}
@@ -644,7 +644,7 @@ func IntInWordsEN(number int64) string {
 		ws(" ")
 		ws(unit)
 	}
-	return strings.Trim(retBuf.String(), SPACES)
+	return strings.TrimSpace(retBuf.String())
 } //                                                                IntInWordsEN
 
 //end

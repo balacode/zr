@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 7E6C9D                          zr/[calendar_test.go]
+// :v: 2019-05-08 11:29:09 241CA3                          zr/[calendar_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -123,8 +123,8 @@ func Test_cldr_(t *testing.T) {
 *--------------------------------------------------------------*
 95.98
 	`
-	got = strings.Trim(got, SPACES)
-	TEqual(t, got, strings.Trim(expect, SPACES))
+	got = strings.TrimSpace(got)
+	TEqual(t, got, strings.TrimSpace(expect))
 } //                                                                  Test_cldr_
 
 //end

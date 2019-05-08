@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 0E784D                                zr/[strings.go]
+// :v: 2019-05-08 11:29:09 D2EA9F                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -378,7 +378,7 @@ func JSUnescapeStruct(structPtr interface{}) {
 		fieldV := structV.Field(i)
 		fieldK := fieldV.Kind()
 		if fieldK == reflect.String {
-			fieldV.SetString(JSUnescape(strings.Trim(fieldV.String(), SPACES)))
+			fieldV.SetString(JSUnescape(strings.TrimSpace(fieldV.String())))
 		} else if fieldK == reflect.Slice {
 			for rowNo := 0; rowNo < fieldV.Len(); rowNo++ {
 				JSUnescapeStruct(fieldV.Index(rowNo).Addr().Interface())

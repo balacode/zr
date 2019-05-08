@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 485FA2                                zr/[go_lang.go]
+// :v: 2019-05-08 11:29:09 D42679                                zr/[go_lang.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -40,7 +40,7 @@ type GoStringerEx interface {
 // GoName converts a name to a Go language convention name.
 // It removes underscores from names and changes names to 'TitleCase'.
 func GoName(s string) string {
-	ret := strings.Trim(s, SPACES)
+	ret := strings.TrimSpace(s)
 	if len(ret) == 0 {
 		return ""
 	}

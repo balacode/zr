@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 30E2AF                                  zr/[dates.go]
+// :v: 2019-05-08 11:29:09 1F0FEF                                  zr/[dates.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -146,7 +146,7 @@ func DateOf(val interface{}) time.Time {
 // DateRangeOf creates and returns a DateRange structure from a string. __
 func DateRangeOf(s string) DateRange {
 	// pre-format
-	s = strings.ToUpper(strings.Trim(s, SPACES))
+	s = strings.ToUpper(strings.TrimSpace(s))
 	for _, sep := range []string{" ", ".", "/", "\\", "_"} {
 		for strings.Contains(s, sep) {
 			s = strings.Replace(s, sep, "-", -1)
@@ -429,7 +429,7 @@ func MonthNameEN(monthNo int, shortName ...bool) string {
 // If the string is not a month name, returns zero.
 // Uses English language names, hence the 'EN' suffix.
 func MonthNumberEN(monthName string) int {
-	monthName = strings.ToUpper(strings.Trim(monthName, SPACES))
+	monthName = strings.ToUpper(strings.TrimSpace(monthName))
 	for i, s := range MonthNamesEN {
 		s = strings.ToUpper(s)
 		if monthName == s || monthName == s[:3] {
@@ -447,7 +447,7 @@ func MthYear(val interface{}) string {
 
 // ParseDate reads a date string and returns the year, month and day number.
 func ParseDate(s string) (year, month, day int) {
-	s = strings.Trim(s, SPACES)
+	s = strings.TrimSpace(s)
 	if s == "" {
 		return 0, 0, 0
 	}

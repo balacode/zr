@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 A4AF03                                zr/[logging.go]
+// :v: 2019-05-08 11:29:09 D18D4D                                zr/[logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -597,7 +597,7 @@ func DLC(message string, args ...interface{}) {
 // and trims white spaces from the final result.
 func formatArgs(format string, args ...interface{}) string {
 	args = removeLogOptions(args)
-	return strings.Trim(fmt.Sprintf(format, args...), SPACES)
+	return strings.TrimSpace(fmt.Sprintf(format, args...))
 } //                                                                  formatArgs
 
 // joinArgs returns a string built from a list of variadic arguments 'args',
@@ -687,7 +687,7 @@ func logLoopAsync() {
 		lastLogTime = t.logTime
 		if !disableErrors {
 			msg = Timestamp() + " #" + strconv.Itoa(logSN) + " " + msg
-			msg = strings.Trim(msg, SPACES)
+			msg = strings.TrimSpace(msg)
 			fmt.Println(msg)
 			if t.writeFile {
 				AppendToTextFile("run.log", msg+LB)

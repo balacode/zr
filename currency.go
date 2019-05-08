@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 CC9049                               zr/[currency.go]
+// :v: 2019-05-08 11:29:09 9AA8D6                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -464,7 +464,7 @@ func (ob Currency) InWordsEN(fmt string) string {
 			}
 		}
 	}
-	if hasOnly && len(strings.Trim(ret, SPACES)) > 0 {
+	if hasOnly && len(strings.TrimSpace(ret)) > 0 {
 		ret += " Only"
 	}
 	return ret

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 6B0FAF                               zr/[unittest.go]
+// :v: 2019-05-08 11:29:09 3030F6                               zr/[unittest.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -203,14 +203,14 @@ func TBegin(t *testing.T) {
 	// get list of calls on the call stack, remove calls into this file
 	list := CallerList()
 	for len(list) > 0 &&
-		(strings.Trim(list[0], SPACES) == "" ||
+		(strings.TrimSpace(list[0]) == "" ||
 			strings.Contains(list[0], "TBegin")) {
 		list = list[1:]
 	}
 	// pick the first list item as the test's name
 	testName := "<test-name>"
 	if len(list) > 0 {
-		testName = strings.Trim(list[0], SPACES)
+		testName = strings.TrimSpace(list[0])
 	}
 	// remove package name
 	if strings.Contains(testName, ".") {
