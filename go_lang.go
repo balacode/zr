@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-08 11:29:09 D42679                                zr/[go_lang.go]
+// :v: 2019-05-09 18:09:23 2361DA                                zr/[go_lang.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -168,9 +168,9 @@ func WriteGoString(
 		//
 		// write out the array
 		for _, s := range lines {
-			ws(LF, s)
+			ws("\n", s)
 		}
-		ws(LF, "}")
+		ws("\n}")
 		return
 	case reflect.Ptr:
 		writeGoString(v.Elem().Interface())
@@ -183,14 +183,14 @@ func WriteGoString(
 				ws(",")
 			}
 			if manyLines {
-				ws(LF, TabSpace)
+				ws("\n", TabSpace)
 			} else if i > 0 {
 				ws(" ")
 			}
 			writeGoString(v.Index(i).Interface())
 		}
 		if manyLines {
-			ws(",", LF)
+			ws(",\n")
 		}
 		ws("}")
 		return

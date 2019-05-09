@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 17:26:00 F302FB                                  zr/[debug.go]
+// :v: 2019-05-09 18:09:23 DD6957                                  zr/[debug.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -115,7 +115,7 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 		isMany := len(val) > 1
 		for i, val := range val {
 			if isMany {
-				ws(LF)
+				ws("\n")
 				ws(strings.Repeat(TabSpace, indentAt+1))
 				ws(fmt.Sprintf("%d:", i))
 			}
@@ -126,14 +126,14 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 		isMany1 := len(val) > 1
 		for i1, val := range val { // range [][]string
 			if isMany1 {
-				ws(LF)
+				ws("\n")
 				ws(strings.Repeat(TabSpace, indentAt+1))
 			}
 			isMany2 := len(val) > 1
 			ws(fmt.Sprintf("%d: [%d]", i1, len(val)))
 			for i2, val := range val { // range []string
 				if isMany2 {
-					ws(LF)
+					ws("\n")
 					ws(strings.Repeat(" ", indentAt+2))
 				}
 				ws(fmt.Sprintf(" %d:", i2))

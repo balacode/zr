@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:58 246ABF                               zr/[calendar.go]
+// :v: 2019-05-09 18:09:23 8DFDDA                               zr/[calendar.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -184,7 +184,7 @@ func (ob *Calendar) String() string {
 			retBuf.WriteString(s)
 		}
 	}
-	ws(LF)
+	ws("\n")
 	blank := strings.Repeat(" ", CELLWIDTH)
 	wdayFmt := fmt.Sprintf("  %%-%ds", CELLWIDTH-2)
 	dayFmt := fmt.Sprintf(" %%-%dd", CELLWIDTH-1)
@@ -199,14 +199,14 @@ func (ob *Calendar) String() string {
 			}
 			ws(strings.Repeat(HDIV, CELLWIDTH))
 		}
-		ws(EDGE, LF)
+		ws(EDGE, "\n")
 	}
 	// draws the inner horizontal divider
 	innerHLine := func() {
 		for i := 0; i < 7; i++ {
 			ws(VDIV, strings.Repeat(HDIV, CELLWIDTH))
 		}
-		ws(VDIV, LF)
+		ws(VDIV, "\n")
 	}
 	// formats numbers
 	numStr := func(val float64) string {
@@ -220,7 +220,7 @@ func (ob *Calendar) String() string {
 	for _, mth := range ob.months {
 		//
 		// month heading
-		ws(strings.ToUpper(fmt.Sprintf("%d %v", mth.year, mth.month)), LF)
+		ws(strings.ToUpper(fmt.Sprintf("%d %v", mth.year, mth.month)), "\n")
 		outerHLine()
 		//
 		// weekday names
@@ -228,7 +228,7 @@ func (ob *Calendar) String() string {
 			ws(VDIV)
 			ws(fmt.Sprintf(wdayFmt, calendarWeekdaysEN[i][:3]))
 		}
-		ws(VDIV, LF)
+		ws(VDIV, "\n")
 		var sum float64
 		//
 		// draw the grid
@@ -245,7 +245,7 @@ func (ob *Calendar) String() string {
 					ws(fmt.Sprintf(dayFmt, day))
 				}
 			}
-			ws(VDIV, LF)
+			ws(VDIV, "\n")
 			//
 			// values on current row
 			for col := 0; col < 7; col++ {
@@ -263,10 +263,10 @@ func (ob *Calendar) String() string {
 					}
 				}
 			}
-			ws(VDIV, LF)
+			ws(VDIV, "\n")
 		}
 		outerHLine()
-		ws(numStr(sum), LF, LF)
+		ws(numStr(sum), "\n\n")
 	} // mth
 	return retBuf.String()
 } //                                                                      String

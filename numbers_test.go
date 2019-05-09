@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 17:26:00 C10E0F                           zr/[numbers_test.go]
+// :v: 2019-05-09 18:09:23 D90B14                           zr/[numbers_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -45,7 +45,7 @@ func Test_nums_BlankZero_(t *testing.T) {
 	test := func(input, expect string) {
 		got := BlankZero(input)
 		if !TEqual(t, got, (expect)) {
-			fmt.Printf("INPUT: %s"+LF+LF, input)
+			fmt.Printf("INPUT: %s\n\n", input)
 		}
 	}
 	// zero values should become blank

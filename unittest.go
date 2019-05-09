@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 17:26:00 DFD145                               zr/[unittest.go]
+// :v: 2019-05-09 18:09:23 462756                               zr/[unittest.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -336,9 +336,9 @@ func failedFuncAndLine() (funcName string, lineNo int) {
 // used in TFail() and TFailf()
 func failedLocation() string {
 	funcName, lineNo := failedFuncAndLine()
-	return LF +
-		"FAILED FUNC: " + funcName + LF +
-		"FAILED LINE: " + strconv.Itoa(lineNo) + LF
+	return "\n" +
+		"FAILED FUNC: " + funcName + "\n" +
+		"FAILED LINE: " + strconv.Itoa(lineNo) + "\n"
 } //                                                              failedLocation
 
 // TODO: BeginError() can redefine mod.Error()

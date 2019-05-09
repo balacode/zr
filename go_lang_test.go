@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 C6C83E                           zr/[go_lang_test.go]
+// :v: 2019-05-09 18:09:23 55D388                           zr/[go_lang_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -182,10 +182,10 @@ func Test_gola_GoString_(t *testing.T) {
 			"ccc": 333,
 		}
 		s := "" +
-			`map[string]int{` + LF +
-			`    "a": 1,` + LF +
-			`    "bb": 22,` + LF +
-			`    "ccc": 333,` + LF +
+			`map[string]int{` + "\n" +
+			`    "a": 1,` + "\n" +
+			`    "bb": 22,` + "\n" +
+			`    "ccc": 333,` + "\n" +
 			`}`
 		TEqual(t, GoString(m), s)
 	}
@@ -250,9 +250,9 @@ func Test_gola_GoString_(t *testing.T) {
 			{"123", "456", "789"},
 		}
 		const expect = "" +
-			`[][]string{` + LF +
-			`    []string{"rst", "uvw", "xyz"},` + LF +
-			`    []string{"123", "456", "789"},` + LF +
+			`[][]string{` + "\n" +
+			`    []string{"rst", "uvw", "xyz"},` + "\n" +
+			`    []string{"123", "456", "789"},` + "\n" +
 			`}`
 		TEqual(t, GoString(ar), expect)
 	}
@@ -262,9 +262,9 @@ func Test_gola_GoString_(t *testing.T) {
 			{CurrencyOf(123), CurrencyOf(456)},
 		}
 		const expect = "" +
-			`[][]zr.Currency{` + LF +
-			`    []zr.Currency{zr.CurrencyOf(321), zr.CurrencyOf(654)},` + LF +
-			`    []zr.Currency{zr.CurrencyOf(123), zr.CurrencyOf(456)},` + LF +
+			`[][]zr.Currency{` + "\n" +
+			`    []zr.Currency{zr.CurrencyOf(321), zr.CurrencyOf(654)},` + "\n" +
+			`    []zr.Currency{zr.CurrencyOf(123), zr.CurrencyOf(456)},` + "\n" +
 			`}`
 		TEqual(t, GoString(curAr), expect)
 	}
