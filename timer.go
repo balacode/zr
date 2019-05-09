@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 0E240B                                  zr/[timer.go]
+// :v: 2019-05-09 17:26:00 CEAF5A                                  zr/[timer.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -162,18 +162,18 @@ func (ob *Timer) String() string {
 	}
 	var buf bytes.Buffer
 	ws := buf.WriteString
-	ws("    --------------------------------- SECONDS:" + LB)
+	ws("    --------------------------------- SECONDS:\r\n")
 	sum := float64(0)
 	for i := 0; i <= serialMax; i++ {
 		for taskName, task := range ob.Tasks {
 			if task.SerialNo == i {
 				seconds := float64(task.TotalMs) / float64(1000)
 				sum += seconds
-				ws(fmt.Sprintf("%14.5f: %s"+LB, seconds, taskName))
+				ws(fmt.Sprintf("%14.5f: %s\r\n", seconds, taskName))
 			}
 		}
 	}
-	ws(fmt.Sprintf("%14.5f"+LB, sum))
+	ws(fmt.Sprintf("%14.5f\r\n", sum))
 	ret := buf.String()
 	return ret
 } //                                                                      String

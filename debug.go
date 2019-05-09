@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 0AF42D                                  zr/[debug.go]
+// :v: 2019-05-09 17:26:00 F302FB                                  zr/[debug.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -21,10 +21,10 @@ import (
 func ConsumeGB(gigabytes float64) {
 	var mem runtime.MemStats
 	runtime.ReadMemStats(&mem)
-	fmt.Printf("before allocation. mem: %s"+LB,
+	fmt.Printf("before allocation. mem: %s\r\n",
 		ByteSizeString(int64(mem.HeapSys), false))
 	{
-		fmt.Printf("allocating and filling %0.1f GB"+LB, gigabytes)
+		fmt.Printf("allocating and filling %0.1f GB\r\n", gigabytes)
 		max := int64(gigabytes * 1024 * 1024 * 1024)
 		big := make([]byte, max)
 		b := byte(0)
@@ -36,9 +36,9 @@ func ConsumeGB(gigabytes float64) {
 			}
 		}
 		runtime.ReadMemStats(&mem)
-		fmt.Printf("after allocating, mem: %s"+LB,
+		fmt.Printf("after allocating, mem: %s\r\n",
 			ByteSizeString(int64(mem.HeapSys), false))
-		fmt.Printf("some data: %v"+LB, big[:100])
+		fmt.Printf("some data: %v\r\n", big[:100])
 		fmt.Println("press ENTER to release memory")
 		bufio.NewReader(os.Stdin).ReadString('\n')
 		big = nil
@@ -46,7 +46,7 @@ func ConsumeGB(gigabytes float64) {
 	debug.FreeOSMemory()
 	time.Sleep(3 * time.Second)
 	runtime.ReadMemStats(&mem)
-	fmt.Printf("after releasing. mem: %s"+LB,
+	fmt.Printf("after releasing. mem: %s\r\n",
 		ByteSizeString(int64(mem.HeapSys), false))
 	fmt.Println("press ENTER to continue")
 	bufio.NewReader(os.Stdin).ReadString('\n')

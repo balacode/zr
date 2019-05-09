@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 2396C4                                zr/[reflect.go]
+// :v: 2019-05-09 17:26:00 BAB6E9                                zr/[reflect.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -85,7 +85,7 @@ func DescribeStruct(structPtr interface{}) string {
 				max = l
 			}
 		}
-		s := fmt.Sprintf("%s {"+LB, ty.Name())
+		s := fmt.Sprintf("%s {\r\n", ty.Name())
 		printf := func(format string, a ...interface{}) {
 			s += strings.Repeat(TabSpace, indentAt) + fmt.Sprintf(format, a...)
 		}
@@ -100,26 +100,26 @@ func DescribeStruct(structPtr interface{}) string {
 					if strings.Contains(stype, "[]main.") {
 						stype = strings.Replace(stype, "[]main.", "[]", -1)
 					}
-					printf("%s: %s {"+LB, name, stype)
+					printf("%s: %s {\r\n", name, stype)
 					indentAt += 1
 				}
 				for rowNo := 0; rowNo < val.Len(); rowNo++ {
 					val := val.Index(rowNo).Addr().Interface()
-					printf("%s", unwrap(val, indentAt)+","+LB)
+					printf("%s", unwrap(val, indentAt)+",\r\n")
 				}
 				indentAt -= 1
-				printf("}," + LB)
+				printf("},\r\n")
 			} else if val.Kind() == reflect.String {
-				printf("%s:%s %q,"+LB, name, pad, val)
+				printf("%s:%s %q,\r\n", name, pad, val)
 			} else {
-				printf("%s:%s %v,"+LB, name, pad, val)
+				printf("%s:%s %v,\r\n", name, pad, val)
 			}
 		}
 		indentAt -= 1
 		printf("}")
 		return s
 	}
-	return unwrap(structPtr, 0) + LB
+	return unwrap(structPtr, 0) + "\r\n"
 } //                                                              DescribeStruct
 
 // GetStructInt returns the string value from the named field in a struct.

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 FD2E83                           zr/[strings_test.go]
+// :v: 2019-05-09 17:26:00 3A79C1                           zr/[strings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -147,7 +147,7 @@ func Test_strs_CompactSpaces_(t *testing.T) {
 	// CompactSpaces(s string) string
 	//
 	TEqual(t, CompactSpaces("a  b  c"), ("a b c"))
-	TEqual(t, CompactSpaces("a\r\nb\r\nc"), ("a b c"))
+	TEqual(t, CompactSpaces("a\r\n"+"b\r\n"+"c"), ("a b c"))
 } //                                                    Test_strs_CompactSpaces_
 
 // go test --run Test_strs_ContainsI_
@@ -603,7 +603,7 @@ func Test_strs_LineOffsetUTF8_(t *testing.T) {
 		}
 	}
 	{
-		data := []byte("abc\r\nАБВ\n")
+		data := []byte("abc\r\n" + "АБВ\n")
 		//        each Cyrillic ^ char is 2 bytes long in UTF8
 		test(data, 0,
 			0, 0)
@@ -1060,7 +1060,7 @@ func Test_strs_SplitQuoted_(t *testing.T) {
 	for i, test := range tests {
 		got := SplitQuoted(test.s)
 		if !EqualStringSlices(got, test.expect) {
-			t.Errorf("T%d SplitQuoted(%q) returned %q instead of %v"+LB,
+			t.Errorf("T%d SplitQuoted(%q) returned %q instead of %v\r\n",
 				i, test.s, got, test.expect)
 		}
 	}

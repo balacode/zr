@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 C28530                           zr/[numbers_test.go]
+// :v: 2019-05-09 17:26:00 C10E0F                           zr/[numbers_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -255,7 +255,7 @@ func Test_nums_Int_(t *testing.T) {
 	test := func(val interface{}, expect int) {
 		got := Int(val)
 		if got != expect {
-			t.Errorf("Int(%q) returned %d instead of %d"+LB,
+			t.Errorf("Int(%q) returned %d instead of %d\r\n",
 				val, got, expect)
 		}
 	}

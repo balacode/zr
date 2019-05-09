@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 D5DD22                        zr/[bytes_func_test.go]
+// :v: 2019-05-09 17:26:00 934371                        zr/[bytes_func_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -248,7 +248,7 @@ func Test_bytf_InsertBytes_(t *testing.T) {
 		}
 		if !bytes.Equal(got, expect) {
 			t.Errorf("InsertBytes(%q, %d, %q, %q)"+
-				" returned %q instead of %q"+LB,
+				" returned %q instead of %q\r\n",
 				got, pos, string(src1), string(src2),
 				string(got), string(expect))
 		}
@@ -293,7 +293,7 @@ func Test_bytf_InsertBytes_(t *testing.T) {
 		InsertBytes(&got, test.pos, test.src)
 		if string(got) != string(test.expect) {
 			t.Errorf("InsertBytes(%q, %d, %q)"+
-				" returned %q instead of %q"+LB,
+				" returned %q instead of %q\r\n",
 				string(test.des), test.pos, string(test.src),
 				string(got), string(test.expect))
 		}

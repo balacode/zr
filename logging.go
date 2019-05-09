@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-08 11:29:09 D18D4D                                zr/[logging.go]
+// :v: 2019-05-09 17:26:00 5D7B00                                zr/[logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -91,7 +91,7 @@ type MaxDepth int
 
 // callerPrefix specifies how Callers() prefixes each call stack entry.
 // By default, each call stack entry starts on a new line and is indented.
-const callerPrefix = LB + "    "
+const callerPrefix = "\r\n    "
 
 // showSourceFileNames makes Callers() display file names when set to true.
 var showSourceFileNames bool
@@ -233,7 +233,7 @@ func Base64ErrorDetails(err error, data string) {
 		if i == at {
 			isAt = "*"
 		}
-		PrintfAsync("%s i:%d s:%q val:%d"+LB,
+		PrintfAsync("%s i:%d s:%q val:%d\r\n",
 			isAt, i, string(data[i]), data[i])
 	}
 } //                                                          Base64ErrorDetails
@@ -524,7 +524,7 @@ func TM(messages ...string) {
 		return
 	case messagesLen == 1:
 		now := time.Now()
-		fmt.Printf("TM % 8.2f ms: %s"+LB,
+		fmt.Printf("TM % 8.2f ms: %s\r\n",
 			float32(now.Sub(timings[callLoc]).Nanoseconds())/1000000,
 			messages[0])
 		timings[callLoc] = time.Now()
@@ -565,7 +565,7 @@ func VerboseLogf(format string, args ...interface{}) {
 // D writes a formatted debug message and to the console.
 // Same as fmt.Printf(), but appends a newline at the end.
 func D(message string, args ...interface{}) {
-	fmt.Printf(Timestamp()+message+LB, args...)
+	fmt.Printf(Timestamp()+message+"\r\n", args...)
 } //                                                                           D
 
 // DC writes a formatted debug message and the call stack to the console.
@@ -576,7 +576,8 @@ func DC(message string, args ...interface{}) {
 // DL writes a formatted debug message to log file 'run.log' saved in the
 // program's current directory. The message is not output to the console.
 func DL(message string, args ...interface{}) {
-	AppendToTextFile("run.log", Timestamp()+fmt.Sprintf(message, args...)+LB)
+	AppendToTextFile("run.log",
+		Timestamp()+fmt.Sprintf(message, args...)+"\r\n")
 } //                                                                          DL
 
 // DLC writes a formatted debug message and the call stack to log file
@@ -584,7 +585,7 @@ func DL(message string, args ...interface{}) {
 // The message is not output to the console.
 func DLC(message string, args ...interface{}) {
 	AppendToTextFile("run.log",
-		Timestamp()+fmt.Sprintf(message, args...)+Callers()+LB)
+		Timestamp()+fmt.Sprintf(message, args...)+Callers()+"\r\n")
 } //                                                                         DLC
 
 // -----------------------------------------------------------------------------
@@ -690,7 +691,7 @@ func logLoopAsync() {
 			msg = strings.TrimSpace(msg)
 			fmt.Println(msg)
 			if t.writeFile {
-				AppendToTextFile("run.log", msg+LB)
+				AppendToTextFile("run.log", msg+"\r\n")
 			}
 		}
 		logMutex.Unlock()

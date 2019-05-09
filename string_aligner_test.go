@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 F365F9                    zr/[string_aligner_test.go]
+// :v: 2019-05-09 17:26:00 C4F410                    zr/[string_aligner_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -37,9 +37,9 @@ func Test_stra_StringAligner_(t *testing.T) {
 		ob.Write("AAAA", "BBBB", "CCCC", "DDDD")
 		result := ob.String()
 		const expect = "" +
-			"AAA BBB" + LB +
-			"A   B   C" + LB +
-			"AA  BB  CC" + LB +
+			"AAA BBB\r\n" +
+			"A   B   C\r\n" +
+			"AA  BB  CC\r\n" +
 			"AAAABBBBCCCCDDDD"
 		TEqual(t, result, (expect))
 		if result != expect {
@@ -56,9 +56,9 @@ func Test_stra_StringAligner_(t *testing.T) {
 		ob.Write("AAAA", "BBBB", "CCCC", "DDDD")
 		result := ob.String()
 		const expect = "" +
-			"AAA   BBB" + LB +
-			"A     B     C" + LB +
-			"AA    BB    CC" + LB +
+			"AAA   BBB\r\n" +
+			"A     B     C\r\n" +
+			"AA    BB    CC\r\n" +
 			"AAAA  BBBB  CCCC  DDDD"
 		TEqual(t, result, (expect))
 		if result != expect {

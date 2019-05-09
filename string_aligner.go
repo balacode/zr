@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 E355F0                         zr/[string_aligner.go]
+// :v: 2019-05-09 17:26:00 803AAE                         zr/[string_aligner.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -54,7 +54,7 @@ func (ob *StringAligner) String() string {
 	ws := retBuf.WriteString
 	for i, row := range ob.Values {
 		if i > 0 {
-			ws(LB)
+			ws("\r\n")
 		}
 		if ob.Prefix != "" && len(row) > 0 {
 			ws(ob.Prefix)

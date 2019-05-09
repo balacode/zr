@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 63A8F5                            zr/[module_test.go]
+// :v: 2019-05-09 17:26:00 45018C                            zr/[module_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -83,7 +83,7 @@ func Test_mdle_consts_(t *testing.T) {
 	TEqual(t, ENotHandled, ("Not handled"))
 	//
 	// other constants
-	TEqual(t, LB, ("\r\n"))
+	TEqual(t, "\r\n", ("\r\n"))
 } //                                                           Test_mdle_consts_
 
 // go test --run Test_mdle_vars_

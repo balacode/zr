@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-08 11:29:09 3030F6                               zr/[unittest.go]
+// :v: 2019-05-09 17:26:00 DFD145                               zr/[unittest.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -89,7 +89,7 @@ func TArrayEqual(t *testing.T, expect, val interface{}) bool {
 	a := fmt.Sprintf("%v", expect)
 	b := fmt.Sprintf("%v", val)
 	if a != b {
-		fmt.Printf("%s expected: %s got: %s"+LB, TCaller(), a, b)
+		fmt.Printf("%s expected: %s got: %s\r\n", TCaller(), a, b)
 		t.Fail()
 		return false
 	}
@@ -162,9 +162,9 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 		return ret
 	}
 	if makeStr(result) != makeStr(expect) {
-		t.Logf("%s"+LB+
-			"EXPECTED: %s"+LB+
-			"RETURNED: %s"+LB,
+		t.Logf("%s\r\n"+
+			"EXPECTED: %s\r\n"+
+			"RETURNED: %s\r\n",
 			"CALLER: "+TCaller(),
 			makeStr(expect),
 			makeStr(result),

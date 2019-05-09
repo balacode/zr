@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 03B2A5                             zr/[dates_test.go]
+// :v: 2019-05-09 16:33:12 357690                             zr/[dates_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -78,7 +78,7 @@ func Test_date_DateRangeOf_(t *testing.T) {
 	if false {
 		s := "Oct23"
 		rng := DateRangeOf(s)
-		fmt.Printf(LB+LB+LB+"DateRangeOf(%q) -> %q"+LB+LB+LB,
+		fmt.Printf("\r\n\r\n\r\n"+"DateRangeOf(%q) -> %q\r\n\r\n\r\n",
 			s, rng.String())
 		return
 	}

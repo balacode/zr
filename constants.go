@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-04-01 12:06:39 CE09D6                              zr/[constants.go]
+// :v: 2019-05-09 17:26:00 273BD7                              zr/[constants.go]
 // -----------------------------------------------------------------------------
 
 // # Error Message Constants
@@ -56,12 +56,6 @@ const CR = "\r"
 
 // LF is a string with a single line feed character (decimal 10, hex 0A)
 const LF = "\n"
-
-// LB specifies a line break string.
-// On Windows it is a pair of CR and LF.
-// CR is decimal 13, hex 0D.
-// LF is decimal 10, hex 0A.
-const LB = "\r\n"
 
 // SPACES is a string of all white-space characters,
 // which includes spaces, tabs, and newline characters.
