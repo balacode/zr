@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 18:09:23 CC6FE7                              zr/[constants.go]
+// :v: 2019-05-09 18:21:09 B8E8DD                              zr/[constants.go]
 // -----------------------------------------------------------------------------
 
 // # Error Message Constants
@@ -49,10 +49,6 @@ const EOverflow = "Overflow"
 
 // -----------------------------------------------------------------------------
 // # String Constants
-
-// CR is a string with a single carriage return
-// character (decimal 13, hex 0D)
-const CR = "\r"
 
 // SPACES is a string of all white-space characters,
 // which includes spaces, tabs, and newline characters.

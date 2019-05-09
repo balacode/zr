@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 18:09:23 3676EB                                zr/[strings.go]
+// :v: 2019-05-09 18:21:09 8FE117                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -987,8 +987,8 @@ func ShowSpaces(s string) string {
 	if strings.Contains(s, "\r\n") {
 		s = strings.Replace(s, "\r\n", "CRLF\x00", -1)
 	}
-	if strings.Contains(s, CR) {
-		s = strings.Replace(s, CR, "CR"+CR, -1)
+	if strings.Contains(s, "\r") {
+		s = strings.Replace(s, "\r", "CR\r", -1)
 	}
 	if strings.Contains(s, "\n") {
 		s = strings.Replace(s, "\n", "LF\n", -1)
