@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 17:26:00 3A79C1                           zr/[strings_test.go]
+// :v: 2019-05-10 02:29:36 6A8C63                           zr/[strings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -8,7 +8,6 @@ package zr
 // # String Function Tests
 //   Test_strs_After_
 //   Test_strs_CamelCase_
-//   Test_strs_CharsOf_
 //   Test_strs_CompactSpaces_
 //   Test_strs_ContainsI_
 //   Test_strs_ContainsWord_
@@ -131,15 +130,6 @@ func Test_strs_CamelCase_(t *testing.T) {
 	test("CAPS", "CAPS")
 	test("some_name", "someName")
 } //                                                        Test_strs_CamelCase_
-
-// go test --run Test_strs_CharsOf_
-func Test_strs_CharsOf_(t *testing.T) {
-	TBegin(t)
-	// CharsOf(s string) []rune
-	//
-	TArrayEqual(t, []rune{}, CharsOf(""))
-	TArrayEqual(t, []rune{'A', 'B', 'C'}, CharsOf("ABC"))
-} //                                                          Test_strs_CharsOf_
 
 // go test --run Test_strs_CompactSpaces_
 func Test_strs_CompactSpaces_(t *testing.T) {
@@ -1384,7 +1374,5 @@ func Test_strs_WordIndex_(t *testing.T) {
 		}
 	}
 } //                                                        Test_strs_WordIndex_
-
-// TODO: rename CharsOf to Runes.
 
 //end

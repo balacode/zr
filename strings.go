@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 18:21:09 8FE117                                zr/[strings.go]
+// :v: 2019-05-10 02:29:36 FEB545                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -8,7 +8,6 @@ package zr
 // # String Functions
 //   After(s string, find ...string) string
 //   CamelCase(s string) string
-//   CharsOf(s string) []rune
 //   CompactSpaces(s string) string
 //   ContainsI(s, substr string) bool
 //   ContainsWord(s, word string, caseMode CaseMode) bool
@@ -149,11 +148,6 @@ func CamelCase(s string) string {
 	}
 	return retBuf.String()
 } //                                                                   CamelCase
-
-// CharsOf __
-func CharsOf(s string) []rune {
-	return []rune(s)
-} //                                                                     CharsOf
 
 // CompactSpaces reduces all multiple white-spaces in string to
 // a single space, also converting newlines and tabs to space.
