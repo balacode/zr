@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 17:26:00 934371                        zr/[bytes_func_test.go]
+// :v: 2019-05-11 04:43:28 AA9708                        zr/[bytes_func_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -63,20 +63,22 @@ func Test_bytf_ByteSizeString_(t *testing.T) {
 			)
 		}
 	}
-	const KiB = 1024
-	const MiB = KiB * 1024
-	const GiB = MiB * 1024
-	const TiB = GiB * 1024
-	const PiB = TiB * 1024
-	const EiB = PiB * 1024
-	//
-	const KB = 1000
-	const MB = KB * 1000
-	const GB = MB * 1000
-	const TB = GB * 1000
-	const PB = TB * 1000
-	const EB = PB * 1000
-	//
+	const (
+		KiB = 1024
+		MiB = KiB * 1024
+		GiB = MiB * 1024
+		TiB = GiB * 1024
+		PiB = TiB * 1024
+		EiB = PiB * 1024
+	)
+	const (
+		KB = 1000
+		MB = KB * 1000
+		GB = MB * 1000
+		TB = GB * 1000
+		PB = TB * 1000
+		EB = PB * 1000
+	)
 	// binary prefixes (use powers of 2)
 	{
 		//
@@ -236,12 +238,14 @@ func Test_bytf_InsertBytes_(t *testing.T) {
 	//   InsertBytes(dest *[]byte, pos int, src ...[]byte)
 	//
 	{
-		dest := []byte("ABCD")
-		pos := 2
-		src1 := []byte("12")
-		src2 := []byte("3")
-		got := []byte(string(dest))
-		expect := []byte("AB123CD")
+		var (
+			dest   = []byte("ABCD")
+			pos    = 2
+			src1   = []byte("12")
+			src2   = []byte("3")
+			got    = []byte(string(dest))
+			expect = []byte("AB123CD")
+		)
 		InsertBytes(&got, pos, src1, src2)
 		if len(got) != 7 {
 			t.Errorf("len(got) is %d instead of 7", len(got))
@@ -264,10 +268,12 @@ func Test_bytf_InsertBytes_(t *testing.T) {
 		InsertBytes(&slc, 0, []byte{6})
 		TBytesEqual(t, slc, []byte{6, 1, 2, 3, 4, 5})
 	}
-	des1 := []byte("ABCDEFGH")
-	src1 := []byte("123")
-	des2 := []byte("ABC")
-	src2 := []byte("12345")
+	var (
+		des1 = []byte("ABCDEFGH")
+		src1 = []byte("123")
+		des2 = []byte("ABC")
+		src2 = []byte("12345")
+	)
 	// TODO: use test() function instead of loop
 	for _, test := range []struct {
 		des    []byte
@@ -356,8 +362,10 @@ func Test_bytf_UncompressBytes_(t *testing.T) {
 	// UncompressBytes(data []byte) []byte
 	//
 	// TODO: TEST UncompressBytes():
-	// 	retBuf := bytes.NewReader(data)
-	// 	rd, err := zlib.NewReader(retBuf)
+	//  var (
+	// 	    retBuf  = bytes.NewReader(data)
+	// 	    rd, err = zlib.NewReader(retBuf)
+	//  )
 	// 	if err != nil {
 	// 		Error("Uncompressing:", err)
 	// 	}
@@ -373,8 +381,10 @@ func Test_bytf_XorBytes_(t *testing.T) {
 	// XorBytes(data, cipher []byte) []byte
 	//
 	// TODO: TEST XorBytes():
-	// 	ret := bytes.NewBuffer(make([]byte, 0, len(data)))
-	// 	i, l := 0, len(cipher)
+	//  var (
+	// 	    ret  = bytes.NewBuffer(make([]byte, 0, len(data)))
+	// 	    i, l = 0, len(cipher)
+	//  )
 	// 	for_, b := range data {
 	// 		ret.WriteByte(b ^ cipher[i])
 	// 		i++

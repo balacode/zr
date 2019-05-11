@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 18:09:23 DD6957                                  zr/[debug.go]
+// :v: 2019-05-11 04:43:28 AFE373                                  zr/[debug.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -25,9 +25,11 @@ func ConsumeGB(gigabytes float64) {
 		ByteSizeString(int64(mem.HeapSys), false))
 	{
 		fmt.Printf("allocating and filling %0.1f GB\r\n", gigabytes)
-		max := int64(gigabytes * 1024 * 1024 * 1024)
-		big := make([]byte, max)
-		b := byte(0)
+		var (
+			max = int64(gigabytes * 1024 * 1024 * 1024)
+			big = make([]byte, max)
+			b   = byte(0)
+		)
 		for i := int64(0); i < max; i++ {
 			big[i] = b
 			b++
@@ -62,9 +64,11 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 	case n > 1:
 		mod.Error(EInvalidArg, "optIndentAt", ":", optIndentAt)
 	}
-	var retBuf bytes.Buffer
-	wr := retBuf.WriteRune
-	ws := retBuf.WriteString
+	var (
+		retBuf bytes.Buffer
+		wr     = retBuf.WriteRune
+		ws     = retBuf.WriteString
+	)
 	switch val := val.(type) {
 	// nil:
 	case nil:

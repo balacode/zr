@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-08 11:29:09 9AA8D6                               zr/[currency.go]
+// :v: 2019-05-11 04:43:28 51D484                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -321,9 +321,11 @@ func (ob Currency) Fmt(decimalPlaces int) string {
 	if intLen == 0 {
 		ws("0")
 	} else {
-		write := false
-		power := int64(100000000000000) // 10^14
-		digits := intLen % 3
+		var (
+			write  = false
+			power  = int64(100000000000000) // 10^14
+			digits = intLen % 3
+		)
 		if digits == 0 {
 			digits = 3
 		}
@@ -405,9 +407,11 @@ func (ob Currency) InWordsEN(fmt string) string {
 	if n < 0 {
 		n = -ob.val
 	}
-	bigUnits := n / cur4d
-	smlUnits := (n - bigUnits*cur4d) / 100
-	hasOnly := strings.HasSuffix(strings.ToLower(fmt), "only")
+	var (
+		bigUnits = n / cur4d
+		smlUnits = (n - bigUnits*cur4d) / 100
+		hasOnly  = strings.HasSuffix(strings.ToLower(fmt), "only")
+	)
 	if hasOnly {
 		fmt = fmt[:len(fmt)-4]
 	}
@@ -534,9 +538,10 @@ func (ob Currency) DivInt(divide ...int) Currency {
 // and returns the result. The object's value isn't changed.
 func (ob Currency) Mul(multiply ...Currency) Currency {
 	for _, cur := range multiply {
-		a := ob.val
-		b := cur.val
-		//
+		var (
+			a = ob.val
+			b = cur.val
+		)
 		// return zero if either number is zero
 		if a == 0 || b == 0 {
 			return Currency{0}
@@ -615,10 +620,11 @@ func (ob Currency) MulInt(multiply ...int) Currency {
 // math.MinInt64 or math.MaxInt64 depending on if the result is negative.
 func (ob Currency) Add(add ...Currency) Currency {
 	for _, itm := range add {
-		a := ob.val
-		b := itm.val
-		c := a + b
-		//
+		var (
+			a = ob.val
+			b = itm.val
+			c = a + b
+		)
 		// check for overflow
 		if c < MinCurrencyI64 || (a < 0 && b < 0 && b < (MinCurrencyI64-a)) {
 			return currencyOverflow(true, EOverflow, ": ", a, " + ", b)
@@ -667,10 +673,11 @@ func (ob Currency) AddInt(add ...int) Currency {
 // and returns the result. The object's value isn't changed.
 func (ob Currency) Sub(subtract ...Currency) Currency {
 	for _, n := range subtract {
-		a := ob.val
-		b := n.val
-		c := a - b
-		//
+		var (
+			a = ob.val
+			b = n.val
+			c = a - b
+		)
 		// check for overflow
 		if c < MinCurrencyI64 || (a < 0 && b > 0 && b > (-MinCurrencyI64+a)) {
 			return currencyOverflow(true, EOverflow, ": ", a, " - ", b)
@@ -781,10 +788,11 @@ func (ob Currency) MarshalJSON() ([]byte, error) {
 	// TODO: using fmt.Sprintf() may slow down performance.
 	//       There are faster ways to build a number with 4 decimals.
 	//       Create a benchmark to find the fastest method.
-	//
-	i := ob.val / cur4d   // integer part
-	d := ob.val - i*cur4d // decimal part
-	ret := fmt.Sprintf("%d", i)
+	var (
+		i   = ob.val / cur4d   // integer part
+		d   = ob.val - i*cur4d // decimal part
+		ret = fmt.Sprintf("%d", i)
+	)
 	if d != 0 {
 		ret += strings.TrimRight(
 			fmt.Sprintf("%0.4f", float32(d)/cur4d)[1:],

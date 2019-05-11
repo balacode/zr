@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-10 02:29:36 FEB545                                zr/[strings.go]
+// :v: 2019-05-11 04:43:28 62CF69                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -132,9 +132,11 @@ func After(s string, find ...string) string {
 // CamelCase converts an identifier from underscore naming convention
 // to camel case naming convention: 'some_name' becomes 'someName'.
 func CamelCase(s string) string {
-	retBuf := bytes.NewBuffer(make([]byte, 0, len(s)))
-	ws := retBuf.WriteString
-	var ucase bool
+	var (
+		retBuf = bytes.NewBuffer(make([]byte, 0, len(s)))
+		ws     = retBuf.WriteString
+		ucase  bool
+	)
 	for _, ch := range s {
 		if ch == '_' {
 			ucase = true
@@ -318,10 +320,12 @@ func IsWhiteSpace(s string) bool {
 // % is followed by a 2-digit hex value.
 // e.g. escaped string "%25" becomes "%", "%20" becomes " ", etc.
 func JSUnescape(s string) string {
-	retBuf := bytes.NewBuffer(make([]byte, 0, len(s)))
-	wr := retBuf.WriteRune
-	hexPower := 0
-	hexVal := rune(0)
+	var (
+		retBuf   = bytes.NewBuffer(make([]byte, 0, len(s)))
+		wr       = retBuf.WriteRune
+		hexPower = 0
+		hexVal   = rune(0)
+	)
 	for _, ch := range s {
 		if ch == '%' {
 			hexPower = 2
@@ -479,9 +483,11 @@ func LineEndIndexB(s []byte, index int) int {
 			index = sLen
 		}
 	}
-	cr := bytes.IndexByte(s[index:], '\r')
-	lf := bytes.IndexByte(s[index:], '\n')
-	i := lf
+	var (
+		cr = bytes.IndexByte(s[index:], '\r')
+		lf = bytes.IndexByte(s[index:], '\n')
+		i  = lf
+	)
 	if cr != -1 && cr < lf {
 		i = cr
 	}
@@ -588,22 +594,25 @@ func ReplaceEx1(s, find, repl string, count int, caseMode CaseMode) string {
 	if find == repl || count == 0 {
 		return s // avoid allocation
 	}
-	sLen := len(s)
-	findLen := len(find)
-	//
-	// pre-allocate a buffer (assume each char uses 2 bytes on average)
-	retBuf := bytes.NewBuffer(make([]byte, 0,
-		2*int(float64(sLen)/float64(findLen)*float64(len(repl)+1))))
-	ws := retBuf.WriteString
-	//
+	var (
+		sLen    = len(s)
+		findLen = len(find)
+		//
+		// pre-allocate a buffer (assume each char uses 2 bytes on average)
+		retBuf = bytes.NewBuffer(make([]byte, 0,
+			2*int(float64(sLen)/float64(findLen)*float64(len(repl)+1))))
+		ws = retBuf.WriteString
+	)
 	// lowercase of 's' and 'find' used when caseMode is IgnoreCase
 	var sLw, findLw string
 	if caseMode == IgnoreCase {
 		sLw = strings.ToLower(s)
 		findLw = strings.ToLower(find)
 	}
-	replRemain := count // number of replacements remaining
-	pos, prev := 0, 0
+	var (
+		replRemain = count // number of replacements remaining
+		pos, prev  = 0, 0
+	)
 	for pos < sLen {
 		// find the next index of 'find' in 's'
 		var i int
@@ -1253,8 +1262,10 @@ func Substr(s string, charIndex, charCount int) string {
 			"=", charIndex+charCount, "> sLen", sLen)
 		charCount = sLen - charIndex
 	}
-	var retBuf bytes.Buffer // prepare output buffer with some space reserved
-	wr := retBuf.WriteRune
+	var (
+		retBuf bytes.Buffer // prepare output buffer with some space reserved
+		wr     = retBuf.WriteRune
+	)
 	if charCount <= -1 {
 		retBuf.Grow(sLen)
 	} else {
@@ -1279,9 +1290,11 @@ func Substr(s string, charIndex, charCount int) string {
 
 // TitleCase changes a string to title case.
 func TitleCase(s string) string {
-	retBuf := bytes.NewBuffer(make([]byte, 0, len(s)))
-	wr := retBuf.WriteRune
-	up := true
+	var (
+		retBuf = bytes.NewBuffer(make([]byte, 0, len(s)))
+		wr     = retBuf.WriteRune
+		up     = true
+	)
 	for _, ch := range s {
 		if up {
 			ch = unicode.ToUpper(ch)

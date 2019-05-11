@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 16:33:12 357690                             zr/[dates_test.go]
+// :v: 2019-05-11 04:43:28 8A5428                             zr/[dates_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -41,11 +41,14 @@ import (
 // go test --run Test_date_DateRangeString_
 func Test_date_DateRangeString_(t *testing.T) {
 	TBegin(t)
+	//
 	// TODO: declaration comment
 	//
-	fr := time.Date(1900, time.January, 1, 1, 0, 0, 0, time.UTC)
-	to := time.Date(9999, time.December, 31, 23, 59, 59, 0, time.UTC)
-	rg := DateRange{From: fr, To: to}
+	var (
+		fr = time.Date(1900, time.January, 1, 1, 0, 0, 0, time.UTC)
+		to = time.Date(9999, time.December, 31, 23, 59, 59, 0, time.UTC)
+		rg = DateRange{From: fr, To: to}
+	)
 	TEqual(t, rg.String(), ("1900-01-01 9999-12-31"))
 } //                                                  Test_date_DateRangeString_
 
@@ -55,6 +58,7 @@ func Test_date_DateRangeString_(t *testing.T) {
 // go test --run Test_date_DateOf_
 func Test_date_DateOf_(t *testing.T) {
 	TBegin(t)
+	//
 	// TODO: declaration comment
 	//
 	test := func(input interface{}, expect string) {
@@ -322,6 +326,7 @@ func Test_date_IsDate_(t *testing.T) {
 // go test --run Test_date_ParseDate_
 func Test_date_ParseDate_(t *testing.T) {
 	TBegin(t)
+	//
 	// TODO: declaration comment
 	//
 	test := func(input string, expectY, expectM, expectD int) {
@@ -391,6 +396,7 @@ func Test_date_ParseDate_(t *testing.T) {
 // go test --run Test_date_StringDateDMY_
 func Test_date_StringDateDMY_(t *testing.T) {
 	TBegin(t)
+	//
 	// TODO: declaration comment
 	//
 	test := func(input, expect string) {
@@ -408,6 +414,7 @@ func Test_date_StringDateDMY_(t *testing.T) {
 // go test --run Test_date_StringDateYMD_
 func Test_date_StringDateYMD_(t *testing.T) {
 	TBegin(t)
+	//
 	// TODO: declaration comment
 	//
 	test := func(input, expect string) {
@@ -425,6 +432,7 @@ func Test_date_StringDateYMD_(t *testing.T) {
 // go test --run Test_date_Timestamp_
 func Test_date_Timestamp_(t *testing.T) {
 	TBegin(t)
+	//
 	// TODO: declaration comment
 	//
 	s := Timestamp()

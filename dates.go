@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-08 11:29:09 1F0FEF                                  zr/[dates.go]
+// :v: 2019-05-11 04:43:28 7C044B                                  zr/[dates.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -158,12 +158,16 @@ func DateRangeOf(s string) DateRange {
 	for strings.Contains(s, "-TO-") {
 		s = strings.Replace(s, "-TO-", "~", -1)
 	}
-	y1, m1, d1 := 0, time.January, 1
-	y2, m2, d2 := 0, time.December, 31
+	var (
+		y1, m1, d1 = 0, time.January, 1
+		y2, m2, d2 = 0, time.December, 31
+	)
 	// date range
 	if i := strings.Index(s, "~"); i != -1 {
-		r1 := DateRangeOf(s[:i])
-		r2 := DateRangeOf(s[i+1:])
+		var (
+			r1 = DateRangeOf(s[:i])
+			r2 = DateRangeOf(s[i+1:])
+		)
 		y1, m1, d1 = r1.From.Year(), r1.From.Month(), r1.From.Day()
 		y2, m2, d2 = r2.To.Year(), r2.To.Month(), r2.To.Day()
 	}
@@ -291,10 +295,12 @@ func DaysInMonth(year int, month time.Month) int {
 // FormatDateEN formats date using the specified format.
 // Uses English language names, hence the 'EN' suffix.
 func FormatDateEN(format string, date time.Time) string {
-	year := date.Year()
-	month := int(date.Month())
-	day := date.Day()
-	ret := format
+	var (
+		year  = date.Year()
+		month = int(date.Month())
+		day   = date.Day()
+		ret   = format
+	)
 	// TODO: implement day formats in FormatDateEN()
 	// ReplaceWord(ret, "dddd", "d", MatchCase)
 	// ReplaceWord(ret, "Dddd", "f", MatchCase)

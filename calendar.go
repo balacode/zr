@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 18:09:23 8DFDDA                               zr/[calendar.go]
+// :v: 2019-05-11 04:43:28 91B24F                               zr/[calendar.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -77,10 +77,12 @@ func (ob *Calendar) AddMonth(year int, month time.Month) error {
 	if ob.HasMonth(year, month) {
 		return Error("Month", month, year, "already added")
 	}
-	mth := calendarMonth{year: year, month: month}
-	weekday1 := ob.firstWeekday(year, month)
-	last := DaysInMonth(year, month)
-	day := 1
+	var (
+		mth      = calendarMonth{year: year, month: month}
+		weekday1 = ob.firstWeekday(year, month)
+		last     = DaysInMonth(year, month)
+		day      = 1
+	)
 loop:
 	for row := 0; row < 6; row++ {
 		for col := 0; col < 7; col++ {
@@ -173,11 +175,12 @@ func (ob *Calendar) String() string {
 	// |        |        |        |        |        |        |        |
 	// *--------------------------------------------------------------*
 	// 95.98
-	const EDGE = "*"
-	const HDIV = "-"
-	const VDIV = "|"
-	const CELLWIDTH = 8
-	//
+	const (
+		EDGE      = "*"
+		HDIV      = "-"
+		VDIV      = "|"
+		CELLWIDTH = 8
+	)
 	var retBuf bytes.Buffer
 	ws := func(a ...string) {
 		for _, s := range a {
@@ -185,11 +188,12 @@ func (ob *Calendar) String() string {
 		}
 	}
 	ws("\n")
-	blank := strings.Repeat(" ", CELLWIDTH)
-	wdayFmt := fmt.Sprintf("  %%-%ds", CELLWIDTH-2)
-	dayFmt := fmt.Sprintf(" %%-%dd", CELLWIDTH-1)
-	valFmt := fmt.Sprintf(" %%%dv ", CELLWIDTH-2)
-	//
+	var (
+		blank   = strings.Repeat(" ", CELLWIDTH)
+		wdayFmt = fmt.Sprintf("  %%-%ds", CELLWIDTH-2)
+		dayFmt  = fmt.Sprintf(" %%-%dd", CELLWIDTH-1)
+		valFmt  = fmt.Sprintf(" %%%dv ", CELLWIDTH-2)
+	)
 	// draws the outer (top or bottom) horizontal divider
 	outerHLine := func() {
 		ws(EDGE)

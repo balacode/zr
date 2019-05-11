@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-08 11:29:09 C8A0D1                                zr/[numbers.go]
+// :v: 2019-05-11 04:43:28 EEE133                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -525,9 +525,11 @@ func CommaDelimit(number string, decimalPlaces int) string {
 		intLen = decAt
 	}
 	{ // write delimited integer part
-		groups := (intLen / 3) + 1
-		digits := intLen % 3
-		at := 0
+		var (
+			groups = (intLen / 3) + 1
+			digits = intLen % 3
+			at     = 0
+		)
 		for groups > 0 {
 			ws(number[at : at+digits])
 			if groups > 1 && digits != 0 {

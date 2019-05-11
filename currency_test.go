@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 8DE8A1                          zr/[currency_test.go]
+// :v: 2019-05-11 04:43:28 6A3415                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -528,9 +528,11 @@ func Test_crcy_Currency_String_(t *testing.T) {
 		{Currency{math.MinInt64}, "-922337203685477.5808"},
 		{Currency{math.MaxInt64}, "922337203685477.5807"},
 	} {
-		input := test.input
-		init := input
-		got := input.String()
+		var (
+			input = test.input
+			init  = input
+			got   = input.String()
+		)
 		if got != test.expect {
 			TFail(t,
 				`#`, i, ` (`, input, `).String()`,

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:58 0DEE7E                             zr/[bytes_func.go]
+// :v: 2019-05-11 04:43:28 F4AB64                             zr/[bytes_func.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -246,8 +246,10 @@ func XorBytes(data, cipher []byte) []byte {
 	if len(data) == 0 || len(cipher) == 0 {
 		return data
 	}
-	ret := bytes.NewBuffer(make([]byte, 0, len(data)))
-	i, l := 0, len(cipher)
+	var (
+		ret  = bytes.NewBuffer(make([]byte, 0, len(data)))
+		i, l = 0, len(cipher)
+	)
 	for _, b := range data {
 		ret.WriteByte(b ^ cipher[i])
 		i++

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 17:26:00 5D7B00                                zr/[logging.go]
+// :v: 2019-05-11 04:43:28 161332                                zr/[logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -111,9 +111,11 @@ var lastLogMessage string
 var lastLogTime time.Time
 
 // Private Variables
-var logChan = make(chan logArgs, 50000)
-var logMutex sync.RWMutex
-var logSN int
+var (
+	logChan  = make(chan logArgs, 50000)
+	logMutex sync.RWMutex
+	logSN    int
+)
 
 // -----------------------------------------------------------------------------
 // # Async Logging Type
@@ -321,8 +323,10 @@ func Callers(options ...interface{}) string {
 	if maxDepth == 0 {
 		return ""
 	}
-	retBuf := bytes.NewBuffer(make([]byte, 0, 1024))
-	ws := retBuf.WriteString
+	var (
+		retBuf = bytes.NewBuffer(make([]byte, 0, 1024))
+		ws     = retBuf.WriteString
+	)
 	for i, depth := 0, 0; ; i++ {
 		programCounter, filename, lineNo, _ := runtime.Caller(i)
 		funcName := runtime.FuncForPC(programCounter).Name()
@@ -504,8 +508,10 @@ func PrintfAsync(format string, args ...interface{}) {
 func TM(messages ...string) {
 	var callLoc string
 	{
-		buf := bytes.NewBuffer(make([]byte, 0, 128))
-		ws := buf.WriteString
+		var (
+			buf = bytes.NewBuffer(make([]byte, 0, 128))
+			ws  = buf.WriteString
+		)
 		for i := 1; i <= 4; i++ {
 			programCounter, _, _, _ := runtime.Caller(i)
 			funcName := runtime.FuncForPC(programCounter).Name()

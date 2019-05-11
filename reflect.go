@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 17:26:00 BAB6E9                                zr/[reflect.go]
+// :v: 2019-05-11 04:43:28 8A2A6C                                zr/[reflect.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -91,9 +91,11 @@ func DescribeStruct(structPtr interface{}) string {
 		}
 		indentAt += 1
 		for i, count := 0, ty.NumField(); i < count; i++ {
-			name := ty.Field(i).Name
-			pad := strings.Repeat(" ", max-len(name))
-			val := reflect.ValueOf(structPtr).Elem().Field(i)
+			var (
+				name = ty.Field(i).Name
+				pad  = strings.Repeat(" ", max-len(name))
+				val  = reflect.ValueOf(structPtr).Elem().Field(i)
+			)
 			if val.Kind() == reflect.Slice {
 				{
 					stype := reflect.TypeOf(val.Interface()).String()
