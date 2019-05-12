@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 670CBB                          zr/[settings_test.go]
+// :v: 2019-05-12 17:04:33 6A1384                          zr/[settings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -15,14 +15,12 @@ package zr
 //   Test_sett_Settings_ExtendHas_
 //   Test_sett_Settings_ExtendSet_
 
-/*
-to test all methods use:
-	go test --run Test_sett_
-
-to generate a test coverage report use:
-	go test -coverprofile cover.out
-	go tool cover -html=cover.out
-*/
+//  to test all methods use:
+//  	go test --run Test_sett_
+//
+//  to generate a test coverage report use:
+//  	go test -coverprofile cover.out
+//  	go tool cover -html=cover.out
 
 import (
 	"testing"

@@ -1,18 +1,16 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 8D95B3                           zr/[reflect_test.go]
+// :v: 2019-05-12 17:04:33 D59F43                           zr/[reflect_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
 
-/*
-to test all items in reflect.go use:
-    go test --run Test_refl_
-
-to generate a test coverage report for the whole module use:
-    go test -coverprofile cover.out
-    go tool cover -html=cover.out
-*/
+//  to test all items in reflect.go use:
+//      go test --run Test_refl_
+//
+//  to generate a test coverage report for the whole module use:
+//      go test -coverprofile cover.out
+//      go tool cover -html=cover.out
 
 import (
 	"testing"

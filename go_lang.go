@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 18:09:23 2361DA                                zr/[go_lang.go]
+// :v: 2019-05-12 17:04:33 16D35D                                zr/[go_lang.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -65,7 +65,7 @@ func GoName(s string) string {
 // GoString converts fundamental types to strings in Go Language syntax.
 // You can copy its output and paste in source code if needed.
 //
-// If the type of 'val' implements GoStringer or zr.GoStrngerEx
+// If the type of 'val' implements GoStringer or zr.GoStringerEx
 // interfaces, uses the method provided by the interface.
 //
 // optIndentAt: omit this optional argument to place all output

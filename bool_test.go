@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:58 F5105C                              zr/[bool_test.go]
+// :v: 2019-05-12 17:04:32 4F9B9B                              zr/[bool_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -14,14 +14,12 @@ import (
 	"testing"
 )
 
-/*
-to test all items in bool.go use:
-    go test --run Test_bool_
-
-to generate a test coverage report for the whole module use:
-    go test -coverprofile cover.out
-    go tool cover -html=cover.out
-*/
+//  to test all items in bool.go use:
+//      go test --run Test_bool_
+//
+//  to generate a test coverage report for the whole module use:
+//      go test -coverprofile cover.out
+//      go tool cover -html=cover.out
 
 // go test --run Test_bool_Bool_
 func Test_bool_Bool_(t *testing.T) {

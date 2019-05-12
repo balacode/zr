@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 17:26:00 45018C                            zr/[module_test.go]
+// :v: 2019-05-12 17:04:33 DC81DE                            zr/[module_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -16,14 +16,12 @@ package zr
 //   Test_mdle_DebugMode_
 //   Test_mdle_SetDebugMode_
 
-/*
-to test all items in module.go use:
-	go test --run Test_mdle_
-
-to generate a test coverage report use:
-	go test -coverprofile cover.out
-	go tool cover -html=cover.out
-*/
+//  to test all items in module.go use:
+//  	go test --run Test_mdle_
+//
+//  to generate a test coverage report use:
+//  	go test -coverprofile cover.out
+//  	go tool cover -html=cover.out
 
 import (
 	"fmt"

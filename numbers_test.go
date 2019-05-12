@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 18:09:23 D90B14                           zr/[numbers_test.go]
+// :v: 2019-05-12 17:04:33 373A43                           zr/[numbers_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -13,14 +13,12 @@ package zr
 //   Test_nums_IntInWordsEN_
 //   Test_nums_IsNumber_
 
-/*
-to test all items in numbers.go use:
-	go test --run Test_nums_
-
-to generate a test coverage report use:
-	go test -coverprofile cover.out
-	go tool cover -html=cover.out
-*/
+//  to test all items in numbers.go use:
+//  	go test --run Test_nums_
+//
+//  to generate a test coverage report use:
+//  	go test -coverprofile cover.out
+//  	go tool cover -html=cover.out
 
 import (
 	"fmt"

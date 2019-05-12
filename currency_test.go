@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-11 04:43:28 6A3415                          zr/[currency_test.go]
+// :v: 2019-05-12 17:04:33 A2F681                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -82,14 +82,12 @@ package zr
 //       expectErrors int,
 //   )
 
-/*
-to test all items in currency.go use:
-	go test --run Test_crcy_
-
-to generate a test coverage report for the whole module use:
-	go test -coverprofile cover.out
-	go tool cover -html=cover.out
-*/
+//  to test all items in currency.go use:
+//  	go test --run Test_crcy_
+//
+//  to generate a test coverage report for the whole module use:
+//  	go test -coverprofile cover.out
+//  	go tool cover -html=cover.out
 
 import (
 	"encoding/json"

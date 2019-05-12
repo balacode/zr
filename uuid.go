@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 DFA81D                                   zr/[uuid.go]
+// :v: 2019-05-12 17:04:33 730391                                   zr/[uuid.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -18,7 +18,7 @@ import (
 // -----------------------------------------------------------------------------
 // # Functions
 
-// IsUUID returns true if the given string is a well-formed UUID strng.
+// IsUUID returns true if the given string is a well-formed UUID string.
 // It accepts both the standard UUID with '-' and the shortened 32-character
 // UUID. If the type of 'val' is not a string, string pointer or Stringer
 // interface, returns false.

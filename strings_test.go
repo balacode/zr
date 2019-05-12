@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-10 02:29:36 6A8C63                           zr/[strings_test.go]
+// :v: 2019-05-12 17:04:33 B4561E                           zr/[strings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -50,14 +50,12 @@ package zr
 //   Test_strs_TokenGet_
 //   Test_strs_WordIndex_
 
-/*
-to test all items in strings.go use:
-	go test --run Test_strs_
-
-to generate a test coverage report use:
-	go test -coverprofile cover.out
-	go tool cover -html=cover.out
-*/
+//  to test all items in strings.go use:
+//  	go test --run Test_strs_
+//
+//  to generate a test coverage report use:
+//  	go test -coverprofile cover.out
+//  	go tool cover -html=cover.out
 
 import (
 	"fmt"

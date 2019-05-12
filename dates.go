@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-11 04:43:28 7C044B                                  zr/[dates.go]
+// :v: 2019-05-12 17:04:33 DAEFD7                                  zr/[dates.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -308,17 +308,16 @@ func FormatDateEN(format string, date time.Time) string {
 	// ReplaceWord(ret, "ddd", "c", MatchCase)
 	// ReplaceWord(ret, "Ddd", "e", MatchCase)
 	// ReplaceWord(ret, "DDD", "g", MatchCase)
-	/*
-	   TODO: create new code that can use this function
-	   change := func(word string, caseMode CaseMode, to string) {
-	       has := Contains
-	       if caseMode == IgnoreCase {
-	           has = ContainsI
-	       }
-	       if has(ret, word) {
-	           ret = ReplaceWord(ret, word, to, caseMode)
-	       }
-	   }
+	/*TODO: create new code that can use this function
+	  change := func(word string, caseMode CaseMode, to string) {
+	      has := Contains
+	      if caseMode == IgnoreCase {
+	          has = ContainsI
+	      }
+	      if has(ret, word) {
+	          ret = ReplaceWord(ret, word, to, caseMode)
+	      }
+	  }
 	*/
 	// day (2 digit)
 	if ContainsI(ret, "dd") {

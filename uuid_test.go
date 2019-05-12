@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 4B20E7                              zr/[uuid_test.go]
+// :v: 2019-05-12 17:04:33 632F87                              zr/[uuid_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -12,14 +12,12 @@ package zr
 // # Helpers
 //   printSampleUUIDs(count int)
 
-/*
-to test all items in uuid.go use:
-    go test --run Test_uuid_
-
-to generate a test coverage report for the whole module use:
-    go test -coverprofile cover.out
-    go tool cover -html=cover.out
-*/
+//  to test all items in uuid.go use:
+//      go test --run Test_uuid_
+//
+//  to generate a test coverage report for the whole module use:
+//      go test -coverprofile cover.out
+//      go tool cover -html=cover.out
 
 import (
 	// "crypto/rand" // used via mod.rand proxy

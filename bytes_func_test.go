@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-11 04:43:28 AA9708                        zr/[bytes_func_test.go]
+// :v: 2019-05-12 17:04:33 9851C9                        zr/[bytes_func_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -17,14 +17,12 @@ package zr
 //   Test_bytf_UncompressBytes_
 //   Test_bytf_XorBytes_
 
-/*
-to test all items in bytes_func.go use:
-    go test --run Test_bytf_
-
-to generate a test coverage report for the whole module use:
-    go test -coverprofile cover.out
-    go tool cover -html=cover.out
-*/
+//  to test all items in bytes_func.go use:
+//      go test --run Test_bytf_
+//
+//  to generate a test coverage report for the whole module use:
+//      go test -coverprofile cover.out
+//      go tool cover -html=cover.out
 
 import (
 	"bytes"

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-11 04:43:28 8A5428                             zr/[dates_test.go]
+// :v: 2019-05-12 17:04:33 F7BAF1                             zr/[dates_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -19,14 +19,12 @@ package zr
 //   Test_date_StringDateYMD_
 //   Test_date_Timestamp_
 
-/*
-to test all items in dates.go use:
-    go test --run Test_date_
-
-to generate a test coverage report for the whole module use:
-    go test -coverprofile cover.out
-    go tool cover -html=cover.out
-*/
+//  to test all items in dates.go use:
+//      go test --run Test_date_
+//
+//  to generate a test coverage report for the whole module use:
+//      go test -coverprofile cover.out
+//      go tool cover -html=cover.out
 
 import (
 	"fmt"

@@ -1,18 +1,16 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 17:26:00 C4F410                    zr/[string_aligner_test.go]
+// :v: 2019-05-12 17:04:33 42FE61                    zr/[string_aligner_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
 
-/*
-to test all items in string_aligner.go use:
-    go test --run Test_stra_
-
-to generate a test coverage report for the whole module use:
-    go test -coverprofile cover.out
-    go tool cover -html=cover.out
-*/
+//  to test all items in string_aligner.go use:
+//      go test --run Test_stra_
+//
+//  to generate a test coverage report for the whole module use:
+//      go test -coverprofile cover.out
+//      go tool cover -html=cover.out
 
 import (
 	"fmt"

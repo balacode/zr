@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-08 11:29:09 241CA3                          zr/[calendar_test.go]
+// :v: 2019-05-12 17:04:33 73E1FF                          zr/[calendar_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -10,14 +10,12 @@ import (
 	"testing"
 )
 
-/*
-to test all items in calendar.go use:
-	go test --run Test_cldr_
-
-to generate a test coverage report use:
-	go test -coverprofile cover.out
-	go tool cover -html=cover.out
-*/
+//  to test all items in calendar.go use:
+//  	go test --run Test_cldr_
+//
+//  to generate a test coverage report use:
+//  	go test -coverprofile cover.out
+//  	go tool cover -html=cover.out
 
 // go test --run Test_cldr_
 func Test_cldr_(t *testing.T) {
