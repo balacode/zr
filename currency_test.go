@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:33 A2F681                          zr/[currency_test.go]
+// :v: 2019-05-15 01:41:01 579626                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -103,6 +103,7 @@ import (
 // go test --run Test_crcy_CurrencyOf_
 func Test_crcy_CurrencyOf_(t *testing.T) {
 	TBegin(t)
+	//
 	// CurrencyOf(val interface{}) Currency
 	//
 	const cur4d = 10000 // reserved 4 decimal places
@@ -596,6 +597,7 @@ func Test_crcy_Currency_DivInt_(t *testing.T) {
 		curIntOpTest(t, "DivInt", ob.DivInt, ob, divide, expect, 0)
 	}
 	TBegin(t)
+	//
 	// TODO: declaration comment
 	//
 	//       12345.6789 / 1   =               12345.6789

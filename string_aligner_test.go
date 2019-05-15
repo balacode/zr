@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:33 42FE61                    zr/[string_aligner_test.go]
+// :v: 2019-05-15 01:41:01 C10F3B                    zr/[string_aligner_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -20,6 +20,7 @@ import (
 // go test --run Test_stra_StringAligner_
 func Test_stra_StringAligner_(t *testing.T) {
 	TBegin(t)
+	//
 	// TODO: declaration comment
 	//
 	{

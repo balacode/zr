@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:33 B4561E                           zr/[strings_test.go]
+// :v: 2019-05-15 01:41:01 DEEA8D                           zr/[strings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -684,6 +684,7 @@ func Test_strs_ReplaceMany_(t *testing.T) {
 	//  ) string
 	//
 	TBegin(t)
+	//
 	// TODO: declaration comment
 	//
 	const (

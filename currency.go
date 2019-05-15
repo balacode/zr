@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-11 04:43:28 51D484                               zr/[currency.go]
+// :v: 2019-05-15 01:41:01 44B79C                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -275,8 +275,8 @@ func CurrencyOfS(s string) Currency {
 } //                                                                 CurrencyOfS
 
 // CurrencyRaw initializes a currency value from a scaled 64-bit integer.
-// The decimal point is moved left 4 decimal places. For example, a raw value
-// of 15500 results in a currency value of 1.55
+// The decimal point is moved left 4 decimal places.
+// For example, a raw value of 15500 results in a currency value of 1.55
 func CurrencyRaw(raw int64) Currency {
 	return Currency{val: raw}
 } //                                                                 CurrencyRaw
