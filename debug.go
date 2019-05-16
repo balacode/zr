@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-11 04:43:28 AFE373                                  zr/[debug.go]
+// :v: 2019-05-16 17:40:50 FFCD87                                  zr/[debug.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -60,7 +60,9 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 	var indentAt int
 	switch n := len(optIndentAt); {
 	case n == 1:
-		indentAt = optIndentAt[0]
+		{
+			indentAt = optIndentAt[0]
+		}
 	case n > 1:
 		mod.Error(EInvalidArg, "optIndentAt", ":", optIndentAt)
 	}
@@ -72,47 +74,55 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 	switch val := val.(type) {
 	// nil:
 	case nil:
-		return "nil"
+		{
+			return "nil"
+		}
 	case bool:
-		if val {
-			return "true"
+		{
+			if val {
+				return "true"
+			}
+			return "false"
 		}
-		return "false"
 	case CaseMode:
-		if val == IgnoreCase {
-			return "IgnoreCase"
+		{
+			if val == IgnoreCase {
+				return "IgnoreCase"
+			}
+			if val == MatchCase {
+				return "MatchCase"
+			}
+			return "INVALID" + fmt.Sprintf("%v", val)
 		}
-		if val == MatchCase {
-			return "MatchCase"
+		// delegated to String():
+	case int, int64, int32, int16, int8, float64, float32,
+		uint, uint64, uint32, uint16, uint8,
+		*int, *int64, *int32, *int16, *int8, *float64, *float32,
+		*uint, *uint64, *uint32, *uint16, *uint8,
+		*bool:
+		{
+			return String(val)
 		}
-		return "INVALID" + fmt.Sprintf("%v", val)
-	//
-	// delegated to String():
-	case *bool,
-		int, *int, int8, *int8, int16, *int16, int32, *int32, int64, *int64,
-		uint, *uint,
-		uint8, *uint8, uint16, *uint16, uint32, *uint32, uint64, *uint64,
-		float32, *float32, float64, *float64:
-		return String(val)
-	//
 	// string types:
 	case string:
-		vals := []rune{'\a', '\b', '\f', '\n', '\r', 't', '\v'}
-		chars := []rune{'a', 'b', 'f', 'n', 'r', 't', 'v'}
-	mainLoop:
-		for _, ch := range val {
-			for i, cc := range vals {
-				if ch == cc {
-					wr('\\')
-					wr(chars[i])
-					continue mainLoop
+		{
+			vals := []rune{'\a', '\b', '\f', '\n', '\r', 't', '\v'}
+			chars := []rune{'a', 'b', 'f', 'n', 'r', 't', 'v'}
+		mainLoop:
+			for _, ch := range val {
+				for i, cc := range vals {
+					if ch == cc {
+						wr('\\')
+						wr(chars[i])
+						continue mainLoop
+					}
 				}
+				if ch < 32 || ch > 127 {
+					wr('.')
+					continue
+				}
+				wr(ch)
 			}
-			if ch < 32 || ch > 127 {
-				wr('.')
-				continue
-			}
-			wr(ch)
 		}
 	case []string:
 		ws(fmt.Sprintf("[%d] ", len(val)))
@@ -145,8 +155,9 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 			}
 		}
 	case []byte:
-		ws(fmt.Sprintf("[%d] ", len(val)))
-
+		{
+			ws(fmt.Sprintf("[%d] ", len(val)))
+		}
 	default:
 		// TODO: remove this code later
 		a := fmt.Sprintf("%v", val)

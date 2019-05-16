@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-11 04:43:28 EEE133                                zr/[numbers.go]
+// :v: 2019-05-16 17:40:50 740327                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -85,61 +85,65 @@ var TensEN = []string{
 // issue in the log file if the type of 'val' can not be handled.
 func Float64(val interface{}) float64 {
 	switch val := val.(type) {
-	//
-	// nil and boolean:
 	case nil:
-		return 0.0
-	case bool:
-		if val {
-			return 1.0
+		{
+			return 0.0
 		}
-		return 0.0
+	case bool:
+		{
+			if val {
+				return 1.0
+			}
+			return 0.0
+		}
 	case *bool:
 		if val != nil {
 			return Float64(*val)
 		}
 	// strings
 	case string:
-		ret, err := strconv.ParseFloat(val, 64)
-		if err != nil {
-			ret = 0.0
+		{
+			ret, err := strconv.ParseFloat(val, 64)
+			if err != nil {
+				ret = 0.0
+			}
+			return ret
 		}
-		return ret
 	case *string:
 		if val != nil {
 			return Float64(*val)
 		}
 	case fmt.Stringer:
-		return Float64(val.String())
+		{
+			return Float64(val.String())
+		}
 	case fmt.GoStringer:
-		return Float64(val.GoString())
-	//
+		{
+			return Float64(val.GoString())
+		}
 	// signed integers
 	case int:
-		return float64(val)
-	case int8:
-		return float64(val)
-	case int16:
-		return float64(val)
-	case int32:
-		return float64(val)
+		{
+			return float64(val)
+		}
 	case int64:
-		return float64(val)
-		//
+		{
+			return float64(val)
+		}
+	case int32:
+		{
+			return float64(val)
+		}
+	case int16:
+		{
+			return float64(val)
+		}
+	case int8:
+		{
+			return float64(val)
+		}
 		// pointers to signed integers
 	case *int:
-		if val != nil {
-			return float64(*val)
-		}
-	case *int8:
-		if val != nil {
-			return float64(*val)
-		}
-	case *int16:
-		if val != nil {
-			return float64(*val)
-		}
-	case *int32:
 		if val != nil {
 			return float64(*val)
 		}
@@ -147,32 +151,41 @@ func Float64(val interface{}) float64 {
 		if val != nil {
 			return float64(*val)
 		}
+	case *int32:
+		if val != nil {
+			return float64(*val)
+		}
+	case *int16:
+		if val != nil {
+			return float64(*val)
+		}
+	case *int8:
+		if val != nil {
+			return float64(*val)
+		}
 		// unsigned integers
 	case uint:
-		return float64(val)
-	case uint8:
-		return float64(val)
-	case uint16:
-		return float64(val)
-	case uint32:
-		return float64(val)
+		{
+			return float64(val)
+		}
 	case uint64:
-		return float64(val)
-		//
+		{
+			return float64(val)
+		}
+	case uint32:
+		{
+			return float64(val)
+		}
+	case uint16:
+		{
+			return float64(val)
+		}
+	case uint8:
+		{
+			return float64(val)
+		}
 		// pointers to unsigned integers
 	case *uint:
-		if val != nil {
-			return float64(*val)
-		}
-	case *uint8:
-		if val != nil {
-			return float64(*val)
-		}
-	case *uint16:
-		if val != nil {
-			return float64(*val)
-		}
-	case *uint32:
 		if val != nil {
 			return float64(*val)
 		}
@@ -180,20 +193,35 @@ func Float64(val interface{}) float64 {
 		if val != nil {
 			return float64(*val)
 		}
-		// floating-point numbers
-	case float32:
-		return float64(val)
-	case float64:
-		return val
-		//
-		// pointers to floating-point numbers
-	case *float32:
+	case *uint32:
 		if val != nil {
 			return float64(*val)
 		}
+	case *uint16:
+		if val != nil {
+			return float64(*val)
+		}
+	case *uint8:
+		if val != nil {
+			return float64(*val)
+		}
+		// floating-point numbers
+	case float64:
+		{
+			return val
+		}
+	case float32:
+		{
+			return float64(val)
+		}
+		// pointers to floating-point numbers
 	case *float64:
 		if val != nil {
 			return *val
+		}
+	case *float32:
+		if val != nil {
+			return float64(*val)
 		}
 	}
 	mod.Error("Can not convert",
@@ -218,93 +246,97 @@ func Float64(val interface{}) float64 {
 // return an error but logs an issue in the log.
 func Int(val interface{}) int {
 	switch val := val.(type) {
-	//
-	// nil and bool types
 	case nil:
-		return 0
-	case bool:
-		if val {
-			return 1
+		{
+			return 0
 		}
-		return 0
+	case bool:
+		{
+			if val {
+				return 1
+			}
+			return 0
+		}
 	case *bool:
 		if val != nil {
 			return Int(*val)
 		}
 	// strings
 	case string:
-		ret := 0
-		var hasDigit, hasMinus, hasPlus bool
-	loop:
-		for _, ch := range val {
-			//
-			// ignore leading spaces
-			if !(hasDigit || hasMinus || hasPlus) {
-				for _, sp := range SPACES {
-					if ch == sp {
-						continue loop
+		{
+			ret := 0
+			var hasDigit, hasMinus, hasPlus bool
+		loop:
+			for _, ch := range val {
+				//
+				// ignore leading spaces
+				if !(hasDigit || hasMinus || hasPlus) {
+					for _, sp := range SPACES {
+						if ch == sp {
+							continue loop
+						}
 					}
 				}
-			}
-			// handle '-' and '+' signs
-			if ch == '-' || ch == '+' {
-				if hasMinus || hasPlus || hasDigit {
-					return ret
+				// handle '-' and '+' signs
+				if ch == '-' || ch == '+' {
+					if hasMinus || hasPlus || hasDigit {
+						return ret
+					}
+					if ch == '-' {
+						hasMinus = true
+					} else {
+						hasPlus = true
+					}
+					continue loop
 				}
-				if ch == '-' {
-					hasMinus = true
-				} else {
-					hasPlus = true
+				// add digits to result
+				if ch >= '0' && ch <= '9' {
+					hasDigit = true
+					ret = ret*10 + int(ch-'0')
+					continue loop
 				}
-				continue loop
+				break
 			}
-			// add digits to result
-			if ch >= '0' && ch <= '9' {
-				hasDigit = true
-				ret = ret*10 + int(ch-'0')
-				continue loop
+			if hasMinus {
+				ret = -ret
 			}
-			break
+			return ret
 		}
-		if hasMinus {
-			ret = -ret
-		}
-		return ret
 	case *string:
 		if val != nil {
 			return Int(*val)
 		}
 	case fmt.Stringer:
-		return Int(val.String())
+		{
+			return Int(val.String())
+		}
 	case fmt.GoStringer:
-		return Int(val.GoString())
-	//
+		{
+			return Int(val.GoString())
+		}
 	// signed integers
 	case int:
-		return int(val)
-	case int8:
-		return int(val)
-	case int16:
-		return int(val)
-	case int32:
-		return int(val)
+		{
+			return int(val)
+		}
 	case int64:
-		return int(val)
-	//
+		{
+			return int(val)
+		}
+	case int32:
+		{
+			return int(val)
+		}
+	case int16:
+		{
+			return int(val)
+		}
+	case int8:
+		{
+			return int(val)
+		}
 	// pointers to signed integers
 	case *int:
-		if val != nil {
-			return int(*val)
-		}
-	case *int8:
-		if val != nil {
-			return int(*val)
-		}
-	case *int16:
-		if val != nil {
-			return int(*val)
-		}
-	case *int32:
 		if val != nil {
 			return int(*val)
 		}
@@ -312,28 +344,45 @@ func Int(val interface{}) int {
 		if val != nil {
 			return int(*val)
 		}
+	case *int32:
+		if val != nil {
+			return int(*val)
+		}
+	case *int16:
+		if val != nil {
+			return int(*val)
+		}
+	case *int8:
+		if val != nil {
+			return int(*val)
+		}
 	// unsigned integers
 	case uint:
-		return int(val)
-	case uint8:
-		return int(val)
-	case uint16:
-		return int(val)
-	case uint32:
-		return int(val)
+		{
+			return int(val)
+		}
 	case uint64:
-		return int(val)
-	//
+		{
+			return int(val)
+		}
+	case uint32:
+		{
+			return int(val)
+		}
+	case uint16:
+		{
+			return int(val)
+		}
+	case uint8:
+		{
+			return int(val)
+		}
 	// pointers to unsigned integers
 	case *uint:
 		if val != nil {
 			return int(*val)
 		}
-	case *uint8:
-		if val != nil {
-			return int(*val)
-		}
-	case *uint16:
+	case *uint64:
 		if val != nil {
 			return int(*val)
 		}
@@ -342,33 +391,40 @@ func Int(val interface{}) int {
 			// TODO: check for overflow (in other locations too)
 			return int(*val)
 		}
-	case *uint64:
+	case *uint16:
+		if val != nil {
+			return int(*val)
+		}
+	case *uint8:
 		if val != nil {
 			return int(*val)
 		}
 	// floating-point numbers
-	case float32:
-		// TODO: find how to find out the limit of int
-		//if val < -float32(CurrencyIntLimit) ||val > float32(m) {
-		//	return currencyOverflow(val < 0, "uint64 overflow:", val)
-		//}
-		return int(val)
 	case float64:
-		if val < -float64(math.MinInt64) || val > float64(math.MaxInt64) {
-			mod.Error("overflow")
-			if val < 0 {
-				return math.MinInt32
+		{
+			if val < -float64(math.MinInt64) || val > float64(math.MaxInt64) {
+				mod.Error("overflow")
+				if val < 0 {
+					return math.MinInt32
+				}
+				return math.MaxInt32
 			}
-			return math.MaxInt32
+			return int(val)
 		}
-		return int(val)
-	//
+	case float32:
+		{
+			// TODO: find how to find out the limit of int
+			//if val < -float32(CurrencyIntLimit) ||val > float32(m) {
+			//	return currencyOverflow(val < 0, "uint64 overflow:", val)
+			//}
+			return int(val)
+		}
 	// pointers to floating-point numbers
-	case *float32:
+	case *float64:
 		if val != nil {
 			return int(*val)
 		}
-	case *float64:
+	case *float32:
 		if val != nil {
 			return int(*val)
 		}
@@ -386,46 +442,57 @@ func IsNumber(val interface{}) bool {
 	const decimalPointChar = '.'
 	//
 	switch val := val.(type) {
-	case int, int8, int16, int32, int64,
-		*int, *int8, *int16, *int32, *int64,
-		uint, uint8, uint16, uint32, uint64,
-		*uint, *uint8, *uint16, *uint32, *uint64,
-		float32, float64,
-		*float32, *float64:
-		return true
-	case string:
-		s := strings.TrimSpace(val)
-		if len(s) < 1 {
-			return false
+	case int, int64, int32, int16, int8, float64, float32,
+		uint, uint64, uint32, uint16, uint8,
+		*int, *int64, *int32, *int16, *int8, *float64, *float32,
+		*uint, *uint64, *uint32, *uint16, *uint8:
+		{
+			return true
 		}
-		var hasDecPoint, hasDigit, hasSign, prevSep bool
-		for _, r := range s {
-			switch {
-			case r >= '0' && r <= '9':
-				hasDigit = true
-			case r == groupSeparatorChar:
-				// two consecutive group separators make string non-numeric
-				if prevSep || !hasDigit {
-					return false
-				}
-				prevSep = true
-				continue
-			case r == '-' || r == '+':
-				if hasSign || hasDigit {
-					return false
-				}
-				hasSign = true
-			case r == decimalPointChar:
-				if hasDecPoint {
-					return false
-				}
-				hasDecPoint = true
-			default:
+	case string:
+		{
+			s := strings.TrimSpace(val)
+			if len(s) < 1 {
 				return false
 			}
-			prevSep = false
+			var hasDecPoint, hasDigit, hasSign, prevSep bool
+			for _, r := range s {
+				switch {
+				case r >= '0' && r <= '9':
+					{
+						hasDigit = true
+					}
+				case r == groupSeparatorChar:
+					{
+						// two consecutive group separators
+						// make string non-numeric
+						if prevSep || !hasDigit {
+							return false
+						}
+						prevSep = true
+						continue
+					}
+				case r == '-' || r == '+':
+					{
+						if hasSign || hasDigit {
+							return false
+						}
+						hasSign = true
+					}
+				case r == decimalPointChar:
+					{
+						if hasDecPoint {
+							return false
+						}
+						hasDecPoint = true
+					}
+				default:
+					return false
+				}
+				prevSep = false
+			}
+			return hasDigit
 		}
-		return hasDigit
 	case *string:
 		if val != nil {
 			return IsNumber(*val)
@@ -631,8 +698,10 @@ func IntInWordsEN(number int64) string {
 				ws(TeensEN[n1-1])
 			}
 		case n10 == 0 && n1 != 0:
-			ws(" ")
-			ws(DigitNamesEN[n1])
+			{
+				ws(" ")
+				ws(DigitNamesEN[n1])
+			}
 		default:
 			if n10 != 0 {
 				ws(" ")

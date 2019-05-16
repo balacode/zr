@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-11 04:43:28 62CF69                                zr/[strings.go]
+// :v: 2019-05-16 17:40:50 1D36FA                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -544,23 +544,33 @@ func LineOffsetUTF8(data []byte, lineIndex int) (byteOffset, charOffset int) {
 		// 0400 0000-7FFF FFFF  1111110x 10xxxxxx ... 10xxxxxx
 		switch {
 		case b < 128:
-			charOffset++
+			{
+				charOffset++
+			}
 		case (b & 0xE0) == 0xC0: // (b & 111 00000) == 110 00000
-			charOffset++
-			cc = 2 - 1
-			continue
+			{
+				charOffset++
+				cc = 2 - 1
+				continue
+			}
 		case (b & 0xF0) == 0xE0: // (b & 1111 0000) == 1110 0000
-			charOffset++
-			cc = 3 - 1
-			continue
+			{
+				charOffset++
+				cc = 3 - 1
+				continue
+			}
 		case (b & 0xF8) == 0xF0: // (b & 11111 000) == 11110 000
-			charOffset++
-			cc = 4 - 1
-			continue
+			{
+				charOffset++
+				cc = 4 - 1
+				continue
+			}
 		case (b & 0xFC) == 0xF8: // (b & 111111 00) == 111110 00
-			charOffset++
-			cc = 5 - 1
-			continue
+			{
+				charOffset++
+				cc = 5 - 1
+				continue
+			}
 		default:
 			Error(fmt.Sprintf(
 				"UTF8 lead byte not handled: %dd 0x%2Xh %8bb", b, b, b,
@@ -645,9 +655,13 @@ func ReplaceI(s, find, repl string, optCount ...int) string {
 	count := -1
 	switch n := len(optCount); {
 	case n == 1:
-		count = optCount[0]
+		{
+			count = optCount[0]
+		}
 	case n > 1:
-		mod.Error(EInvalidArg, "optCount", ":", optCount)
+		{
+			mod.Error(EInvalidArg, "optCount", ":", optCount)
+		}
 	}
 	return ReplaceEx1(s, find, repl, count, IgnoreCase)
 } //                                                                    ReplaceI
@@ -1150,42 +1164,47 @@ func StrOneOf(s string, matches ...string) bool {
 func String(val interface{}) string {
 	switch val := val.(type) {
 	case bool:
-		if val {
-			return "true"
+		{
+			if val {
+				return "true"
+			}
+			return "false"
 		}
-		return "false"
-	case float32, float64:
-		ret := fmt.Sprintf("%f", val)
-		if strings.Contains(ret, ".") {
-			ret = strings.TrimRight(ret, "0")
-			ret = strings.TrimRight(ret, ".")
+	case float64, float32:
+		{
+			ret := fmt.Sprintf("%f", val)
+			if strings.Contains(ret, ".") {
+				ret = strings.TrimRight(ret, "0")
+				ret = strings.TrimRight(ret, ".")
+			}
+			return ret
 		}
-		return ret
 	case int:
-		return strconv.Itoa(val)
-	case int16,
-		int32,
-		int64,
-		int8:
-		return fmt.Sprintf("%d", val)
+		{
+			return strconv.Itoa(val)
+		}
+	case int64, int32, int16, int8:
+		{
+			return fmt.Sprintf("%d", val)
+		}
 	case string:
-		return val
-	case uint,
-		uint16,
-		uint32,
-		uint64,
-		uint8:
-		return fmt.Sprintf("%d", val)
+		{
+			return val
+		}
+	case uint, uint64, uint32, uint16, uint8:
+		{
+			return fmt.Sprintf("%d", val)
+		}
 	case fmt.Stringer:
-		return val.String()
+		{
+			return val.String()
+		}
 	case nil:
-		return ""
+		{
+			return ""
+		}
 	// pointer types:
 	case *bool:
-		if val != nil {
-			return String(*val)
-		}
-	case *float32:
 		if val != nil {
 			return String(*val)
 		}
@@ -1193,11 +1212,15 @@ func String(val interface{}) string {
 		if val != nil {
 			return String(*val)
 		}
+	case *float32:
+		if val != nil {
+			return String(*val)
+		}
 	case *int:
 		if val != nil {
 			return String(*val)
 		}
-	case *int16:
+	case *int64:
 		if val != nil {
 			return String(*val)
 		}
@@ -1205,7 +1228,7 @@ func String(val interface{}) string {
 		if val != nil {
 			return String(*val)
 		}
-	case *int64:
+	case *int16:
 		if val != nil {
 			return String(*val)
 		}
@@ -1221,7 +1244,7 @@ func String(val interface{}) string {
 		if val != nil {
 			return String(*val)
 		}
-	case *uint16:
+	case *uint64:
 		if val != nil {
 			return String(*val)
 		}
@@ -1229,7 +1252,7 @@ func String(val interface{}) string {
 		if val != nil {
 			return String(*val)
 		}
-	case *uint64:
+	case *uint16:
 		if val != nil {
 			return String(*val)
 		}

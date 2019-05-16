@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-08 11:29:09 7F72AC                                   zr/[bool.go]
+// :v: 2019-05-16 17:40:50 A77356                                   zr/[bool.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -22,11 +22,14 @@ import (
 func Bool(val interface{}) bool {
 	switch val := val.(type) {
 	case nil:
-		return false
-	//
+		{
+			return false
+		}
 	// boolean:
 	case bool:
-		return val
+		{
+			return val
+		}
 	case *bool:
 		if val != nil {
 			return *val
@@ -35,7 +38,9 @@ func Bool(val interface{}) bool {
 	case string:
 		switch strings.ToUpper(strings.TrimSpace(val)) {
 		case "FALSE", "0", "":
-			return false
+			{
+				return false
+			}
 		case "TRUE", "1", "-1":
 			return true
 		}
@@ -44,19 +49,30 @@ func Bool(val interface{}) bool {
 			return Bool(*val)
 		}
 	case fmt.Stringer:
-		return Bool(val.String())
-	//
+		{
+			return Bool(val.String())
+		}
 	// signed integers:
 	case int:
-		return val != 0
+		{
+			return val != 0
+		}
 	case int8:
-		return val != 0
+		{
+			return val != 0
+		}
 	case int16:
-		return val != 0
+		{
+			return val != 0
+		}
 	case int32:
-		return val != 0
+		{
+			return val != 0
+		}
 	case int64:
-		return val != 0
+		{
+			return val != 0
+		}
 	case *int:
 		if val != nil {
 			return *val != 0
@@ -79,28 +95,26 @@ func Bool(val interface{}) bool {
 		}
 	// unsigned integers:
 	case uint:
-		return val != 0
-	case uint8:
-		return val != 0
-	case uint16:
-		return val != 0
-	case uint32:
-		return val != 0
+		{
+			return val != 0
+		}
 	case uint64:
-		return val != 0
+		{
+			return val != 0
+		}
+	case uint32:
+		{
+			return val != 0
+		}
+	case uint16:
+		{
+			return val != 0
+		}
+	case uint8:
+		{
+			return val != 0
+		}
 	case *uint:
-		if val != nil {
-			return *val != 0
-		}
-	case *uint8:
-		if val != nil {
-			return *val != 0
-		}
-	case *uint16:
-		if val != nil {
-			return *val != 0
-		}
-	case *uint32:
 		if val != nil {
 			return *val != 0
 		}
@@ -108,16 +122,32 @@ func Bool(val interface{}) bool {
 		if val != nil {
 			return *val != 0
 		}
-	// floating-point numbers:
-	case float32:
-		return val != 0
-	case float64:
-		return val != 0
-	case *float32:
+	case *uint32:
 		if val != nil {
 			return *val != 0
 		}
+	case *uint16:
+		if val != nil {
+			return *val != 0
+		}
+	case *uint8:
+		if val != nil {
+			return *val != 0
+		}
+	// floating-point numbers:
+	case float64:
+		{
+			return val != 0
+		}
+	case float32:
+		{
+			return val != 0
+		}
 	case *float64:
+		if val != nil {
+			return *val != 0
+		}
+	case *float32:
 		if val != nil {
 			return *val != 0
 		}
@@ -134,12 +164,16 @@ func Bool(val interface{}) bool {
 func IsBool(val interface{}) bool {
 	switch val := val.(type) {
 	case nil:
-		return false
+		{
+			return false
+		}
 	// strings:
 	case string:
 		switch strings.ToUpper(strings.TrimSpace(val)) {
 		case "FALSE", "TRUE", "0", "1":
-			return true
+			{
+				return true
+			}
 		default:
 			return false
 		}
@@ -148,19 +182,18 @@ func IsBool(val interface{}) bool {
 			return IsBool(*val)
 		}
 	case fmt.Stringer:
-		return IsBool(val.String())
-	case // boolean:
-		bool, *bool,
-		// signed integers (and their pointers):
-		int, int8, int16, int32, int64,
-		*int, *int8, *int16, *int32, *int64,
-		// unsigned integers:
-		uint, uint8, uint16, uint32, uint64,
-		*uint, *uint8, *uint16, *uint32, *uint64,
-		// floating-point numbers:
-		float32, float64,
-		*float32, *float64:
-		return true
+		{
+			return IsBool(val.String())
+		}
+	case int, int64, int32, int16, int8, float64, float32,
+		uint, uint64, uint32, uint16, uint8,
+		bool,
+		*int, *int64, *int32, *int16, *int8, *float64, *float32,
+		*uint, *uint64, *uint32, *uint16, *uint8,
+		*bool:
+		{
+			return true
+		}
 	}
 	return false
 } //                                                                      IsBool

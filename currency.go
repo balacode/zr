@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-15 01:41:01 44B79C                               zr/[currency.go]
+// :v: 2019-05-16 17:40:50 F856EA                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -123,62 +123,84 @@ func CurrencyOf(value interface{}) Currency {
 	//
 	// Currency already?
 	case Currency:
-		return val
-	//
+		{
+			return val
+		}
 	// integers
-	case int8:
-		return Currency{int64(val) * cur4d}
-	case int16:
-		return Currency{int64(val) * cur4d}
-	case int32: //                              int32 and int could exceed range
-		return CurrencyOf(int64(val))
 	case int:
-		return CurrencyOf(int64(val))
+		{
+			// use func. to check range
+			return CurrencyOf(int64(val))
+		}
 	case int64:
-		if val < -CurrencyIntLimit || val > CurrencyIntLimit {
-			return currencyOverflow(val < 0, EOverflow, ": ", val)
+		{
+			if val < -CurrencyIntLimit || val > CurrencyIntLimit {
+				return currencyOverflow(val < 0, EOverflow, ": ", val)
+			}
+			return Currency{int64(val) * cur4d}
 		}
-		return Currency{int64(val) * cur4d}
-	//
+	case int32:
+		{
+			// use func. to check range
+			return CurrencyOf(int64(val))
+		}
+	case int16:
+		{
+			return Currency{int64(val) * cur4d}
+		}
+	case int8:
+		{
+			return Currency{int64(val) * cur4d}
+		}
 	// unsigned integers
-	case uint8:
-		return Currency{int64(val) * cur4d}
-	case uint16:
-		return Currency{int64(val) * cur4d}
-	case uint32: //                           uint32 and uint could exceed range
-		return CurrencyOf(uint64(val))
 	case uint:
-		return CurrencyOf(uint64(val))
+		{
+			// use func. to check range
+			return CurrencyOf(uint64(val))
+		}
 	case uint64:
-		if val > CurrencyIntLimit {
-			return currencyOverflow(false, EOverflow, "uint64: ", val)
+		{
+			if val > CurrencyIntLimit {
+				return currencyOverflow(false, EOverflow, "uint64: ", val)
+			}
+			return Currency{int64(val) * cur4d}
 		}
-		return Currency{int64(val) * cur4d}
-	//
+	case uint32:
+		{
+			// use func. to check range
+			return CurrencyOf(uint64(val))
+		}
+	case uint16:
+		{
+			return Currency{int64(val) * cur4d}
+		}
+	case uint8:
+		{
+			return Currency{int64(val) * cur4d}
+		}
 	// float
-	case float32:
-		if val < -float32(CurrencyIntLimit)-0.9999 ||
-			val > float32(CurrencyIntLimit)+0.9999 {
-			return currencyOverflow(val < 0, EOverflow, "float32: ", val)
-		}
-		return Currency{int64(float64(val) * cur4d)}
 	case float64:
-		if val < -float64(CurrencyIntLimit)-0.9999 ||
-			val > float64(CurrencyIntLimit)+0.9999 {
-			return currencyOverflow(val < 0, EOverflow, "float64: ", val)
+		{
+			if val < -float64(CurrencyIntLimit)-0.9999 ||
+				val > float64(CurrencyIntLimit)+0.9999 {
+				return currencyOverflow(val < 0, EOverflow, "float64: ", val)
+			}
+			return Currency{int64(val * cur4d)}
 		}
-		return Currency{int64(val * cur4d)}
-	//
+	case float32:
+		{
+			if val < -float32(CurrencyIntLimit)-0.9999 ||
+				val > float32(CurrencyIntLimit)+0.9999 {
+				return currencyOverflow(val < 0, EOverflow, "float32: ", val)
+			}
+			return Currency{int64(float64(val) * cur4d)}
+		}
 	// integer pointers
 	case *int:
 		if val != nil {
 			return CurrencyOf(int64(*val))
 		}
-	case *int8:
-		if val != nil {
-			return CurrencyOf(*val)
-		}
-	case *int16:
+	case *int64:
 		if val != nil {
 			return CurrencyOf(*val)
 		}
@@ -186,7 +208,11 @@ func CurrencyOf(value interface{}) Currency {
 		if val != nil {
 			return CurrencyOf(*val)
 		}
-	case *int64:
+	case *int16:
+		if val != nil {
+			return CurrencyOf(*val)
+		}
+	case *int8:
 		if val != nil {
 			return CurrencyOf(*val)
 		}
@@ -195,11 +221,7 @@ func CurrencyOf(value interface{}) Currency {
 		if val != nil {
 			return CurrencyOf(uint64(*val))
 		}
-	case *uint8:
-		if val != nil {
-			return CurrencyOf(*val)
-		}
-	case *uint16:
+	case *uint64:
 		if val != nil {
 			return CurrencyOf(*val)
 		}
@@ -207,22 +229,28 @@ func CurrencyOf(value interface{}) Currency {
 		if val != nil {
 			return CurrencyOf(*val)
 		}
-	case *uint64:
+	case *uint16:
+		if val != nil {
+			return CurrencyOf(*val)
+		}
+	case *uint8:
 		if val != nil {
 			return CurrencyOf(*val)
 		}
 	// float pointers
-	case *float32:
+	case *float64:
 		if val != nil {
 			return CurrencyOf(*val)
 		}
-	case *float64:
+	case *float32:
 		if val != nil {
 			return CurrencyOf(*val)
 		}
 	// strings
 	case string:
-		return CurrencyOfS(val)
+		{
+			return CurrencyOfS(val)
+		}
 	case *string:
 		if val != nil {
 			return CurrencyOfS(*val)

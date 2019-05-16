@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:33 730391                                   zr/[uuid.go]
+// :v: 2019-05-16 17:40:50 A872D5                                   zr/[uuid.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -25,29 +25,33 @@ import (
 func IsUUID(val interface{}) bool {
 	switch val := val.(type) {
 	case string:
-		for strings.Contains(val, "-") {
-			val = strings.Replace(val, "-", "", -1)
-		}
-		if len(val) != 32 {
-			return false
-		}
-		for i, ch := range val {
-			if (i == 12 && ch != '4') ||
-				(i == 16 &&
-					(ch != '8' && ch != '9' &&
-						ch != 'A' && ch != 'B' &&
-						ch != 'a' && ch != 'b')) {
+		{
+			for strings.Contains(val, "-") {
+				val = strings.Replace(val, "-", "", -1)
+			}
+			if len(val) != 32 {
 				return false
 			}
-			if !((ch >= '0' && ch <= '9') ||
-				(ch >= 'a' && ch <= 'f') ||
-				(ch >= 'A' && ch <= 'F')) {
-				return false
+			for i, ch := range val {
+				if (i == 12 && ch != '4') ||
+					(i == 16 &&
+						(ch != '8' && ch != '9' &&
+							ch != 'A' && ch != 'B' &&
+							ch != 'a' && ch != 'b')) {
+					return false
+				}
+				if !((ch >= '0' && ch <= '9') ||
+					(ch >= 'a' && ch <= 'f') ||
+					(ch >= 'A' && ch <= 'F')) {
+					return false
+				}
 			}
+			return true
 		}
-		return true
 	case fmt.Stringer:
-		return IsUUID(val.String())
+		{
+			return IsUUID(val.String())
+		}
 	case *string:
 		if val != nil {
 			return IsUUID(*val)

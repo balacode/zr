@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 18:09:23 462756                               zr/[unittest.go]
+// :v: 2019-05-16 17:40:50 901EB2                               zr/[unittest.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -110,7 +110,9 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 		var ret string
 		switch val := val.(type) {
 		case nil:
-			ret = "nil"
+			{
+				ret = "nil"
+			}
 		case bool:
 			if val {
 				ret = "true"
@@ -119,8 +121,10 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 			}
 		case int, int8, int16, int32, int64,
 			uint, uint8, uint16, uint32, uint64, uintptr:
-			ret = fmt.Sprintf("%d", val)
-		case float32, float64:
+			{
+				ret = fmt.Sprintf("%d", val)
+			}
+		case float64, float32:
 			ret := fmt.Sprintf("%f", val)
 			if strings.Contains(ret, ".") {
 				for strings.HasSuffix(ret, "0") {
@@ -131,7 +135,9 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 				}
 			}
 		case string:
-			return val
+			{
+				return val
+			}
 		case time.Time: // use date part without time and time zone
 			ret = val.Format(time.RFC3339) // format: 2006-01-02T15:04:05Z07:00
 			ret = ret[:19]
@@ -139,22 +145,25 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 				ret = ret[:10]
 			}
 		case fmt.Stringer:
-			ret = val.String()
-		//
+			{
+				ret = val.String()
+			}
 		// TODO: add handling of various arrays of simple types [in TEqual()]
 		case []string:
-			var buf bytes.Buffer
-			buf.WriteString("[")
-			for i, s := range val {
-				if i != 0 {
-					buf.WriteString(", ")
+			{
+				var buf bytes.Buffer
+				buf.WriteString("[")
+				for i, s := range val {
+					if i != 0 {
+						buf.WriteString(", ")
+					}
+					buf.WriteString(`"`)
+					buf.WriteString(strings.Replace(s, `"`, `\"`, -1))
+					buf.WriteString(`"`)
 				}
-				buf.WriteString(`"`)
-				buf.WriteString(strings.Replace(s, `"`, `\"`, -1))
-				buf.WriteString(`"`)
+				buf.WriteString("]")
+				ret = buf.String()
 			}
-			buf.WriteString("]")
-			ret = buf.String()
 		default:
 			ret = fmt.Sprintf("(type: %v value: %v)",
 				reflect.TypeOf(val), val)

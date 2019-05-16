@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-11 04:43:28 161332                                zr/[logging.go]
+// :v: 2019-05-16 17:40:50 19001E                                zr/[logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -166,9 +166,13 @@ var disableErrors bool
 func DisableErrors(optDisable ...bool) {
 	switch n := len(optDisable); {
 	case n == 1:
-		disableErrors = optDisable[0]
+		{
+			disableErrors = optDisable[0]
+		}
 	case n > 1:
-		Error(EInvalidArg, "optDisable", ":", optDisable)
+		{
+			Error(EInvalidArg, "optDisable", ":", optDisable)
+		}
 	default:
 		disableErrors = true
 	}
@@ -178,9 +182,13 @@ func DisableErrors(optDisable ...bool) {
 func EnableErrors(optEnable ...bool) {
 	switch n := len(optEnable); {
 	case n == 1:
-		disableErrors = !optEnable[0]
+		{
+			disableErrors = !optEnable[0]
+		}
 	case n > 1:
-		Error(EInvalidArg, "optEnable", ":", optEnable)
+		{
+			Error(EInvalidArg, "optEnable", ":", optEnable)
+		}
 	default:
 		disableErrors = false
 	}
@@ -313,11 +321,17 @@ func Callers(options ...interface{}) string {
 	for _, opt := range options {
 		switch val := opt.(type) {
 		case HideCallers:
-			return ""
+			{
+				return ""
+			}
 		case MinDepth:
-			minDepth = int(val)
+			{
+				minDepth = int(val)
+			}
 		case MaxDepth:
-			maxDepth = int(val)
+			{
+				maxDepth = int(val)
+			}
 		}
 	}
 	if maxDepth == 0 {
@@ -526,14 +540,18 @@ func TM(messages ...string) {
 	messagesLen := len(messages)
 	switch {
 	case messagesLen == 0 || (messagesLen == 1 && messages[0] == ""):
-		timings[callLoc] = time.Now()
-		return
+		{
+			timings[callLoc] = time.Now()
+			return
+		}
 	case messagesLen == 1:
-		now := time.Now()
-		fmt.Printf("TM % 8.2f ms: %s\r\n",
-			float32(now.Sub(timings[callLoc]).Nanoseconds())/1000000,
-			messages[0])
-		timings[callLoc] = time.Now()
+		{
+			now := time.Now()
+			fmt.Printf("TM % 8.2f ms: %s\r\n",
+				float32(now.Sub(timings[callLoc]).Nanoseconds())/1000000,
+				messages[0])
+			timings[callLoc] = time.Now()
+		}
 	default:
 		Error("Too many values in 'messages' argument")
 	}
@@ -712,7 +730,9 @@ func removeLogOptions(args []interface{}) (ret []interface{}) {
 	for _, v := range args {
 		switch v.(type) {
 		case HideCallers, MinDepth, MaxDepth:
-			continue
+			{
+				continue
+			}
 		default:
 			ret = append(ret, v)
 		}

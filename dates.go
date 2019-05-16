@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:33 DAEFD7                                  zr/[dates.go]
+// :v: 2019-05-16 17:40:50 40D517                                  zr/[dates.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -115,23 +115,27 @@ func (ob DateRange) String() string {
 func DateOf(val interface{}) time.Time {
 	switch val := val.(type) {
 	case time.Time: // remove the time component from dates
-		return time.Date(val.Year(), val.Month(), val.Day(),
-			0, 0, 0, 0, time.UTC)
+		{
+			return time.Date(val.Year(), val.Month(), val.Day(),
+				0, 0, 0, 0, time.UTC)
+		}
 	case string:
-		if val == "" {
-			return time.Time{}
-		}
-		if len(val) > 10 {
-			val = val[:10]
-		}
-		ret, err := time.Parse(time.RFC3339, val+"T00:00:00Z")
-		if err != nil || ret.IsZero() {
-			if err != nil {
-				mod.Error(err)
+		{
+			if val == "" {
+				return time.Time{}
 			}
-			return time.Time{}
+			if len(val) > 10 {
+				val = val[:10]
+			}
+			ret, err := time.Parse(time.RFC3339, val+"T00:00:00Z")
+			if err != nil || ret.IsZero() {
+				if err != nil {
+					mod.Error(err)
+				}
+				return time.Time{}
+			}
+			return DateOf(ret)
 		}
-		return DateOf(ret)
 	case *string:
 		if val != nil {
 			return DateOf(*val)
@@ -375,27 +379,31 @@ func IsDate(val interface{}) bool {
 	ret, reason := func(val interface{}) (bool, int) {
 		switch val := val.(type) {
 		case time.Time:
-			return true, 1
+			{
+				return true, 1
+			}
 		case string:
-			if val == "" {
-				return false, 2
-			}
-			{ // try to use time.Parse() to quickly parse 'yyyy-mm-dd' dates
-				s := val
-				if len(s) >= 10 {
-					s = s[:10]
+			{
+				if val == "" {
+					return false, 2
 				}
-				parsed, err := time.Parse(time.RFC3339, s+"T00:00:00Z")
-				if err == nil && !parsed.IsZero() {
-					return true, 3
+				{ // try to use time.Parse() to quickly parse 'yyyy-mm-dd' dates
+					s := val
+					if len(s) >= 10 {
+						s = s[:10]
+					}
+					parsed, err := time.Parse(time.RFC3339, s+"T00:00:00Z")
+					if err == nil && !parsed.IsZero() {
+						return true, 3
+					}
 				}
+				// if time.Parse() can't parse the date, try using ParseDate()
+				y, m, d := ParseDate(val)
+				if y == 0 || m == 0 || d == 0 {
+					return false, 4
+				}
+				return true, 5
 			}
-			// if time.Parse() can't parse the date, try using ParseDate()
-			y, m, d := ParseDate(val)
-			if y == 0 || m == 0 || d == 0 {
-				return false, 4
-			}
-			return true, 5
 		case fmt.Stringer:
 			return IsDate(val.String()), 6
 		}
@@ -562,9 +570,13 @@ func Timestamp(optWithMS ...bool) string {
 	var withMS bool
 	switch len(optWithMS) {
 	case 0:
-		// do nothing: false already
+		{
+			// do nothing: false already
+		}
 	case 1:
-		withMS = optWithMS[0]
+		{
+			withMS = optWithMS[0]
+		}
 	default:
 		Error(EInvalidArg + ": Too many 'optWithMS' values")
 		withMS = optWithMS[0]
@@ -604,24 +616,30 @@ func stringDate(val interface{}, format string) string {
 	var date time.Time
 	switch val := val.(type) {
 	case time.Time:
-		date = val
+		{
+			date = val
+		}
 	case string:
-		if val == "" {
-			return erv
-		}
-		if len(val) >= 10 {
-			val = val[:10]
-		}
-		parsed, err := time.Parse(time.RFC3339, val+"T00:00:00Z")
-		if err != nil || parsed.IsZero() {
-			if err != nil {
-				mod.Error(EFailedParsing, "string^", val, ":", err)
+		{
+			if val == "" {
+				return erv
 			}
-			return erv
+			if len(val) >= 10 {
+				val = val[:10]
+			}
+			parsed, err := time.Parse(time.RFC3339, val+"T00:00:00Z")
+			if err != nil || parsed.IsZero() {
+				if err != nil {
+					mod.Error(EFailedParsing, "string^", val, ":", err)
+				}
+				return erv
+			}
+			date = parsed
 		}
-		date = parsed
 	case fmt.Stringer:
-		return MthYear(val.String())
+		{
+			return MthYear(val.String())
+		}
 	default:
 		mod.Error("Invalid value:", val)
 		return erv

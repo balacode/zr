@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:33 16D35D                                zr/[go_lang.go]
+// :v: 2019-05-16 17:40:50 4AEC0F                                zr/[go_lang.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -117,8 +117,10 @@ func WriteGoString(
 	if useGoStringer {
 		switch val := val.(type) {
 		case GoStringerEx:
-			ws(val.GoStringEx(indentAt))
-			return
+			{
+				ws(val.GoStringEx(indentAt))
+				return
+			}
 		case fmt.GoStringer:
 			ws(val.GoString())
 			return
@@ -128,89 +130,111 @@ func WriteGoString(
 	t := reflect.TypeOf(val)
 	switch v.Kind() {
 	case reflect.Bool:
-		if v.Bool() {
-			ws("true")
-		} else {
-			ws("false")
+		{
+			if v.Bool() {
+				ws("true")
+			} else {
+				ws("false")
+			}
+			return
 		}
-		return
-	case reflect.Int,
-		reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		ws(String(v.Int()))
-		return
-	case reflect.Uint,
-		reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		ws(String(v.Uint()))
-		return
+	case reflect.Int, reflect.Int64, reflect.Int32,
+		reflect.Int16, reflect.Int8:
+		{
+			ws(String(v.Int()))
+			return
+		}
+	case reflect.Uint, reflect.Uint64, reflect.Uint32,
+		reflect.Uint16, reflect.Uint8:
+		{
+			ws(String(v.Uint()))
+			return
+		}
 	case reflect.Uintptr:
-		// TODO: handle Uintptr
-		break
-	case reflect.Float32, reflect.Float64:
-		ws(String(v.Float()))
-		return
+		{
+			// TODO: handle Uintptr
+			break
+		}
+	case reflect.Float64, reflect.Float32:
+		{
+			ws(String(v.Float()))
+			return
+		}
 	case reflect.Complex64, reflect.Complex128, reflect.Array,
 		reflect.Chan, reflect.Func, reflect.Interface:
-		// TODO: handle multiple types
-		break
+		{
+			// TODO: handle multiple types
+			break
+		}
 	case reflect.Map:
-		ws("map[", t.Key().String(), "]", t.Elem().String(), "{")
-		//
-		// since MapKeys are returned in no specific order,
-		// append each key-value in map to a string array
-		// then sort it to ensure the result is consistent
-		lines := make([]string, 0, v.Len())
-		for _, key := range v.MapKeys() {
-			lines = append(lines,
-				TabSpace+GoString(key.Interface())+": "+
-					GoString(v.MapIndex(key).Interface())+",")
+		{
+			ws("map[", t.Key().String(), "]", t.Elem().String(), "{")
+			//
+			// since MapKeys are returned in no specific order,
+			// append each key-value in map to a string array
+			// then sort it to ensure the result is consistent
+			lines := make([]string, 0, v.Len())
+			for _, key := range v.MapKeys() {
+				lines = append(lines,
+					TabSpace+GoString(key.Interface())+": "+
+						GoString(v.MapIndex(key).Interface())+",")
+			}
+			sort.Strings(lines)
+			//
+			// write out the array
+			for _, s := range lines {
+				ws("\n", s)
+			}
+			ws("\n}")
+			return
 		}
-		sort.Strings(lines)
-		//
-		// write out the array
-		for _, s := range lines {
-			ws("\n", s)
-		}
-		ws("\n}")
-		return
 	case reflect.Ptr:
-		writeGoString(v.Elem().Interface())
-		return
+		{
+			writeGoString(v.Elem().Interface())
+			return
+		}
 	case reflect.Slice:
-		ws(t.String(), "{")
-		manyLines := v.Len() > 0 && v.Index(0).Kind() == reflect.Slice
-		for i, n := 0, v.Len(); i < n; i++ {
-			if i > 0 {
-				ws(",")
+		{
+			ws(t.String(), "{")
+			manyLines := v.Len() > 0 && v.Index(0).Kind() == reflect.Slice
+			for i, n := 0, v.Len(); i < n; i++ {
+				if i > 0 {
+					ws(",")
+				}
+				if manyLines {
+					ws("\n", TabSpace)
+				} else if i > 0 {
+					ws(" ")
+				}
+				writeGoString(v.Index(i).Interface())
 			}
 			if manyLines {
-				ws("\n", TabSpace)
-			} else if i > 0 {
-				ws(" ")
+				ws(",\n")
 			}
-			writeGoString(v.Index(i).Interface())
+			ws("}")
+			return
 		}
-		if manyLines {
-			ws(",\n")
-		}
-		ws("}")
-		return
 	case reflect.String:
-		ws(`"`, strings.Replace(val.(string), `"`, `\"`, -1), `"`)
-		return
-	case reflect.Struct:
-		ws(t.String(), "{")
-		for i, n := 0, t.NumField(); i < n; i++ {
-			if !v.Field(i).CanInterface() {
-				continue
-			}
-			if i > 0 {
-				ws(", ")
-			}
-			ws(t.Field(i).Name, ": ")
-			writeGoString(v.Field(i).Interface())
+		{
+			ws(`"`, strings.Replace(val.(string), `"`, `\"`, -1), `"`)
+			return
 		}
-		ws("}")
-		return
+	case reflect.Struct:
+		{
+			ws(t.String(), "{")
+			for i, n := 0, t.NumField(); i < n; i++ {
+				if !v.Field(i).CanInterface() {
+					continue
+				}
+				if i > 0 {
+					ws(", ")
+				}
+				ws(t.Field(i).Name, ": ")
+				writeGoString(v.Field(i).Interface())
+			}
+			ws("}")
+			return
+		}
 	case reflect.UnsafePointer:
 		break // TODO: reflect.UnsafePointer
 	}
@@ -233,7 +257,9 @@ func indentPos(optIndentAt []int) int {
 	n := len(optIndentAt)
 	switch {
 	case n == 1:
-		ret = optIndentAt[0]
+		{
+			ret = optIndentAt[0]
+		}
 	case n > 1:
 		mod.Error(EInvalidArg, "optIndentAt", ":", optIndentAt)
 	}
