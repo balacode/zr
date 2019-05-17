@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 11:27:09 310D92                          zr/[currency_test.go]
+// :v: 2019-05-17 11:30:46 E0D8BF                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -187,86 +187,86 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 	//
 	// integer pointers
 	{
-		n := int(-123456)
-		test(&n, Currency{-(123456 * 1E4)})
+		num := int(-123456)
+		test(&num, Currency{-(123456 * 1E4)})
 	}
 	{
-		n := int8(math.MaxInt8)
-		test(&n, Currency{127 * 1E4})
+		num := int8(math.MaxInt8)
+		test(&num, Currency{127 * 1E4})
 	}
 	{
-		n := int8(math.MinInt8)
-		test(&n, Currency{-128 * 1E4})
+		num := int8(math.MinInt8)
+		test(&num, Currency{-128 * 1E4})
 	}
 	{
-		n := int16(math.MaxInt16)
-		test(&n, Currency{32767 * 1E4})
+		num := int16(math.MaxInt16)
+		test(&num, Currency{32767 * 1E4})
 	}
 	{
-		n := int16(math.MinInt16)
-		test(&n, Currency{-32768 * 1E4})
+		num := int16(math.MinInt16)
+		test(&num, Currency{-32768 * 1E4})
 	}
 	{
-		n := int32(math.MaxInt32)
-		test(&n, Currency{2147483647 * 1E4})
+		num := int32(math.MaxInt32)
+		test(&num, Currency{2147483647 * 1E4})
 	}
 	{
-		n := int32(math.MinInt32)
-		test(&n, Currency{-2147483648 * 1E4})
+		num := int32(math.MinInt32)
+		test(&num, Currency{-2147483648 * 1E4})
 	}
 	{
-		n := int64(922337203685476)
-		test(&n, Currency{922337203685476 * 1E4})
+		num := int64(922337203685476)
+		test(&num, Currency{922337203685476 * 1E4})
 	}
 	{
-		n := int64(-922337203685476)
-		test(&n, Currency{-922337203685476 * 1E4})
+		num := int64(-922337203685476)
+		test(&num, Currency{-922337203685476 * 1E4})
 	}
 	// unsigned integer pointers
 	{
-		n := uint(123456)
-		test(&n, Currency{123456 * 1E4})
+		num := uint(123456)
+		test(&num, Currency{123456 * 1E4})
 	}
 	{
-		n := uint8(math.MaxUint8)
-		test(&n, Currency{255 * 1E4})
+		num := uint8(math.MaxUint8)
+		test(&num, Currency{255 * 1E4})
 	}
 	{
-		n := uint8(0)
-		test(&n, Currency{0})
+		num := uint8(0)
+		test(&num, Currency{0})
 	}
 	{
-		n := uint16(math.MaxUint16)
-		test(&n, Currency{65535 * 1E4})
+		num := uint16(math.MaxUint16)
+		test(&num, Currency{65535 * 1E4})
 	}
 	{
-		n := uint16(0)
-		test(&n, Currency{0})
+		num := uint16(0)
+		test(&num, Currency{0})
 	}
 	{
-		n := uint32(math.MaxUint32)
-		test(&n, Currency{4294967295 * 1E4})
+		num := uint32(math.MaxUint32)
+		test(&num, Currency{4294967295 * 1E4})
 	}
 	{
-		n := uint32(0)
-		test(&n, Currency{0})
+		num := uint32(0)
+		test(&num, Currency{0})
 	}
 	// pointers to floating-point numbers
 	{
-		n := float32(1000)
-		test(&n, Currency{1000 * 1E4})
+		num := float32(1000)
+		test(&num, Currency{1000 * 1E4})
 	}
 	{
-		n := float32(1234.5)
-		test(&n, Currency{1234.5 * 1E4})
+		num := float32(1234.5)
+		test(&num, Currency{1234.5 * 1E4})
 	}
 	{
-		n := float64(1000)
-		test(&n, Currency{1000 * 1E4})
+		num := float64(1000)
+		test(&num, Currency{1000 * 1E4})
 	}
 	{
-		n := float64(12345.6789)
-		test(&n, Currency{12345.6789 * 1E4})
+		num := float64(12345.6789)
+		test(&num, Currency{12345.6789 * 1E4})
 	}
 	// pointer to string
 	{
@@ -310,20 +310,20 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 		// max int64
 		test(int64(math.MaxInt64), Currency{math.MaxInt64})
 		{
-			n := int64(math.MaxInt64)
-			test(&n, Currency{math.MaxInt64})
+			num := int64(math.MaxInt64)
+			test(&num, Currency{math.MaxInt64})
 		}
 		// min int64
 		test(int64(math.MinInt64), Currency{math.MinInt64})
 		{
-			n := int64(math.MinInt64)
-			test(&n, Currency{math.MinInt64})
+			num := int64(math.MinInt64)
+			test(&num, Currency{math.MinInt64})
 		}
 		// max uint64
 		test(uint64(math.MaxUint64), Currency{math.MaxInt64})
 		{
-			n := uint64(math.MaxUint64)
-			test(&n, Currency{math.MaxInt64})
+			num := uint64(math.MaxUint64)
+			test(&num, Currency{math.MaxInt64})
 		}
 		ec2 := GetErrorCount()
 		if ec2 != ec1+10 {
@@ -342,11 +342,11 @@ func Test_crcy_Currency_Fmt_(t *testing.T) {
 	// (ob Currency) Fmt(decimalPlaces int) string
 	//
 	test := func(input interface{}, decimalPlaces int, expect string) {
-		n := cur(input)
-		got := n.Fmt(decimalPlaces)
+		num := cur(input)
+		got := num.Fmt(decimalPlaces)
 		if got != expect {
 			TFailf(t, `Currency(%s).Fmt(%v) returned %q instead of %q`,
-				n, decimalPlaces, got, expect)
+				num, decimalPlaces, got, expect)
 		}
 	}
 	// variable decimal places
@@ -554,9 +554,9 @@ func Test_crcy_Currency_Div_(t *testing.T) {
 	//
 	test := func(ob Currency, nums []Currency, expect Currency) {
 		init := ob
-		for _, n := range nums {
+		for _, num := range nums {
 			old := ob
-			got := ob.Div(n)
+			got := ob.Div(num)
 			// object of invoked method must not change
 			if ob.i64 != old.i64 {
 				TFail(t, `(`, init, `) mutated from `, old, ` to `, ob)
@@ -1069,11 +1069,11 @@ func Test_crcy_Currency_IsEqual_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) IsEqual() bool
 	//
-	test := func(ob, n Currency, expect bool) {
-		got := ob.IsEqual(n)
+	test := func(ob, num Currency, expect bool) {
+		got := ob.IsEqual(num)
 		if got != expect {
 			TFail(
-				t, `(`, ob, `).IsEqual(`, n, `)`,
+				t, `(`, ob, `).IsEqual(`, num, `)`,
 				` returned `, got, `. must be `, expect,
 			)
 		}
@@ -1192,7 +1192,7 @@ func Test_crcy_Currency_MarshalJSON_(t *testing.T) {
 		jsn, _ := json.MarshalIndent(ty, "", " ")
 		//                 ^  calls the object's MarshalIndent() method
 		got := string(jsn)
-		got = strings.Replace(got, "\n", "", -1)
+		got = strings.Replace(got, "\num", "", -1)
 		got = strings.Replace(got, "{ ", "{", -1)
 		TEqual(t, got, (expect))
 	}
@@ -1233,12 +1233,12 @@ func Test_crcy_Currency_UnmarshalJSON_(t *testing.T) {
 	// (ob *Currency) UnmarshalJSON(data []byte) error
 	//
 	{
-		var n Currency
-		err := n.UnmarshalJSON([]byte("123"))
+		var num Currency
+		err := num.UnmarshalJSON([]byte("123"))
 		if err != nil {
 			TFail(t, err)
 		}
-		if n != cur(123) {
+		if num != cur(123) {
 			TFail(t, err)
 		}
 	}
@@ -1264,8 +1264,8 @@ func Test_crcy_Currency_UnmarshalJSON_(t *testing.T) {
 		defer mod.Reset() // undo the mock!
 		//
 		// do the test
-		var n Currency
-		err := n.UnmarshalJSON([]byte("123"))
+		var num Currency
+		err := num.UnmarshalJSON([]byte("123"))
 		//
 		if err == nil {
 			TFail(t, err)
@@ -1273,7 +1273,7 @@ func Test_crcy_Currency_UnmarshalJSON_(t *testing.T) {
 		if err.Error() != ERRM {
 			TFail(t, `returned error "`, err.Error(), `". must be "`, ERRM, `"`)
 		}
-		if n != cur(0) {
+		if num != cur(0) {
 			TFail(t, err)
 		}
 		EnableErrors()
