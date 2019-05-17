@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:58:17 A22C85                                zr/[go_lang.go]
+// :v: 2019-05-17 11:06:49 7B7AC1                                zr/[go_lang.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -73,9 +73,11 @@ func GoName(s string) string {
 //              to indent the output on multiple lines.
 //
 func GoString(value interface{}, optIndentAt ...int) string {
-	useGoStringer := true
-	indentAt := indentPos(optIndentAt)
-	var buf bytes.Buffer
+	var (
+		useGoStringer = true
+		indentAt      = indentPos(optIndentAt)
+		buf           bytes.Buffer
+	)
 	WriteGoString(value, useGoStringer, indentAt, &buf)
 	return buf.String()
 } //                                                                    GoString

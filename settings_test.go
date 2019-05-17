@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:58:17 770879                          zr/[settings_test.go]
+// :v: 2019-05-17 11:06:49 2D5F97                          zr/[settings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -32,6 +32,7 @@ import (
 // go test --run Test_sett_Settings_GetSetting_
 func Test_sett_Settings_GetSetting_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Settings) GetSetting(name string) string
 	//
 	{
@@ -76,8 +77,8 @@ func Test_sett_Settings_GetSetting_(t *testing.T) {
 // go test --run Test_sett_Settings_HasSetting_
 func Test_sett_Settings_HasSetting_(t *testing.T) {
 	TBegin(t)
-	// (ob *Settings) HasSetting(name string) bool
 	//
+	// (ob *Settings) HasSetting(name string) bool
 	{
 		// method call on a nil receiver must log an error
 		TBeginError()
@@ -117,8 +118,8 @@ func Test_sett_Settings_HasSetting_(t *testing.T) {
 // go test --run Test_sett_Settings_SetSetting_
 func Test_sett_Settings_SetSetting_(t *testing.T) {
 	TBegin(t)
-	// (ob *Settings) SetSetting(name string, value interface{})
 	//
+	// (ob *Settings) SetSetting(name string, value interface{})
 	{
 		// method call on a nil receiver must log an error
 		TBeginError()
@@ -159,6 +160,7 @@ func Test_sett_Settings_SetSetting_(t *testing.T) {
 // go test --run Test_sett_Settings_ExtendGet_
 func Test_sett_Settings_ExtendGet_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Settings) ExtendGet(
 	//     handler func(name, value string, exists bool) string,
 	// )
@@ -178,6 +180,7 @@ func Test_sett_Settings_ExtendGet_(t *testing.T) {
 // go test --run Test_sett_Settings_ExtendHas_
 func Test_sett_Settings_ExtendHas_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Settings) ExtendHas(
 	//     handler func(name, value string, exists bool) bool,
 	// )
@@ -197,6 +200,7 @@ func Test_sett_Settings_ExtendHas_(t *testing.T) {
 // go test --run Test_sett_Settings_ExtendSet_
 func Test_sett_Settings_ExtendSet_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Settings) ExtendSet(
 	//     handler func(name string, old, value interface{}) *string,
 	// )

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 11:02:15 197557                                zr/[numbers.go]
+// :v: 2019-05-17 11:06:49 4D703E                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -35,14 +35,16 @@ import (
 // -----------------------------------------------------------------------------
 // # Constants
 
-// MaxInt __
-const MaxInt = int(MaxUint >> 1)
+const (
+	// MaxInt __
+	MaxInt = int(MaxUint >> 1)
 
-// MaxUint __
-const MaxUint = ^uint(0)
+	// MaxUint __
+	MaxUint = ^uint(0)
 
-// MinInt __
-const MinInt = -MaxInt - 1
+	// MinInt __
+	MinInt = -MaxInt - 1
+)
 
 // DigitNamesEN are English names of decimal digits 0 to 9.
 // These constants are mainly used by IntInWordsEN().
@@ -437,9 +439,10 @@ func Int(value interface{}) int {
 // and strings and Stringer. Always returns false if value is nil
 // or bool, even though Int() can convert bool to 1 or 0.
 func IsNumber(value interface{}) bool {
-	const groupSeparatorChar = ','
-	const decimalPointChar = '.'
-	//
+	const (
+		groupSeparatorChar = ','
+		decimalPointChar   = '.'
+	)
 	switch v := value.(type) {
 	case int, int64, int32, int16, int8, float64, float32,
 		uint, uint64, uint32, uint16, uint8,

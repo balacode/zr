@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:58:17 1998FF                                   zr/[bool.go]
+// :v: 2019-05-17 11:06:49 651760                                   zr/[bool.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -167,7 +167,6 @@ func IsBool(value interface{}) bool {
 		{
 			return false
 		}
-	// strings:
 	case string:
 		switch strings.ToUpper(strings.TrimSpace(v)) {
 		case "FALSE", "TRUE", "0", "1":
