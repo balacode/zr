@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-16 17:40:50 40D517                                  zr/[dates.go]
+// :v: 2019-05-17 10:58:17 76F763                                  zr/[dates.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -17,25 +17,25 @@ package zr
 //   (ob DateRange) String() string
 //
 // # Functions
-//   DateOf(val interface{}) time.Time
+//   DateOf(value interface{}) time.Time
 //   DateRangeOf(s string) DateRange
-//   DayMth(val interface{}) string
+//   DayMth(value interface{}) string
 //   DaysInMonth(year int, month time.Month) int
 //   FormatDateEN(format string, date time.Time) string
-//   IsDate(val interface{}) bool
+//   IsDate(value interface{}) bool
 //   IsDateOnly(tm time.Time) bool
 //   MonthNameEN(monthNo int, shortName ...bool) string
 //   MonthNumberEN(monthName string) int
-//   MthYear(val interface{}) string
+//   MthYear(value interface{}) string
 //   ParseDate(s string) (year, month, day int)
 //   StringDateDMY(s string) string
 //   StringDateYMD(s string) string
-//   StringYear(val interface{}) string
+//   StringYear(value interface{}) string
 //   Timestamp(optWithMS ...bool) string
 //   YMD(t time.Time) string
 //
 // # Private Functions
-//   stringDate(val interface{}, format string) string
+//   stringDate(value interface{}, format string) string
 
 import (
 	"fmt"
@@ -105,29 +105,29 @@ func (ob DateRange) String() string {
 // an error if the conversion failed, in which case it logs an error
 // and returns a zero-value time.Time.
 //
-// If val is a zero-length string, returns a zero-value time.Time
+// If value is a zero-length string, returns a zero-value time.Time
 // but does not log a warning.
 //
 // It also accepts a time.Time as input.
 //
 // In both cases the returned Time type will contain only the date
 // part without the time or time zone components.
-func DateOf(val interface{}) time.Time {
-	switch val := val.(type) {
+func DateOf(value interface{}) time.Time {
+	switch v := value.(type) {
 	case time.Time: // remove the time component from dates
 		{
-			return time.Date(val.Year(), val.Month(), val.Day(),
+			return time.Date(v.Year(), v.Month(), v.Day(),
 				0, 0, 0, 0, time.UTC)
 		}
 	case string:
 		{
-			if val == "" {
+			if v == "" {
 				return time.Time{}
 			}
-			if len(val) > 10 {
-				val = val[:10]
+			if len(v) > 10 {
+				v = v[:10]
 			}
-			ret, err := time.Parse(time.RFC3339, val+"T00:00:00Z")
+			ret, err := time.Parse(time.RFC3339, v+"T00:00:00Z")
 			if err != nil || ret.IsZero() {
 				if err != nil {
 					mod.Error(err)
@@ -137,13 +137,13 @@ func DateOf(val interface{}) time.Time {
 			return DateOf(ret)
 		}
 	case *string:
-		if val != nil {
-			return DateOf(*val)
+		if v != nil {
+			return DateOf(*v)
 		}
 	case fmt.Stringer:
-		return DateOf(val.String())
+		return DateOf(v.String())
 	}
-	mod.Error("Can not convert", reflect.TypeOf(val), "to int:", val)
+	mod.Error("Can not convert", reflect.TypeOf(value), "to int:", value)
 	return time.Time{}
 } //                                                                      DateOf
 
@@ -271,8 +271,8 @@ func DateRangeOf(s string) DateRange {
 
 // DayMth returns a day-and-month string of the format
 // "d mmm" when given a time.Time value or a date string.
-func DayMth(val interface{}) string {
-	return stringDate(val, "2 Jan")
+func DayMth(value interface{}) string {
+	return stringDate(value, "2 Jan")
 } //                                                                      DayMth
 
 // DaysInMonth returns the number of days in the specified year and month.
@@ -375,20 +375,20 @@ func FormatDateEN(format string, date time.Time) string {
 } //                                                                FormatDateEN
 
 // IsDate returns true if the specified value can be converted to a date.
-func IsDate(val interface{}) bool {
-	ret, reason := func(val interface{}) (bool, int) {
-		switch val := val.(type) {
+func IsDate(value interface{}) bool {
+	ret, reason := func(value interface{}) (bool, int) {
+		switch v := value.(type) {
 		case time.Time:
 			{
 				return true, 1
 			}
 		case string:
 			{
-				if val == "" {
+				if v == "" {
 					return false, 2
 				}
 				{ // try to use time.Parse() to quickly parse 'yyyy-mm-dd' dates
-					s := val
+					s := v
 					if len(s) >= 10 {
 						s = s[:10]
 					}
@@ -398,18 +398,18 @@ func IsDate(val interface{}) bool {
 					}
 				}
 				// if time.Parse() can't parse the date, try using ParseDate()
-				y, m, d := ParseDate(val)
+				y, m, d := ParseDate(v)
 				if y == 0 || m == 0 || d == 0 {
 					return false, 4
 				}
 				return true, 5
 			}
 		case fmt.Stringer:
-			return IsDate(val.String()), 6
+			return IsDate(v.String()), 6
 		}
 		return false, 7
-	}(val)
-	VL("IsDate(", val, ") returned ", ret, " ", reason)
+	}(value)
+	VL("IsDate(", value, ") returned ", ret, " ", reason)
 	return ret
 } //                                                                      IsDate
 
@@ -454,8 +454,8 @@ func MonthNumberEN(monthName string) int {
 
 // MthYear returns a date string of the format "Mmm yyyy" when given
 // a time.Time value or a date string.
-func MthYear(val interface{}) string {
-	return stringDate(val, "Jan 2006")
+func MthYear(value interface{}) string {
+	return stringDate(value, "Jan 2006")
 } //                                                                     MthYear
 
 // ParseDate reads a date string and returns the year, month and day number.
@@ -551,15 +551,15 @@ func StringDateYMD(s string) string {
 } //                                                               StringDateYMD
 
 // StringYear __
-func StringYear(val interface{}) string {
-	if IsNumber(val) {
-		year := Int(val)
+func StringYear(value interface{}) string {
+	if IsNumber(value) {
+		year := Int(value)
 		if year < 1 || year > 9999 {
 			mod.Error("Numeric year out of range:", year)
 		}
-		return String(val)
+		return String(value)
 	}
-	return stringDate(String(val), "2006")
+	return stringDate(String(value), "2006")
 } //                                                                  StringYear
 
 // Timestamp returns a timestamp string using the current local time.
@@ -611,26 +611,26 @@ func YMD(t time.Time) string {
 // # Private Functions
 
 // stringDate __
-func stringDate(val interface{}, format string) string {
+func stringDate(value interface{}, format string) string {
 	const erv = ""
 	var date time.Time
-	switch val := val.(type) {
+	switch v := value.(type) {
 	case time.Time:
 		{
-			date = val
+			date = v
 		}
 	case string:
 		{
-			if val == "" {
+			if v == "" {
 				return erv
 			}
-			if len(val) >= 10 {
-				val = val[:10]
+			if len(v) >= 10 {
+				v = v[:10]
 			}
-			parsed, err := time.Parse(time.RFC3339, val+"T00:00:00Z")
+			parsed, err := time.Parse(time.RFC3339, v+"T00:00:00Z")
 			if err != nil || parsed.IsZero() {
 				if err != nil {
-					mod.Error(EFailedParsing, "string^", val, ":", err)
+					mod.Error(EFailedParsing, "string^", v, ":", err)
 				}
 				return erv
 			}
@@ -638,10 +638,10 @@ func stringDate(val interface{}, format string) string {
 		}
 	case fmt.Stringer:
 		{
-			return MthYear(val.String())
+			return MthYear(v.String())
 		}
 	default:
-		mod.Error("Invalid value:", val)
+		mod.Error("Invalid value:", v)
 		return erv
 	}
 	return date.Format(format)

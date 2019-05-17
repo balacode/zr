@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:33 014A04                           zr/[go_lang_test.go]
+// :v: 2019-05-17 10:58:17 E3C9E9                           zr/[go_lang_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -56,7 +56,8 @@ func Test_gola_GoName_(t *testing.T) {
 // go test --run Test_gola_GoString_
 func Test_gola_GoString_(t *testing.T) {
 	TBegin(t)
-	// GoString(val interface{}, optIndentAt ...int) string
+	//
+	// GoString(value interface{}, optIndentAt ...int) string
 	//
 	// nil
 	TEqual(t, GoString(nil), "nil")

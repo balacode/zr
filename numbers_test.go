@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:33 373A43                           zr/[numbers_test.go]
+// :v: 2019-05-17 10:58:17 CC07B6                           zr/[numbers_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -248,13 +248,13 @@ func Test_nums_IntInWordsEN_(t *testing.T) {
 // go test --run Test_nums_Int_
 func Test_nums_Int_(t *testing.T) {
 	TBegin(t)
-	// Int(val interface{}) int
+	// Int(value interface{}) int
 	//
-	test := func(val interface{}, expect int) {
-		got := Int(val)
+	test := func(value interface{}, expect int) {
+		got := Int(value)
 		if got != expect {
 			t.Errorf("Int(%q) returned %d instead of %d\r\n",
-				val, got, expect)
+				value, got, expect)
 		}
 	}
 	// blank strings return 0
@@ -382,7 +382,7 @@ func Test_nums_Int_(t *testing.T) {
 // go test --run Test_nums_IsNumber_
 func Test_nums_IsNumber_(t *testing.T) {
 	TBegin(t)
-	// IsNumber(val interface{}) bool
+	// IsNumber(value interface{}) bool
 	//
 	test := func(input string, expect bool) {
 		got := IsNumber(input)

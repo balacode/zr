@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:32 4F9B9B                              zr/[bool_test.go]
+// :v: 2019-05-17 10:58:17 70668F                              zr/[bool_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -24,13 +24,13 @@ import (
 // go test --run Test_bool_Bool_
 func Test_bool_Bool_(t *testing.T) {
 	TBegin(t)
-	// Bool(val interface{}) bool
+	// Bool(value interface{}) bool
 	//
-	test := func(val interface{}, expect bool) {
-		got := Bool(val)
+	test := func(value interface{}, expect bool) {
+		got := Bool(value)
 		if got != expect {
 			TFailf(t, "Bool(%v) [Type:%v] returned %v instead of %v",
-				val, reflect.TypeOf(val), got, expect)
+				value, reflect.TypeOf(value), got, expect)
 		}
 	}
 	{ // nil:
@@ -208,9 +208,9 @@ func Test_bool_Bool_(t *testing.T) {
 		test(&true64, true)
 	}
 	{ // error conditions
-		type T struct{ val bool }
+		type T struct{ v bool }
 		var bad T
-		bad.val = true
+		bad.v = true
 		TBeginError()
 		test(bad, false)
 		TCheckError(t, "Can not convert")
@@ -220,13 +220,13 @@ func Test_bool_Bool_(t *testing.T) {
 // go test --run Test_bool_IsBool_
 func Test_bool_IsBool_(t *testing.T) {
 	TBegin(t)
-	// IsBool(val interface{}) bool
+	// IsBool(value interface{}) bool
 	//
-	test := func(val interface{}, expect bool) {
-		got := IsBool(val)
+	test := func(value interface{}, expect bool) {
+		got := IsBool(value)
 		if got != expect {
 			TFailf(t, "Bool(%v) [Type:%v] returned %v instead of %v",
-				val, reflect.TypeOf(val), got, expect)
+				value, reflect.TypeOf(value), got, expect)
 		}
 	}
 	{ // nil:
@@ -402,9 +402,9 @@ func Test_bool_IsBool_(t *testing.T) {
 		test(float64ptr(-math.MaxFloat64), true)
 	}
 	{
-		type T struct{ val bool }
+		type T struct{ v bool }
 		var bad T
-		bad.val = true
+		bad.v = true
 		test(bad, false)
 		test(&bad, false)
 	}

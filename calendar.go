@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-11 04:43:28 91B24F                               zr/[calendar.go]
+// :v: 2019-05-17 10:58:17 2F5F71                               zr/[calendar.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -38,11 +38,14 @@ type Calendar struct {
 } //                                                                    Calendar
 
 // calendarDay holds the calendar entry for a single day
-// 'day' is day of the month (the date)
-// 'val' is the value shown on the specified date
+//
+// day: day of the month (the date)
+//
+// value: the value shown on the specified date
+//
 type calendarDay struct {
-	day int
-	val interface{}
+	day   int
+	value interface{}
 } //                                                                 calendarDay
 
 // calendarMonth holds the data for a single month,
@@ -134,7 +137,7 @@ func (ob *Calendar) Set(date, value interface{}) {
 	for row := 0; !found && row < 6; row++ {
 		for col := 0; !found && col < 7; col++ {
 			if mth.cells[row][col].day == day {
-				mth.cells[row][col].val = value
+				mth.cells[row][col].value = value
 				found = true
 			}
 		}
@@ -213,8 +216,8 @@ func (ob *Calendar) String() string {
 		ws(VDIV, "\n")
 	}
 	// formats numbers
-	numStr := func(val float64) string {
-		ret := fmt.Sprintf("%5.2f", val)
+	numStr := func(n float64) string {
+		ret := fmt.Sprintf("%5.2f", n)
 		if strings.Contains(ret, ".") {
 			ret = strings.TrimRight(ret, "0")
 			ret = strings.TrimRight(ret, ".")
@@ -254,16 +257,16 @@ func (ob *Calendar) String() string {
 			// values on current row
 			for col := 0; col < 7; col++ {
 				ws(VDIV)
-				val := mth.cells[row][col].val
-				if val == nil {
+				v := mth.cells[row][col].value
+				if v == nil {
 					ws(blank)
 				} else {
-					if val, ok := val.(float64); ok {
-						s := numStr(val)
-						sum += val
+					if v, ok := v.(float64); ok {
+						s := numStr(v)
+						sum += v
 						ws(fmt.Sprintf(valFmt, s))
 					} else {
-						ws(fmt.Sprintf(valFmt, val))
+						ws(fmt.Sprintf(valFmt, v))
 					}
 				}
 			}

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:42:34 CE5F51                               zr/[currency.go]
+// :v: 2019-05-17 10:58:17 6ECF67                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -48,11 +48,11 @@ package zr
 //   (ob Currency) Float64() float64
 //   (ob Currency) Int() int
 //   (ob Currency) Int64() int64
-//   (ob Currency) IsEqual(val interface{}) bool
-//   (ob Currency) IsGreater(val interface{}) bool
-//   (ob Currency) IsGreaterOrEqual(val interface{}) bool
-//   (ob Currency) IsLesser(val interface{}) bool
-//   (ob Currency) IsLesserOrEqual(val interface{}) bool
+//   (ob Currency) IsEqual(value interface{}) bool
+//   (ob Currency) IsGreater(value interface{}) bool
+//   (ob Currency) IsGreaterOrEqual(value interface{}) bool
+//   (ob Currency) IsLesser(value interface{}) bool
+//   (ob Currency) IsLesserOrEqual(value interface{}) bool
 //   (ob Currency) IsNegative() bool
 //   (ob Currency) IsZero() bool
 //   (ob Currency) Overflow() int
@@ -119,144 +119,144 @@ type Currency struct {
 // This includes all numeric types and strings. If a string is
 // not numeric, logs an error and sets the Currency to zero.
 func CurrencyOf(value interface{}) Currency {
-	switch val := value.(type) {
+	switch v := value.(type) {
 	//
 	// Currency already?
 	case Currency:
 		{
-			return val
+			return v
 		}
 	// integers
 	case int:
 		{
 			// use func. to check range
-			return CurrencyOf(int64(val))
+			return CurrencyOf(int64(v))
 		}
 	case int64:
 		{
-			if val < -CurrencyIntLimit || val > CurrencyIntLimit {
-				return currencyOverflow(val < 0, EOverflow, ": ", val)
+			if v < -CurrencyIntLimit || v > CurrencyIntLimit {
+				return currencyOverflow(v < 0, EOverflow, ": ", v)
 			}
-			return Currency{int64(val) * cur4d}
+			return Currency{int64(v) * cur4d}
 		}
 	case int32:
 		{
 			// use func. to check range
-			return CurrencyOf(int64(val))
+			return CurrencyOf(int64(v))
 		}
 	case int16:
 		{
-			return Currency{int64(val) * cur4d}
+			return Currency{int64(v) * cur4d}
 		}
 	case int8:
 		{
-			return Currency{int64(val) * cur4d}
+			return Currency{int64(v) * cur4d}
 		}
 	// unsigned integers
 	case uint:
 		{
 			// use func. to check range
-			return CurrencyOf(uint64(val))
+			return CurrencyOf(uint64(v))
 		}
 	case uint64:
 		{
-			if val > CurrencyIntLimit {
-				return currencyOverflow(false, EOverflow, "uint64: ", val)
+			if v > CurrencyIntLimit {
+				return currencyOverflow(false, EOverflow, "uint64: ", v)
 			}
-			return Currency{int64(val) * cur4d}
+			return Currency{int64(v) * cur4d}
 		}
 	case uint32:
 		{
 			// use func. to check range
-			return CurrencyOf(uint64(val))
+			return CurrencyOf(uint64(v))
 		}
 	case uint16:
 		{
-			return Currency{int64(val) * cur4d}
+			return Currency{int64(v) * cur4d}
 		}
 	case uint8:
 		{
-			return Currency{int64(val) * cur4d}
+			return Currency{int64(v) * cur4d}
 		}
 	// float
 	case float64:
 		{
-			if val < -float64(CurrencyIntLimit)-0.9999 ||
-				val > float64(CurrencyIntLimit)+0.9999 {
-				return currencyOverflow(val < 0, EOverflow, "float64: ", val)
+			if v < -float64(CurrencyIntLimit)-0.9999 ||
+				v > float64(CurrencyIntLimit)+0.9999 {
+				return currencyOverflow(v < 0, EOverflow, "float64: ", v)
 			}
-			return Currency{int64(val * cur4d)}
+			return Currency{int64(v * cur4d)}
 		}
 	case float32:
 		{
-			if val < -float32(CurrencyIntLimit)-0.9999 ||
-				val > float32(CurrencyIntLimit)+0.9999 {
-				return currencyOverflow(val < 0, EOverflow, "float32: ", val)
+			if v < -float32(CurrencyIntLimit)-0.9999 ||
+				v > float32(CurrencyIntLimit)+0.9999 {
+				return currencyOverflow(v < 0, EOverflow, "float32: ", v)
 			}
-			return Currency{int64(float64(val) * cur4d)}
+			return Currency{int64(float64(v) * cur4d)}
 		}
 	// integer pointers
 	case *int:
-		if val != nil {
-			return CurrencyOf(int64(*val))
+		if v != nil {
+			return CurrencyOf(int64(*v))
 		}
 	case *int64:
-		if val != nil {
-			return CurrencyOf(*val)
+		if v != nil {
+			return CurrencyOf(*v)
 		}
 	case *int32:
-		if val != nil {
-			return CurrencyOf(*val)
+		if v != nil {
+			return CurrencyOf(*v)
 		}
 	case *int16:
-		if val != nil {
-			return CurrencyOf(*val)
+		if v != nil {
+			return CurrencyOf(*v)
 		}
 	case *int8:
-		if val != nil {
-			return CurrencyOf(*val)
+		if v != nil {
+			return CurrencyOf(*v)
 		}
 	// unsigned integer pointers
 	case *uint:
-		if val != nil {
-			return CurrencyOf(uint64(*val))
+		if v != nil {
+			return CurrencyOf(uint64(*v))
 		}
 	case *uint64:
-		if val != nil {
-			return CurrencyOf(*val)
+		if v != nil {
+			return CurrencyOf(*v)
 		}
 	case *uint32:
-		if val != nil {
-			return CurrencyOf(*val)
+		if v != nil {
+			return CurrencyOf(*v)
 		}
 	case *uint16:
-		if val != nil {
-			return CurrencyOf(*val)
+		if v != nil {
+			return CurrencyOf(*v)
 		}
 	case *uint8:
-		if val != nil {
-			return CurrencyOf(*val)
+		if v != nil {
+			return CurrencyOf(*v)
 		}
 	// float pointers
 	case *float64:
-		if val != nil {
-			return CurrencyOf(*val)
+		if v != nil {
+			return CurrencyOf(*v)
 		}
 	case *float32:
-		if val != nil {
-			return CurrencyOf(*val)
+		if v != nil {
+			return CurrencyOf(*v)
 		}
 	// strings
 	case string:
 		{
-			return CurrencyOfS(val)
+			return CurrencyOfS(v)
 		}
 	case *string:
-		if val != nil {
-			return CurrencyOfS(*val)
+		if v != nil {
+			return CurrencyOfS(*v)
 		}
 	case fmt.Stringer:
-		return CurrencyOfS(val.String())
+		return CurrencyOfS(v.String())
 	}
 	mod.Error("Type", reflect.TypeOf(value), "not handled; =", value)
 	return Currency{}
@@ -755,28 +755,28 @@ func (ob Currency) Int64() int64 {
 } //                                                                       Int64
 
 // IsEqual returns true if the value of the currency object is negative.
-func (ob Currency) IsEqual(val interface{}) bool {
-	return ob.i64 == CurrencyOf(val).i64
+func (ob Currency) IsEqual(value interface{}) bool {
+	return ob.i64 == CurrencyOf(value).i64
 } //                                                                     IsEqual
 
-// IsGreater returns true if the object is greater than val.
-func (ob Currency) IsGreater(val interface{}) bool {
-	return ob.i64 > CurrencyOf(val).i64
+// IsGreater returns true if the object is greater than value.
+func (ob Currency) IsGreater(value interface{}) bool {
+	return ob.i64 > CurrencyOf(value).i64
 } //                                                                   IsGreater
 
-// IsGreaterOrEqual returns true if the object is greater or equal to val.
-func (ob Currency) IsGreaterOrEqual(val interface{}) bool {
-	return ob.i64 >= CurrencyOf(val).i64
+// IsGreaterOrEqual returns true if the object is greater or equal to value.
+func (ob Currency) IsGreaterOrEqual(value interface{}) bool {
+	return ob.i64 >= CurrencyOf(value).i64
 } //                                                            IsGreaterOrEqual
 
-// IsLesser returns true if the object is lesser than val.
-func (ob Currency) IsLesser(val interface{}) bool {
-	return ob.i64 < CurrencyOf(val).i64
+// IsLesser returns true if the object is lesser than value.
+func (ob Currency) IsLesser(value interface{}) bool {
+	return ob.i64 < CurrencyOf(value).i64
 } //                                                                    IsLesser
 
-// IsLesserOrEqual returns true if the object is lesser or equal to val.
-func (ob Currency) IsLesserOrEqual(val interface{}) bool {
-	return ob.i64 <= CurrencyOf(val).i64
+// IsLesserOrEqual returns true if the object is lesser or equal to value.
+func (ob Currency) IsLesserOrEqual(value interface{}) bool {
+	return ob.i64 <= CurrencyOf(value).i64
 } //                                                             IsLesserOrEqual
 
 // IsNegative returns true if the value of the currency object is negative.

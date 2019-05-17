@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-16 17:40:50 901EB2                               zr/[unittest.go]
+// :v: 2019-05-17 10:58:17 146682                               zr/[unittest.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -15,7 +15,7 @@ package zr
 //   (ob TStringer) String() string
 //
 // # Assertion Functions
-//   TArrayEqual(t *testing.T, expect, val interface{}) bool
+//   TArrayEqual(t *testing.T, expect, value interface{}) bool
 //   TBytesEqual(t *testing.T, a, b []byte)
 //   TEqual(t *testing.T, result interface{}, expect interface{}) bool
 //   TFalse(t *testing.T, result bool) bool
@@ -84,10 +84,10 @@ func (ob TStringer) String() string {
 // # Assertion Functions
 
 // TArrayEqual checks if two arrays are equal
-func TArrayEqual(t *testing.T, expect, val interface{}) bool {
+func TArrayEqual(t *testing.T, expect, value interface{}) bool {
 	// TODO: TArrayEqual is not necessary, can be handled by Equal()
 	a := fmt.Sprintf("%v", expect)
-	b := fmt.Sprintf("%v", val)
+	b := fmt.Sprintf("%v", value)
 	if a != b {
 		fmt.Printf("%s expected: %s got: %s\r\n", TCaller(), a, b)
 		t.Fail()
@@ -106,15 +106,15 @@ func TBytesEqual(t *testing.T, a, b []byte) {
 
 // TEqual asserts that result is equal to expect.
 func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
-	makeStr := func(val interface{}) string {
+	makeStr := func(value interface{}) string {
 		var ret string
-		switch val := val.(type) {
+		switch v := value.(type) {
 		case nil:
 			{
 				ret = "nil"
 			}
 		case bool:
-			if val {
+			if v {
 				ret = "true"
 			} else {
 				ret = "false"
@@ -122,10 +122,10 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 		case int, int8, int16, int32, int64,
 			uint, uint8, uint16, uint32, uint64, uintptr:
 			{
-				ret = fmt.Sprintf("%d", val)
+				ret = fmt.Sprintf("%d", v)
 			}
 		case float64, float32:
-			ret := fmt.Sprintf("%f", val)
+			ret := fmt.Sprintf("%f", v)
 			if strings.Contains(ret, ".") {
 				for strings.HasSuffix(ret, "0") {
 					ret = ret[:len(ret)-1]
@@ -136,24 +136,24 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 			}
 		case string:
 			{
-				return val
+				return v
 			}
 		case time.Time: // use date part without time and time zone
-			ret = val.Format(time.RFC3339) // format: 2006-01-02T15:04:05Z07:00
+			ret = v.Format(time.RFC3339) // format: 2006-01-02T15:04:05Z07:00
 			ret = ret[:19]
 			if strings.HasSuffix(ret, "T00:00:00") {
 				ret = ret[:10]
 			}
 		case fmt.Stringer:
 			{
-				ret = val.String()
+				ret = v.String()
 			}
 		// TODO: add handling of various arrays of simple types [in TEqual()]
 		case []string:
 			{
 				var buf bytes.Buffer
 				buf.WriteString("[")
-				for i, s := range val {
+				for i, s := range v {
 					if i != 0 {
 						buf.WriteString(", ")
 					}
@@ -166,7 +166,7 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 			}
 		default:
 			ret = fmt.Sprintf("(type: %v value: %v)",
-				reflect.TypeOf(val), val)
+				reflect.TypeOf(value), value)
 		}
 		return ret
 	}

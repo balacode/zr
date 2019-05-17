@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-16 17:40:50 4AEC0F                                zr/[go_lang.go]
+// :v: 2019-05-17 10:58:17 A22C85                                zr/[go_lang.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -10,8 +10,8 @@ package zr
 //
 // # Functions
 //   GoName(s string) string
-//   GoString(val interface{}, optIndentAt ...int) string
-//   WriteGoString(val interface{}, indentAt int, buf *bytes.Buffer)
+//   GoString(value interface{}, optIndentAt ...int) string
+//   WriteGoString(value interface{}, indentAt int, buf *bytes.Buffer)
 //
 // # Helper Function
 //   indentPos(optIndentAt []int) int
@@ -65,18 +65,18 @@ func GoName(s string) string {
 // GoString converts fundamental types to strings in Go Language syntax.
 // You can copy its output and paste in source code if needed.
 //
-// If the type of 'val' implements GoStringer or zr.GoStringerEx
+// If the type of value implements GoStringer or zr.GoStringerEx
 // interfaces, uses the method provided by the interface.
 //
 // optIndentAt: omit this optional argument to place all output
 //              on one line, or specify 0 or more tab positions
 //              to indent the output on multiple lines.
 //
-func GoString(val interface{}, optIndentAt ...int) string {
+func GoString(value interface{}, optIndentAt ...int) string {
 	useGoStringer := true
 	indentAt := indentPos(optIndentAt)
 	var buf bytes.Buffer
-	WriteGoString(val, useGoStringer, indentAt, &buf)
+	WriteGoString(value, useGoStringer, indentAt, &buf)
 	return buf.String()
 } //                                                                    GoString
 
@@ -86,17 +86,17 @@ func GoString(val interface{}, optIndentAt ...int) string {
 // It is called by zr.GoString() function and various
 // types' GoString() methods to generate their results.
 //
-// val: the value being read
+// value: the value being read
 //
 // useGoStringer: when true, calls GoString() or GoStringEx() if
-//                val implements any of these methods.
+//                value implements any of these methods.
 //
 // indentAt: specifies if output should be on a single
 //           line (-1) or indented to a number of tab stops.
 //
 // buf: pointer to output buffer
 func WriteGoString(
-	val interface{},
+	value interface{},
 	useGoStringer bool,
 	indentAt int,
 	buf *bytes.Buffer,
@@ -107,27 +107,27 @@ func WriteGoString(
 			buf.WriteString(s)
 		}
 	}
-	writeGoString := func(val interface{}) {
-		WriteGoString(val, useGoStringer, indentAt, buf)
+	writeGoString := func(value interface{}) {
+		WriteGoString(value, useGoStringer, indentAt, buf)
 	}
-	if val == nil {
+	if value == nil {
 		ws("nil")
 		return
 	}
 	if useGoStringer {
-		switch val := val.(type) {
+		switch v := value.(type) {
 		case GoStringerEx:
 			{
-				ws(val.GoStringEx(indentAt))
+				ws(v.GoStringEx(indentAt))
 				return
 			}
 		case fmt.GoStringer:
-			ws(val.GoString())
+			ws(v.GoString())
 			return
 		}
 	}
-	v := reflect.ValueOf(val)
-	t := reflect.TypeOf(val)
+	v := reflect.ValueOf(value)
+	t := reflect.TypeOf(value)
 	switch v.Kind() {
 	case reflect.Bool:
 		{
@@ -216,7 +216,7 @@ func WriteGoString(
 		}
 	case reflect.String:
 		{
-			ws(`"`, strings.Replace(val.(string), `"`, `\"`, -1), `"`)
+			ws(`"`, strings.Replace(value.(string), `"`, `\"`, -1), `"`)
 			return
 		}
 	case reflect.Struct:
@@ -238,14 +238,14 @@ func WriteGoString(
 	case reflect.UnsafePointer:
 		break // TODO: reflect.UnsafePointer
 	}
-	// finally, try using fmt.Stringer (treat 'val' as a string)
-	if val, ok := val.(fmt.Stringer); ok {
-		ws(GoString(val.String()))
+	// finally, try using fmt.Stringer (treat value as a string)
+	if v, ok := value.(fmt.Stringer); ok {
+		ws(GoString(v.String()))
 		return
 	}
-	// if 'val' is still not processed, log an error, try to use fmt.Sprint()
-	mod.Error("Type", t, "(kind:", v.Kind(), ") not handled:", val)
-	ws("(", fmt.Sprint(val), ")")
+	// if value is still not processed, log an error, try to use fmt.Sprint()
+	mod.Error("Type", t, "(kind:", v.Kind(), ") not handled:", value)
+	ws("(", fmt.Sprint(value), ")")
 } //                                                               WriteGoString
 
 // -----------------------------------------------------------------------------

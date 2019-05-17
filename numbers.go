@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-16 17:40:50 740327                                zr/[numbers.go]
+// :v: 2019-05-17 10:58:17 7F43B7                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -11,9 +11,9 @@ package zr
 //   MinInt
 //
 // # Numeric Functions
-//   Float64(val interface{}) float64
-//   Int(val interface{}) int
-//   IsNumber(val interface{}) bool
+//   Float64(value interface{}) float64
+//   Int(value interface{}) int
+//   IsNumber(value interface{}) bool
 //   MaxIntOf(values []int) (max int, found bool)
 //   MinMaxGap(values []int) (min, max int)
 //
@@ -82,150 +82,149 @@ var TensEN = []string{
 // and to easily convert interface{} to a float64.
 //
 // If the conversion fails, does not return any error, but logs an
-// issue in the log file if the type of 'val' can not be handled.
-func Float64(val interface{}) float64 {
-	switch val := val.(type) {
+// issue in the log file if the type of value can not be handled.
+func Float64(value interface{}) float64 {
+	switch v := value.(type) {
 	case nil:
 		{
 			return 0.0
 		}
 	case bool:
 		{
-			if val {
+			if v {
 				return 1.0
 			}
 			return 0.0
 		}
 	case *bool:
-		if val != nil {
-			return Float64(*val)
+		if v != nil {
+			return Float64(*v)
 		}
 	// strings
 	case string:
 		{
-			ret, err := strconv.ParseFloat(val, 64)
+			ret, err := strconv.ParseFloat(v, 64)
 			if err != nil {
 				ret = 0.0
 			}
 			return ret
 		}
 	case *string:
-		if val != nil {
-			return Float64(*val)
+		if v != nil {
+			return Float64(*v)
 		}
 	case fmt.Stringer:
 		{
-			return Float64(val.String())
+			return Float64(v.String())
 		}
 	case fmt.GoStringer:
 		{
-			return Float64(val.GoString())
+			return Float64(v.GoString())
 		}
 	// signed integers
 	case int:
 		{
-			return float64(val)
+			return float64(v)
 		}
 	case int64:
 		{
-			return float64(val)
+			return float64(v)
 		}
 	case int32:
 		{
-			return float64(val)
+			return float64(v)
 		}
 	case int16:
 		{
-			return float64(val)
+			return float64(v)
 		}
 	case int8:
 		{
-			return float64(val)
+			return float64(v)
 		}
 		// pointers to signed integers
 	case *int:
-		if val != nil {
-			return float64(*val)
+		if v != nil {
+			return float64(*v)
 		}
 	case *int64:
-		if val != nil {
-			return float64(*val)
+		if v != nil {
+			return float64(*v)
 		}
 	case *int32:
-		if val != nil {
-			return float64(*val)
+		if v != nil {
+			return float64(*v)
 		}
 	case *int16:
-		if val != nil {
-			return float64(*val)
+		if v != nil {
+			return float64(*v)
 		}
 	case *int8:
-		if val != nil {
-			return float64(*val)
+		if v != nil {
+			return float64(*v)
 		}
 		// unsigned integers
 	case uint:
 		{
-			return float64(val)
+			return float64(v)
 		}
 	case uint64:
 		{
-			return float64(val)
+			return float64(v)
 		}
 	case uint32:
 		{
-			return float64(val)
+			return float64(v)
 		}
 	case uint16:
 		{
-			return float64(val)
+			return float64(v)
 		}
 	case uint8:
 		{
-			return float64(val)
+			return float64(v)
 		}
 		// pointers to unsigned integers
 	case *uint:
-		if val != nil {
-			return float64(*val)
+		if v != nil {
+			return float64(*v)
 		}
 	case *uint64:
-		if val != nil {
-			return float64(*val)
+		if v != nil {
+			return float64(*v)
 		}
 	case *uint32:
-		if val != nil {
-			return float64(*val)
+		if v != nil {
+			return float64(*v)
 		}
 	case *uint16:
-		if val != nil {
-			return float64(*val)
+		if v != nil {
+			return float64(*v)
 		}
 	case *uint8:
-		if val != nil {
-			return float64(*val)
+		if v != nil {
+			return float64(*v)
 		}
 		// floating-point numbers
 	case float64:
 		{
-			return val
+			return v
 		}
 	case float32:
 		{
-			return float64(val)
+			return float64(v)
 		}
 		// pointers to floating-point numbers
 	case *float64:
-		if val != nil {
-			return *val
+		if v != nil {
+			return *v
 		}
 	case *float32:
-		if val != nil {
-			return float64(*val)
+		if v != nil {
+			return float64(*v)
 		}
 	}
-	mod.Error("Can not convert",
-		reflect.TypeOf(val), "to float64:", val)
+	mod.Error("Can not convert", reflect.TypeOf(value), "to float64:", value)
 	return 0.0
 } //                                                                     Float64
 
@@ -242,24 +241,24 @@ func Float64(val interface{}) float64 {
 // This function can be used in cases where a simple cast won't work,
 // and to easily convert interface{} to an int.
 //
-// If the type of 'val' can not be handled, does not
+// If the type of value can not be handled, does not
 // return an error but logs an issue in the log.
-func Int(val interface{}) int {
-	switch val := val.(type) {
+func Int(value interface{}) int {
+	switch v := value.(type) {
 	case nil:
 		{
 			return 0
 		}
 	case bool:
 		{
-			if val {
+			if v {
 				return 1
 			}
 			return 0
 		}
 	case *bool:
-		if val != nil {
-			return Int(*val)
+		if v != nil {
+			return Int(*v)
 		}
 	// strings
 	case string:
@@ -267,7 +266,7 @@ func Int(val interface{}) int {
 			ret := 0
 			var hasDigit, hasMinus, hasPlus bool
 		loop:
-			for _, ch := range val {
+			for _, ch := range v {
 				//
 				// ignore leading spaces
 				if !(hasDigit || hasMinus || hasPlus) {
@@ -303,145 +302,145 @@ func Int(val interface{}) int {
 			return ret
 		}
 	case *string:
-		if val != nil {
-			return Int(*val)
+		if v != nil {
+			return Int(*v)
 		}
 	case fmt.Stringer:
 		{
-			return Int(val.String())
+			return Int(v.String())
 		}
 	case fmt.GoStringer:
 		{
-			return Int(val.GoString())
+			return Int(v.GoString())
 		}
 	// signed integers
 	case int:
 		{
-			return int(val)
+			return int(v)
 		}
 	case int64:
 		{
-			return int(val)
+			return int(v)
 		}
 	case int32:
 		{
-			return int(val)
+			return int(v)
 		}
 	case int16:
 		{
-			return int(val)
+			return int(v)
 		}
 	case int8:
 		{
-			return int(val)
+			return int(v)
 		}
 	// pointers to signed integers
 	case *int:
-		if val != nil {
-			return int(*val)
+		if v != nil {
+			return int(*v)
 		}
 	case *int64:
-		if val != nil {
-			return int(*val)
+		if v != nil {
+			return int(*v)
 		}
 	case *int32:
-		if val != nil {
-			return int(*val)
+		if v != nil {
+			return int(*v)
 		}
 	case *int16:
-		if val != nil {
-			return int(*val)
+		if v != nil {
+			return int(*v)
 		}
 	case *int8:
-		if val != nil {
-			return int(*val)
+		if v != nil {
+			return int(*v)
 		}
 	// unsigned integers
 	case uint:
 		{
-			return int(val)
+			return int(v)
 		}
 	case uint64:
 		{
-			return int(val)
+			return int(v)
 		}
 	case uint32:
 		{
-			return int(val)
+			return int(v)
 		}
 	case uint16:
 		{
-			return int(val)
+			return int(v)
 		}
 	case uint8:
 		{
-			return int(val)
+			return int(v)
 		}
 	// pointers to unsigned integers
 	case *uint:
-		if val != nil {
-			return int(*val)
+		if v != nil {
+			return int(*v)
 		}
 	case *uint64:
-		if val != nil {
-			return int(*val)
+		if v != nil {
+			return int(*v)
 		}
 	case *uint32:
-		if val != nil {
+		if v != nil {
 			// TODO: check for overflow (in other locations too)
-			return int(*val)
+			return int(*v)
 		}
 	case *uint16:
-		if val != nil {
-			return int(*val)
+		if v != nil {
+			return int(*v)
 		}
 	case *uint8:
-		if val != nil {
-			return int(*val)
+		if v != nil {
+			return int(*v)
 		}
 	// floating-point numbers
 	case float64:
 		{
-			if val < -float64(math.MinInt64) || val > float64(math.MaxInt64) {
+			if v < -float64(math.MinInt64) || v > float64(math.MaxInt64) {
 				mod.Error("overflow")
-				if val < 0 {
+				if v < 0 {
 					return math.MinInt32
 				}
 				return math.MaxInt32
 			}
-			return int(val)
+			return int(v)
 		}
 	case float32:
 		{
 			// TODO: find how to find out the limit of int
-			//if val < -float32(CurrencyIntLimit) ||val > float32(m) {
-			//	return currencyOverflow(val < 0, "uint64 overflow:", val)
+			//if v < -float32(CurrencyIntLimit) ||v > float32(m) {
+			//	return currencyOverflow(v < 0, "uint64 overflow:", v)
 			//}
-			return int(val)
+			return int(v)
 		}
 	// pointers to floating-point numbers
 	case *float64:
-		if val != nil {
-			return int(*val)
+		if v != nil {
+			return int(*v)
 		}
 	case *float32:
-		if val != nil {
-			return int(*val)
+		if v != nil {
+			return int(*v)
 		}
 	}
-	mod.Error("Can not convert", reflect.TypeOf(val), "to int:", val)
+	mod.Error("Can not convert", reflect.TypeOf(value), "to int:", value)
 	return 0
 } //                                                                         Int
 
-// IsNumber returns true if 'val' is a number or numeric string,
+// IsNumber returns true if value is a number or numeric string,
 // or false otherwise. It also accepts pointers to numeric types
-// and strings and Stringer. Always returns false if val is nil
+// and strings and Stringer. Always returns false if value is nil
 // or bool, even though Int() can convert bool to 1 or 0.
-func IsNumber(val interface{}) bool {
+func IsNumber(value interface{}) bool {
 	const groupSeparatorChar = ','
 	const decimalPointChar = '.'
 	//
-	switch val := val.(type) {
+	switch v := value.(type) {
 	case int, int64, int32, int16, int8, float64, float32,
 		uint, uint64, uint32, uint16, uint8,
 		*int, *int64, *int32, *int16, *int8, *float64, *float32,
@@ -451,7 +450,7 @@ func IsNumber(val interface{}) bool {
 		}
 	case string:
 		{
-			s := strings.TrimSpace(val)
+			s := strings.TrimSpace(v)
 			if len(s) < 1 {
 				return false
 			}
@@ -494,11 +493,11 @@ func IsNumber(val interface{}) bool {
 			return hasDigit
 		}
 	case *string:
-		if val != nil {
-			return IsNumber(*val)
+		if v != nil {
+			return IsNumber(*v)
 		}
 	case fmt.Stringer:
-		return IsNumber(val.String())
+		return IsNumber(v.String())
 	}
 	return false
 } //                                                                    IsNumber

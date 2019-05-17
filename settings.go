@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-08 11:29:09 4C07B6                               zr/[settings.go]
+// :v: 2019-05-17 10:58:17 829651                               zr/[settings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -12,17 +12,17 @@ package zr
 // # Methods (ob *Settings)
 //   ) GetSetting(name string) string
 //   ) HasSetting(name string) bool
-//   ) SetSetting(name string, val interface{})
+//   ) SetSetting(name string, value interface{})
 //
 // # Extenders (ob *Settings)
 //   ) ExtendGet(
-//       handler func(name, val string, exists bool) string,
+//       handler func(name, value string, exists bool) string,
 //   )
 //   ) ExtendHas(
-//       handler func(name, val string, exists bool) bool,
+//       handler func(name, value string, exists bool) bool,
 //   )
 //   ) ExtendSet(
-//       handler func(name string, old, val interface{}) *string,
+//       handler func(name string, old, value interface{}) *string,
 //   )
 
 import (
@@ -34,16 +34,16 @@ import (
 type SettingsAccessor interface {
 	GetSetting(name string) string
 	HasSetting(name string) bool
-	SetSetting(name string, val interface{})
+	SetSetting(name string, value interface{})
 	Dump()
 } //                                                            SettingsAccessor
 
 // Settings __
 type Settings struct {
 	m         map[string]string
-	extendGet func(name, val string, exists bool) string
-	extendHas func(name, val string, exists bool) bool
-	extendSet func(name string, old, val interface{}) *string
+	extendGet func(name, value string, exists bool) string
+	extendHas func(name, value string, exists bool) bool
+	extendSet func(name string, old, value interface{}) *string
 } //                                                                    Settings
 
 // -----------------------------------------------------------------------------
@@ -56,8 +56,8 @@ func (ob *Settings) Dump() {
 		return
 	}
 	fmt.Println("Dump:", len(ob.m), "settings")
-	for name, val := range ob.m {
-		fmt.Println("name:", name, "value:", val)
+	for name, v := range ob.m {
+		fmt.Println("name:", name, "value:", v)
 	}
 	fmt.Println("end")
 } //                                                                        Dump
@@ -93,15 +93,15 @@ func (ob *Settings) HasSetting(name string) bool {
 		mod.Error(EInvalidArg, "^name")
 		return erv
 	}
-	val, exists := ob.m[name]
+	v, exists := ob.m[name]
 	if ob.extendSet != nil {
-		return ob.extendHas(name, val, exists)
+		return ob.extendHas(name, v, exists)
 	}
 	return exists
 } //                                                                  HasSetting
 
 // SetSetting __
-func (ob *Settings) SetSetting(name string, val interface{}) {
+func (ob *Settings) SetSetting(name string, value interface{}) {
 	if ob == nil {
 		mod.Error(ENilReceiver)
 		return
@@ -114,7 +114,7 @@ func (ob *Settings) SetSetting(name string, val interface{}) {
 	if ob.m == nil {
 		ob.m = map[string]string{}
 	}
-	s := String(val)
+	s := String(value)
 	if ob.extendSet != nil {
 		old := String(ob.m[name])
 		result := ob.extendSet(name, old, s)
@@ -131,7 +131,7 @@ func (ob *Settings) SetSetting(name string, val interface{}) {
 
 // ExtendGet makes 'handler' process every call to GetSetting()
 func (ob *Settings) ExtendGet(
-	handler func(name, val string, exists bool) string,
+	handler func(name, value string, exists bool) string,
 ) {
 	if ob == nil {
 		mod.Error(ENilReceiver)
@@ -142,7 +142,7 @@ func (ob *Settings) ExtendGet(
 
 // ExtendHas makes 'handler' process every call to HasSetting()
 func (ob *Settings) ExtendHas(
-	handler func(name, val string, exists bool) bool,
+	handler func(name, value string, exists bool) bool,
 ) {
 	if ob == nil {
 		mod.Error(ENilReceiver)
@@ -153,7 +153,7 @@ func (ob *Settings) ExtendHas(
 
 // ExtendSet makes 'handle' process every call to SetSetting()
 func (ob *Settings) ExtendSet(
-	handler func(name string, old, val interface{}) *string,
+	handler func(name string, old, value interface{}) *string,
 ) {
 	if ob == nil {
 		mod.Error(ENilReceiver)

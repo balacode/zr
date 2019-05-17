@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-16 17:40:50 FFCD87                                  zr/[debug.go]
+// :v: 2019-05-17 10:58:17 309CB9                                  zr/[debug.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -56,7 +56,7 @@ func ConsumeGB(gigabytes float64) {
 
 // DebugString takes any kind of value and returns a string.
 // Calls itself when describing slices, etc.
-func DebugString(val interface{}, optIndentAt ...int) string {
+func DebugString(value interface{}, optIndentAt ...int) string {
 	var indentAt int
 	switch n := len(optIndentAt); {
 	case n == 1:
@@ -71,7 +71,7 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 		wr     = retBuf.WriteRune
 		ws     = retBuf.WriteString
 	)
-	switch val := val.(type) {
+	switch v := value.(type) {
 	// nil:
 	case nil:
 		{
@@ -79,20 +79,20 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 		}
 	case bool:
 		{
-			if val {
+			if v {
 				return "true"
 			}
 			return "false"
 		}
 	case CaseMode:
 		{
-			if val == IgnoreCase {
+			if v == IgnoreCase {
 				return "IgnoreCase"
 			}
-			if val == MatchCase {
+			if v == MatchCase {
 				return "MatchCase"
 			}
-			return "INVALID" + fmt.Sprintf("%v", val)
+			return "INVALID" + fmt.Sprintf("%v", v)
 		}
 		// delegated to String():
 	case int, int64, int32, int16, int8, float64, float32,
@@ -101,7 +101,7 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 		*uint, *uint64, *uint32, *uint16, *uint8,
 		*bool:
 		{
-			return String(val)
+			return String(v)
 		}
 	// string types:
 	case string:
@@ -109,7 +109,7 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 			vals := []rune{'\a', '\b', '\f', '\n', '\r', 't', '\v'}
 			chars := []rune{'a', 'b', 'f', 'n', 'r', 't', 'v'}
 		mainLoop:
-			for _, ch := range val {
+			for _, ch := range v {
 				for i, cc := range vals {
 					if ch == cc {
 						wr('\\')
@@ -125,48 +125,42 @@ func DebugString(val interface{}, optIndentAt ...int) string {
 			}
 		}
 	case []string:
-		ws(fmt.Sprintf("[%d] ", len(val)))
-		isMany := len(val) > 1
-		for i, val := range val {
+		ws(fmt.Sprintf("[%d] ", len(v)))
+		isMany := len(v) > 1
+		for i, v := range v {
 			if isMany {
 				ws("\n")
 				ws(strings.Repeat(TabSpace, indentAt+1))
 				ws(fmt.Sprintf("%d:", i))
 			}
-			ws(DebugString(val, indentAt))
+			ws(DebugString(v, indentAt))
 		}
 	case [][]string:
-		ws(fmt.Sprintf("[%d] ", len(val)))
-		isMany1 := len(val) > 1
-		for i1, val := range val { // range [][]string
+		ws(fmt.Sprintf("[%d] ", len(v)))
+		isMany1 := len(v) > 1
+		for i1, v := range v { // range [][]string
 			if isMany1 {
 				ws("\n")
 				ws(strings.Repeat(TabSpace, indentAt+1))
 			}
-			isMany2 := len(val) > 1
-			ws(fmt.Sprintf("%d: [%d]", i1, len(val)))
-			for i2, val := range val { // range []string
+			isMany2 := len(v) > 1
+			ws(fmt.Sprintf("%d: [%d]", i1, len(v)))
+			for i2, v := range v { // range []string
 				if isMany2 {
 					ws("\n")
 					ws(strings.Repeat(" ", indentAt+2))
 				}
 				ws(fmt.Sprintf(" %d:", i2))
-				ws(DebugString(val, indentAt+3)) // string
+				ws(DebugString(v, indentAt+3)) // string
 			}
 		}
 	case []byte:
 		{
-			ws(fmt.Sprintf("[%d] ", len(val)))
+			ws(fmt.Sprintf("[%d] ", len(v)))
 		}
 	default:
-		// TODO: remove this code later
-		a := fmt.Sprintf("%v", val)
-		b := fmt.Sprint(val)
-		if a != b {
-			fmt.Printf("Sprintf->%q Sprint->%q %s", a, b, Callers())
-		}
-		mod.Error("Type", reflect.TypeOf(val), "not handled; =", val)
-		return "(" + fmt.Sprint(val) + ")"
+		mod.Error("Type", reflect.TypeOf(value), "not handled; =", value)
+		return "(" + fmt.Sprint(value) + ")"
 	}
 	return retBuf.String()
 } //                                                                 DebugString
@@ -183,8 +177,8 @@ func DV(label string, values ...interface{}) {
 		return
 	}
 	fmt.Print(label)
-	for _, val := range values {
-		typeName := "<" + reflect.TypeOf(val).String() + ">"
+	for _, v := range values {
+		typeName := "<" + reflect.TypeOf(v).String() + ">"
 		changeType := func(find, repl string) {
 			for strings.Contains(typeName, find) {
 				typeName = strings.Replace(typeName, find, repl, -1)
@@ -194,7 +188,7 @@ func DV(label string, values ...interface{}) {
 		changeType("byte", "b")
 		changeType("int", "i")
 		changeType("string", "s")
-		fmt.Print(" " + typeName + ": " + DebugString(val, 0))
+		fmt.Print(" " + typeName + ": " + DebugString(v, 0))
 	}
 	fmt.Println()
 } //                                                                          DV

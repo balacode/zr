@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:33 F7BAF1                             zr/[dates_test.go]
+// :v: 2019-05-17 10:58:17 E29E24                             zr/[dates_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -293,13 +293,13 @@ func Test_date_IsDateOnly_(t *testing.T) {
 // go test --run Test_date_IsDate_
 func Test_date_IsDate_(t *testing.T) {
 	TBegin(t)
-	// IsDate(val interface{}) bool
+	// IsDate(value interface{}) bool
 	//
-	test := func(val interface{}, expect bool) {
-		got := IsDate(val)
+	test := func(value interface{}, expect bool) {
+		got := IsDate(value)
 		if got != expect {
 			t.Errorf("IsDate(%s) returned %v instead of %v",
-				val, got, expect)
+				value, got, expect)
 		}
 	}
 	// false

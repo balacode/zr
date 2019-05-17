@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-15 01:41:01 DEEA8D                           zr/[strings_test.go]
+// :v: 2019-05-17 10:58:17 94303F                           zr/[strings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -1067,7 +1067,7 @@ func Test_strs_StrOneOf_(t *testing.T) {
 // go test --run Test_strs_String_
 func Test_strs_String_(t *testing.T) {
 	TBegin(t)
-	// String(val interface{}) string
+	// String(value interface{}) string
 	//
 	test := func(input interface{}, expect string) {
 		got := String(input)

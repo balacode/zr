@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:42:34 CC0534                          zr/[currency_test.go]
+// :v: 2019-05-17 10:58:17 42387C                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -104,7 +104,7 @@ import (
 func Test_crcy_CurrencyOf_(t *testing.T) {
 	TBegin(t)
 	//
-	// CurrencyOf(val interface{}) Currency
+	// CurrencyOf(value interface{}) Currency
 	//
 	const cur4d = 10000 // reserved 4 decimal places
 	test := func(input interface{}, expect Currency) {
@@ -1070,11 +1070,11 @@ func Test_crcy_Currency_IsEqual_(t *testing.T) {
 	TBegin(t)
 	// (ob Currency) IsEqual() bool
 	//
-	test := func(ob, val Currency, expect bool) {
-		got := ob.IsEqual(val)
+	test := func(ob, n Currency, expect bool) {
+		got := ob.IsEqual(n)
 		if got != expect {
 			TFail(
-				t, `(`, ob, `).IsEqual(`, val, `)`,
+				t, `(`, ob, `).IsEqual(`, n, `)`,
 				` returned `, got, `. must be `, expect,
 			)
 		}
@@ -1324,8 +1324,8 @@ func Test_crcy_currencyOverflow_(t *testing.T) {
 // '[]Currency{Currency{10000}, Currency{20000}, Currency{30000}}'
 // you can just use 'arC(1, 2, 3)'.
 func arC(ar ...interface{}) (ret []Currency) {
-	for _, val := range ar {
-		ret = append(ret, cur(val))
+	for _, v := range ar {
+		ret = append(ret, cur(v))
 	}
 	return ret
 } //                                                                         arC
@@ -1334,8 +1334,8 @@ func arC(ar ...interface{}) (ret []Currency) {
 // That is, instead of having to specify '[]float64{1.0, 2.0, 3.0}'
 // you can just use 'arF(1.0, 2.0, 3.0)'.
 func arF(ar ...interface{}) (ret []float64) {
-	for _, val := range ar {
-		ret = append(ret, Float64(val))
+	for _, v := range ar {
+		ret = append(ret, Float64(v))
 	}
 	return ret
 } //                                                                         arF
@@ -1344,8 +1344,8 @@ func arF(ar ...interface{}) (ret []float64) {
 // That is, instead of having to specify '[]int{1, 2, 3}'
 // you can just use 'arI(1, 2, 3)'.
 func arI(ar ...interface{}) (ret []int) {
-	for _, val := range ar {
-		ret = append(ret, Int(val))
+	for _, v := range ar {
+		ret = append(ret, Int(v))
 	}
 	return ret
 } //                                                                         arI

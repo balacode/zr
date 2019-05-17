@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:33 6A1384                          zr/[settings_test.go]
+// :v: 2019-05-17 10:58:17 770879                          zr/[settings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -117,7 +117,7 @@ func Test_sett_Settings_HasSetting_(t *testing.T) {
 // go test --run Test_sett_Settings_SetSetting_
 func Test_sett_Settings_SetSetting_(t *testing.T) {
 	TBegin(t)
-	// (ob *Settings) SetSetting(name string, val interface{})
+	// (ob *Settings) SetSetting(name string, value interface{})
 	//
 	{
 		// method call on a nil receiver must log an error
@@ -160,7 +160,7 @@ func Test_sett_Settings_SetSetting_(t *testing.T) {
 func Test_sett_Settings_ExtendGet_(t *testing.T) {
 	TBegin(t)
 	// (ob *Settings) ExtendGet(
-	//     handler func(name, val string, exists bool) string,
+	//     handler func(name, value string, exists bool) string,
 	// )
 	{
 		// method call on a nil receiver must log an error
@@ -179,7 +179,7 @@ func Test_sett_Settings_ExtendGet_(t *testing.T) {
 func Test_sett_Settings_ExtendHas_(t *testing.T) {
 	TBegin(t)
 	// (ob *Settings) ExtendHas(
-	//     handler func(name, val string, exists bool) bool,
+	//     handler func(name, value string, exists bool) bool,
 	// )
 	{
 		// method call on a nil receiver must log an error
@@ -198,7 +198,7 @@ func Test_sett_Settings_ExtendHas_(t *testing.T) {
 func Test_sett_Settings_ExtendSet_(t *testing.T) {
 	TBegin(t)
 	// (ob *Settings) ExtendSet(
-	//     handler func(name string, old, val interface{}) *string,
+	//     handler func(name string, old, value interface{}) *string,
 	// )
 	{
 		// method call on a nil receiver must log an error

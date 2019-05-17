@@ -1,12 +1,12 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-16 17:40:50 A872D5                                   zr/[uuid.go]
+// :v: 2019-05-17 10:58:17 F24916                                   zr/[uuid.go]
 // -----------------------------------------------------------------------------
 
 package zr
 
 // # Functions
-//   IsUUID(val interface{}) bool
+//   IsUUID(value interface{}) bool
 //   UUID() string
 
 import (
@@ -20,19 +20,19 @@ import (
 
 // IsUUID returns true if the given string is a well-formed UUID string.
 // It accepts both the standard UUID with '-' and the shortened 32-character
-// UUID. If the type of 'val' is not a string, string pointer or Stringer
+// UUID. If the type of value is not a string, string pointer or Stringer
 // interface, returns false.
-func IsUUID(val interface{}) bool {
-	switch val := val.(type) {
+func IsUUID(value interface{}) bool {
+	switch v := value.(type) {
 	case string:
 		{
-			for strings.Contains(val, "-") {
-				val = strings.Replace(val, "-", "", -1)
+			for strings.Contains(v, "-") {
+				v = strings.Replace(v, "-", "", -1)
 			}
-			if len(val) != 32 {
+			if len(v) != 32 {
 				return false
 			}
-			for i, ch := range val {
+			for i, ch := range v {
 				if (i == 12 && ch != '4') ||
 					(i == 16 &&
 						(ch != '8' && ch != '9' &&
@@ -50,11 +50,11 @@ func IsUUID(val interface{}) bool {
 		}
 	case fmt.Stringer:
 		{
-			return IsUUID(val.String())
+			return IsUUID(v.String())
 		}
 	case *string:
-		if val != nil {
-			return IsUUID(*val)
+		if v != nil {
+			return IsUUID(*v)
 		}
 	}
 	return false

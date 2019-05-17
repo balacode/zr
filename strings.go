@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-16 17:40:50 1D36FA                                zr/[strings.go]
+// :v: 2019-05-17 10:58:17 5049FB                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -50,7 +50,7 @@ package zr
 //   Slice(s string, beginIndex, endIndex int) string
 //   SplitQuoted(s string) []string
 //   StrOneOf(s string, matches ...string) bool
-//   String(val interface{}) string
+//   String(value interface{}) string
 //   Substr(s string, charIndex, charCount int) string
 //       // TODO: ^beginIndex, endIndex. Why Substr when there's Slice()?
 //   TitleCase(s string) string
@@ -1160,19 +1160,19 @@ func StrOneOf(s string, matches ...string) bool {
 	return false
 } //                                                                    StrOneOf
 
-// String converts 'val' to a string.
-func String(val interface{}) string {
-	switch val := val.(type) {
+// String converts 'v' to a string.
+func String(value interface{}) string {
+	switch v := value.(type) {
 	case bool:
 		{
-			if val {
+			if v {
 				return "true"
 			}
 			return "false"
 		}
 	case float64, float32:
 		{
-			ret := fmt.Sprintf("%f", val)
+			ret := fmt.Sprintf("%f", v)
 			if strings.Contains(ret, ".") {
 				ret = strings.TrimRight(ret, "0")
 				ret = strings.TrimRight(ret, ".")
@@ -1181,23 +1181,23 @@ func String(val interface{}) string {
 		}
 	case int:
 		{
-			return strconv.Itoa(val)
+			return strconv.Itoa(v)
 		}
 	case int64, int32, int16, int8:
 		{
-			return fmt.Sprintf("%d", val)
+			return fmt.Sprintf("%d", v)
 		}
 	case string:
 		{
-			return val
+			return v
 		}
 	case uint, uint64, uint32, uint16, uint8:
 		{
-			return fmt.Sprintf("%d", val)
+			return fmt.Sprintf("%d", v)
 		}
 	case fmt.Stringer:
 		{
-			return val.String()
+			return v.String()
 		}
 	case nil:
 		{
@@ -1205,63 +1205,63 @@ func String(val interface{}) string {
 		}
 	// pointer types:
 	case *bool:
-		if val != nil {
-			return String(*val)
+		if v != nil {
+			return String(*v)
 		}
 	case *float64:
-		if val != nil {
-			return String(*val)
+		if v != nil {
+			return String(*v)
 		}
 	case *float32:
-		if val != nil {
-			return String(*val)
+		if v != nil {
+			return String(*v)
 		}
 	case *int:
-		if val != nil {
-			return String(*val)
+		if v != nil {
+			return String(*v)
 		}
 	case *int64:
-		if val != nil {
-			return String(*val)
+		if v != nil {
+			return String(*v)
 		}
 	case *int32:
-		if val != nil {
-			return String(*val)
+		if v != nil {
+			return String(*v)
 		}
 	case *int16:
-		if val != nil {
-			return String(*val)
+		if v != nil {
+			return String(*v)
 		}
 	case *int8:
-		if val != nil {
-			return String(*val)
+		if v != nil {
+			return String(*v)
 		}
 	case *string:
-		if val != nil {
-			return String(*val)
+		if v != nil {
+			return String(*v)
 		}
 	case *uint:
-		if val != nil {
-			return String(*val)
+		if v != nil {
+			return String(*v)
 		}
 	case *uint64:
-		if val != nil {
-			return String(*val)
+		if v != nil {
+			return String(*v)
 		}
 	case *uint32:
-		if val != nil {
-			return String(*val)
+		if v != nil {
+			return String(*v)
 		}
 	case *uint16:
-		if val != nil {
-			return String(*val)
+		if v != nil {
+			return String(*v)
 		}
 	case *uint8:
-		if val != nil {
-			return String(*val)
+		if v != nil {
+			return String(*v)
 		}
 	}
-	mod.Error("Type", reflect.TypeOf(val), "not handled; =", val)
+	mod.Error("Type", reflect.TypeOf(value), "not handled; =", value)
 	return ""
 } //                                                                      String
 
