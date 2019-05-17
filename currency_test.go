@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:58:17 42387C                          zr/[currency_test.go]
+// :v: 2019-05-17 11:21:57 B13156                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -551,11 +551,11 @@ func Test_crcy_Currency_String_(t *testing.T) {
 func Test_crcy_Currency_Div_(t *testing.T) {
 	TBegin(t)
 	//
-	// (ob Currency) Div(divide ...Currency) Currency
+	// (ob Currency) Div(nums... Currency) Currency
 	//
-	test := func(ob Currency, divide []Currency, expect Currency) {
+	test := func(ob Currency, nums []Currency, expect Currency) {
 		init := ob
-		for _, n := range divide {
+		for _, n := range nums {
 			old := ob
 			got := ob.Div(n)
 			// object of invoked method must not change
@@ -566,7 +566,7 @@ func Test_crcy_Currency_Div_(t *testing.T) {
 		}
 		if ob.i64 != expect.i64 {
 			TFail(t,
-				`(`, init, `).Div(`, divide, `)`,
+				`(`, init, `).Div(`, nums, `)`,
 				` returned `, ob, `. must be `, expect,
 			)
 		}
@@ -578,10 +578,10 @@ func Test_crcy_Currency_Div_(t *testing.T) {
 // go test --run Test_crcy_Currency_DivFloat_
 func Test_crcy_Currency_DivFloat_(t *testing.T) {
 	TBegin(t)
-	// (ob Currency) DivFloat(divide ...float64) Currency
+	// (ob Currency) DivFloat(nums...float64) Currency
 	//
-	test := func(ob Currency, divide []float64, expect Currency) {
-		curFloatOpTest(t, "DivFloat", ob.DivFloat, ob, divide, expect, 0)
+	test := func(ob Currency, nums []float64, expect Currency) {
+		curFloatOpTest(t, "DivFloat", ob.DivFloat, ob, nums, expect, 0)
 	}
 	//           12345.6789 / 1.0  =            12345.6789
 	test(Currency{123456789}, arF(1.0), Currency{123456789})
@@ -592,9 +592,9 @@ func Test_crcy_Currency_DivFloat_(t *testing.T) {
 
 // go test --run Test_crcy_Currency_DivInt_
 func Test_crcy_Currency_DivInt_(t *testing.T) {
-	// (ob Currency) DivInt(divide ...int) Currency
-	test := func(ob Currency, divide []int, expect Currency) {
-		curIntOpTest(t, "DivInt", ob.DivInt, ob, divide, expect, 0)
+	// (ob Currency) DivInt(nums...int) Currency
+	test := func(ob Currency, nums []int, expect Currency) {
+		curIntOpTest(t, "DivInt", ob.DivInt, ob, nums, expect, 0)
 	}
 	TBegin(t)
 	//
@@ -613,10 +613,10 @@ func Test_crcy_Currency_DivInt_(t *testing.T) {
 // go test --run Test_crcy_Currency_Mul_
 func Test_crcy_Currency_Mul_(t *testing.T) {
 	TBegin(t)
-	// (ob Currency) Mul(multiply ...Currency) Currency
+	// (ob Currency) Mul(nums... Currency) Currency
 	//
-	test := func(ob Currency, multiply []Currency, expect Currency) {
-		curOpTest(t, "Mul", ob.Mul, ob, multiply, expect, 0)
+	test := func(ob Currency, nums []Currency, expect Currency) {
+		curOpTest(t, "Mul", ob.Mul, ob, nums, expect, 0)
 	}
 	test(cur(0), arC(0), cur(0))
 	test(cur(1), arC(1), cur(1))
@@ -632,8 +632,8 @@ func Test_crcy_Currency_Mul_(t *testing.T) {
 	//
 	// tests that cause overflow
 	DisableErrors()
-	test = func(ob Currency, multiply []Currency, expect Currency) {
-		curOpTest(t, "Mul", ob.Mul, ob, multiply, expect, 1)
+	test = func(ob Currency, nums []Currency, expect Currency) {
+		curOpTest(t, "Mul", ob.Mul, ob, nums, expect, 1)
 	}
 	//
 	// overflow: the result fits in int64, but not in acceptable Currency range
@@ -657,10 +657,10 @@ func Test_crcy_Currency_Mul_(t *testing.T) {
 // go test --run Test_crcy_Currency_MulFloat_
 func Test_crcy_Currency_MulFloat_(t *testing.T) {
 	TBegin(t)
-	// (ob Currency) MulFloat(multiply ...float64) Currency
+	// (ob Currency) MulFloat(nums...float64) Currency
 	//
-	test := func(ob Currency, add []float64, expect Currency) {
-		curFloatOpTest(t, "MulFloat", ob.MulFloat, ob, add, expect, 0)
+	test := func(ob Currency, nums []float64, expect Currency) {
+		curFloatOpTest(t, "MulFloat", ob.MulFloat, ob, nums, expect, 0)
 	}
 	//            0   *   1.0   =        0
 	test(Currency{0}, arF(1.0), Currency{0})
@@ -693,8 +693,8 @@ func Test_crcy_Currency_MulFloat_(t *testing.T) {
 	//
 	// overflow
 	DisableErrors()
-	test = func(ob Currency, add []float64, expect Currency) {
-		curFloatOpTest(t, "MulFloat", ob.MulFloat, ob, add, expect, 1)
+	test = func(ob Currency, nums []float64, expect Currency) {
+		curFloatOpTest(t, "MulFloat", ob.MulFloat, ob, nums, expect, 1)
 	}
 	test(cur(1), arF(1e20), Currency{math.MaxInt64})
 	test(cur(123), arF(float64(MaxCurrencyI64)), Currency{math.MaxInt64})
@@ -704,9 +704,9 @@ func Test_crcy_Currency_MulFloat_(t *testing.T) {
 
 // go test --run Test_crcy_Currency_MulInt_
 func Test_crcy_Currency_MulInt_(t *testing.T) {
-	// (ob Currency) MulInt(multiply ...int) Currency
-	test := func(ob Currency, multiply []int, expect Currency) {
-		curIntOpTest(t, "MulInt", ob.MulInt, ob, multiply, expect, 0)
+	// (ob Currency) MulInt(nums...int) Currency
+	test := func(ob Currency, nums []int, expect Currency) {
+		curIntOpTest(t, "MulInt", ob.MulInt, ob, nums, expect, 0)
 	}
 	//            0   *   1   =        0
 	test(Currency{0}, arI(1), Currency{0})
@@ -730,10 +730,10 @@ func Test_crcy_Currency_MulInt_(t *testing.T) {
 // go test --run Test_crcy_Currency_Add_
 func Test_crcy_Currency_Add_(t *testing.T) {
 	TBegin(t)
-	// (ob Currency) Add(add ...Currency) Currency
+	// (ob Currency) Add(nums... Currency) Currency
 	//
-	test := func(ob Currency, add []Currency, expect Currency) {
-		curOpTest(t, "Add", ob.Add, ob, add, expect, 0)
+	test := func(ob Currency, nums []Currency, expect Currency) {
+		curOpTest(t, "Add", ob.Add, ob, nums, expect, 0)
 	}
 	// test additions within range of Currency:
 	test(cur(0), arC(0), cur(0))
@@ -803,8 +803,8 @@ func Test_crcy_Currency_Add_(t *testing.T) {
 	)
 	// test additions that will overflow Currency:
 	DisableErrors()
-	test = func(ob Currency, add []Currency, expect Currency) {
-		curOpTest(t, "Add", ob.Add, ob, add, expect, 1)
+	test = func(ob Currency, nums []Currency, expect Currency) {
+		curOpTest(t, "Add", ob.Add, ob, nums, expect, 1)
 	}
 	// adding -0.0001 to the smallest number must overflow
 	test(
@@ -836,10 +836,10 @@ func Test_crcy_Currency_Add_(t *testing.T) {
 // go test --run Test_crcy_Currency_AddFloat_
 func Test_crcy_Currency_AddFloat_(t *testing.T) {
 	TBegin(t)
-	// (ob Currency) AddFloat(add ...float64) Currency
+	// (ob Currency) AddFloat(nums...float64) Currency
 	//
-	test := func(ob Currency, add []float64, expect Currency) {
-		curFloatOpTest(t, "AddFloat", ob.AddFloat, ob, add, expect, 0)
+	test := func(ob Currency, nums []float64, expect Currency) {
+		curFloatOpTest(t, "AddFloat", ob.AddFloat, ob, nums, expect, 0)
 	}
 	test(cur(0), arF(0), cur(0))
 	test(cur(1), arF(1), cur(2))
@@ -849,8 +849,8 @@ func Test_crcy_Currency_AddFloat_(t *testing.T) {
 	//
 	// must overflow
 	DisableErrors()
-	test = func(ob Currency, add []float64, expect Currency) {
-		curFloatOpTest(t, "AddFloat", ob.AddFloat, ob, add, expect, 1)
+	test = func(ob Currency, nums []float64, expect Currency) {
+		curFloatOpTest(t, "AddFloat", ob.AddFloat, ob, nums, expect, 1)
 	}
 	test(cur(1), arF(1e30), Currency{math.MaxInt64})
 	EnableErrors()
@@ -858,9 +858,9 @@ func Test_crcy_Currency_AddFloat_(t *testing.T) {
 
 // go test --run Test_crcy_Currency_AddInt_
 func Test_crcy_Currency_AddInt_(t *testing.T) {
-	// (ob Currency) AddInt(add ...int) Currency
-	test := func(ob Currency, add []int, expect Currency) {
-		curIntOpTest(t, "AddInt", ob.AddInt, ob, add, expect, 0)
+	// (ob Currency) AddInt(nums...int) Currency
+	test := func(ob Currency, nums []int, expect Currency) {
+		curIntOpTest(t, "AddInt", ob.AddInt, ob, nums, expect, 0)
 	}
 	test(cur(0), arI(0), cur(0))
 } //                                                  Test_crcy_Currency_AddInt_
@@ -871,10 +871,10 @@ func Test_crcy_Currency_AddInt_(t *testing.T) {
 // go test --run Test_crcy_Currency_Sub_
 func Test_crcy_Currency_Sub_(t *testing.T) {
 	TBegin(t)
-	// (ob Currency) Sub(subtract ...Currency) Currency
+	// (ob Currency) Sub(nums... Currency) Currency
 	//
-	test := func(ob Currency, subtract []Currency, expect Currency) {
-		curOpTest(t, "Sub", ob.Sub, ob, subtract, expect, 0)
+	test := func(ob Currency, nums []Currency, expect Currency) {
+		curOpTest(t, "Sub", ob.Sub, ob, nums, expect, 0)
 	}
 	//
 	// test subtractions within range of Currency:
@@ -949,8 +949,8 @@ func Test_crcy_Currency_Sub_(t *testing.T) {
 	)
 	// test subtraction that will overflow Currency:
 	DisableErrors()
-	test = func(ob Currency, subtract []Currency, expect Currency) {
-		curOpTest(t, "Sub", ob.Sub, ob, subtract, expect, 1)
+	test = func(ob Currency, nums []Currency, expect Currency) {
+		curOpTest(t, "Sub", ob.Sub, ob, nums, expect, 1)
 	}
 	// subtracting 0.0001 from the smallest number must overflow
 	test(
@@ -982,10 +982,10 @@ func Test_crcy_Currency_Sub_(t *testing.T) {
 // go test --run Test_crcy_Currency_SubFloat_
 func Test_crcy_Currency_SubFloat_(t *testing.T) {
 	TBegin(t)
-	// (ob Currency) SubFloat(subtract ...float64) Currency
+	// (ob Currency) SubFloat(nums...float64) Currency
 	//
-	test := func(ob Currency, subtract []float64, expect Currency) {
-		curFloatOpTest(t, "SubFloat", ob.SubFloat, ob, subtract, expect, 0)
+	test := func(ob Currency, nums []float64, expect Currency) {
+		curFloatOpTest(t, "SubFloat", ob.SubFloat, ob, nums, expect, 0)
 	}
 	test(cur(0), arF(0), cur(0))
 } //                                                Test_crcy_Currency_SubFloat_
@@ -993,10 +993,10 @@ func Test_crcy_Currency_SubFloat_(t *testing.T) {
 // go test --run Test_crcy_Currency_SubInt_
 func Test_crcy_Currency_SubInt_(t *testing.T) {
 	TBegin(t)
-	// (ob Currency) SubInt(subtract ...int) Currency
+	// (ob Currency) SubInt(nums...int) Currency
 	//
-	test := func(ob Currency, subtract []int, expect Currency) {
-		curIntOpTest(t, "SubInt", ob.SubInt, ob, subtract, expect, 0)
+	test := func(ob Currency, nums []int, expect Currency) {
+		curIntOpTest(t, "SubInt", ob.SubInt, ob, nums, expect, 0)
 	}
 	test(cur(0), arI(0), cur(0))
 	// TODO: more unit test cases

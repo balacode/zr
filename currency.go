@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:58:17 6ECF67                               zr/[currency.go]
+// :v: 2019-05-17 11:21:57 BEAE31                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -16,7 +16,7 @@ package zr
 // # Currency Factories:
 //   CurrencyOf(value interface{}) Currency
 //   CurrencyOfS(s string) Currency
-//   CurrencyRaw(raw int64) Currency
+//   CurrencyRaw(i64 int64) Currency
 //
 // # String Output:
 //   (ob Currency) GoString() string
@@ -25,24 +25,24 @@ package zr
 //   (ob Currency) String() string
 //
 // # Division:
-//   (ob Currency) Div(divide ...Currency) Currency
-//   (ob Currency) DivFloat(divide ...float64) Currency
-//   (ob Currency) DivInt(divide ...int) Currency
+//   (ob Currency) Div(nums... Currency) Currency
+//   (ob Currency) DivFloat(nums...float64) Currency
+//   (ob Currency) DivInt(nums...int) Currency
 //
 // # Multiplication:
-//   (ob Currency) Mul(multiply ...Currency) Currency
-//   (ob Currency) MulFloat(multiply ...float64) Currency
-//   (ob Currency) MulInt(multiply ...int) Currency
+//   (ob Currency) Mul(nums... Currency) Currency
+//   (ob Currency) MulFloat(nums...float64) Currency
+//   (ob Currency) MulInt(nums...int) Currency
 //
 // # Addition:
-//   (ob Currency) Add(add ...Currency) Currency
-//   (ob Currency) AddFloat(add ...float64) Currency
-//   (ob Currency) AddInt(add ...int) Currency
+//   (ob Currency) Add(nums... Currency) Currency
+//   (ob Currency) AddFloat(nums...float64) Currency
+//   (ob Currency) AddInt(nums...int) Currency
 //
 // # Subtraction:
-//   (ob Currency) Sub(subtract ...Currency) Currency
-//   (ob Currency) SubFloat(subtract ...float64) Currency
-//   (ob Currency) SubInt(subtract ...int) Currency
+//   (ob Currency) Sub(nums... Currency) Currency
+//   (ob Currency) SubFloat(nums...float64) Currency
+//   (ob Currency) SubInt(nums...int) Currency
 //
 // # Information:
 //   (ob Currency) Float64() float64
@@ -304,9 +304,9 @@ func CurrencyOfS(s string) Currency {
 
 // CurrencyRaw initializes a currency value from a scaled 64-bit integer.
 // The decimal point is moved left 4 decimal places.
-// For example, a raw value of 15500 results in a currency value of 1.55
-func CurrencyRaw(raw int64) Currency {
-	return Currency{i64: raw}
+// For example, a i64 value of 15500 results in a currency value of 1.55
+func CurrencyRaw(i64 int64) Currency {
+	return Currency{i64: i64}
 } //                                                                 CurrencyRaw
 
 // -----------------------------------------------------------------------------
@@ -358,16 +358,16 @@ func (ob Currency) Fmt(decimalPlaces int) string {
 			digits = 3
 		}
 		for power > 0 {
-			n := intPart / power
-			if n > 0 {
+			x := intPart / power
+			if x > 0 {
 				write = true
 			}
-			intPart -= n * power
+			intPart -= x * power
 			power /= 10
 			if !write {
 				continue
 			}
-			wr(rune(n + 48))
+			wr(rune(x + 48))
 			digits--
 			if power > 0 && digits <= 0 {
 				ws(",")
@@ -387,13 +387,13 @@ func (ob Currency) Fmt(decimalPlaces int) string {
 		}
 		for decimalPlaces > 0 {
 			decimalPlaces--
-			n := int64(0)
+			x := int64(0)
 			if power > 0 {
-				n = decPart / power
-				decPart -= n * power
+				x = decPart / power
+				decPart -= x * power
 				power /= 10
 			}
-			wr(rune(n + 48))
+			wr(rune(x + 48))
 			if unfixed && decPart == 0 {
 				break
 			}
@@ -431,13 +431,13 @@ func (ob Currency) Fmt(decimalPlaces int) string {
 //          (11.02,"Euro")          "Eleven Euros"
 //          (11.02,"Pound;;;Pence") "Eleven Pounds and Two Pence"
 func (ob Currency) InWordsEN(fmt string) string {
-	n := ob.i64
-	if n < 0 {
-		n = -ob.i64
+	i := ob.i64
+	if i < 0 {
+		i = -ob.i64
 	}
 	var (
-		bigUnits = n / cur4d
-		smlUnits = (n - bigUnits*cur4d) / 100
+		bigUnits = i / cur4d
+		smlUnits = (i - bigUnits*cur4d) / 100
 		hasOnly  = strings.HasSuffix(strings.ToLower(fmt), "only")
 	)
 	if hasOnly {
@@ -531,30 +531,30 @@ func (ob Currency) String() string {
 
 // Div divides a currency object by one or more currency values
 // and returns the result. The object's value isn't changed.
-func (ob Currency) Div(divide ...Currency) Currency {
-	for _, n := range divide {
+func (ob Currency) Div(nums ...Currency) Currency {
+	for _, num := range nums {
 		ob.i64 *= cur4d
-		ob.i64 /= n.i64
+		ob.i64 /= num.i64
 	}
 	return ob
 } //                                                                         Div
 
 // DivFloat divides a currency object by one or more floating-point
 // numbers and returns the result. The object's value isn't changed.
-func (ob Currency) DivFloat(divide ...float64) Currency {
-	for _, n := range divide {
+func (ob Currency) DivFloat(nums ...float64) Currency {
+	for _, num := range nums {
 		ob.i64 *= cur4d
-		ob.i64 /= int64(n * cur4d)
+		ob.i64 /= int64(num * cur4d)
 	}
 	return ob
 } //                                                                    DivFloat
 
 // DivInt divides a currency object by one or more integer values
 // and returns the result. The object's value isn't changed.
-func (ob Currency) DivInt(divide ...int) Currency {
-	for _, val := range divide {
+func (ob Currency) DivInt(nums ...int) Currency {
+	for _, num := range nums {
 		ob.i64 *= cur4d
-		ob.i64 /= (int64(val) * cur4d)
+		ob.i64 /= (int64(num) * cur4d)
 	}
 	return ob
 } //                                                                      DivInt
@@ -564,11 +564,11 @@ func (ob Currency) DivInt(divide ...int) Currency {
 
 // Mul multiplies a currency object by one or more currency values
 // and returns the result. The object's value isn't changed.
-func (ob Currency) Mul(multiply ...Currency) Currency {
-	for _, cur := range multiply {
+func (ob Currency) Mul(nums ...Currency) Currency {
+	for _, num := range nums {
 		var (
 			a = ob.i64
-			b = cur.i64
+			b = num.i64
 		)
 		// return zero if either number is zero
 		if a == 0 || b == 0 {
@@ -580,17 +580,17 @@ func (ob Currency) Mul(multiply ...Currency) Currency {
 			lim = -lim
 		}
 		if b >= lim || b <= -lim {
-			n := big.NewInt(a)
-			n.Mul(n, big.NewInt(b))
-			n.Div(n, bigCur4d)
+			x := big.NewInt(a)
+			x.Mul(x, big.NewInt(b))
+			x.Div(x, bigCur4d)
 			//
 			// if result can't be stored in Currency, return overflow
 			//
 			// TODO: IsInt64() is not available in older Go versions ``
-			overflow := !n.IsInt64()
+			overflow := !x.IsInt64()
 			var ret int64
 			if !overflow {
-				ret = n.Int64()
+				ret = x.Int64()
 				if ret < MinCurrencyI64 || ret > MaxCurrencyI64 {
 					overflow = true
 				}
@@ -598,7 +598,7 @@ func (ob Currency) Mul(multiply ...Currency) Currency {
 			if overflow {
 				return currencyOverflow(
 					(a < 0 || b < 0) && (a > 0 || b > 0),
-					EOverflow, ": ", a, " * ", b, " = ", n,
+					EOverflow, ": ", a, " * ", b, " = ", x,
 				)
 			}
 			return Currency{ret}
@@ -610,9 +610,9 @@ func (ob Currency) Mul(multiply ...Currency) Currency {
 
 // MulFloat multiplies a currency object by one or more floating-point
 // numbers and returns the result. The object's value isn't changed.
-func (ob Currency) MulFloat(multiply ...float64) Currency {
+func (ob Currency) MulFloat(nums ...float64) Currency {
 	a := float64(ob.i64)
-	for _, b := range multiply {
+	for _, b := range nums {
 		// check for negative or positive overflow
 		lim := MaxCurrencyI64 / a
 		if lim < 0 {
@@ -632,9 +632,9 @@ func (ob Currency) MulFloat(multiply ...float64) Currency {
 
 // MulInt multiplies a currency object by one or more integer values
 // and returns the result. The object's value isn't changed.
-func (ob Currency) MulInt(multiply ...int) Currency {
-	for _, n := range multiply {
-		ob = ob.Mul(Currency{int64(n * cur4d)})
+func (ob Currency) MulInt(nums ...int) Currency {
+	for _, num := range nums {
+		ob = ob.Mul(Currency{int64(num * cur4d)})
 	}
 	return ob
 } //                                                                      MulInt
@@ -646,11 +646,11 @@ func (ob Currency) MulInt(multiply ...int) Currency {
 // The value in the object to which this method is applied isn't changed.
 // If there is an overflow, sets the Currency's internal value to
 // math.MinInt64 or math.MaxInt64 depending on if the result is negative.
-func (ob Currency) Add(add ...Currency) Currency {
-	for _, itm := range add {
+func (ob Currency) Add(nums ...Currency) Currency {
+	for _, num := range nums {
 		var (
 			a = ob.i64
-			b = itm.i64
+			b = num.i64
 			c = a + b
 		)
 		// check for overflow
@@ -667,10 +667,10 @@ func (ob Currency) Add(add ...Currency) Currency {
 
 // AddFloat adds one or more floating-point numbers to a currency
 // object and returns the result. The object's value isn't changed.
-func (ob Currency) AddFloat(add ...float64) Currency {
+func (ob Currency) AddFloat(nums ...float64) Currency {
 	const lim float64 = math.MaxInt64 / cur4d
 	a := ob.i64
-	for _, b := range add {
+	for _, b := range nums {
 		//
 		// check for overflow
 		if b < -lim || b > lim {
@@ -687,9 +687,9 @@ func (ob Currency) AddFloat(add ...float64) Currency {
 
 // AddInt adds one or more integer values to a currency object
 // and returns the result. The object's value isn't changed.
-func (ob Currency) AddInt(add ...int) Currency {
-	for _, n := range add {
-		ob = ob.Add(Currency{int64(n) * cur4d})
+func (ob Currency) AddInt(nums ...int) Currency {
+	for _, num := range nums {
+		ob = ob.Add(Currency{int64(num) * cur4d})
 	}
 	return ob
 } //                                                                      AddInt
@@ -699,11 +699,11 @@ func (ob Currency) AddInt(add ...int) Currency {
 
 // Sub subtracts one or more currency values from a currency object
 // and returns the result. The object's value isn't changed.
-func (ob Currency) Sub(subtract ...Currency) Currency {
-	for _, n := range subtract {
+func (ob Currency) Sub(nums ...Currency) Currency {
+	for _, num := range nums {
 		var (
 			a = ob.i64
-			b = n.i64
+			b = num.i64
 			c = a - b
 		)
 		// check for overflow
@@ -720,18 +720,18 @@ func (ob Currency) Sub(subtract ...Currency) Currency {
 
 // SubFloat subtracts one or more floating-point numbers from a currency
 // object and returns the result. The object's value isn't changed.
-func (ob Currency) SubFloat(subtract ...float64) Currency {
-	for _, n := range subtract {
-		ob.i64 -= int64(n * cur4d)
+func (ob Currency) SubFloat(nums ...float64) Currency {
+	for _, num := range nums {
+		ob.i64 -= int64(num * cur4d)
 	}
 	return ob
 } //                                                                    SubFloat
 
 // SubInt subtracts one or more integer values from a currency object
 // and returns the result. The object's value isn't changed.
-func (ob Currency) SubInt(subtract ...int) Currency {
-	for _, n := range subtract {
-		ob.i64 -= int64(n) * cur4d
+func (ob Currency) SubInt(nums ...int) Currency {
+	for _, num := range nums {
+		ob.i64 -= int64(num) * cur4d
 	}
 	return ob
 } //                                                                      SubInt
@@ -803,7 +803,7 @@ func (ob Currency) Overflow() int {
 	return 0
 } //                                                                    Overflow
 
-// Raw returns the raw int64 used to store the currency value
+// Raw returns the internal int64 used to store the currency value.
 func (ob Currency) Raw() int64 {
 	return ob.i64
 } //                                                                         Raw
@@ -837,12 +837,12 @@ func (ob *Currency) UnmarshalJSON(data []byte) error {
 	if ob == nil {
 		return mod.Error(ENilReceiver)
 	}
-	var n float64
-	err := mod.json.Unmarshal(data, &n)
+	var num float64
+	err := mod.json.Unmarshal(data, &num)
 	if err != nil {
 		return err
 	}
-	ob.i64 = int64(n * cur4d)
+	ob.i64 = int64(num * cur4d)
 	return nil
 } //                                                               UnmarshalJSON
 
