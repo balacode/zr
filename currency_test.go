@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-15 01:41:01 579626                          zr/[currency_test.go]
+// :v: 2019-05-17 10:42:34 CC0534                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -109,7 +109,7 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 	const cur4d = 10000 // reserved 4 decimal places
 	test := func(input interface{}, expect Currency) {
 		got := CurrencyOf(input)
-		if got.val != expect.val {
+		if got.i64 != expect.i64 {
 			TFailf(t, `CurrencyOf(%v) returned %v instead of %v`,
 				input, got, expect)
 		}
@@ -538,7 +538,7 @@ func Test_crcy_Currency_String_(t *testing.T) {
 				` returned "`, got, `". must be "`, test.expect, `"`,
 			)
 		}
-		if input.val != init.val {
+		if input.i64 != init.i64 {
 			TFail(t, ` mutated from `, init, ` to `, input)
 		}
 	}
@@ -559,12 +559,12 @@ func Test_crcy_Currency_Div_(t *testing.T) {
 			old := ob
 			got := ob.Div(n)
 			// object of invoked method must not change
-			if ob.val != old.val {
+			if ob.i64 != old.i64 {
 				TFail(t, `(`, init, `) mutated from `, old, ` to `, ob)
 			}
 			ob = got
 		}
-		if ob.val != expect.val {
+		if ob.i64 != expect.i64 {
 			TFail(t,
 				`(`, init, `).Div(`, divide, `)`,
 				` returned `, ob, `. must be `, expect,
@@ -1381,11 +1381,11 @@ func curFloatOpTest(
 		}
 	}
 	// object of invoked method must not change
-	if ob.val != old.val {
+	if ob.i64 != old.i64 {
 		TFail(t, `(`, old, `) mutated to `, ob)
 	}
 	// check if returned value matches expected value
-	if got.val != expect.val {
+	if got.i64 != expect.i64 {
 		TFail(t, `(`, old, `).`, opName, `(`, values, `)`,
 			` returned `, got, `. must be `, expect,
 		)
@@ -1420,11 +1420,11 @@ func curIntOpTest(
 		}
 	}
 	// object of invoked method must not change
-	if ob.val != old.val {
+	if ob.i64 != old.i64 {
 		TFail(t, `(`, old, `) mutated to `, ob)
 	}
 	// check if returned value matches expected value
-	if got.val != expect.val {
+	if got.i64 != expect.i64 {
 		TFail(t, `(`, old, `).`, opName, `(`, values, `)`,
 			` returned `, got, `. must be `, expect,
 		)
@@ -1459,11 +1459,11 @@ func curOpTest(
 		}
 	}
 	// object of invoked method must not change
-	if ob.val != old.val {
+	if ob.i64 != old.i64 {
 		TFail(t, `(`, old, `) mutated to `, ob)
 	}
 	// check if returned value matches expected value
-	if got.val != expect.val {
+	if got.i64 != expect.i64 {
 		TFail(t, `(`, old, `).`, opName, `(`, values, `)`,
 			` returned `, got, `. must be `, expect,
 		)
