@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:58:17 2F5F71                               zr/[calendar.go]
+// :v: 2019-05-17 11:08:47 C6D3CF                               zr/[calendar.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -260,15 +260,15 @@ func (ob *Calendar) String() string {
 				v := mth.cells[row][col].value
 				if v == nil {
 					ws(blank)
-				} else {
-					if v, ok := v.(float64); ok {
-						s := numStr(v)
-						sum += v
-						ws(fmt.Sprintf(valFmt, s))
-					} else {
-						ws(fmt.Sprintf(valFmt, v))
-					}
+					continue
 				}
+				if v, ok := v.(float64); ok {
+					s := numStr(v)
+					sum += v
+					ws(fmt.Sprintf(valFmt, s))
+					continue
+				}
+				ws(fmt.Sprintf(valFmt, v))
 			}
 			ws(VDIV, "\n")
 		}
