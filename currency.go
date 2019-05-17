@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 11:27:09 F089EB                               zr/[currency.go]
+// :v: 2019-05-17 11:33:33 CECA0C                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -19,48 +19,48 @@ package zr
 //   CurrencyRaw(i64 int64) Currency
 //
 // # String Output:
-//   (ob Currency) GoString() string
-//   (ob Currency) Fmt(decimalPlaces int) string
-//   (ob Currency) InWordsEN(fmt string) string
-//   (ob Currency) String() string
+//   (n Currency) GoString() string
+//   (n Currency) Fmt(decimalPlaces int) string
+//   (n Currency) InWordsEN(fmt string) string
+//   (n Currency) String() string
 //
 // # Division:
-//   (ob Currency) Div(nums... Currency) Currency
-//   (ob Currency) DivFloat(nums...float64) Currency
-//   (ob Currency) DivInt(nums...int) Currency
+//   (n Currency) Div(nums... Currency) Currency
+//   (n Currency) DivFloat(nums...float64) Currency
+//   (n Currency) DivInt(nums...int) Currency
 //
 // # Multiplication:
-//   (ob Currency) Mul(nums... Currency) Currency
-//   (ob Currency) MulFloat(nums...float64) Currency
-//   (ob Currency) MulInt(nums...int) Currency
+//   (n Currency) Mul(nums... Currency) Currency
+//   (n Currency) MulFloat(nums...float64) Currency
+//   (n Currency) MulInt(nums...int) Currency
 //
 // # Addition:
-//   (ob Currency) Add(nums... Currency) Currency
-//   (ob Currency) AddFloat(nums...float64) Currency
-//   (ob Currency) AddInt(nums...int) Currency
+//   (n Currency) Add(nums... Currency) Currency
+//   (n Currency) AddFloat(nums...float64) Currency
+//   (n Currency) AddInt(nums...int) Currency
 //
 // # Subtraction:
-//   (ob Currency) Sub(nums... Currency) Currency
-//   (ob Currency) SubFloat(nums...float64) Currency
-//   (ob Currency) SubInt(nums...int) Currency
+//   (n Currency) Sub(nums... Currency) Currency
+//   (n Currency) SubFloat(nums...float64) Currency
+//   (n Currency) SubInt(nums...int) Currency
 //
 // # Information:
-//   (ob Currency) Float64() float64
-//   (ob Currency) Int() int
-//   (ob Currency) Int64() int64
-//   (ob Currency) IsEqual(value interface{}) bool
-//   (ob Currency) IsGreater(value interface{}) bool
-//   (ob Currency) IsGreaterOrEqual(value interface{}) bool
-//   (ob Currency) IsLesser(value interface{}) bool
-//   (ob Currency) IsLesserOrEqual(value interface{}) bool
-//   (ob Currency) IsNegative() bool
-//   (ob Currency) IsZero() bool
-//   (ob Currency) Overflow() int
-//   (ob Currency) Raw() int64
+//   (n Currency) Float64() float64
+//   (n Currency) Int() int
+//   (n Currency) Int64() int64
+//   (n Currency) IsEqual(value interface{}) bool
+//   (n Currency) IsGreater(value interface{}) bool
+//   (n Currency) IsGreaterOrEqual(value interface{}) bool
+//   (n Currency) IsLesser(value interface{}) bool
+//   (n Currency) IsLesserOrEqual(value interface{}) bool
+//   (n Currency) IsNegative() bool
+//   (n Currency) IsZero() bool
+//   (n Currency) Overflow() int
+//   (n Currency) Raw() int64
 //
 // # JSON:
-//   (ob Currency) MarshalJSON() ([]byte, error)
-//   (ob *Currency) UnmarshalJSON(data []byte) error
+//   (n Currency) MarshalJSON() ([]byte, error)
+//   (n *Currency) UnmarshalJSON(data []byte) error
 
 // # Helper Function
 //   currencyOverflow(isNegative bool, a ...interface{}) Currency
@@ -311,8 +311,8 @@ func CurrencyRaw(i64 int64) Currency {
 
 // GoString outputs the value as a Go language string,
 // It implements the fmt.GoStringer interface.
-func (ob Currency) GoString() string {
-	return "zr.CurrencyOf(" + ob.String() + ")"
+func (n Currency) GoString() string {
+	return "zr.CurrencyOf(" + n.String() + ")"
 } //                                                                    GoString
 
 // Fmt returns the currency value as a a string
@@ -320,15 +320,15 @@ func (ob Currency) GoString() string {
 // and having the specified number of decimal places.
 // When decimalPlaces is negative, the resulting
 // number's decimals will vary.
-func (ob Currency) Fmt(decimalPlaces int) string {
+func (n Currency) Fmt(decimalPlaces int) string {
 	var (
 		retBuf  = bytes.NewBuffer(make([]byte, 0, 25))
 		ws      = retBuf.WriteString
 		wr      = retBuf.WriteRune
 		intLen  = 0
-		intPart = ob.i64 / 1E4         // integer part of the number
-		decPart = ob.i64 - intPart*1E4 // decimal part (as an int)
-		neg     = ob.i64 < 0           // is it negative? use absolute value
+		intPart = n.i64 / 1E4         // integer part of the number
+		decPart = n.i64 - intPart*1E4 // decimal part (as an int)
+		neg     = n.i64 < 0           // is it negative? use absolute value
 	)
 	if neg {
 		intPart = -intPart
@@ -427,10 +427,10 @@ func (ob Currency) Fmt(decimalPlaces int) string {
 //          (11.02,"Dollar;;Cent")  "Eleven Dollars and Two Cents"
 //          (11.02,"Euro")          "Eleven Euros"
 //          (11.02,"Pound;;;Pence") "Eleven Pounds and Two Pence"
-func (ob Currency) InWordsEN(fmt string) string {
-	i := ob.i64
+func (n Currency) InWordsEN(fmt string) string {
+	i := n.i64
 	if i < 0 {
-		i = -ob.i64
+		i = -n.i64
 	}
 	var (
 		bigUnits = i / 1E4
@@ -501,10 +501,10 @@ func (ob Currency) InWordsEN(fmt string) string {
 
 // String returns a string representing the currency value
 // and implements the Stringer Interface.
-func (ob Currency) String() string {
+func (n Currency) String() string {
 	var (
-		i    = ob.i64 / 1E4             // integer value
-		d    = ob.i64 - i*1E4           // decimal value
+		i    = n.i64 / 1E4              // integer value
+		d    = n.i64 - i*1E4            // decimal value
 		sint = strconv.FormatInt(i, 10) // integer part
 		sdec string                     // decimal part
 	)
@@ -528,32 +528,32 @@ func (ob Currency) String() string {
 
 // Div divides a currency object by one or more currency values
 // and returns the result. The object's value isn't changed.
-func (ob Currency) Div(nums ...Currency) Currency {
+func (n Currency) Div(nums ...Currency) Currency {
 	for _, num := range nums {
-		ob.i64 *= 1E4
-		ob.i64 /= num.i64
+		n.i64 *= 1E4
+		n.i64 /= num.i64
 	}
-	return ob
+	return n
 } //                                                                         Div
 
 // DivFloat divides a currency object by one or more floating-point
 // numbers and returns the result. The object's value isn't changed.
-func (ob Currency) DivFloat(nums ...float64) Currency {
+func (n Currency) DivFloat(nums ...float64) Currency {
 	for _, num := range nums {
-		ob.i64 *= 1E4
-		ob.i64 /= int64(num * 1E4)
+		n.i64 *= 1E4
+		n.i64 /= int64(num * 1E4)
 	}
-	return ob
+	return n
 } //                                                                    DivFloat
 
 // DivInt divides a currency object by one or more integer values
 // and returns the result. The object's value isn't changed.
-func (ob Currency) DivInt(nums ...int) Currency {
+func (n Currency) DivInt(nums ...int) Currency {
 	for _, num := range nums {
-		ob.i64 *= 1E4
-		ob.i64 /= (int64(num) * 1E4)
+		n.i64 *= 1E4
+		n.i64 /= (int64(num) * 1E4)
 	}
-	return ob
+	return n
 } //                                                                      DivInt
 
 // -----------------------------------------------------------------------------
@@ -561,10 +561,10 @@ func (ob Currency) DivInt(nums ...int) Currency {
 
 // Mul multiplies a currency object by one or more currency values
 // and returns the result. The object's value isn't changed.
-func (ob Currency) Mul(nums ...Currency) Currency {
+func (n Currency) Mul(nums ...Currency) Currency {
 	for _, num := range nums {
 		var (
-			a = ob.i64
+			a = n.i64
 			b = num.i64
 		)
 		// return zero if either number is zero
@@ -600,15 +600,15 @@ func (ob Currency) Mul(nums ...Currency) Currency {
 			}
 			return Currency{ret}
 		}
-		ob.i64 = a * b / 1E4
+		n.i64 = a * b / 1E4
 	}
-	return ob
+	return n
 } //                                                                         Mul
 
 // MulFloat multiplies a currency object by one or more floating-point
 // numbers and returns the result. The object's value isn't changed.
-func (ob Currency) MulFloat(nums ...float64) Currency {
-	a := float64(ob.i64)
+func (n Currency) MulFloat(nums ...float64) Currency {
+	a := float64(n.i64)
 	for _, b := range nums {
 		// check for negative or positive overflow
 		lim := MaxCurrencyI64 / a
@@ -622,18 +622,18 @@ func (ob Currency) MulFloat(nums ...float64) Currency {
 			)
 		}
 		// multiply using int64, if there is no overflow
-		ob.i64 = int64(a * b)
+		n.i64 = int64(a * b)
 	}
-	return ob
+	return n
 } //                                                                    MulFloat
 
 // MulInt multiplies a currency object by one or more integer values
 // and returns the result. The object's value isn't changed.
-func (ob Currency) MulInt(nums ...int) Currency {
+func (n Currency) MulInt(nums ...int) Currency {
 	for _, num := range nums {
-		ob = ob.Mul(Currency{int64(num * 1E4)})
+		n = n.Mul(Currency{int64(num * 1E4)})
 	}
-	return ob
+	return n
 } //                                                                      MulInt
 
 // -----------------------------------------------------------------------------
@@ -643,10 +643,10 @@ func (ob Currency) MulInt(nums ...int) Currency {
 // The value in the object to which this method is applied isn't changed.
 // If there is an overflow, sets the Currency's internal value to
 // math.MinInt64 or math.MaxInt64 depending on if the result is negative.
-func (ob Currency) Add(nums ...Currency) Currency {
+func (n Currency) Add(nums ...Currency) Currency {
 	for _, num := range nums {
 		var (
-			a = ob.i64
+			a = n.i64
 			b = num.i64
 			c = a + b
 		)
@@ -657,16 +657,16 @@ func (ob Currency) Add(nums ...Currency) Currency {
 		if c > MaxCurrencyI64 || (a > 0 && b > 0 && b > (MaxCurrencyI64-a)) {
 			return currencyOverflow(false, EOverflow, ": ", a, " + ", b)
 		}
-		ob.i64 = c
+		n.i64 = c
 	}
-	return ob
+	return n
 } //                                                                         Add
 
 // AddFloat adds one or more floating-point numbers to a currency
 // object and returns the result. The object's value isn't changed.
-func (ob Currency) AddFloat(nums ...float64) Currency {
+func (n Currency) AddFloat(nums ...float64) Currency {
 	const lim float64 = math.MaxInt64 / 1E4
-	a := ob.i64
+	a := n.i64
 	for _, b := range nums {
 		//
 		// check for overflow
@@ -677,18 +677,18 @@ func (ob Currency) AddFloat(nums ...float64) Currency {
 			)
 		}
 		// use Add() because it has other overflow checks
-		ob = ob.Add(Currency{int64(b * 1E4)})
+		n = n.Add(Currency{int64(b * 1E4)})
 	}
-	return ob
+	return n
 } //                                                                    AddFloat
 
 // AddInt adds one or more integer values to a currency object
 // and returns the result. The object's value isn't changed.
-func (ob Currency) AddInt(nums ...int) Currency {
+func (n Currency) AddInt(nums ...int) Currency {
 	for _, num := range nums {
-		ob = ob.Add(Currency{int64(num) * 1E4})
+		n = n.Add(Currency{int64(num) * 1E4})
 	}
-	return ob
+	return n
 } //                                                                      AddInt
 
 // -----------------------------------------------------------------------------
@@ -696,10 +696,10 @@ func (ob Currency) AddInt(nums ...int) Currency {
 
 // Sub subtracts one or more currency values from a currency object
 // and returns the result. The object's value isn't changed.
-func (ob Currency) Sub(nums ...Currency) Currency {
+func (n Currency) Sub(nums ...Currency) Currency {
 	for _, num := range nums {
 		var (
-			a = ob.i64
+			a = n.i64
 			b = num.i64
 			c = a - b
 		)
@@ -710,112 +710,112 @@ func (ob Currency) Sub(nums ...Currency) Currency {
 		if c > MaxCurrencyI64 || (a > 0 && b < 0 && b < (-MaxCurrencyI64+a)) {
 			return currencyOverflow(false, EOverflow, ": ", a, " - ", b)
 		}
-		ob.i64 = c
+		n.i64 = c
 	}
-	return ob
+	return n
 } //                                                                         Sub
 
 // SubFloat subtracts one or more floating-point numbers from a currency
 // object and returns the result. The object's value isn't changed.
-func (ob Currency) SubFloat(nums ...float64) Currency {
+func (n Currency) SubFloat(nums ...float64) Currency {
 	for _, num := range nums {
-		ob.i64 -= int64(num * 1E4)
+		n.i64 -= int64(num * 1E4)
 	}
-	return ob
+	return n
 } //                                                                    SubFloat
 
 // SubInt subtracts one or more integer values from a currency object
 // and returns the result. The object's value isn't changed.
-func (ob Currency) SubInt(nums ...int) Currency {
+func (n Currency) SubInt(nums ...int) Currency {
 	for _, num := range nums {
-		ob.i64 -= int64(num) * 1E4
+		n.i64 -= int64(num) * 1E4
 	}
-	return ob
+	return n
 } //                                                                      SubInt
 
 // -----------------------------------------------------------------------------
 // # Information:
 
 // Float64 returns the currency value as a float64 value.
-func (ob Currency) Float64() float64 {
-	return float64(ob.i64) / 1E4
+func (n Currency) Float64() float64 {
+	return float64(n.i64) / 1E4
 } //                                                                     Float64
 
 // Int returns the currency value as an int value.
-func (ob Currency) Int() int64 {
-	return ob.i64 / 1E4
+func (n Currency) Int() int64 {
+	return n.i64 / 1E4
 } //                                                                         Int
 
 // Int64 returns the currency value as an int64 value.
-func (ob Currency) Int64() int64 {
-	return ob.i64 / 1E4
+func (n Currency) Int64() int64 {
+	return n.i64 / 1E4
 } //                                                                       Int64
 
 // IsEqual returns true if the value of the currency object is negative.
-func (ob Currency) IsEqual(value interface{}) bool {
-	return ob.i64 == CurrencyOf(value).i64
+func (n Currency) IsEqual(value interface{}) bool {
+	return n.i64 == CurrencyOf(value).i64
 } //                                                                     IsEqual
 
 // IsGreater returns true if the object is greater than value.
-func (ob Currency) IsGreater(value interface{}) bool {
-	return ob.i64 > CurrencyOf(value).i64
+func (n Currency) IsGreater(value interface{}) bool {
+	return n.i64 > CurrencyOf(value).i64
 } //                                                                   IsGreater
 
 // IsGreaterOrEqual returns true if the object is greater or equal to value.
-func (ob Currency) IsGreaterOrEqual(value interface{}) bool {
-	return ob.i64 >= CurrencyOf(value).i64
+func (n Currency) IsGreaterOrEqual(value interface{}) bool {
+	return n.i64 >= CurrencyOf(value).i64
 } //                                                            IsGreaterOrEqual
 
 // IsLesser returns true if the object is lesser than value.
-func (ob Currency) IsLesser(value interface{}) bool {
-	return ob.i64 < CurrencyOf(value).i64
+func (n Currency) IsLesser(value interface{}) bool {
+	return n.i64 < CurrencyOf(value).i64
 } //                                                                    IsLesser
 
 // IsLesserOrEqual returns true if the object is lesser or equal to value.
-func (ob Currency) IsLesserOrEqual(value interface{}) bool {
-	return ob.i64 <= CurrencyOf(value).i64
+func (n Currency) IsLesserOrEqual(value interface{}) bool {
+	return n.i64 <= CurrencyOf(value).i64
 } //                                                             IsLesserOrEqual
 
 // IsNegative returns true if the value of the currency object is negative.
-func (ob Currency) IsNegative() bool {
-	return ob.i64 < 0
+func (n Currency) IsNegative() bool {
+	return n.i64 < 0
 } //                                                                  IsNegative
 
 // IsZero returns true if the value of the currency object is zero.
-func (ob Currency) IsZero() bool {
-	return ob.i64 == 0
+func (n Currency) IsZero() bool {
+	return n.i64 == 0
 } //                                                                      IsZero
 
 // Overflow returns 1 if the currency contains a positive overflow,
 // -1 if it contains a negative overflow, or zero if there is no overflow or
 // underflow. Overflow and underflows occur when an arithmeric operation's
 // result exceeds the storage capacity of Currency.
-func (ob Currency) Overflow() int {
-	if ob.i64 > MaxCurrencyI64 {
+func (n Currency) Overflow() int {
+	if n.i64 > MaxCurrencyI64 {
 		return 1
 	}
-	if ob.i64 < MinCurrencyI64 {
+	if n.i64 < MinCurrencyI64 {
 		return -1
 	}
 	return 0
 } //                                                                    Overflow
 
 // Raw returns the internal int64 used to store the currency value.
-func (ob Currency) Raw() int64 {
-	return ob.i64
+func (n Currency) Raw() int64 {
+	return n.i64
 } //                                                                         Raw
 
 // -----------------------------------------------------------------------------
 // # JSON:
 
 // MarshalJSON returns the JSON encoding of zr.Currency.
-func (ob Currency) MarshalJSON() ([]byte, error) {
+func (n Currency) MarshalJSON() ([]byte, error) {
 	// TODO: using fmt.Sprintf() may slow down performance.
 	//       There are faster ways to build a number with 4 decimals.
 	//       Create a benchmark to find the fastest method.
 	var (
-		i   = ob.i64 / 1E4   // integer part
-		d   = ob.i64 - i*1E4 // decimal part
+		i   = n.i64 / 1E4   // integer part
+		d   = n.i64 - i*1E4 // decimal part
 		ret = fmt.Sprintf("%d", i)
 	)
 	if d != 0 {
@@ -829,9 +829,9 @@ func (ob Currency) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON unmarshals a JSON description of zr.Currency.
 // This method alters the object's value.
-func (ob *Currency) UnmarshalJSON(data []byte) error {
+func (n *Currency) UnmarshalJSON(data []byte) error {
 	//   ^  don't remove pointer receiver, it is necessary
-	if ob == nil {
+	if n == nil {
 		return mod.Error(ENilReceiver)
 	}
 	var num float64
@@ -839,7 +839,7 @@ func (ob *Currency) UnmarshalJSON(data []byte) error {
 	if err != nil {
 		return err
 	}
-	ob.i64 = int64(num * 1E4)
+	n.i64 = int64(num * 1E4)
 	return nil
 } //                                                               UnmarshalJSON
 
