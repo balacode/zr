@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 11:21:57 B13156                          zr/[currency_test.go]
+// :v: 2019-05-17 11:27:09 310D92                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -106,7 +106,6 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 	//
 	// CurrencyOf(value interface{}) Currency
 	//
-	const cur4d = 10000 // reserved 4 decimal places
 	test := func(input interface{}, expect Currency) {
 		got := CurrencyOf(input)
 		if got.i64 != expect.i64 {
@@ -115,50 +114,50 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 		}
 	}
 	// highest/lowest possible currency value
-	test(int64(922337203685476), Currency{922337203685476 * cur4d})
-	test(int64(-922337203685476), Currency{-922337203685476 * cur4d})
+	test(int64(922337203685476), Currency{922337203685476 * 1E4})
+	test(int64(-922337203685476), Currency{-922337203685476 * 1E4})
 	//
 	// strings
 	test("", Currency{0})
 	test(" ", Currency{0})
-	test("1.01", Currency{1.01 * cur4d})
-	test("922337203685476", Currency{922337203685476 * cur4d})
-	test("-922337203685476", Currency{-922337203685476 * cur4d})
+	test("1.01", Currency{1.01 * 1E4})
+	test("922337203685476", Currency{922337203685476 * 1E4})
+	test("-922337203685476", Currency{-922337203685476 * 1E4})
 	//
 	// Stringer interface
 	{
 		var ts TStringer
 		ts.Set("922337203685476")
 		stringer := fmt.Stringer(ts)
-		test(stringer, Currency{922337203685476 * cur4d})
+		test(stringer, Currency{922337203685476 * 1E4})
 	}
 	{
 		var ts TStringer
 		ts.Set("-922337203685476")
-		test(ts, Currency{-922337203685476 * cur4d})
+		test(ts, Currency{-922337203685476 * 1E4})
 	}
 	// integers
-	test(int(-123456), Currency{-(123456 * cur4d)})
-	test(int8(math.MaxInt8), Currency{127 * cur4d})
-	test(int8(math.MinInt8), Currency{-128 * cur4d})
-	test(int16(math.MaxInt16), Currency{32767 * cur4d})
-	test(int16(math.MinInt16), Currency{-32768 * cur4d})
-	test(int32(math.MaxInt32), Currency{2147483647 * cur4d})
-	test(int32(math.MinInt32), Currency{-2147483648 * cur4d})
+	test(int(-123456), Currency{-(123456 * 1E4)})
+	test(int8(math.MaxInt8), Currency{127 * 1E4})
+	test(int8(math.MinInt8), Currency{-128 * 1E4})
+	test(int16(math.MaxInt16), Currency{32767 * 1E4})
+	test(int16(math.MinInt16), Currency{-32768 * 1E4})
+	test(int32(math.MaxInt32), Currency{2147483647 * 1E4})
+	test(int32(math.MinInt32), Currency{-2147483648 * 1E4})
 	// TODO: test with acceptable limit for int64
-	test(int64(math.MaxInt32), Currency{2147483647 * cur4d})
-	test(int64(math.MinInt32), Currency{-2147483648 * cur4d})
+	test(int64(math.MaxInt32), Currency{2147483647 * 1E4})
+	test(int64(math.MinInt32), Currency{-2147483648 * 1E4})
 	//
 	// unsigned integers
-	test(uint(123456), Currency{123456 * cur4d})
+	test(uint(123456), Currency{123456 * 1E4})
 	test(uint8(0), Currency{0})
-	test(uint8(math.MaxUint8), Currency{255 * cur4d})
+	test(uint8(math.MaxUint8), Currency{255 * 1E4})
 	test(uint16(0), Currency{0})
-	test(uint16(math.MaxUint16), Currency{65535 * cur4d})
+	test(uint16(math.MaxUint16), Currency{65535 * 1E4})
 	test(uint32(0), Currency{0})
-	test(uint32(math.MaxUint32), Currency{4294967295 * cur4d})
+	test(uint32(math.MaxUint32), Currency{4294967295 * 1E4})
 	test(uint64(0), Currency{0})
-	test(uint64(922337203685476), Currency{922337203685476 * cur4d})
+	test(uint64(922337203685476), Currency{922337203685476 * 1E4})
 	//
 	// floating-point numbers:
 	//
@@ -181,56 +180,56 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 	test(float64(-0.01), Currency{-100})
 	test(float64(-0.1), Currency{-1000})
 	//
-	test(float32(1000), Currency{1000 * cur4d})
-	test(float32(1234.5), Currency{1234.5 * cur4d})
-	test(float64(1000), Currency{1000 * cur4d})
-	test(float64(12345.6789), Currency{12345.6789 * cur4d})
+	test(float32(1000), Currency{1000 * 1E4})
+	test(float32(1234.5), Currency{1234.5 * 1E4})
+	test(float64(1000), Currency{1000 * 1E4})
+	test(float64(12345.6789), Currency{12345.6789 * 1E4})
 	//
 	// integer pointers
 	{
 		n := int(-123456)
-		test(&n, Currency{-(123456 * cur4d)})
+		test(&n, Currency{-(123456 * 1E4)})
 	}
 	{
 		n := int8(math.MaxInt8)
-		test(&n, Currency{127 * cur4d})
+		test(&n, Currency{127 * 1E4})
 	}
 	{
 		n := int8(math.MinInt8)
-		test(&n, Currency{-128 * cur4d})
+		test(&n, Currency{-128 * 1E4})
 	}
 	{
 		n := int16(math.MaxInt16)
-		test(&n, Currency{32767 * cur4d})
+		test(&n, Currency{32767 * 1E4})
 	}
 	{
 		n := int16(math.MinInt16)
-		test(&n, Currency{-32768 * cur4d})
+		test(&n, Currency{-32768 * 1E4})
 	}
 	{
 		n := int32(math.MaxInt32)
-		test(&n, Currency{2147483647 * cur4d})
+		test(&n, Currency{2147483647 * 1E4})
 	}
 	{
 		n := int32(math.MinInt32)
-		test(&n, Currency{-2147483648 * cur4d})
+		test(&n, Currency{-2147483648 * 1E4})
 	}
 	{
 		n := int64(922337203685476)
-		test(&n, Currency{922337203685476 * cur4d})
+		test(&n, Currency{922337203685476 * 1E4})
 	}
 	{
 		n := int64(-922337203685476)
-		test(&n, Currency{-922337203685476 * cur4d})
+		test(&n, Currency{-922337203685476 * 1E4})
 	}
 	// unsigned integer pointers
 	{
 		n := uint(123456)
-		test(&n, Currency{123456 * cur4d})
+		test(&n, Currency{123456 * 1E4})
 	}
 	{
 		n := uint8(math.MaxUint8)
-		test(&n, Currency{255 * cur4d})
+		test(&n, Currency{255 * 1E4})
 	}
 	{
 		n := uint8(0)
@@ -238,7 +237,7 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 	}
 	{
 		n := uint16(math.MaxUint16)
-		test(&n, Currency{65535 * cur4d})
+		test(&n, Currency{65535 * 1E4})
 	}
 	{
 		n := uint16(0)
@@ -246,7 +245,7 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 	}
 	{
 		n := uint32(math.MaxUint32)
-		test(&n, Currency{4294967295 * cur4d})
+		test(&n, Currency{4294967295 * 1E4})
 	}
 	{
 		n := uint32(0)
@@ -255,28 +254,28 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 	// pointers to floating-point numbers
 	{
 		n := float32(1000)
-		test(&n, Currency{1000 * cur4d})
+		test(&n, Currency{1000 * 1E4})
 	}
 	{
 		n := float32(1234.5)
-		test(&n, Currency{1234.5 * cur4d})
+		test(&n, Currency{1234.5 * 1E4})
 	}
 	{
 		n := float64(1000)
-		test(&n, Currency{1000 * cur4d})
+		test(&n, Currency{1000 * 1E4})
 	}
 	{
 		n := float64(12345.6789)
-		test(&n, Currency{12345.6789 * cur4d})
+		test(&n, Currency{12345.6789 * 1E4})
 	}
 	// pointer to string
 	{
 		s := "922337203685476"
-		test(&s, Currency{922337203685476 * cur4d})
+		test(&s, Currency{922337203685476 * 1E4})
 	}
 	{
 		s := "-922337203685476"
-		test(&s, Currency{-922337203685476 * cur4d})
+		test(&s, Currency{-922337203685476 * 1E4})
 	}
 	// test conditions that generate errors:
 	DisableErrors()
@@ -666,7 +665,7 @@ func Test_crcy_Currency_MulFloat_(t *testing.T) {
 	test(Currency{0}, arF(1.0), Currency{0})
 	//
 	//            2   *           2.0   =        4
-	test(Currency{2 * cur4d}, arF(2.0), Currency{4 * cur4d})
+	test(Currency{2 * 1E4}, arF(2.0), Currency{4 * 1E4})
 	//
 	//           12345.6789   *   1   =       12345.6789
 	test(Currency{123456789}, arF(1), Currency{123456789})
@@ -711,8 +710,8 @@ func Test_crcy_Currency_MulInt_(t *testing.T) {
 	//            0   *   1   =        0
 	test(Currency{0}, arI(1), Currency{0})
 	//
-	//            2           *   2   =        4
-	test(Currency{2 * cur4d}, arI(2), Currency{4 * cur4d})
+	//            2         *   2   =        4
+	test(Currency{2 * 1E4}, arI(2), Currency{4 * 1E4})
 	//
 	//           12345.6789   *   1   =       12345.6789
 	test(Currency{123456789}, arI(1), Currency{123456789})
