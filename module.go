@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:25:43 6DB93B                                 zr/[module.go]
+// :v: 2019-05-18 17:29:49 FFE90B                                 zr/[module.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -47,18 +47,20 @@ func SetDebugMode(val bool) {
 // -----------------------------------------------------------------------------
 // # Module Variables
 
-// PL is fmt.Println() but is used only for debugging.
-var PL = fmt.Println
+var (
+	// PL is fmt.Println() but is used only for debugging.
+	PL = fmt.Println
 
-// VL is VerboseLog() but is used only for debugging.
-var VL = VerboseLog
+	// VL is VerboseLog() but is used only for debugging.
+	VL = VerboseLog
 
-// debugMode makes the library print verbose output to assist debugging.
-var debugMode = false
+	// debugMode makes the library print verbose output to assist debugging.
+	debugMode = false
 
-// TabSpace specifies the string to use as a single tab
-// (used by GoStringEx() to indent code)
-var TabSpace = "    "
+	// TabSpace specifies the string to use as a single tab
+	// (used by GoStringEx() to indent code)
+	TabSpace = "    "
+)
 
 // -----------------------------------------------------------------------------
 // # Function Proxy Variables (for mocking)
