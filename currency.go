@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 19:22:01 8B2743                               zr/[currency.go]
+// :v: 2019-05-19 19:28:32 7F7911                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -69,6 +69,7 @@ package zr
 import (
 	// "encoding/json" // used via mod.json.* mockable
 	"bytes"
+	"errors"
 	"fmt"
 	"math"
 	"math/big"
@@ -114,6 +115,83 @@ type Currency struct {
 
 // -----------------------------------------------------------------------------
 // # Currency Factories:
+
+// CurrencyE converts any compatible value to a Currency.
+// This includes simple numeric types and strings.
+//
+// - Dereferences pointers to evaluate the pointed-to type.
+// - Converts nil to 0.
+// - Converts signed and unsigned integers, and floats to Currency.
+// - Converts numeric strings to Currency.
+// - Converts boolean true to 1, false to 0.
+//
+// Note: fmt.Stringer (or fmt.GoStringer) interfaces are not treated as
+// strings to avoid bugs from implicit conversion. Use the String method.
+//
+// If the value can not be converted to Currency, returns a
+// zero-value Currency and an error. Does not log the error.
+//
+func CurrencyE(value interface{}) (Currency, error) {
+	switch v := value.(type) {
+	case int, int64, int32, int16, int8:
+		{
+			n := reflect.ValueOf(value).Int()
+			if n < -CurrencyIntLimit || n > CurrencyIntLimit {
+				return currencyOverflow(n < 0, n), errors.New(EOverflow)
+			}
+			return Currency{n * 1E4}, nil
+		}
+	case float64, float32:
+		{
+			n := reflect.ValueOf(value).Float()
+			if n < -float64(CurrencyIntLimit)-0.9999 ||
+				n > float64(CurrencyIntLimit)+0.9999 {
+				return currencyOverflow(n < 0, n), errors.New(EOverflow)
+			}
+			return Currency{int64(n * 1E4)}, nil
+		}
+	case string:
+		{
+			return CurrencyOfS(v), nil
+		}
+	case uint, uint64, uint32, uint16, uint8:
+		{
+			n := reflect.ValueOf(value).Uint()
+			if n > CurrencyIntLimit {
+				return currencyOverflow(n < 0, n), errors.New(EOverflow)
+			}
+			return Currency{int64(n) * 1E4}, nil
+		}
+	case Currency:
+		{
+			return v, nil
+		}
+	case bool:
+		{
+			if v {
+				return Currency{1 * 1E4}, nil
+			}
+			return Currency{0}, nil
+		}
+	case nil:
+		return Currency{0}, nil
+	}
+	// if not converted yet, try to dereference pointer, then convert
+	v := reflect.ValueOf(value)
+	if v.Kind() == reflect.Ptr {
+		if v.IsNil() {
+			return Currency{0}, nil
+		}
+		ret, err := CurrencyE(v.Elem().Interface())
+		if err == nil {
+			return ret, nil
+		}
+	}
+	erm := fmt.Sprintf("Can not convert %s to Currency: %v",
+		reflect.TypeOf(value), value)
+	err := errors.New(erm)
+	return Currency{0}, err
+} //                                                                   CurrencyE
 
 // CurrencyOf converts any compatible value type to a Currency.
 // This includes all numeric types and strings. If a string is
