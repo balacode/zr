@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:58:17 F24916                                   zr/[uuid.go]
+// :v: 2019-05-19 18:53:06 6D0231                                   zr/[uuid.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -20,8 +20,11 @@ import (
 
 // IsUUID returns true if the given string is a well-formed UUID string.
 // It accepts both the standard UUID with '-' and the shortened 32-character
-// UUID. If the type of value is not a string, string pointer or Stringer
-// interface, returns false.
+// UUID. If the type of value is not a string or *string, returns false.
+//
+// Note: fmt.Stringer (or fmt.GoStringer) interfaces are not treated as
+// strings to avoid bugs from implicit conversion. Use the String method.
+//
 func IsUUID(value interface{}) bool {
 	switch v := value.(type) {
 	case string:
@@ -47,10 +50,6 @@ func IsUUID(value interface{}) bool {
 				}
 			}
 			return true
-		}
-	case fmt.Stringer:
-		{
-			return IsUUID(v.String())
 		}
 	case *string:
 		if v != nil {
