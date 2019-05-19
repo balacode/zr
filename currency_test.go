@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 19:22:01 230511                          zr/[currency_test.go]
+// :v: 2019-05-19 20:00:33 2387EA                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -95,6 +95,7 @@ import (
 	"math"
 	"strings"
 	"testing"
+	"time"
 )
 
 // -----------------------------------------------------------------------------
@@ -124,18 +125,10 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 	test("922337203685476", Currency{922337203685476 * 1E4})
 	test("-922337203685476", Currency{-922337203685476 * 1E4})
 	//
-	// fmt.Stringer interface
-	{
-		var ts TStringer
-		ts.Set("922337203685476")
-		stringer := fmt.Stringer(ts)
-		test(stringer, Currency{922337203685476 * 1E4})
-	}
-	{
-		var ts TStringer
-		ts.Set("-922337203685476")
-		test(ts, Currency{-922337203685476 * 1E4})
-	}
+	// bool
+	test(false, Currency{0})
+	test(true, Currency{1 * 1E4})
+	//
 	// integers
 	test(int(-123456), Currency{-(123456 * 1E4)})
 	test(int8(math.MaxInt8), Currency{127 * 1E4})
@@ -291,7 +284,7 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 	// wrong type
 	{
 		ec1 := GetErrorCount()
-		test(true, Currency{})
+		test(time.Now(), Currency{0})
 		ec2 := GetErrorCount()
 		if ec2 != ec1+1 {
 			TFail(t, `Expected 1 error, but got `, ec2-ec1)

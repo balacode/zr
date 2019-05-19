@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 19:59:09 BD6451                               zr/[currency.go]
+// :v: 2019-05-19 20:00:33 AD2624                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -198,148 +198,22 @@ func CurrencyE(value interface{}) (Currency, error) {
 // CurrencyOf converts any compatible value type to a Currency.
 // This includes all numeric types and strings. If a string is
 // not numeric, logs an error and sets the Currency to zero.
+//
+// - Dereferences pointers to evaluate the pointed-to type.
+// - Converts nil to 0.
+// - Converts signed and unsigned integers, and floats to Currency.
+// - Converts numeric strings to Currency.
+// - Converts boolean true to 1, false to 0.
+//
+// If the value can not be converted to Currency, returns a zero-value
+// Currency and logs an error (when logging is active).
+//
 func CurrencyOf(value interface{}) Currency {
-	switch v := value.(type) {
-	//
-	// Currency already?
-	case Currency:
-		{
-			return v
-		}
-	// integers
-	case int:
-		{
-			// use func. to check range
-			return CurrencyOf(int64(v))
-		}
-	case int64:
-		{
-			if v < -CurrencyIntLimit || v > CurrencyIntLimit {
-				return currencyOverflow(v < 0, v)
-			}
-			return Currency{int64(v) * 1E4}
-		}
-	case int32:
-		{
-			// use func. to check range
-			return CurrencyOf(int64(v))
-		}
-	case int16:
-		{
-			return Currency{int64(v) * 1E4}
-		}
-	case int8:
-		{
-			return Currency{int64(v) * 1E4}
-		}
-	// unsigned integers
-	case uint:
-		{
-			// use func. to check range
-			return CurrencyOf(uint64(v))
-		}
-	case uint64:
-		{
-			if v > CurrencyIntLimit {
-				return currencyOverflow(false, v)
-			}
-			return Currency{int64(v) * 1E4}
-		}
-	case uint32:
-		{
-			// use func. to check range
-			return CurrencyOf(uint64(v))
-		}
-	case uint16:
-		{
-			return Currency{int64(v) * 1E4}
-		}
-	case uint8:
-		{
-			return Currency{int64(v) * 1E4}
-		}
-	// float
-	case float64:
-		{
-			if v < -float64(CurrencyIntLimit)-0.9999 ||
-				v > float64(CurrencyIntLimit)+0.9999 {
-				return currencyOverflow(v < 0, v)
-			}
-			return Currency{int64(v * 1E4)}
-		}
-	case float32:
-		{
-			if v < -float32(CurrencyIntLimit)-0.9999 ||
-				v > float32(CurrencyIntLimit)+0.9999 {
-				return currencyOverflow(v < 0, v)
-			}
-			return Currency{int64(float64(v) * 1E4)}
-		}
-	// integer pointers
-	case *int:
-		if v != nil {
-			return CurrencyOf(int64(*v))
-		}
-	case *int64:
-		if v != nil {
-			return CurrencyOf(*v)
-		}
-	case *int32:
-		if v != nil {
-			return CurrencyOf(*v)
-		}
-	case *int16:
-		if v != nil {
-			return CurrencyOf(*v)
-		}
-	case *int8:
-		if v != nil {
-			return CurrencyOf(*v)
-		}
-	// unsigned integer pointers
-	case *uint:
-		if v != nil {
-			return CurrencyOf(uint64(*v))
-		}
-	case *uint64:
-		if v != nil {
-			return CurrencyOf(*v)
-		}
-	case *uint32:
-		if v != nil {
-			return CurrencyOf(*v)
-		}
-	case *uint16:
-		if v != nil {
-			return CurrencyOf(*v)
-		}
-	case *uint8:
-		if v != nil {
-			return CurrencyOf(*v)
-		}
-	// float pointers
-	case *float64:
-		if v != nil {
-			return CurrencyOf(*v)
-		}
-	case *float32:
-		if v != nil {
-			return CurrencyOf(*v)
-		}
-	// strings
-	case string:
-		{
-			return CurrencyOfS(v)
-		}
-	case *string:
-		if v != nil {
-			return CurrencyOfS(*v)
-		}
-	case fmt.Stringer:
-		return CurrencyOfS(v.String())
+	n, err := CurrencyE(value)
+	if err != nil && !strings.HasPrefix(err.Error(), EOverflow) {
+		mod.Error(err)
 	}
-	mod.Error("Type", reflect.TypeOf(value), "not handled; =", value)
-	return Currency{}
+	return n
 } //                                                                  CurrencyOf
 
 // CurrencyOfS converts a numeric string to a Currency.
