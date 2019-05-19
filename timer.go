@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-09 17:26:00 CEAF5A                                  zr/[timer.go]
+// :v: 2019-05-19 17:50:20 37D343                                  zr/[timer.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -149,7 +149,7 @@ func (ob *Timer) StopLast() {
 } //                                                                    StopLast
 
 // String returns the timing report as a string,
-// and implements the Stringer interface.
+// and implements the fmt.Stringer interface.
 func (ob *Timer) String() string {
 	ob.Mutex.RLock()
 	defer ob.Mutex.RUnlock()

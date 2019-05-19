@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 03:40:48 0A8DFB                             zr/[bytes_test.go]
+// :v: 2019-05-19 17:50:20 8CE2F9                             zr/[bytes_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -17,7 +17,7 @@ package zr
 //   Test_byts_Bytes_GetChar_
 //   Test_byts_Bytes_Size_
 //
-// # Stringer Interface
+// # fmt.Stringer Interface
 //   Test_byts_Bytes_String_
 //
 // # Methods
@@ -175,7 +175,7 @@ func Test_byts_Bytes_Size_(t *testing.T) {
 } //                                                       Test_byts_Bytes_Size_
 
 // -----------------------------------------------------------------------------
-// # Stringer Interface Method
+// # fmt.Stringer Interface
 
 // go test --run Test_byts_Bytes_String_
 func Test_byts_Bytes_String_(t *testing.T) {

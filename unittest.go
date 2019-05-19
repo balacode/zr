@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:58:17 146682                               zr/[unittest.go]
+// :v: 2019-05-19 17:50:20 2E1A2A                               zr/[unittest.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -54,7 +54,7 @@ var TErrorCount int
 // -----------------------------------------------------------------------------
 // # TStringer
 
-// TStringer is a mock type that provides the Stringer interface.
+// TStringer is a mock type that provides the fmt.Stringer interface.
 type TStringer struct {
 	s string
 } //                                                                   TStringer

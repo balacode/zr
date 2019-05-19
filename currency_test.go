@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 03:46:15 83099E                          zr/[currency_test.go]
+// :v: 2019-05-19 17:50:20 0D5509                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -124,7 +124,7 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 	test("922337203685476", Currency{922337203685476 * 1E4})
 	test("-922337203685476", Currency{-922337203685476 * 1E4})
 	//
-	// Stringer interface
+	// fmt.Stringer interface
 	{
 		var ts TStringer
 		ts.Set("922337203685476")
@@ -282,7 +282,7 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 	// non-numeric string
 	{
 		ec1 := GetErrorCount()
-		test("abc", Currency{})
+		test("abc", Currency{0})
 		ec2 := GetErrorCount()
 		if ec2 != ec1+1 {
 			TFail(t, `Expected 1 error, but got `, ec2-ec1)

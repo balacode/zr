@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:59 6398B5                              zr/[int_tuple.go]
+// :v: 2019-05-19 17:50:20 E1AF4E                              zr/[int_tuple.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -14,7 +14,7 @@ package zr
 //   (ob IntTuples) Less(i, j int) bool
 //   (ob IntTuples) Swap(i, j int)
 //
-// # Stringer Interface
+// # fmt.Stringer Interface
 //   (ob IntTuple) String() string
 
 import (
@@ -50,10 +50,10 @@ func (ob IntTuples) Swap(i, j int) {
 } //                                                                        Swap
 
 // -----------------------------------------------------------------------------
-// # Stringer Interface
+// # fmt.Stringer Interface
 
 // String returns a string representation of the IntTuple structure
-// and implements the Stringer Interface.
+// and implements the fmt.Stringer interface.
 func (ob IntTuple) String() string {
 	return fmt.Sprintf("IntTuple{A:%d, B:%d}", ob.A, ob.B)
 } //                                                                      String

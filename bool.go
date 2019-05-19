@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 03:40:48 89489F                                   zr/[bool.go]
+// :v: 2019-05-19 17:50:20 C55F57                                   zr/[bool.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -157,10 +157,12 @@ func Bool(value interface{}) bool {
 } //                                                                        Bool
 
 // IsBool returns true if value can be converted to a boolean.
+//
 // If value is any numeric type or bool, returns true.
 // If value is nil, returns false.
 // If value is a string, returns true if it is "TRUE", "FALSE", "0", or "1".
 // If value is any other type, returns false.
+//
 func IsBool(value interface{}) bool {
 	switch v := value.(type) {
 	case nil:

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:58:17 76F763                                  zr/[dates.go]
+// :v: 2019-05-19 17:50:20 7AD6C7                                  zr/[dates.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -93,7 +93,7 @@ func (ob DateRange) IsNull() bool {
 } //                                                                      IsNull
 
 // String returns a string representation of the DateRange structure
-// and implements the Stringer Interface.
+// and implements the fmt.Stringer interface.
 func (ob DateRange) String() string {
 	return ob.From.Format("2006-01-02") + " " + ob.To.Format("2006-01-02")
 } //                                                                      String
@@ -101,17 +101,18 @@ func (ob DateRange) String() string {
 // -----------------------------------------------------------------------------
 // # Functions
 
-// DateOf converts any string-like value to time.Time without returning
-// an error if the conversion failed, in which case it logs an error
-// and returns a zero-value time.Time.
+// DateOf converts any string-like value to time.Time without
+// returning an error if the conversion failed, in which case
+// it logs an error and returns a zero-value time.Time.
 //
-// If value is a zero-length string, returns a zero-value time.Time
-// but does not log a warning.
+// If value is a zero-length string, returns a zero-value
+// time.Time but does not log a warning.
 //
 // It also accepts a time.Time as input.
 //
-// In both cases the returned Time type will contain only the date
-// part without the time or time zone components.
+// In both cases the returned Time type will contain only
+// the date part without the time or time zone components.
+//
 func DateOf(value interface{}) time.Time {
 	switch v := value.(type) {
 	case time.Time: // remove the time component from dates

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 03:40:48 0C1367                              zr/[bool_test.go]
+// :v: 2019-05-19 17:50:20 BA171B                              zr/[bool_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -70,7 +70,7 @@ func Test_bool_Bool_(t *testing.T) {
 		f := "false"
 		test(&f, false)
 	}
-	{ // Stringer
+	{ // fmt.Stringer
 		var ts TStringer
 		//
 		ts.Set("true")
@@ -269,7 +269,7 @@ func Test_bool_IsBool_(t *testing.T) {
 		test("0", true)
 		test("1", true)
 	}
-	{ // Stringer
+	{ // fmt.Stringer
 		var ts TStringer
 		//
 		ts.Set("true")

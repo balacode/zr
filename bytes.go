@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-04-28 17:47:58 1950FD                                  zr/[bytes.go]
+// :v: 2019-05-19 17:50:20 AAB918                                  zr/[bytes.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -17,7 +17,7 @@ package zr
 //   ) GetChar(index int) CharSize
 //   ) Size() int
 //
-// # Stringer Interface (ob *Bytes)
+// # fmt.Stringer Interface (ob *Bytes)
 //   ) String() string
 //
 // # Methods (ob *Bytes)
@@ -118,10 +118,10 @@ func (ob *Bytes) Size() int {
 } //                                                                        Size
 
 // -----------------------------------------------------------------------------
-// # Stringer Interface (ob *Bytes)
+// # fmt.Stringer Interface (ob *Bytes)
 
 // String returns a string based on previously-written bytes
-// and implements the Stringer Interface.
+// and implements the fmt.Stringer interface.
 func (ob *Bytes) String() string {
 	if ob == nil {
 		mod.Error(ENilReceiver)

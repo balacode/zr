@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-11 04:43:28 E4702F                         zr/[string_aligner.go]
+// :v: 2019-05-19 17:50:20 2D6643                         zr/[string_aligner.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -48,7 +48,7 @@ func (ob *StringAligner) WriteBreak() {
 } //                                                                  WriteBreak
 
 // String outputs the previously-written rows with columns aligned by spaces
-// and implements the Stringer interface.
+// and implements the fmt.Stringer interface.
 func (ob *StringAligner) String() string {
 	var (
 		retBuf = bytes.NewBuffer(make([]byte, 0, 1024))

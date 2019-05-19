@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 11:33:33 CECA0C                               zr/[currency.go]
+// :v: 2019-05-19 17:50:20 D30657                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -14,6 +14,7 @@ package zr
 //   Currency struct
 //
 // # Currency Factories:
+//   CurrencyE(value interface{}) (Currency, error)
 //   CurrencyOf(value interface{}) Currency
 //   CurrencyOfS(s string) Currency
 //   CurrencyRaw(i64 int64) Currency
@@ -79,22 +80,24 @@ import (
 // -----------------------------------------------------------------------------
 // # Constants:
 
-// CurrencyIntLimit specifies the highest (and lowest
-// when negative) integer component that currency
-// can hold, about 922.33 trillion.
-// The exact number is 922(t)337(b)203(m)685,476.
-//
-// This limit exists because an int64, on which Currency is based, can hold
-// up to 9,223,372,036,854,775,807. Out of this 4 digits are used for the
-// decimal part, i.e. 922,337,203,685,477.5807. The limit is set to this
-// number minus 1, so that all decimals from .0000 to .9999. can be used.
-const CurrencyIntLimit = 922337203685476
+const (
+	// CurrencyIntLimit specifies the highest (and lowest
+	// when negative) integer component that currency
+	// can hold, about 922.33 trillion.
+	// The exact number is 922(t)337(b)203(m)685,476.
+	//
+	// This limit exists because an int64, on which Currency is based, can hold
+	// up to 9,223,372,036,854,775,807. Out of this 4 digits are used for the
+	// decimal part, i.e. 922,337,203,685,477.5807. The limit is set to this
+	// number minus 1, so that all decimals from .0000 to .9999. can be used.
+	CurrencyIntLimit = 922337203685476
 
-// MinCurrencyI64 is the lowest internal value that Currency can hold.
-const MinCurrencyI64 = -9223372036854769999
+	// MinCurrencyI64 is the lowest internal value that Currency can hold.
+	MinCurrencyI64 = -9223372036854769999
 
-// MaxCurrencyI64 is the highest internal value that Currency can hold.
-const MaxCurrencyI64 = 9223372036854769999
+	// MaxCurrencyI64 is the highest internal value that Currency can hold.
+	MaxCurrencyI64 = 9223372036854769999
+)
 
 // big1E4 scales the int64 to provide 4 decimal places.
 var big1E4 = big.NewInt(1E4)
@@ -500,7 +503,7 @@ func (n Currency) InWordsEN(fmt string) string {
 } //                                                                   InWordsEN
 
 // String returns a string representing the currency value
-// and implements the Stringer Interface.
+// and implements the fmt.Stringer interface.
 func (n Currency) String() string {
 	var (
 		i    = n.i64 / 1E4              // integer value
