@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 20:25:37 9DC41A                                   zr/[bool.go]
+// :v: 2019-05-19 20:27:15 DAD9DA                                   zr/[bool.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -17,146 +17,23 @@ import (
 	"strings"
 )
 
-// Bool converts simple types to a boolean value:
+// Bool converts any simple numeric type or string to bool.
 //
-// Converts nil to false.
-// Converts all nonzero numbers to true and zeros to false.
-// Converts only strings that equal 'true' (case-insensitive) to true.
+// - Dereferences pointers to evaluate the pointed-to type.
+// - Converts nil to false.
+// - Converts all nonzero numbers to true and zeros to false.
+// - Converts only strings that equal 'true', '1' or '-1'
+//   (case-insensitive) to true, all other strings to false.
 //
 // Note: fmt.Stringer (or fmt.GoStringer) interfaces are not treated as
 // strings to avoid bugs from implicit conversion. Use the String method.
 //
 func Bool(value interface{}) bool {
-	switch v := value.(type) {
-	case nil:
-		{
-			return false
-		}
-	// boolean:
-	case bool:
-		{
-			return v
-		}
-	case *bool:
-		if v != nil {
-			return *v
-		}
-	// strings:
-	case string:
-		switch strings.ToUpper(strings.TrimSpace(v)) {
-		case "FALSE", "0", "":
-			{
-				return false
-			}
-		case "TRUE", "1", "-1":
-			return true
-		}
-	case *string:
-		if v != nil {
-			return Bool(*v)
-		}
-	// signed integers:
-	case int:
-		{
-			return v != 0
-		}
-	case int64:
-		{
-			return v != 0
-		}
-	case int32:
-		{
-			return v != 0
-		}
-	case int16:
-		{
-			return v != 0
-		}
-	case int8:
-		{
-			return v != 0
-		}
-	case *int:
-		if v != nil {
-			return *v != 0
-		}
-	case *int64:
-		if v != nil {
-			return *v != 0
-		}
-	case *int32:
-		if v != nil {
-			return *v != 0
-		}
-	case *int16:
-		if v != nil {
-			return *v != 0
-		}
-	case *int8:
-		if v != nil {
-			return *v != 0
-		}
-	// unsigned integers:
-	case uint:
-		{
-			return v != 0
-		}
-	case uint64:
-		{
-			return v != 0
-		}
-	case uint32:
-		{
-			return v != 0
-		}
-	case uint16:
-		{
-			return v != 0
-		}
-	case uint8:
-		{
-			return v != 0
-		}
-	case *uint:
-		if v != nil {
-			return *v != 0
-		}
-	case *uint64:
-		if v != nil {
-			return *v != 0
-		}
-	case *uint32:
-		if v != nil {
-			return *v != 0
-		}
-	case *uint16:
-		if v != nil {
-			return *v != 0
-		}
-	case *uint8:
-		if v != nil {
-			return *v != 0
-		}
-	// floating-point numbers:
-	case float64:
-		{
-			return v != 0
-		}
-	case float32:
-		{
-			return v != 0
-		}
-	case *float64:
-		if v != nil {
-			return *v != 0
-		}
-	case *float32:
-		if v != nil {
-			return *v != 0
-		}
+	ret, err := BoolE(value)
+	if err != nil {
+		mod.Error(err)
 	}
-	mod.Error("Can not convert", reflect.TypeOf(value), "to bool:", value)
-	return false
+	return ret
 } //                                                                        Bool
 
 // BoolE converts any simple numeric type or string to bool.
