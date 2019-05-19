@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 03:52:16 D8BB0A                                zr/[strings.go]
+// :v: 2019-05-19 04:07:15 F994B5                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -1162,70 +1162,67 @@ func StrOneOf(s string, matches ...string) bool {
 
 // String converts value to a string.
 func String(value interface{}) string {
-	convert := func(value interface{}) (string, bool) {
-		switch v := value.(type) {
-		case bool:
-			{
-				if v {
-					return "true", true
-				}
-				return "false", true
+	ret, _ := StringE(value)
+	return ret
+} //                                                                      String
+
+// StringE converts value to a string, and also returns an error (or nil).
+func StringE(value interface{}) (string, error) {
+	switch v := value.(type) {
+	case bool:
+		{
+			if v {
+				return "true", nil
 			}
-		case float64, float32:
-			{
-				ret := fmt.Sprintf("%f", v)
-				if strings.Contains(ret, ".") {
-					ret = strings.TrimRight(ret, "0")
-					ret = strings.TrimRight(ret, ".")
-				}
-				return ret, true
-			}
-		case int:
-			{
-				return strconv.Itoa(v), true
-			}
-		case int64, int32, int16, int8:
-			{
-				return fmt.Sprintf("%d", v), true
-			}
-		case uint, uint64, uint32, uint16, uint8:
-			{
-				return fmt.Sprintf("%d", v), true
-			}
-		case nil:
-			{
-				return "", true
-			}
-		case string:
-			{
-				return v, true
-			}
-		case fmt.Stringer:
-			{
-				return v.String(), true
-			}
+			return "false", nil
 		}
-		return "", false
+	case float64, float32:
+		{
+			ret := fmt.Sprintf("%f", v)
+			if strings.Contains(ret, ".") {
+				ret = strings.TrimRight(ret, "0")
+				ret = strings.TrimRight(ret, ".")
+			}
+			return ret, nil
+		}
+	case int:
+		{
+			return strconv.Itoa(v), nil
+		}
+	case int64, int32, int16, int8:
+		{
+			return fmt.Sprintf("%d", v), nil
+		}
+	case uint, uint64, uint32, uint16, uint8:
+		{
+			return fmt.Sprintf("%d", v), nil
+		}
+	case nil:
+		{
+			return "", nil
+		}
+	case string:
+		{
+			return v, nil
+		}
+	case fmt.Stringer:
+		{
+			return v.String(), nil
+		}
 	}
-	// try to convert non-pointer value
-	ret, ok := convert(value)
-	if ok {
-		return ret
-	}
-	// try to dereference pointer, then convert value
+	// if not converted yet, try to dereference pointer, then convert
 	v := reflect.ValueOf(value)
 	if v.Kind() == reflect.Ptr {
 		if v.IsNil() {
-			return ""
+			return "", nil
 		}
-		ret, ok := convert(v.Elem().Interface())
-		if ok {
-			return ret
+		ret, err := StringE(v.Elem().Interface())
+		if err == nil {
+			return ret, nil
 		}
 	}
-	mod.Error("Type", reflect.TypeOf(value), "not handled; =", value)
-	return ""
-} //                                                                      String
+	return "", mod.Error("Type", reflect.TypeOf(value), "not handled; =", value)
+} //                                                                     StringE
 
 // Substr returns a substring given a string and the index (charIndex) and
 // substring length (charCount). If the length is -1, returns a string
