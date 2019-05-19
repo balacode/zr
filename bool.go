@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 17:50:20 C55F57                                   zr/[bool.go]
+// :v: 2019-05-19 19:04:27 6070F4                                   zr/[bool.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -10,15 +10,19 @@ package zr
 //   TrueCount(values ...bool) int
 
 import (
-	"fmt"
 	"reflect"
 	"strings"
 )
 
-// Bool converts primitive types to a boolean value:
+// Bool converts simple types to a boolean value:
+//
 // Converts nil to false.
 // Converts all nonzero numbers to true and zeros to false.
 // Converts only strings that equal 'true' (case-insensitive) to true.
+//
+// Note: fmt.Stringer (or fmt.GoStringer) interfaces are not treated as
+// strings to avoid bugs from implicit conversion. Use the String method.
+//
 func Bool(value interface{}) bool {
 	switch v := value.(type) {
 	case nil:
@@ -47,10 +51,6 @@ func Bool(value interface{}) bool {
 	case *string:
 		if v != nil {
 			return Bool(*v)
-		}
-	case fmt.Stringer:
-		{
-			return Bool(v.String())
 		}
 	// signed integers:
 	case int:
@@ -163,6 +163,9 @@ func Bool(value interface{}) bool {
 // If value is a string, returns true if it is "TRUE", "FALSE", "0", or "1".
 // If value is any other type, returns false.
 //
+// Note: fmt.Stringer (or fmt.GoStringer) interfaces are not treated as
+// strings to avoid bugs from implicit conversion. Use the String method.
+//
 func IsBool(value interface{}) bool {
 	switch v := value.(type) {
 	case nil:
@@ -181,10 +184,6 @@ func IsBool(value interface{}) bool {
 	case *string:
 		if v != nil {
 			return IsBool(*v)
-		}
-	case fmt.Stringer:
-		{
-			return IsBool(v.String())
 		}
 	case int, int64, int32, int16, int8, float64, float32,
 		uint, uint64, uint32, uint16, uint8,
