@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 03:40:49 97A7B0                              zr/[uuid_test.go]
+// :v: 2019-05-19 18:55:01 100FC4                              zr/[uuid_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -40,8 +40,7 @@ func Test_uuid_IsUUID_(t *testing.T) {
 		uuid1   = "B2368D91-BBF8-4184-B4A4-4E3372565324"
 		uuid2   = "606F02A3-87DF-406E-9E81-69911B53DD6D"
 		uuid3   = "F10D9ACB-EC6D-438D-BD02-33123801E9F4"
-		goodStr = NewTStringer("226369EA-1773-44AA-8DDC-C90D4A4D2571")
-		badStr  = NewTStringer("BBDB0DBF-FB03-Z0F7-9682-3B15859E01CB")
+		badStr  = "BBDB0DBF-FB03-Z0F7-9682-3B15859E01CB"
 	)
 	tests := []struct {
 		input  interface{}
@@ -74,7 +73,6 @@ func Test_uuid_IsUUID_(t *testing.T) {
 		{&uuid1, true},
 		{&uuid2, true},
 		{&uuid3, true},
-		{goodStr, true},
 	}
 	for i, test := range tests {
 		got := IsUUID(test.input)
