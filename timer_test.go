@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:33 61929D                             zr/[timer_test.go]
+// :v: 2019-05-19 03:40:49 4F8469                             zr/[timer_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -21,6 +21,7 @@ import (
 // go test --run Test_timr_
 func Test_timr_(t *testing.T) {
 	TBegin(t)
+	//
 	var tm Timer
 	tm.Start("task")
 	time.Sleep(300 * time.Millisecond)

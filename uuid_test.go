@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:58:17 4F557E                              zr/[uuid_test.go]
+// :v: 2019-05-19 03:40:49 97A7B0                              zr/[uuid_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -34,6 +34,7 @@ func Test_uuid_IsUUID_(t *testing.T) {
 	// func IsUUID_(value interface{}) bool
 	//
 	TBegin(t)
+	//
 	printSampleUUIDs(0)
 	var (
 		uuid1   = "B2368D91-BBF8-4184-B4A4-4E3372565324"
@@ -89,6 +90,7 @@ func Test_uuid_IsUUID_(t *testing.T) {
 // go test --run Test_uuid_UUID_
 func Test_uuid_UUID_(t *testing.T) {
 	TBegin(t)
+	//
 	// UUID_() string
 	//
 	{

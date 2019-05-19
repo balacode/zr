@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 11:06:49 E0C892                           zr/[strings_test.go]
+// :v: 2019-05-19 03:40:49 01726D                           zr/[strings_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -78,6 +78,7 @@ func Test_strs_consts_(t *testing.T) {
 // go test --run Test_strs_After_
 func Test_strs_After_(t *testing.T) {
 	TBegin(t)
+	//
 	// After(s string, find ...string) string
 	//
 	test := func(s string, find []string, expect string) {
@@ -118,6 +119,7 @@ func Test_strs_After_(t *testing.T) {
 // go test --run Test_strs_CamelCase_
 func Test_strs_CamelCase_(t *testing.T) {
 	TBegin(t)
+	//
 	// CamelCase(s string) string
 	//
 	test := func(s, expect string) {
@@ -132,6 +134,7 @@ func Test_strs_CamelCase_(t *testing.T) {
 // go test --run Test_strs_CompactSpaces_
 func Test_strs_CompactSpaces_(t *testing.T) {
 	TBegin(t)
+	//
 	// CompactSpaces(s string) string
 	//
 	TEqual(t, CompactSpaces("a  b  c"), ("a b c"))
@@ -141,6 +144,7 @@ func Test_strs_CompactSpaces_(t *testing.T) {
 // go test --run Test_strs_ContainsI_
 func Test_strs_ContainsI_(t *testing.T) {
 	TBegin(t)
+	//
 	// ContainsI(s, substr string) bool
 	//
 	TTrue(t, ContainsI("abc", ""))
@@ -163,6 +167,7 @@ func Test_strs_ContainsI_(t *testing.T) {
 // go test --run Test_strs_CountCRLF_
 func Test_strs_CountCRLF_(t *testing.T) {
 	TBegin(t)
+	//
 	// CountCRLF(s string) (count, countCR, countLF int)
 	//
 	var n, cr, lf int
@@ -188,6 +193,7 @@ func Test_strs_CountCRLF_(t *testing.T) {
 // go test --run Test_strs_ContainsWord_
 func Test_strs_ContainsWord_(t *testing.T) {
 	TBegin(t)
+	//
 	// ContainsWord(s, word string, caseMode CaseMode) bool
 	//
 	s := "abc defg hijk"
@@ -227,6 +233,7 @@ func Test_strs_ContainsWord_(t *testing.T) {
 // go test --run Test_strs_EqualStringSlices_
 func Test_strs_EqualStringSlices_(t *testing.T) {
 	TBegin(t)
+	//
 	// EqualStringSlices(a, b []string) bool
 	//
 	a := []string{"first", "second", "third"}
@@ -251,6 +258,7 @@ func Test_strs_EqualStringSlices_(t *testing.T) {
 // go test --run Test_strs_FindChar_
 func Test_strs_FindChar_(t *testing.T) {
 	TBegin(t)
+	//
 	// FindChar(s string, ch byte, beginIndex int) int
 	//
 	TEqual(t, FindChar("ABC ABC", 'C', 0), (2))
@@ -262,6 +270,7 @@ func Test_strs_FindChar_(t *testing.T) {
 // go test --run Test_strs_FindInSlice_
 func Test_strs_FindInSlice_(t *testing.T) {
 	TBegin(t)
+	//
 	// FindInSlice(s string, start, end int, substr string) int
 	//
 	test := func(s string, start, end int, substr string,
@@ -275,6 +284,7 @@ func Test_strs_FindInSlice_(t *testing.T) {
 // go test --run Test_strs_First_
 func Test_strs_First_(t *testing.T) {
 	TBegin(t)
+	//
 	// First(s string, count int) string
 	//
 	{
@@ -296,6 +306,7 @@ func Test_strs_First_(t *testing.T) {
 // go test --run Test_strs_GetPart_
 func Test_strs_GetPart_(t *testing.T) {
 	TBegin(t)
+	//
 	// GetPart(s, prefix, suffix string) string
 	//
 	// both prefix and suffix are blank: return 's' as it is
@@ -323,6 +334,7 @@ func Test_strs_GetPart_(t *testing.T) {
 // go test --run Test_strs_IfString_
 func Test_strs_IfString_(t *testing.T) {
 	TBegin(t)
+	//
 	// IfString(condition bool, trueStr, falseStr string) string
 	//
 	TEqual(t, IfString(true, "true", "false"), "true")
@@ -332,6 +344,7 @@ func Test_strs_IfString_(t *testing.T) {
 // go test --run Test_strs_IsIdentifier_
 func Test_strs_IsIdentifier_(t *testing.T) {
 	TBegin(t)
+	//
 	// IsIdentifier(s string) bool
 	//
 	TEqual(t, IsIdentifier(""), false)
@@ -346,6 +359,7 @@ func Test_strs_IsIdentifier_(t *testing.T) {
 // go test --run Test_strs_IsWhiteSpace_
 func Test_strs_IsWhiteSpace_(t *testing.T) {
 	TBegin(t)
+	//
 	// IsWhiteSpace(s string) bool
 	//
 	TEqual(t, IsWhiteSpace(""), false)
@@ -365,6 +379,7 @@ func Test_strs_IsWhiteSpace_(t *testing.T) {
 // go test --run Test_strs_JSUnescape_
 func Test_strs_JSUnescape_(t *testing.T) {
 	TBegin(t)
+	//
 	// JSUnescape(s string) string
 	//
 	TEqual(t, JSUnescape("%25"), "%")
@@ -376,6 +391,7 @@ func Test_strs_JSUnescape_(t *testing.T) {
 // go test --run Test_strs_JSUnescapeStruct_
 func Test_strs_JSUnescapeStruct_(t *testing.T) {
 	TBegin(t)
+	//
 	// JSUnescapeStruct(structPtr interface{})
 	//
 	type Item struct {
@@ -407,6 +423,7 @@ func Test_strs_JSUnescapeStruct_(t *testing.T) {
 // go test --run Test_strs_Last_
 func Test_strs_Last_(t *testing.T) {
 	TBegin(t)
+	//
 	// Last(s string, count int) string
 	//
 	{
@@ -428,6 +445,7 @@ func Test_strs_Last_(t *testing.T) {
 // go test --run Test_strs_LineBeginIndexB_
 func Test_strs_LineBeginIndexB_(t *testing.T) {
 	TBegin(t)
+	//
 	// LineBeginIndexB(s []byte, index int) int
 	//
 	ar := []byte{
@@ -459,6 +477,7 @@ func Test_strs_LineBeginIndexB_(t *testing.T) {
 // go test --run Test_strs_LineBeginIndex_
 func Test_strs_LineBeginIndex_(t *testing.T) {
 	TBegin(t)
+	//
 	// LineBeginIndex(s string, index int) int
 	//
 	s := "A\rBC\rDEF"
@@ -504,6 +523,7 @@ func Test_strs_LineBeginIndex_(t *testing.T) {
 // go test --run Test_strs_LineEndIndexB_
 func Test_strs_LineEndIndexB_(t *testing.T) {
 	TBegin(t)
+	//
 	// LineEndIndexB(s []byte, index int) int
 	//
 	TEqual(t, LineEndIndexB([]byte("abc"), 0), 3)
@@ -514,6 +534,7 @@ func Test_strs_LineEndIndexB_(t *testing.T) {
 // go test --run Test_strs_LineEndIndex_
 func Test_strs_LineEndIndex_(t *testing.T) {
 	TBegin(t)
+	//
 	// LineEndIndex(s string, index int) int
 	//
 	// test with CR:
@@ -552,6 +573,7 @@ func Test_strs_LineEndIndex_(t *testing.T) {
 // go test --run Test_strs_LineOfIndex_
 func Test_strs_LineOfIndex_(t *testing.T) {
 	TBegin(t)
+	//
 	// LineOfIndex(s string, index int) string
 	//
 	s := "01\n345\n789A"
@@ -574,6 +596,7 @@ func Test_strs_LineOfIndex_(t *testing.T) {
 // go test --run Test_strs_LineOffsetUTF8_
 func Test_strs_LineOffsetUTF8_(t *testing.T) {
 	TBegin(t)
+	//
 	// LineOffsetUTF8(data []byte, lineIndex int) (byteOffset, charOffset int)
 	//
 	test := func(
@@ -628,6 +651,7 @@ func Test_strs_LineOffsetUTF8_(t *testing.T) {
 // go test --run Test_strs_Padf_
 func Test_strs_Padf_(t *testing.T) {
 	TBegin(t)
+	//
 	// Padf(minLength int, s string, args ...interface{}) string
 	//
 	TEqual(t, Padf(6, "%s", "abc"), "abc   ")
@@ -638,6 +662,7 @@ func Test_strs_Padf_(t *testing.T) {
 // go test --run Test_strs_ReplaceEx1_
 func Test_strs_ReplaceEx1_(t *testing.T) {
 	TBegin(t)
+	//
 	// ReplaceEx1(s, find, repl string, count int, caseMode CaseMode) string
 	//
 	s := "ABC ABC ABC"
@@ -665,6 +690,7 @@ func Test_strs_ReplaceEx1_(t *testing.T) {
 // go test --run Test_strs_ReplaceI_
 func Test_strs_ReplaceI_(t *testing.T) {
 	TBegin(t)
+	//
 	// ReplaceI(s, find, repl string) string
 	//
 	TEqual(t, ReplaceI("A AA aaa", "A", "B"), ("B BB BBB"))
@@ -813,6 +839,7 @@ func Test_strs_ReplaceMany_(t *testing.T) {
 // go test --run Test_strs_ReplaceWord_
 func Test_strs_ReplaceWord_(t *testing.T) {
 	TBegin(t)
+	//
 	// ReplaceWord(s, find, repl string, caseMode CaseMode) string
 	//
 	const testStr = "A AB ABC A AB ABC A_ AB_"
@@ -879,6 +906,7 @@ func Test_strs_ReplaceWord_(t *testing.T) {
 // go test --run Test_strs_SetPart_
 func Test_strs_SetPart_(t *testing.T) {
 	TBegin(t)
+	//
 	// SetPart(s, prefix, suffix, part string) string
 	//
 	TEqual(t,
@@ -890,6 +918,7 @@ func Test_strs_SetPart_(t *testing.T) {
 // go test --run Test_strs_SetSlice_
 func Test_strs_SetSlice_(t *testing.T) {
 	TBegin(t)
+	//
 	// SetSlice(s string, start, end int, substr string) string
 	//
 	test := func(s string, start, end int, substr string,
@@ -918,6 +947,7 @@ func Test_strs_ShowSpaces_(t *testing.T) {
 // go test --run Test_strs_SkipChars_
 func Test_strs_SkipChars_(t *testing.T) {
 	TBegin(t)
+	//
 	// SkipChars(s string, start int, chars string) int
 	//
 	test := func(s string, start int, chars string, expect int) {
@@ -937,6 +967,7 @@ func Test_strs_SkipChars_(t *testing.T) {
 // go test --run Test_strs_SkipName_
 func Test_strs_SkipName_(t *testing.T) {
 	TBegin(t)
+	//
 	// SkipName(s string, start int) int
 	//
 	test := func(s string, start, expect int) {
@@ -950,6 +981,7 @@ func Test_strs_SkipName_(t *testing.T) {
 // go test --run Test_strs_SkipSpaces_
 func Test_strs_SkipSpaces_(t *testing.T) {
 	TBegin(t)
+	//
 	// SkipSpaces(s string, start int) int
 	//
 	test := func(s string, start, expect int) {
@@ -962,6 +994,7 @@ func Test_strs_SkipSpaces_(t *testing.T) {
 // go test --run Test_strs_Slice_
 func Test_strs_Slice_(t *testing.T) {
 	TBegin(t)
+	//
 	// Slice(s string, beginIndex, endIndex int) string
 	//
 	// TODO: use similar testing for Bytes.Slice()
@@ -1021,6 +1054,7 @@ func Test_strs_Slice_(t *testing.T) {
 // go test --run Test_strs_SplitQuoted_
 func Test_strs_SplitQuoted_(t *testing.T) {
 	TBegin(t)
+	//
 	// SplitQuoted(s string) []string
 	//
 	TArrayEqual(t, []string{`"ABC"`, "123"},
@@ -1058,6 +1092,7 @@ func Test_strs_SplitQuoted_(t *testing.T) {
 // go test --run Test_strs_StrOneOf_
 func Test_strs_StrOneOf_(t *testing.T) {
 	TBegin(t)
+	//
 	// StrOneOf(s string, matches ...string) bool
 	//
 	TEqual(t, StrOneOf("b", "a", "b", "c"), true)
@@ -1100,6 +1135,7 @@ func Test_strs_String_(t *testing.T) {
 // go test --run Test_strs_Substr_
 func Test_strs_Substr_(t *testing.T) {
 	TBegin(t)
+	//
 	// Substr(s string, charIndex, charCount int) string
 	//
 	const IntMin = -2147483648
@@ -1201,6 +1237,7 @@ func Test_strs_Substr_(t *testing.T) {
 // go test --run Test_strs_TitleCase_
 func Test_strs_TitleCase_(t *testing.T) {
 	TBegin(t)
+	//
 	// TitleCase(s string) string
 	//
 	TEqual(t, TitleCase("A TITLE"), ("A Title"))
@@ -1230,6 +1267,7 @@ func Test_strs_TitleCase_(t *testing.T) {
 // go test --run Test_strs_TokenGetEx_
 func Test_strs_TokenGetEx_(t *testing.T) {
 	TBegin(t)
+	//
 	// TokenGetEx(list string, index int, sep string, ignoreEnd bool) string
 	//
 	FST := "first;second;third"
@@ -1260,6 +1298,7 @@ func Test_strs_TokenGetEx_(t *testing.T) {
 // go test --run Test_strs_TokenGet_
 func Test_strs_TokenGet_(t *testing.T) {
 	TBegin(t)
+	//
 	// TokenGet(list string, index int, sep string) string
 	//
 	TEqual(t, TokenGet("first;second;third", 0, ";"), ("first"))
@@ -1275,6 +1314,7 @@ func Test_strs_TokenGet_(t *testing.T) {
 // go test --run Test_strs_WordIndex_
 func Test_strs_WordIndex_(t *testing.T) {
 	TBegin(t)
+	//
 	// WordIndex(s, word string, caseMode CaseMode) int
 	//
 	TEqual(t, WordIndex("word", "WORD", IgnoreCase), (0))

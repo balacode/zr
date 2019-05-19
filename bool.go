@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 11:06:49 651760                                   zr/[bool.go]
+// :v: 2019-05-19 03:40:48 89489F                                   zr/[bool.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -57,11 +57,7 @@ func Bool(value interface{}) bool {
 		{
 			return v != 0
 		}
-	case int8:
-		{
-			return v != 0
-		}
-	case int16:
+	case int64:
 		{
 			return v != 0
 		}
@@ -69,7 +65,11 @@ func Bool(value interface{}) bool {
 		{
 			return v != 0
 		}
-	case int64:
+	case int16:
+		{
+			return v != 0
+		}
+	case int8:
 		{
 			return v != 0
 		}
@@ -77,11 +77,7 @@ func Bool(value interface{}) bool {
 		if v != nil {
 			return *v != 0
 		}
-	case *int8:
-		if v != nil {
-			return *v != 0
-		}
-	case *int16:
+	case *int64:
 		if v != nil {
 			return *v != 0
 		}
@@ -89,7 +85,11 @@ func Bool(value interface{}) bool {
 		if v != nil {
 			return *v != 0
 		}
-	case *int64:
+	case *int16:
+		if v != nil {
+			return *v != 0
+		}
+	case *int8:
 		if v != nil {
 			return *v != 0
 		}

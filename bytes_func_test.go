@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:33 9851C9                        zr/[bytes_func_test.go]
+// :v: 2019-05-19 03:40:48 B0165D                        zr/[bytes_func_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -36,6 +36,7 @@ import (
 // go test --run Test_bytf_AppendRuneBytes_
 func Test_bytf_AppendRuneBytes_(t *testing.T) {
 	TBegin(t)
+	//
 	//   AppendRuneBytes(dest *[]byte, r rune) int
 	//
 	r := 'Б'
@@ -50,6 +51,7 @@ func Test_bytf_AppendRuneBytes_(t *testing.T) {
 // go test --run Test_bytf_ByteSizeString_
 func Test_bytf_ByteSizeString_(t *testing.T) {
 	TBegin(t)
+	//
 	// ByteSizeString(sizeInBytes int64, useSI bool) string
 	//
 	test := func(sizeInBytes int64, useSI bool, expect string) {
@@ -147,6 +149,7 @@ func Test_bytf_ByteSizeString_(t *testing.T) {
 // go test --run Test_bytf_ClearBytes_
 func Test_bytf_ClearBytes_(t *testing.T) {
 	TBegin(t)
+	//
 	//   ClearBytes(slice *[]byte)
 	//
 	slice := make([]byte, 0, 0)
@@ -165,6 +168,7 @@ func Test_bytf_ClearBytes_(t *testing.T) {
 // go test --run Test_bytf_CompressBytes_
 func Test_bytf_CompressBytes_(t *testing.T) {
 	TBegin(t)
+	//
 	// CompressBytes(data []byte) []byte
 	//
 	// TODO: TEST:
@@ -185,6 +189,7 @@ func Test_bytf_CompressBytes_(t *testing.T) {
 // go test --run Test_bytf_FoldXorBytes_
 func Test_bytf_FoldXorBytes_(t *testing.T) {
 	TBegin(t)
+	//
 	//   FoldXorBytes(ar []byte, returnLen int) []byte
 	//
 	for i, test := range []struct {
@@ -209,6 +214,7 @@ func Test_bytf_FoldXorBytes_(t *testing.T) {
 // go test --run Test_bytf_HexStringOfBytes_
 func Test_bytf_HexStringOfBytes_(t *testing.T) {
 	TBegin(t)
+	//
 	//   HexStringOfBytes(ar []byte) string
 	//
 	test := func(ar []byte, expect string) {
@@ -233,6 +239,7 @@ func Test_bytf_HexStringOfBytes_(t *testing.T) {
 // go test --run Test_bytf_InsertBytes_
 func Test_bytf_InsertBytes_(t *testing.T) {
 	TBegin(t)
+	//
 	//   InsertBytes(dest *[]byte, pos int, src ...[]byte)
 	//
 	{
@@ -307,6 +314,7 @@ func Test_bytf_InsertBytes_(t *testing.T) {
 // go test --run Test_bytf_RemoveBytes_
 func Test_bytf_RemoveBytes_(t *testing.T) {
 	TBegin(t)
+	//
 	//   RemoveBytes(dest *[]byte, pos, count int)
 	//
 	if true {
@@ -334,6 +342,7 @@ func Test_bytf_RemoveBytes_(t *testing.T) {
 // go test --run Test_bytf_RuneOffset_
 func Test_bytf_RuneOffset_(t *testing.T) {
 	TBegin(t)
+	//
 	//   RuneOffset(slice []byte, runeIndex int) (byteIndex int)
 	//
 	slice := []byte("Hello, 世界")
@@ -357,6 +366,7 @@ func Test_bytf_RuneOffset_(t *testing.T) {
 // go test --run Test_bytf_UncompressBytes_
 func Test_bytf_UncompressBytes_(t *testing.T) {
 	TBegin(t)
+	//
 	// UncompressBytes(data []byte) []byte
 	//
 	// TODO: TEST UncompressBytes():
@@ -376,6 +386,7 @@ func Test_bytf_UncompressBytes_(t *testing.T) {
 // go test --run Test_bytf_XorBytes_
 func Test_bytf_XorBytes_(t *testing.T) {
 	TBegin(t)
+	//
 	// XorBytes(data, cipher []byte) []byte
 	//
 	// TODO: TEST XorBytes():

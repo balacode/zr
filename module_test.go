@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:33 DC81DE                            zr/[module_test.go]
+// :v: 2019-05-19 03:40:49 AF0838                            zr/[module_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -35,6 +35,7 @@ import (
 // go test --run Test_mdle_VersionTime_
 func Test_mdle_VersionTime_(t *testing.T) {
 	TBegin(t)
+	//
 	// VersionTime_() string
 	//
 	s := VersionTime()
@@ -98,6 +99,7 @@ func Test_mdle_vars_(t *testing.T) {
 // go test --run Test_mdle_DebugMode_
 func Test_mdle_DebugMode_(t *testing.T) {
 	TBegin(t)
+	//
 	// DebugMode() bool
 	//
 	debugMode = true
@@ -110,6 +112,7 @@ func Test_mdle_DebugMode_(t *testing.T) {
 // go test --run Test_mdle_SetDebugMode_
 func Test_mdle_SetDebugMode_(t *testing.T) {
 	TBegin(t)
+	//
 	// SetDebugMode(val bool)
 	//
 	SetDebugMode(true)

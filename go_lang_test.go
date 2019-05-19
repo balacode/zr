@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:58:17 E3C9E9                           zr/[go_lang_test.go]
+// :v: 2019-05-19 03:40:49 F5E60A                           zr/[go_lang_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -32,6 +32,7 @@ import (
 // go test --run Test_gola_GoName_
 func Test_gola_GoName_(t *testing.T) {
 	TBegin(t)
+	//
 	// GoName_(s string) string
 	//
 	//X 	ret := Trim(s, SPACES)

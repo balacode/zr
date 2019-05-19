@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:58:17 70668F                              zr/[bool_test.go]
+// :v: 2019-05-19 03:40:48 0C1367                              zr/[bool_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -24,6 +24,7 @@ import (
 // go test --run Test_bool_Bool_
 func Test_bool_Bool_(t *testing.T) {
 	TBegin(t)
+	//
 	// Bool(value interface{}) bool
 	//
 	test := func(value interface{}, expect bool) {
@@ -220,6 +221,7 @@ func Test_bool_Bool_(t *testing.T) {
 // go test --run Test_bool_IsBool_
 func Test_bool_IsBool_(t *testing.T) {
 	TBegin(t)
+	//
 	// IsBool(value interface{}) bool
 	//
 	test := func(value interface{}, expect bool) {
@@ -413,6 +415,7 @@ func Test_bool_IsBool_(t *testing.T) {
 // go test --run Test_bool_TrueCount_
 func Test_bool_TrueCount_(t *testing.T) {
 	TBegin(t)
+	//
 	// TrueCount(values ...bool) int
 	//
 	test := func(expect int, values ...bool) {

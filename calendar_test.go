@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:33 73E1FF                          zr/[calendar_test.go]
+// :v: 2019-05-19 03:40:48 664C8C                          zr/[calendar_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -20,6 +20,7 @@ import (
 // go test --run Test_cldr_
 func Test_cldr_(t *testing.T) {
 	TBegin(t)
+	//
 	var ret Calendar
 	ret.Set("2018-01-01", 20.01)
 	ret.Set("2018-01-02", 21.02)

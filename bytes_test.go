@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-12 17:04:33 0644EA                             zr/[bytes_test.go]
+// :v: 2019-05-19 03:40:48 0A8DFB                             zr/[bytes_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -52,6 +52,7 @@ import (
 // go test --run Test_byts_BytesAlloc_
 func Test_byts_BytesAlloc_(t *testing.T) {
 	TBegin(t)
+	//
 	// BytesAlloc(size int) Bytes
 	//
 	o := BytesAlloc(4096) // 4KiB
@@ -61,6 +62,7 @@ func Test_byts_BytesAlloc_(t *testing.T) {
 // go test --run Test_byts_BytesAllocUTF8_
 func Test_byts_BytesAllocUTF8_(t *testing.T) {
 	TBegin(t)
+	//
 	// BytesAllocUTF8(s string) Bytes
 	//
 	o := BytesAllocUTF8("Привет !")
@@ -70,6 +72,7 @@ func Test_byts_BytesAllocUTF8_(t *testing.T) {
 // go test --run Test_byts_BytesWrap_
 func Test_byts_BytesWrap_(t *testing.T) {
 	TBegin(t)
+	//
 	// BytesWrap(ar []byte) Bytes
 	//
 	ar := []byte{'H', 'e', 'l', 'l', 'o', '!'}
@@ -85,6 +88,7 @@ func Test_byts_BytesWrap_(t *testing.T) {
 // go test --run Test_byts_Bytes_Cap_
 func Test_byts_Bytes_Cap_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Bytes) Cap() int
 	//
 	{
@@ -104,6 +108,7 @@ func Test_byts_Bytes_Cap_(t *testing.T) {
 // go test --run Test_byts_Bytes_FindByte_
 func Test_byts_Bytes_FindByte_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Bytes) FindByte(b byte) int
 	//
 	{
@@ -120,6 +125,7 @@ func Test_byts_Bytes_FindByte_(t *testing.T) {
 // go test --run Test_byts_Bytes_GetByte_
 func Test_byts_Bytes_GetByte_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Bytes) GetByte(index int) byte
 	//
 	{
@@ -136,6 +142,7 @@ func Test_byts_Bytes_GetByte_(t *testing.T) {
 // go test --run Test_byts_Bytes_GetChar_
 func Test_byts_Bytes_GetChar_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Bytes) GetChar(index int) CharSize
 	//
 	{
@@ -153,6 +160,7 @@ func Test_byts_Bytes_GetChar_(t *testing.T) {
 // go test --run Test_byts_Bytes_Size_
 func Test_byts_Bytes_Size_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Bytes) Size() int
 	//
 	{
@@ -172,6 +180,7 @@ func Test_byts_Bytes_Size_(t *testing.T) {
 // go test --run Test_byts_Bytes_String_
 func Test_byts_Bytes_String_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Bytes) String() string
 	//
 	{
@@ -191,6 +200,7 @@ func Test_byts_Bytes_String_(t *testing.T) {
 // go test --run Test_byts_Bytes_Append_
 func Test_byts_Bytes_Append_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Bytes) Append(b Bytes)
 	//
 	{
@@ -231,6 +241,7 @@ func Test_byts_Bytes_AppendChar_(t *testing.T) {
 // go test --run Test_byts_Bytes_GetBytes_
 func Test_byts_Bytes_GetBytes_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Bytes) GetBytes() []byte
 	//
 	{
@@ -247,6 +258,7 @@ func Test_byts_Bytes_GetBytes_(t *testing.T) {
 // go test --run Test_byts_Bytes_Insert_
 func Test_byts_Bytes_Insert_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Bytes) Insert(index int, data Bytes, count int) int
 	//
 	{
@@ -279,6 +291,7 @@ func Test_byts_Bytes_Insert_(t *testing.T) {
 // go test --run Test_byts_Bytes_Remove_
 func Test_byts_Bytes_Remove_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Bytes) Remove(index, count int)
 	//
 	{
@@ -303,6 +316,7 @@ func Test_byts_Bytes_Remove_(t *testing.T) {
 // go test --run Test_byts_Bytes_Reset_
 func Test_byts_Bytes_Reset_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Bytes) Reset()
 	//
 	{
@@ -319,6 +333,7 @@ func Test_byts_Bytes_Reset_(t *testing.T) {
 // go test --run Test_byts_Bytes_Resize_
 func Test_byts_Bytes_Resize_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Bytes) Resize(size int)
 	//
 	{
@@ -345,6 +360,7 @@ func Test_byts_Bytes_Resize_(t *testing.T) {
 // go test --run Test_byts_Bytes_SetByte_
 func Test_byts_Bytes_SetByte_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Bytes) SetByte(index int, val byte)
 	//
 	{
@@ -361,6 +377,7 @@ func Test_byts_Bytes_SetByte_(t *testing.T) {
 // go test --run Test_byts_Bytes_Slice_
 func Test_byts_Bytes_Slice_(t *testing.T) {
 	TBegin(t)
+	//
 	// (ob *Bytes) Slice(beginIndex, endIndex int) Bytes
 	//
 	{

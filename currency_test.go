@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 11:33:33 CDD2DD                          zr/[currency_test.go]
+// :v: 2019-05-19 03:40:48 4CE1C4                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -339,6 +339,7 @@ func Test_crcy_CurrencyOf_(t *testing.T) {
 // go test --run Test_crcy_Currency_Fmt_
 func Test_crcy_Currency_Fmt_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) Fmt(decimalPlaces int) string
 	//
 	test := func(input interface{}, decimalPlaces int, expect string) {
@@ -489,6 +490,7 @@ func Test_crcy_Currency_InWordsEN_(t *testing.T) {
 // go test --run Test_crcy_Currency_String_
 func Test_crcy_Currency_String_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) String() string
 	//
 	for i, test := range []struct {
@@ -577,6 +579,7 @@ func Test_crcy_Currency_Div_(t *testing.T) {
 // go test --run Test_crcy_Currency_DivFloat_
 func Test_crcy_Currency_DivFloat_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) DivFloat(nums...float64) Currency
 	//
 	test := func(n Currency, nums []float64, expect Currency) {
@@ -612,6 +615,7 @@ func Test_crcy_Currency_DivInt_(t *testing.T) {
 // go test --run Test_crcy_Currency_Mul_
 func Test_crcy_Currency_Mul_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) Mul(nums... Currency) Currency
 	//
 	test := func(n Currency, nums []Currency, expect Currency) {
@@ -656,6 +660,7 @@ func Test_crcy_Currency_Mul_(t *testing.T) {
 // go test --run Test_crcy_Currency_MulFloat_
 func Test_crcy_Currency_MulFloat_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) MulFloat(nums...float64) Currency
 	//
 	test := func(n Currency, nums []float64, expect Currency) {
@@ -729,6 +734,7 @@ func Test_crcy_Currency_MulInt_(t *testing.T) {
 // go test --run Test_crcy_Currency_Add_
 func Test_crcy_Currency_Add_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) Add(nums... Currency) Currency
 	//
 	test := func(n Currency, nums []Currency, expect Currency) {
@@ -835,6 +841,7 @@ func Test_crcy_Currency_Add_(t *testing.T) {
 // go test --run Test_crcy_Currency_AddFloat_
 func Test_crcy_Currency_AddFloat_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) AddFloat(nums...float64) Currency
 	//
 	test := func(n Currency, nums []float64, expect Currency) {
@@ -870,6 +877,7 @@ func Test_crcy_Currency_AddInt_(t *testing.T) {
 // go test --run Test_crcy_Currency_Sub_
 func Test_crcy_Currency_Sub_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) Sub(nums... Currency) Currency
 	//
 	test := func(n Currency, nums []Currency, expect Currency) {
@@ -981,6 +989,7 @@ func Test_crcy_Currency_Sub_(t *testing.T) {
 // go test --run Test_crcy_Currency_SubFloat_
 func Test_crcy_Currency_SubFloat_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) SubFloat(nums...float64) Currency
 	//
 	test := func(n Currency, nums []float64, expect Currency) {
@@ -992,6 +1001,7 @@ func Test_crcy_Currency_SubFloat_(t *testing.T) {
 // go test --run Test_crcy_Currency_SubInt_
 func Test_crcy_Currency_SubInt_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) SubInt(nums...int) Currency
 	//
 	test := func(n Currency, nums []int, expect Currency) {
@@ -1007,6 +1017,7 @@ func Test_crcy_Currency_SubInt_(t *testing.T) {
 // go test --run Test_crcy_Currency_Float64_
 func Test_crcy_Currency_Float64_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) Float64() float64
 	//
 	test := func(n Currency, expect float64) {
@@ -1029,6 +1040,7 @@ func Test_crcy_Currency_Float64_(t *testing.T) {
 // go test --run Test_crcy_Currency_Int_
 func Test_crcy_Currency_Int_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) Int() int64
 	//
 	test := func(n Currency, expect int64) {
@@ -1048,6 +1060,7 @@ func Test_crcy_Currency_Int_(t *testing.T) {
 // go test --run Test_crcy_Currency_Int64_
 func Test_crcy_Currency_Int64_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) Int64() int64
 	//
 	test := func(n Currency, expect int64) {
@@ -1067,6 +1080,7 @@ func Test_crcy_Currency_Int64_(t *testing.T) {
 // go test --run Test_crcy_Currency_IsEqual_
 func Test_crcy_Currency_IsEqual_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) IsEqual() bool
 	//
 	test := func(n, num Currency, expect bool) {
@@ -1088,6 +1102,7 @@ func Test_crcy_Currency_IsEqual_(t *testing.T) {
 // go test --run Test_crcy_Currency_IsNegative_
 func Test_crcy_Currency_IsNegative_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) IsNegative() bool
 	//
 	test := func(n Currency, expect bool) {
@@ -1114,6 +1129,7 @@ func Test_crcy_Currency_IsNegative_(t *testing.T) {
 // go test --run Test_crcy_Currency_IsZero_
 func Test_crcy_Currency_IsZero_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) IsZero() bool
 	//
 	test := func(n Currency, expect bool) {
@@ -1158,6 +1174,7 @@ func Test_crcy_Currency_IsZero_(t *testing.T) {
 // go test --run Test_crcy_Currency_Overflow_
 func Test_crcy_Currency_Overflow_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) Overflow() int
 	//
 	test := func(n Currency, expect int) {
@@ -1181,6 +1198,7 @@ func Test_crcy_Currency_Overflow_(t *testing.T) {
 // go test --run Test_crcy_Currency_MarshalJSON_
 func Test_crcy_Currency_MarshalJSON_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n Currency) MarshalJSON() ([]byte, error)
 	//
 	test := func(input interface{}, expect string) {
@@ -1230,6 +1248,7 @@ func Test_crcy_Currency_MarshalJSON_(t *testing.T) {
 // go test --run Test_crcy_Currency_UnmarshalJSON_
 func Test_crcy_Currency_UnmarshalJSON_(t *testing.T) {
 	TBegin(t)
+	//
 	// (n *Currency) UnmarshalJSON(data []byte) error
 	//
 	{
@@ -1286,6 +1305,7 @@ func Test_crcy_Currency_UnmarshalJSON_(t *testing.T) {
 // go test --run Test_crcy_currencyOverflow_
 func Test_crcy_currencyOverflow_(t *testing.T) {
 	TBegin(t)
+	//
 	// currencyOverflow(isNegative bool, a ...interface{}) int64
 	//
 	// mock Error() function called by tested function

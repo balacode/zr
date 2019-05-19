@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:58:17 E29E24                             zr/[dates_test.go]
+// :v: 2019-05-19 03:40:49 8EDBFE                             zr/[dates_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -74,6 +74,7 @@ func Test_date_DateOf_(t *testing.T) {
 // go test --run Test_date_DateRangeOf_
 func Test_date_DateRangeOf_(t *testing.T) {
 	TBegin(t)
+	//
 	// DateRangeOf(s string) DateRange
 	//
 	// useful for manual debugging: (keep condition false):
@@ -243,6 +244,7 @@ func Test_date_DateRangeOf_(t *testing.T) {
 // go test --run Test_date_DaysInMonth_
 func Test_date_DaysInMonth_(t *testing.T) {
 	TBegin(t)
+	//
 	// TODO: DaysInMonth() decl
 	//
 	// not a leap year
@@ -266,6 +268,7 @@ func Test_date_DaysInMonth_(t *testing.T) {
 // go test --run Test_date_IsDateOnly_
 func Test_date_IsDateOnly_(t *testing.T) {
 	TBegin(t)
+	//
 	// TODO: IsDateOnly decl
 	//
 	// false if any of the time fields are not zero
@@ -293,6 +296,7 @@ func Test_date_IsDateOnly_(t *testing.T) {
 // go test --run Test_date_IsDate_
 func Test_date_IsDate_(t *testing.T) {
 	TBegin(t)
+	//
 	// IsDate(value interface{}) bool
 	//
 	test := func(value interface{}, expect bool) {
