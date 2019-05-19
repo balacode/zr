@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 04:07:15 F994B5                                zr/[strings.go]
+// :v: 2019-05-19 12:46:06 76FDFD                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -1169,12 +1169,13 @@ func String(value interface{}) string {
 // StringE converts value to a string, and also returns an error (or nil).
 func StringE(value interface{}) (string, error) {
 	switch v := value.(type) {
-	case bool:
+	case int:
 		{
-			if v {
-				return "true", nil
-			}
-			return "false", nil
+			return strconv.Itoa(v), nil
+		}
+	case int64, int32, int16, int8:
+		{
+			return fmt.Sprintf("%d", v), nil
 		}
 	case float64, float32:
 		{
@@ -1185,17 +1186,16 @@ func StringE(value interface{}) (string, error) {
 			}
 			return ret, nil
 		}
-	case int:
-		{
-			return strconv.Itoa(v), nil
-		}
-	case int64, int32, int16, int8:
-		{
-			return fmt.Sprintf("%d", v), nil
-		}
 	case uint, uint64, uint32, uint16, uint8:
 		{
 			return fmt.Sprintf("%d", v), nil
+		}
+	case bool:
+		{
+			if v {
+				return "true", nil
+			}
+			return "false", nil
 		}
 	case nil:
 		{
