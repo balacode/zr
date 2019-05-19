@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 17:50:20 7AD6C7                                  zr/[dates.go]
+// :v: 2019-05-19 20:10:30 AD02C4                                  zr/[dates.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -113,6 +113,9 @@ func (ob DateRange) String() string {
 // In both cases the returned Time type will contain only
 // the date part without the time or time zone components.
 //
+// Note: fmt.Stringer (or fmt.GoStringer) interfaces are not treated as
+// strings to avoid bugs from implicit conversion. Use the String method.
+//
 func DateOf(value interface{}) time.Time {
 	switch v := value.(type) {
 	case time.Time: // remove the time component from dates
@@ -141,8 +144,6 @@ func DateOf(value interface{}) time.Time {
 		if v != nil {
 			return DateOf(*v)
 		}
-	case fmt.Stringer:
-		return DateOf(v.String())
 	}
 	mod.Error("Can not convert", reflect.TypeOf(value), "to int:", value)
 	return time.Time{}
@@ -376,6 +377,10 @@ func FormatDateEN(format string, date time.Time) string {
 } //                                                                FormatDateEN
 
 // IsDate returns true if the specified value can be converted to a date.
+//
+// Note: fmt.Stringer (or fmt.GoStringer) interfaces are not treated as
+// strings to avoid bugs from implicit conversion. Use the String method.
+//
 func IsDate(value interface{}) bool {
 	ret, reason := func(value interface{}) (bool, int) {
 		switch v := value.(type) {
@@ -405,8 +410,6 @@ func IsDate(value interface{}) bool {
 				}
 				return true, 5
 			}
-		case fmt.Stringer:
-			return IsDate(v.String()), 6
 		}
 		return false, 7
 	}(value)
@@ -636,10 +639,6 @@ func stringDate(value interface{}, format string) string {
 				return erv
 			}
 			date = parsed
-		}
-	case fmt.Stringer:
-		{
-			return MthYear(v.String())
 		}
 	default:
 		mod.Error("Invalid value:", v)
