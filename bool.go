@@ -1,15 +1,18 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 19:04:27 6070F4                                   zr/[bool.go]
+// :v: 2019-05-19 20:25:37 9DC41A                                   zr/[bool.go]
 // -----------------------------------------------------------------------------
 
 package zr
 
 //   Bool(value interface{}) bool
+//   BoolE(value interface{}) (bool, error)
 //   IsBool(value interface{}) bool
 //   TrueCount(values ...bool) int
 
 import (
+	"errors"
+	"fmt"
 	"reflect"
 	"strings"
 )
@@ -155,6 +158,69 @@ func Bool(value interface{}) bool {
 	mod.Error("Can not convert", reflect.TypeOf(value), "to bool:", value)
 	return false
 } //                                                                        Bool
+
+// BoolE converts any simple numeric type or string to bool.
+//
+// - Dereferences pointers to evaluate the pointed-to type.
+// - Converts nil to false.
+// - Converts all nonzero numbers to true and zeros to false.
+// - Converts only strings that equal 'true', '1' or '-1'
+//   (case-insensitive) to true, all other strings to false.
+//
+// Note: fmt.Stringer (or fmt.GoStringer) interfaces are not treated as
+// strings to avoid bugs from implicit conversion. Use the String method.
+//
+func BoolE(value interface{}) (bool, error) {
+	switch v := value.(type) {
+	case nil:
+		{
+			return false, nil
+		}
+	case bool:
+		{
+			return v, nil
+		}
+	case string:
+		switch strings.ToUpper(strings.TrimSpace(v)) {
+		case "FALSE", "0", "":
+			{
+				return false, nil
+			}
+		case "TRUE", "1", "-1":
+			return true, nil
+		}
+	case int, int64, int32, int16, int8:
+		{
+			n := reflect.ValueOf(value).Int()
+			return n != 0, nil
+		}
+	case uint, uint64, uint32, uint16, uint8:
+		{
+			n := reflect.ValueOf(value).Uint()
+			return n != 0, nil
+		}
+	case float64, float32:
+		{
+			n := reflect.ValueOf(value).Float()
+			return n != 0, nil
+		}
+	}
+	// if not converted yet, try to dereference pointer, then convert
+	v := reflect.ValueOf(value)
+	if v.Kind() == reflect.Ptr {
+		if v.IsNil() {
+			return false, nil
+		}
+		ret, err := BoolE(v.Elem().Interface())
+		if err == nil {
+			return ret, nil
+		}
+	}
+	erm := fmt.Sprintf("Can not convert %s to bool: %v",
+		reflect.TypeOf(value), value)
+	err := errors.New(erm)
+	return false, err
+} //                                                                       BoolE
 
 // IsBool returns true if value can be converted to a boolean.
 //
