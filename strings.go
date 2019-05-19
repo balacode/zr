@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 12:46:06 76FDFD                                zr/[strings.go]
+// :v: 2019-05-19 12:48:11 4B19B4                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -60,6 +60,7 @@ package zr
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"reflect"
 	"sort"
@@ -1162,7 +1163,10 @@ func StrOneOf(s string, matches ...string) bool {
 
 // String converts value to a string.
 func String(value interface{}) string {
-	ret, _ := StringE(value)
+	ret, err := StringE(value)
+	if err != nil {
+		mod.Error(err)
+	}
 	return ret
 } //                                                                      String
 
@@ -1221,7 +1225,10 @@ func StringE(value interface{}) (string, error) {
 			return ret, nil
 		}
 	}
-	return "", mod.Error("Type", reflect.TypeOf(value), "not handled; =", value)
+	erm := fmt.Sprintf("Can not convert %s to string: %v",
+		reflect.TypeOf(value), value)
+	err := errors.New(erm)
+	return "", err
 } //                                                                     StringE
 
 // Substr returns a substring given a string and the index (charIndex) and
