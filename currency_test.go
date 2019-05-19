@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 17:50:20 0D5509                          zr/[currency_test.go]
+// :v: 2019-05-19 19:22:01 230511                          zr/[currency_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -1320,18 +1320,18 @@ func Test_crcy_currencyOverflow_(t *testing.T) {
 	//
 	errorCalled = false
 	errm = ""
-	TEqual(t, currencyOverflow(true, "negative overflow ", -1),
+	TEqual(t, currencyOverflow(true, "negative ", -1),
 		Currency{math.MinInt64},
 	)
-	TEqual(t, errm, "negative overflow -1")
+	TEqual(t, errm, "Overflow: negative -1")
 	TTrue(t, errorCalled)
 	//
 	errorCalled = false
 	errm = ""
-	TEqual(t, currencyOverflow(false, "positive overflow ", 1),
+	TEqual(t, currencyOverflow(false, "positive ", 1),
 		Currency{math.MaxInt64},
 	)
-	TEqual(t, errm, "positive overflow 1")
+	TEqual(t, errm, "Overflow: positive 1")
 	TTrue(t, errorCalled)
 } //                                                 Test_crcy_currencyOverflow_
 

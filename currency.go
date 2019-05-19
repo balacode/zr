@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 17:50:20 D30657                               zr/[currency.go]
+// :v: 2019-05-19 19:22:01 8B2743                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -135,7 +135,7 @@ func CurrencyOf(value interface{}) Currency {
 	case int64:
 		{
 			if v < -CurrencyIntLimit || v > CurrencyIntLimit {
-				return currencyOverflow(v < 0, EOverflow, ": ", v)
+				return currencyOverflow(v < 0, v)
 			}
 			return Currency{int64(v) * 1E4}
 		}
@@ -161,7 +161,7 @@ func CurrencyOf(value interface{}) Currency {
 	case uint64:
 		{
 			if v > CurrencyIntLimit {
-				return currencyOverflow(false, EOverflow, "uint64: ", v)
+				return currencyOverflow(false, v)
 			}
 			return Currency{int64(v) * 1E4}
 		}
@@ -183,7 +183,7 @@ func CurrencyOf(value interface{}) Currency {
 		{
 			if v < -float64(CurrencyIntLimit)-0.9999 ||
 				v > float64(CurrencyIntLimit)+0.9999 {
-				return currencyOverflow(v < 0, EOverflow, "float64: ", v)
+				return currencyOverflow(v < 0, v)
 			}
 			return Currency{int64(v * 1E4)}
 		}
@@ -191,7 +191,7 @@ func CurrencyOf(value interface{}) Currency {
 		{
 			if v < -float32(CurrencyIntLimit)-0.9999 ||
 				v > float32(CurrencyIntLimit)+0.9999 {
-				return currencyOverflow(v < 0, EOverflow, "float32: ", v)
+				return currencyOverflow(v < 0, v)
 			}
 			return Currency{int64(float64(v) * 1E4)}
 		}
@@ -598,8 +598,7 @@ func (n Currency) Mul(nums ...Currency) Currency {
 			if overflow {
 				return currencyOverflow(
 					(a < 0 || b < 0) && (a > 0 || b > 0),
-					EOverflow, ": ", a, " * ", b, " = ", x,
-				)
+					a, " * ", b, " = ", x)
 			}
 			return Currency{ret}
 		}
@@ -621,8 +620,7 @@ func (n Currency) MulFloat(nums ...float64) Currency {
 		if b < -lim || b > lim {
 			return currencyOverflow(
 				(a < 0 || b < 0) && (a > 0 || b > 0),
-				"Overflow: ", a, " * ", b, " = ", a*b,
-			)
+				a, " * ", b, " = ", a*b)
 		}
 		// multiply using int64, if there is no overflow
 		n.i64 = int64(a * b)
@@ -655,10 +653,10 @@ func (n Currency) Add(nums ...Currency) Currency {
 		)
 		// check for overflow
 		if c < MinCurrencyI64 || (a < 0 && b < 0 && b < (MinCurrencyI64-a)) {
-			return currencyOverflow(true, EOverflow, ": ", a, " + ", b)
+			return currencyOverflow(true, a, " + ", b)
 		}
 		if c > MaxCurrencyI64 || (a > 0 && b > 0 && b > (MaxCurrencyI64-a)) {
-			return currencyOverflow(false, EOverflow, ": ", a, " + ", b)
+			return currencyOverflow(false, a, " + ", b)
 		}
 		n.i64 = c
 	}
@@ -676,8 +674,7 @@ func (n Currency) AddFloat(nums ...float64) Currency {
 		if b < -lim || b > lim {
 			return currencyOverflow(
 				(a < 0 || b < 0) && (a > 0 || b > 0),
-				EOverflow, ": ", a, " * ", b, " = ", float64(a)*b,
-			)
+				a, " * ", b, " = ", float64(a)*b)
 		}
 		// use Add() because it has other overflow checks
 		n = n.Add(Currency{int64(b * 1E4)})
@@ -708,10 +705,10 @@ func (n Currency) Sub(nums ...Currency) Currency {
 		)
 		// check for overflow
 		if c < MinCurrencyI64 || (a < 0 && b > 0 && b > (-MinCurrencyI64+a)) {
-			return currencyOverflow(true, EOverflow, ": ", a, " - ", b)
+			return currencyOverflow(true, a, " - ", b)
 		}
 		if c > MaxCurrencyI64 || (a > 0 && b < 0 && b < (-MaxCurrencyI64+a)) {
-			return currencyOverflow(false, EOverflow, ": ", a, " - ", b)
+			return currencyOverflow(false, a, " - ", b)
 		}
 		n.i64 = c
 	}
@@ -790,9 +787,12 @@ func (n Currency) IsZero() bool {
 } //                                                                      IsZero
 
 // Overflow returns 1 if the currency contains a positive overflow,
-// -1 if it contains a negative overflow, or zero if there is no overflow or
-// underflow. Overflow and underflows occur when an arithmeric operation's
+// -1 if it contains a negative overflow,
+// or 0 if there is no overflow
+//
+// Overflows occur when an arithmeric operation's
 // result exceeds the storage capacity of Currency.
+//
 func (n Currency) Overflow() int {
 	if n.i64 > MaxCurrencyI64 {
 		return 1
@@ -858,7 +858,9 @@ func (n *Currency) UnmarshalJSON(data []byte) error {
 // isNegative: should specify if the number is negative or positive.
 // a: an array of values used to build the error message.
 func currencyOverflow(isNegative bool, a ...interface{}) Currency {
-	mod.Error(a...)
+	ar := []interface{}{EOverflow + ": "}
+	ar = append(ar, a...)
+	mod.Error(ar...)
 	if isNegative {
 		return Currency{math.MinInt64}
 	}
