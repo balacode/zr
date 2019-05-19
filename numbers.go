@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 11:06:49 4D703E                                zr/[numbers.go]
+// :v: 2019-05-19 11:48:38 29EF45                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -12,6 +12,7 @@ package zr
 //
 // # Numeric Functions
 //   Float64(value interface{}) float64
+//   Float64E(value interface{}) (float64, error)
 //   Int(value interface{}) int
 //   IsNumber(value interface{}) bool
 //   MaxIntOf(values []int) (max int, found bool)
@@ -24,6 +25,7 @@ package zr
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"math"
 	"reflect"
@@ -70,8 +72,8 @@ var TensEN = []string{
 // -----------------------------------------------------------------------------
 // # Numeric Functions
 
-// Float64 converts primitive types, fmt.Stringer and
-// fmt.GoStringer to a floating point number:
+// Float64 converts any simple type to float64. It also converts
+// string or any type implementing fmt.Stringer or fmt.GoStringer.
 //
 // - Dereferences pointers (but not pointers to pointers).
 // - Converts nil to 0.
@@ -80,157 +82,100 @@ var TensEN = []string{
 // - Converts string types using strconv.ParseFloat().
 //   If a string can't be converted, returns 0.
 //
-// This function can be used in cases where a simple cast won't work,
-// and to easily convert interface{} to a float64.
+// This function can be used in cases where a simple cast won't
+// work, and to easily convert interface{} to a float64.
 //
-// If the conversion fails, does not return any error, but logs an
-// issue in the log file if the type of value can not be handled.
+// If the value can not be converted to float64, returns zero
+// and an error. Float64 logs the error if logging is active.
+//
 func Float64(value interface{}) float64 {
+	ret, err := Float64E(value)
+	if err != nil {
+		mod.Error(err)
+	}
+	return ret
+} //                                                                     Float64
+
+// Float64E converts any simple type to float64. It also converts
+// string or any type implementing fmt.Stringer or fmt.GoStringer.
+//
+// - Dereferences pointers (but not pointers to pointers).
+// - Converts nil to 0.
+// - Converts boolean true to 1, false to 0.
+// - Converts numeric strings to float64.
+// - Converts string types using strconv.ParseFloat().
+//   If a string can't be converted, returns 0.
+//
+// This function can be used in cases where a simple cast won't
+// work, and to easily convert interface{} to a float64.
+//
+// If the value con not be converted to float64, returns
+// zero and an error. Float64E does not log the error.
+//
+func Float64E(value interface{}) (float64, error) {
 	switch v := value.(type) {
-	case nil:
-		{
-			return 0.0
-		}
-	case bool:
-		{
-			if v {
-				return 1.0
-			}
-			return 0.0
-		}
-	case *bool:
-		if v != nil {
-			return Float64(*v)
-		}
-	// strings
 	case string:
 		{
 			ret, err := strconv.ParseFloat(v, 64)
 			if err != nil {
 				ret = 0.0
 			}
-			return ret
+			return ret, err
 		}
-	case *string:
-		if v != nil {
-			return Float64(*v)
-		}
-	case fmt.Stringer:
+	case int, int64, int32, int16, int8:
 		{
-			return Float64(v.String())
+			return float64(reflect.ValueOf(value).Int()), nil
 		}
-	case fmt.GoStringer:
+	case uint, uint64, uint32, uint16, uint8:
 		{
-			return Float64(v.GoString())
+			return float64(reflect.ValueOf(value).Uint()), nil
 		}
-	// signed integers
-	case int:
-		{
-			return float64(v)
-		}
-	case int64:
-		{
-			return float64(v)
-		}
-	case int32:
-		{
-			return float64(v)
-		}
-	case int16:
-		{
-			return float64(v)
-		}
-	case int8:
-		{
-			return float64(v)
-		}
-		// pointers to signed integers
-	case *int:
-		if v != nil {
-			return float64(*v)
-		}
-	case *int64:
-		if v != nil {
-			return float64(*v)
-		}
-	case *int32:
-		if v != nil {
-			return float64(*v)
-		}
-	case *int16:
-		if v != nil {
-			return float64(*v)
-		}
-	case *int8:
-		if v != nil {
-			return float64(*v)
-		}
-		// unsigned integers
-	case uint:
-		{
-			return float64(v)
-		}
-	case uint64:
-		{
-			return float64(v)
-		}
-	case uint32:
-		{
-			return float64(v)
-		}
-	case uint16:
-		{
-			return float64(v)
-		}
-	case uint8:
-		{
-			return float64(v)
-		}
-		// pointers to unsigned integers
-	case *uint:
-		if v != nil {
-			return float64(*v)
-		}
-	case *uint64:
-		if v != nil {
-			return float64(*v)
-		}
-	case *uint32:
-		if v != nil {
-			return float64(*v)
-		}
-	case *uint16:
-		if v != nil {
-			return float64(*v)
-		}
-	case *uint8:
-		if v != nil {
-			return float64(*v)
-		}
-		// floating-point numbers
 	case float64:
 		{
-			return v
+			return v, nil
 		}
 	case float32:
 		{
-			return float64(v)
+			return float64(v), nil
 		}
-		// pointers to floating-point numbers
-	case *float64:
-		if v != nil {
-			return *v
+	case fmt.Stringer:
+		{
+			return Float64E(v.String())
 		}
-	case *float32:
-		if v != nil {
-			return float64(*v)
+	case fmt.GoStringer:
+		{
+			return Float64E(v.GoString())
+		}
+	case bool:
+		{
+			if v {
+				return 1.0, nil
+			}
+			return 0.0, nil
+		}
+	case nil:
+		{
+			return 0.0, nil
 		}
 	}
-	mod.Error("Can not convert", reflect.TypeOf(value), "to float64:", value)
-	return 0.0
-} //                                                                     Float64
+	// if not converted yet, try to dereference pointer, then convert
+	v := reflect.ValueOf(value)
+	if v.Kind() == reflect.Ptr {
+		if v.IsNil() {
+			return 0.0, nil
+		}
+		ret, err := Float64E(v.Elem().Interface())
+		if err == nil {
+			return ret, nil
+		}
+	}
+	erm := fmt.Sprintf("Can not convert %s to float64: %v",
+		reflect.TypeOf(value), value)
+	err := errors.New(erm)
+	return 0.0, err
+} //                                                                    Float64E
 
-// Int converts primitive types, fmt.Stringer and
+// Int converts simple types, fmt.Stringer and
 // fmt.GoStringer to an integer number (int type):
 //
 // - Dereferences pointers (but not pointers to pointers).
@@ -240,8 +185,8 @@ func Float64(value interface{}) float64 {
 //   Parsing continues until the first non-numeric character.
 //   Therefore a string like '123AA456' converts to '123'.
 //
-// This function can be used in cases where a simple cast won't work,
-// and to easily convert interface{} to an int.
+// This function can be used in cases where a simple cast won't
+// work, and to easily convert interface{} to an int.
 //
 // If the type of value can not be handled, does not
 // return an error but logs an issue in the log.
@@ -316,7 +261,7 @@ func Int(value interface{}) int {
 			return Int(v.GoString())
 		}
 	// signed integers
-	case int:
+	case int: ///```` REFLECT
 		{
 			return int(v)
 		}
@@ -337,7 +282,7 @@ func Int(value interface{}) int {
 			return int(v)
 		}
 	// pointers to signed integers
-	case *int:
+	case *int: ///```` REFLECT
 		if v != nil {
 			return int(*v)
 		}
@@ -358,7 +303,7 @@ func Int(value interface{}) int {
 			return int(*v)
 		}
 	// unsigned integers
-	case uint:
+	case uint: ///```` REFLECT
 		{
 			return int(v)
 		}
@@ -379,7 +324,7 @@ func Int(value interface{}) int {
 			return int(v)
 		}
 	// pointers to unsigned integers
-	case *uint:
+	case *uint: ///```` REFLECT
 		if v != nil {
 			return int(*v)
 		}
