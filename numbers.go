@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 11:48:38 29EF45                                zr/[numbers.go]
+// :v: 2019-05-19 12:43:31 DFF177                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -14,6 +14,7 @@ package zr
 //   Float64(value interface{}) float64
 //   Float64E(value interface{}) (float64, error)
 //   Int(value interface{}) int
+//   IntE(value interface{}) (int, error)
 //   IsNumber(value interface{}) bool
 //   MaxIntOf(values []int) (max int, found bool)
 //   MinMaxGap(values []int) (min, max int)
@@ -86,7 +87,7 @@ var TensEN = []string{
 // work, and to easily convert interface{} to a float64.
 //
 // If the value can not be converted to float64, returns zero
-// and an error. Float64 logs the error if logging is active.
+// and an error. Float64 logs the error (when logging is active).
 //
 func Float64(value interface{}) float64 {
 	ret, err := Float64E(value)
@@ -182,35 +183,45 @@ func Float64E(value interface{}) (float64, error) {
 // - Converts nil to 0.
 // - Converts boolean true to 1, false to 0.
 // - Converts numeric strings to int.
-//   Parsing continues until the first non-numeric character.
+//   Parsing a string continues until the first non-numeric character.
 //   Therefore a string like '123AA456' converts to '123'.
 //
 // This function can be used in cases where a simple cast won't
 // work, and to easily convert interface{} to an int.
 //
-// If the type of value can not be handled, does not
-// return an error but logs an issue in the log.
+// If the value can not be converted to int, returns
+// zero and logs an error (when logging is active).
+//
 func Int(value interface{}) int {
+	ret, err := IntE(value)
+	if err != nil {
+		mod.Error(err)
+	}
+	return ret
+} //                                                                         Int
+
+// IntE converts any simple type to int. It also converts
+// string or any type implementing fmt.Stringer or fmt.GoStringer.
+//
+// - Dereferences pointers (but not pointers to pointers).
+// - Converts nil to 0.
+// - Converts boolean true to 1, false to 0.
+// - Converts numeric strings to int.
+//   Parsing a string continues until the first non-numeric character.
+//   Therefore a string like '123AA456' converts to '123'.
+//   while a non-numeric string converts to 0.
+//
+// This function can be used in cases where a simple cast won't
+// work, and to easily convert interface{} to an int.
+//
+// If the value con not be converted to int, returns
+// zero and an error. IntE does not log the error.
+//
+func IntE(value interface{}) (int, error) {
 	switch v := value.(type) {
-	case nil:
-		{
-			return 0
-		}
-	case bool:
-		{
-			if v {
-				return 1
-			}
-			return 0
-		}
-	case *bool:
-		if v != nil {
-			return Int(*v)
-		}
-	// strings
 	case string:
 		{
-			ret := 0
+			n := 0
 			var hasDigit, hasMinus, hasPlus bool
 		loop:
 			for _, ch := range v {
@@ -226,7 +237,7 @@ func Int(value interface{}) int {
 				// handle '-' and '+' signs
 				if ch == '-' || ch == '+' {
 					if hasMinus || hasPlus || hasDigit {
-						return ret
+						return n, nil
 					}
 					if ch == '-' {
 						hasMinus = true
@@ -238,146 +249,76 @@ func Int(value interface{}) int {
 				// add digits to result
 				if ch >= '0' && ch <= '9' {
 					hasDigit = true
-					ret = ret*10 + int(ch-'0')
+					n = n*10 + int(ch-'0')
 					continue loop
 				}
 				break
 			}
 			if hasMinus {
-				ret = -ret
+				n = -n
 			}
-			return ret
+			return n, nil
 		}
-	case *string:
-		if v != nil {
-			return Int(*v)
+	case int:
+		{
+			return v, nil
+		}
+	case int64, int32, int16, int8:
+		{
+			return int(reflect.ValueOf(value).Int()), nil
+		}
+	case float64, float32:
+		{
+			n := reflect.ValueOf(value).Float()
+			if n < -float64(math.MinInt64) || n > float64(math.MaxInt64) {
+				err := errors.New(EOverflow)
+				if n < 0 {
+					return math.MinInt32, err
+				}
+				return math.MaxInt32, err
+			}
+			return int(n), nil
+		}
+	case uint, uint64, uint32, uint16, uint8:
+		{
+			return int(reflect.ValueOf(value).Uint()), nil
 		}
 	case fmt.Stringer:
 		{
-			return Int(v.String())
+			return IntE(v.String())
 		}
 	case fmt.GoStringer:
 		{
-			return Int(v.GoString())
+			return IntE(v.GoString())
 		}
-	// signed integers
-	case int: ///```` REFLECT
+	case bool:
 		{
-			return int(v)
-		}
-	case int64:
-		{
-			return int(v)
-		}
-	case int32:
-		{
-			return int(v)
-		}
-	case int16:
-		{
-			return int(v)
-		}
-	case int8:
-		{
-			return int(v)
-		}
-	// pointers to signed integers
-	case *int: ///```` REFLECT
-		if v != nil {
-			return int(*v)
-		}
-	case *int64:
-		if v != nil {
-			return int(*v)
-		}
-	case *int32:
-		if v != nil {
-			return int(*v)
-		}
-	case *int16:
-		if v != nil {
-			return int(*v)
-		}
-	case *int8:
-		if v != nil {
-			return int(*v)
-		}
-	// unsigned integers
-	case uint: ///```` REFLECT
-		{
-			return int(v)
-		}
-	case uint64:
-		{
-			return int(v)
-		}
-	case uint32:
-		{
-			return int(v)
-		}
-	case uint16:
-		{
-			return int(v)
-		}
-	case uint8:
-		{
-			return int(v)
-		}
-	// pointers to unsigned integers
-	case *uint: ///```` REFLECT
-		if v != nil {
-			return int(*v)
-		}
-	case *uint64:
-		if v != nil {
-			return int(*v)
-		}
-	case *uint32:
-		if v != nil {
-			// TODO: check for overflow (in other locations too)
-			return int(*v)
-		}
-	case *uint16:
-		if v != nil {
-			return int(*v)
-		}
-	case *uint8:
-		if v != nil {
-			return int(*v)
-		}
-	// floating-point numbers
-	case float64:
-		{
-			if v < -float64(math.MinInt64) || v > float64(math.MaxInt64) {
-				mod.Error("overflow")
-				if v < 0 {
-					return math.MinInt32
-				}
-				return math.MaxInt32
+			if v {
+				return 1, nil
 			}
-			return int(v)
+			return 0, nil
 		}
-	case float32:
+	case nil:
 		{
-			// TODO: find how to find out the limit of int
-			//if v < -float32(CurrencyIntLimit) ||v > float32(m) {
-			//	return currencyOverflow(v < 0, "uint64 overflow:", v)
-			//}
-			return int(v)
-		}
-	// pointers to floating-point numbers
-	case *float64:
-		if v != nil {
-			return int(*v)
-		}
-	case *float32:
-		if v != nil {
-			return int(*v)
+			return 0, nil
 		}
 	}
-	mod.Error("Can not convert", reflect.TypeOf(value), "to int:", value)
-	return 0
-} //                                                                         Int
+	// if not converted yet, try to dereference pointer, then convert
+	v := reflect.ValueOf(value)
+	if v.Kind() == reflect.Ptr {
+		if v.IsNil() {
+			return 0, nil
+		}
+		ret, err := IntE(v.Elem().Interface())
+		if err == nil {
+			return ret, nil
+		}
+	}
+	erm := fmt.Sprintf("Can not convert %s to int: %v",
+		reflect.TypeOf(value), value)
+	err := errors.New(erm)
+	return 0, err
+} //                                                                        IntE
 
 // IsNumber returns true if value is a number or numeric string,
 // or false otherwise. It also accepts pointers to numeric types
