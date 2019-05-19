@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:58:17 5049FB                                zr/[strings.go]
+// :v: 2019-05-19 03:52:16 D8BB0A                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -1160,105 +1160,67 @@ func StrOneOf(s string, matches ...string) bool {
 	return false
 } //                                                                    StrOneOf
 
-// String converts 'v' to a string.
+// String converts value to a string.
 func String(value interface{}) string {
-	switch v := value.(type) {
-	case bool:
-		{
-			if v {
-				return "true"
+	convert := func(value interface{}) (string, bool) {
+		switch v := value.(type) {
+		case bool:
+			{
+				if v {
+					return "true", true
+				}
+				return "false", true
 			}
-			return "false"
-		}
-	case float64, float32:
-		{
-			ret := fmt.Sprintf("%f", v)
-			if strings.Contains(ret, ".") {
-				ret = strings.TrimRight(ret, "0")
-				ret = strings.TrimRight(ret, ".")
+		case float64, float32:
+			{
+				ret := fmt.Sprintf("%f", v)
+				if strings.Contains(ret, ".") {
+					ret = strings.TrimRight(ret, "0")
+					ret = strings.TrimRight(ret, ".")
+				}
+				return ret, true
 			}
-			return ret
+		case int:
+			{
+				return strconv.Itoa(v), true
+			}
+		case int64, int32, int16, int8:
+			{
+				return fmt.Sprintf("%d", v), true
+			}
+		case uint, uint64, uint32, uint16, uint8:
+			{
+				return fmt.Sprintf("%d", v), true
+			}
+		case nil:
+			{
+				return "", true
+			}
+		case string:
+			{
+				return v, true
+			}
+		case fmt.Stringer:
+			{
+				return v.String(), true
+			}
 		}
-	case int:
-		{
-			return strconv.Itoa(v)
-		}
-	case int64, int32, int16, int8:
-		{
-			return fmt.Sprintf("%d", v)
-		}
-	case string:
-		{
-			return v
-		}
-	case uint, uint64, uint32, uint16, uint8:
-		{
-			return fmt.Sprintf("%d", v)
-		}
-	case fmt.Stringer:
-		{
-			return v.String()
-		}
-	case nil:
-		{
+		return "", false
+	}
+	// try to convert non-pointer value
+	ret, ok := convert(value)
+	if ok {
+		return ret
+	}
+	// try to dereference pointer, then convert value
+	v := reflect.ValueOf(value)
+	if v.Kind() == reflect.Ptr {
+		if v.IsNil() {
 			return ""
 		}
-	// pointer types:
-	case *bool:
-		if v != nil {
-			return String(*v)
-		}
-	case *float64:
-		if v != nil {
-			return String(*v)
-		}
-	case *float32:
-		if v != nil {
-			return String(*v)
-		}
-	case *int:
-		if v != nil {
-			return String(*v)
-		}
-	case *int64:
-		if v != nil {
-			return String(*v)
-		}
-	case *int32:
-		if v != nil {
-			return String(*v)
-		}
-	case *int16:
-		if v != nil {
-			return String(*v)
-		}
-	case *int8:
-		if v != nil {
-			return String(*v)
-		}
-	case *string:
-		if v != nil {
-			return String(*v)
-		}
-	case *uint:
-		if v != nil {
-			return String(*v)
-		}
-	case *uint64:
-		if v != nil {
-			return String(*v)
-		}
-	case *uint32:
-		if v != nil {
-			return String(*v)
-		}
-	case *uint16:
-		if v != nil {
-			return String(*v)
-		}
-	case *uint8:
-		if v != nil {
-			return String(*v)
+		ret, ok := convert(v.Elem().Interface())
+		if ok {
+			return ret
 		}
 	}
 	mod.Error("Type", reflect.TypeOf(value), "not handled; =", value)
