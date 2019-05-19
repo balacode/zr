@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 20:07:26 476E1F                                zr/[numbers.go]
+// :v: 2019-05-19 20:28:23 B0B60C                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -79,7 +79,7 @@ var TensEN = []string{
 // - Converts nil to 0.
 // - Converts boolean true to 1, false to 0.
 // - Converts numeric strings to float64.
-// - Converts string types using strconv.ParseFloat().
+// - Converts strings using strconv.ParseFloat().
 //   If a string can't be converted, returns 0.
 //
 // This function can be used in cases where a simple cast won't
@@ -105,7 +105,7 @@ func Float64(value interface{}) float64 {
 // - Converts nil to 0.
 // - Converts boolean true to 1, false to 0.
 // - Converts numeric strings to float64.
-// - Converts string types using strconv.ParseFloat().
+// - Converts strings using strconv.ParseFloat().
 //   If a string can't be converted, returns 0.
 //
 // This function can be used in cases where a simple cast won't
