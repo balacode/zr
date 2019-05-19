@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 12:49:07 E60DAC                                zr/[strings.go]
+// :v: 2019-05-19 18:57:15 45DCF0                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -1221,6 +1221,10 @@ func StringE(value interface{}) (string, error) {
 	case fmt.Stringer:
 		{
 			return v.String(), nil
+		}
+	case fmt.GoStringer:
+		{
+			return v.GoString(), nil
 		}
 	}
 	// if not converted yet, try to dereference pointer, then convert
