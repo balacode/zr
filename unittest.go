@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 17:50:20 2E1A2A                               zr/[unittest.go]
+// :v: 2019-05-19 17:57:52 3A2E86                               zr/[unittest.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -147,6 +147,10 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 		case fmt.Stringer:
 			{
 				ret = v.String()
+			}
+		case fmt.GoStringer:
+			{
+				ret = v.GoString()
 			}
 		// TODO: add handling of various arrays of simple types [in TEqual()]
 		case []string:
