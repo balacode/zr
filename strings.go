@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 12:48:11 4B19B4                                zr/[strings.go]
+// :v: 2019-05-19 12:49:07 E60DAC                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -51,6 +51,7 @@ package zr
 //   SplitQuoted(s string) []string
 //   StrOneOf(s string, matches ...string) bool
 //   String(value interface{}) string
+//   StringE(value interface{}) (string, error)
 //   Substr(s string, charIndex, charCount int) string
 //       // TODO: ^beginIndex, endIndex. Why Substr when there's Slice()?
 //   TitleCase(s string) string
@@ -1162,6 +1163,10 @@ func StrOneOf(s string, matches ...string) bool {
 } //                                                                    StrOneOf
 
 // String converts value to a string.
+//
+// If the value can not be converted to a string, returns a zero length
+// string and logs an error (when logging is active).
+//
 func String(value interface{}) string {
 	ret, err := StringE(value)
 	if err != nil {
@@ -1171,6 +1176,10 @@ func String(value interface{}) string {
 } //                                                                      String
 
 // StringE converts value to a string, and also returns an error (or nil).
+//
+// If the value can not be converted to a string, returns a zero length
+// string and an error. StringE does not log the error.
+//
 func StringE(value interface{}) (string, error) {
 	switch v := value.(type) {
 	case int:
