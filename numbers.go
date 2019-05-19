@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 12:43:31 DFF177                                zr/[numbers.go]
+// :v: 2019-05-19 20:07:26 476E1F                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -73,10 +73,9 @@ var TensEN = []string{
 // -----------------------------------------------------------------------------
 // # Numeric Functions
 
-// Float64 converts any simple type to float64. It also converts
-// string or any type implementing fmt.Stringer or fmt.GoStringer.
+// Float64 converts any simple numeric type or string to float64.
 //
-// - Dereferences pointers (but not pointers to pointers).
+// - Dereferences pointers to evaluate the pointed-to type.
 // - Converts nil to 0.
 // - Converts boolean true to 1, false to 0.
 // - Converts numeric strings to float64.
@@ -85,6 +84,9 @@ var TensEN = []string{
 //
 // This function can be used in cases where a simple cast won't
 // work, and to easily convert interface{} to a float64.
+//
+// Note: fmt.Stringer (or fmt.GoStringer) interfaces are not treated as
+// strings to avoid bugs from implicit conversion. Use the String method.
 //
 // If the value can not be converted to float64, returns zero
 // and an error. Float64 logs the error (when logging is active).
@@ -97,10 +99,9 @@ func Float64(value interface{}) float64 {
 	return ret
 } //                                                                     Float64
 
-// Float64E converts any simple type to float64. It also converts
-// string or any type implementing fmt.Stringer or fmt.GoStringer.
+// Float64E converts any simple numeric type or string to float64.
 //
-// - Dereferences pointers (but not pointers to pointers).
+// - Dereferences pointers to evaluate the pointed-to type.
 // - Converts nil to 0.
 // - Converts boolean true to 1, false to 0.
 // - Converts numeric strings to float64.
@@ -110,7 +111,10 @@ func Float64(value interface{}) float64 {
 // This function can be used in cases where a simple cast won't
 // work, and to easily convert interface{} to a float64.
 //
-// If the value con not be converted to float64, returns
+// Note: fmt.Stringer (or fmt.GoStringer) interfaces are not treated as
+// strings to avoid bugs from implicit conversion. Use the String method.
+//
+// If the value can not be converted to float64, returns
 // zero and an error. Float64E does not log the error.
 //
 func Float64E(value interface{}) (float64, error) {
@@ -138,14 +142,6 @@ func Float64E(value interface{}) (float64, error) {
 	case float32:
 		{
 			return float64(v), nil
-		}
-	case fmt.Stringer:
-		{
-			return Float64E(v.String())
-		}
-	case fmt.GoStringer:
-		{
-			return Float64E(v.GoString())
 		}
 	case bool:
 		{
@@ -176,10 +172,9 @@ func Float64E(value interface{}) (float64, error) {
 	return 0.0, err
 } //                                                                    Float64E
 
-// Int converts simple types, fmt.Stringer and
-// fmt.GoStringer to an integer number (int type):
+// Int converts any simple numeric type or string to int.
 //
-// - Dereferences pointers (but not pointers to pointers).
+// - Dereferences pointers to evaluate the pointed-to type.
 // - Converts nil to 0.
 // - Converts boolean true to 1, false to 0.
 // - Converts numeric strings to int.
@@ -188,6 +183,9 @@ func Float64E(value interface{}) (float64, error) {
 //
 // This function can be used in cases where a simple cast won't
 // work, and to easily convert interface{} to an int.
+//
+// Note: fmt.Stringer (or fmt.GoStringer) interfaces are not treated as
+// strings to avoid bugs from implicit conversion. Use the String method.
 //
 // If the value can not be converted to int, returns
 // zero and logs an error (when logging is active).
@@ -200,10 +198,9 @@ func Int(value interface{}) int {
 	return ret
 } //                                                                         Int
 
-// IntE converts any simple type to int. It also converts
-// string or any type implementing fmt.Stringer or fmt.GoStringer.
+// IntE converts any simple numeric type or string to int.
 //
-// - Dereferences pointers (but not pointers to pointers).
+// - Dereferences pointers to evaluate the pointed-to type.
 // - Converts nil to 0.
 // - Converts boolean true to 1, false to 0.
 // - Converts numeric strings to int.
@@ -214,7 +211,10 @@ func Int(value interface{}) int {
 // This function can be used in cases where a simple cast won't
 // work, and to easily convert interface{} to an int.
 //
-// If the value con not be converted to int, returns
+// Note: fmt.Stringer (or fmt.GoStringer) interfaces are not treated as
+// strings to avoid bugs from implicit conversion. Use the String method.
+//
+// If the value can not be converted to int, returns
 // zero and an error. IntE does not log the error.
 //
 func IntE(value interface{}) (int, error) {
@@ -283,14 +283,6 @@ func IntE(value interface{}) (int, error) {
 		{
 			return int(reflect.ValueOf(value).Uint()), nil
 		}
-	case fmt.Stringer:
-		{
-			return IntE(v.String())
-		}
-	case fmt.GoStringer:
-		{
-			return IntE(v.GoString())
-		}
 	case bool:
 		{
 			if v {
@@ -322,8 +314,8 @@ func IntE(value interface{}) (int, error) {
 
 // IsNumber returns true if value is a number or numeric string,
 // or false otherwise. It also accepts pointers to numeric types
-// and strings and Stringer. Always returns false if value is nil
-// or bool, even though Int() can convert bool to 1 or 0.
+// and strings. Always returns false if value is nil or bool,
+// even though Int() can convert bool to 1 or 0.
 func IsNumber(value interface{}) bool {
 	const (
 		groupSeparatorChar = ','
@@ -385,8 +377,6 @@ func IsNumber(value interface{}) bool {
 		if v != nil {
 			return IsNumber(*v)
 		}
-	case fmt.Stringer:
-		return IsNumber(v.String())
 	}
 	return false
 } //                                                                    IsNumber
