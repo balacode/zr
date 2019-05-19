@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 19:28:32 7F7911                               zr/[currency.go]
+// :v: 2019-05-19 19:59:09 BD6451                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -177,20 +177,22 @@ func CurrencyE(value interface{}) (Currency, error) {
 		return Currency{0}, nil
 	}
 	// if not converted yet, try to dereference pointer, then convert
+	ret := Currency{0}
 	v := reflect.ValueOf(value)
 	if v.Kind() == reflect.Ptr {
 		if v.IsNil() {
 			return Currency{0}, nil
 		}
-		ret, err := CurrencyE(v.Elem().Interface())
-		if err == nil {
+		var err error
+		ret, err = CurrencyE(v.Elem().Interface())
+		if err == nil || strings.HasPrefix(err.Error(), EOverflow) {
 			return ret, nil
 		}
 	}
 	erm := fmt.Sprintf("Can not convert %s to Currency: %v",
 		reflect.TypeOf(value), value)
 	err := errors.New(erm)
-	return Currency{0}, err
+	return ret, err
 } //                                                                   CurrencyE
 
 // CurrencyOf converts any compatible value type to a Currency.
