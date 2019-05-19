@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 18:55:01 100FC4                              zr/[uuid_test.go]
+// :v: 2019-05-19 19:05:14 875FC9                              zr/[uuid_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -37,10 +37,10 @@ func Test_uuid_IsUUID_(t *testing.T) {
 	//
 	printSampleUUIDs(0)
 	var (
-		uuid1   = "B2368D91-BBF8-4184-B4A4-4E3372565324"
-		uuid2   = "606F02A3-87DF-406E-9E81-69911B53DD6D"
-		uuid3   = "F10D9ACB-EC6D-438D-BD02-33123801E9F4"
-		badStr  = "BBDB0DBF-FB03-Z0F7-9682-3B15859E01CB"
+		uuid1  = "B2368D91-BBF8-4184-B4A4-4E3372565324"
+		uuid2  = "606F02A3-87DF-406E-9E81-69911B53DD6D"
+		uuid3  = "F10D9ACB-EC6D-438D-BD02-33123801E9F4"
+		badStr = "BBDB0DBF-FB03-Z0F7-9682-3B15859E01CB"
 	)
 	tests := []struct {
 		input  interface{}
