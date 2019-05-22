@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 18:57:15 45DCF0                                zr/[strings.go]
+// :v: 2019-05-22 23:55:42 C26D56                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -1228,12 +1228,12 @@ func StringE(value interface{}) (string, error) {
 		}
 	}
 	// if not converted yet, try to dereference pointer, then convert
-	v := reflect.ValueOf(value)
-	if v.Kind() == reflect.Ptr {
-		if v.IsNil() {
+	xv := reflect.ValueOf(value)
+	if xv.Kind() == reflect.Ptr {
+		if xv.IsNil() {
 			return "", nil
 		}
-		ret, err := StringE(v.Elem().Interface())
+		ret, err := StringE(xv.Elem().Interface())
 		if err == nil {
 			return ret, nil
 		}

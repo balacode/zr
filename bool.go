@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 20:27:15 DAD9DA                                   zr/[bool.go]
+// :v: 2019-05-22 23:55:42 ED6630                                   zr/[bool.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -83,12 +83,12 @@ func BoolE(value interface{}) (bool, error) {
 		}
 	}
 	// if not converted yet, try to dereference pointer, then convert
-	v := reflect.ValueOf(value)
-	if v.Kind() == reflect.Ptr {
-		if v.IsNil() {
+	xv := reflect.ValueOf(value)
+	if xv.Kind() == reflect.Ptr {
+		if xv.IsNil() {
 			return false, nil
 		}
-		ret, err := BoolE(v.Elem().Interface())
+		ret, err := BoolE(xv.Elem().Interface())
 		if err == nil {
 			return ret, nil
 		}

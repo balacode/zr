@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 20:00:33 AD2624                               zr/[currency.go]
+// :v: 2019-05-22 23:55:42 0F5A59                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -178,13 +178,13 @@ func CurrencyE(value interface{}) (Currency, error) {
 	}
 	// if not converted yet, try to dereference pointer, then convert
 	ret := Currency{0}
-	v := reflect.ValueOf(value)
-	if v.Kind() == reflect.Ptr {
-		if v.IsNil() {
+	xv := reflect.ValueOf(value)
+	if xv.Kind() == reflect.Ptr {
+		if xv.IsNil() {
 			return Currency{0}, nil
 		}
 		var err error
-		ret, err = CurrencyE(v.Elem().Interface())
+		ret, err = CurrencyE(xv.Elem().Interface())
 		if err == nil || strings.HasPrefix(err.Error(), EOverflow) {
 			return ret, nil
 		}

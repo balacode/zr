@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 20:28:23 B0B60C                                zr/[numbers.go]
+// :v: 2019-05-22 23:55:42 107222                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -156,12 +156,12 @@ func Float64E(value interface{}) (float64, error) {
 		}
 	}
 	// if not converted yet, try to dereference pointer, then convert
-	v := reflect.ValueOf(value)
-	if v.Kind() == reflect.Ptr {
-		if v.IsNil() {
+	xv := reflect.ValueOf(value)
+	if xv.Kind() == reflect.Ptr {
+		if xv.IsNil() {
 			return 0.0, nil
 		}
-		ret, err := Float64E(v.Elem().Interface())
+		ret, err := Float64E(xv.Elem().Interface())
 		if err == nil {
 			return ret, nil
 		}
