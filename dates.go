@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 20:10:30 AD02C4                                  zr/[dates.go]
+// :v: 2019-05-22 14:44:36 EDD97F                                  zr/[dates.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -395,7 +395,7 @@ func IsDate(value interface{}) bool {
 				}
 				{ // try to use time.Parse() to quickly parse 'yyyy-mm-dd' dates
 					s := v
-					if len(s) >= 10 {
+					if len(s) > 10 {
 						s = s[:10]
 					}
 					parsed, err := time.Parse(time.RFC3339, s+"T00:00:00Z")
@@ -628,7 +628,7 @@ func stringDate(value interface{}, format string) string {
 			if v == "" {
 				return erv
 			}
-			if len(v) >= 10 {
+			if len(v) > 10 {
 				v = v[:10]
 			}
 			parsed, err := time.Parse(time.RFC3339, v+"T00:00:00Z")
