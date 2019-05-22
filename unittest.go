@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 17:57:52 3A2E86                               zr/[unittest.go]
+// :v: 2019-05-22 23:47:49 9AB0C1                               zr/[unittest.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -139,8 +139,7 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 				return v
 			}
 		case time.Time: // use date part without time and time zone
-			ret = v.Format(time.RFC3339) // format: 2006-01-02T15:04:05Z07:00
-			ret = ret[:19]
+			ret = v.Format(time.RFC3339)[:19] // format: 2006-01-02T15:04:05Z07:00
 			if strings.HasSuffix(ret, "T00:00:00") {
 				ret = ret[:10]
 			}
