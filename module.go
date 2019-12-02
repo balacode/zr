@@ -27,7 +27,7 @@ import (
 // VersionTime returns the library version as a date/time string.
 func VersionTime() string {
 	// name capitalized to make it easy to locate
-	versionTime := "2019-04-28 16:56"
+	versionTime := "2019-12-02 08:17"
 	return versionTime
 } //                                                                 VersionTime
 
