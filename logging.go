@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2020-04-10 11:34:51 D5404A                                zr/[logging.go]
+// :v: 2020-04-10 11:36:50 45F529                                zr/[logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -37,6 +37,7 @@ package zr
 //   NoE(any interface{}, err error) interface{}
 //   OBSOLETE(args ...interface{})
 //   PrintfAsync(format string, args ...interface{})
+//   RunningLogFilename() string
 //   TM(messages ...string)
 //   VerboseLog(args ...interface{})
 //   VerboseLogf(format string, args ...interface{})
@@ -58,6 +59,7 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+	"path/filepath"
 	"runtime"
 	"strconv"
 	"strings"
@@ -401,7 +403,7 @@ func Callers(options ...interface{}) string {
 } //                                                                     Callers
 
 // Error outputs an error message to the standard output and to a
-// log file named 'run.log' saved in the program's current directory,
+// log file named "<process>.log" in the program's current directory,
 // It also outputs the call stack (names and line numbers of callers.)
 // Error has no effect if disableErrors flag is set to true.
 // Returns an error value initialized with the message.
@@ -456,14 +458,14 @@ func LineNo(callDepth int) int {
 } //                                                                      LineNo
 
 // Log outputs a message string to the standard output and to a
-// log file named 'run.log' saved in the program's current directory.
+// log file named "<process>.log" in the program's current directory.
 // It also outputs the call stack (names and line numbers of callers.)
 func Log(args ...interface{}) {
 	logAsync(joinArgs("", args))
 } //                                                                         Log
 
 // Logf outputs a formatted message to the standard output and to a
-// log file named 'run.log' saved in the program's current directory.
+// log file named "<process>.log" in the program's current directory.
 // The 'format' parameter accepts a format string, followed by one or
 // more optional arguments, exactly like fmt.Printf() and fmt.Errorf()
 // It also outputs the call stack (names and line numbers of callers.)
@@ -517,6 +519,11 @@ func PrintfAsync(format string, args ...interface{}) {
 		go logLoopAsync()
 	}
 } //                                                                 PrintfAsync
+
+// RunningLogFilename returns the name of the current process
+func RunningLogFilename() string {
+	return filepath.Base(os.Args[0])
+} //                                                          RunningLogFilename
 
 // TM outputs milliseconds elapsed between calls to TM() to standard output.
 // To start timing, call TM() without any arguments.
@@ -572,7 +579,7 @@ func VerboseLog(args ...interface{}) {
 } //                                                                  VerboseLog
 
 // VerboseLogf outputs a formatted message to the standard output and to a
-// log file named 'run.log' saved in the program's current directory,
+// log file named "<process>.log" in the program's current directory,
 // only when verbose mode is set to true.
 // The 'format' parameter accepts a format string, followed by one or
 // more optional arguments, exactly like fmt.Printf() and fmt.Errorf()
@@ -598,18 +605,18 @@ func DC(message string, args ...interface{}) {
 	fmt.Println(Timestamp() + fmt.Sprintf(message, args...) + Callers())
 } //                                                                          DC
 
-// DL writes a formatted debug message to log file 'run.log' saved in the
+// DL writes a formatted debug message to log file "<process>.log" in the
 // program's current directory. The message is not output to the console.
 func DL(message string, args ...interface{}) {
-	AppendToTextFile("run.log",
+	AppendToTextFile(RunningLogFilename(),
 		Timestamp()+fmt.Sprintf(message, args...)+"\r\n")
 } //                                                                          DL
 
 // DLC writes a formatted debug message and the call stack to log file
-// 'run.log' saved in the program's current directory.
+// "<process>.log" in the program's current directory.
 // The message is not output to the console.
 func DLC(message string, args ...interface{}) {
-	AppendToTextFile("run.log",
+	AppendToTextFile(RunningLogFilename(),
 		Timestamp()+fmt.Sprintf(message, args...)+Callers()+"\r\n")
 } //                                                                         DLC
 
@@ -683,7 +690,7 @@ func joinArgs(prefix string, args ...interface{}) string {
 } //                                                                    joinArgs
 
 // logAsync outputs a message to the standard output and to a log
-// file named 'run.log' saved in the program's current directory.
+// file named "<process>.log" in the program's current directory.
 // It also outputs the call stack (names and line numbers of callers.)
 func logAsync(message string) {
 	lastLogTime = time.Now()
@@ -716,7 +723,7 @@ func logLoopAsync() {
 			msg = strings.TrimSpace(msg)
 			fmt.Println(msg)
 			if t.writeFile {
-				AppendToTextFile("run.log", msg+"\r\n")
+				AppendToTextFile(RunningLogFilename(), msg+"\r\n")
 			}
 		}
 		logMutex.Unlock()
