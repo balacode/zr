@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2020-04-10 11:30:34 6F574F                                zr/[strings.go]
+// :v: 2020-04-10 11:43:48 6CE394                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -18,6 +18,7 @@ package zr
 //   First(s string, count int) string
 //   GetPart(s, prefix, suffix string) string
 //   IfString(condition bool, trueStr, falseStr string) string
+//   IndexOfString(s string, ar []string) int
 //   IsIdentifier(s string) bool
 //   IsWhiteSpace(s string) bool
 //   JSUnescapeStruct(structPtr interface{})
@@ -285,6 +286,16 @@ func IfString(condition bool, trueStr, falseStr string) string {
 	}
 	return falseStr
 } //                                                                    IfString
+
+// IndexOfString returns the index of string [s] in string slice [ar].
+func IndexOfString(s string, ar []string) int {
+	for i, it := range ar {
+		if it == s {
+			return i
+		}
+	}
+	return -1
+} //                                                               IndexOfString
 
 // IsIdentifier checks if 's' contains only letters, numbers or underscores.
 func IsIdentifier(s string) bool {
