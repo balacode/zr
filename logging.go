@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2020-04-10 11:30:34 218D9D                                zr/[logging.go]
+// :v: 2020-04-10 11:34:51 D5404A                                zr/[logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -201,7 +201,8 @@ func EnableErrors(optEnable ...bool) {
 func AppendToTextFile(filename, text string) {
 	var file *os.File
 	var err error
-	file, err = os.OpenFile(filename, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0)
+	file, err = os.OpenFile(
+		filename, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
 	defer file.Close()
 	if err != nil {
 		Error("Opening file", filename, ":", err)
