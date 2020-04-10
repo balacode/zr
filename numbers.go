@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-22 23:55:42 107222                                zr/[numbers.go]
+// :v: 2020-04-10 11:30:34 951204                                zr/[numbers.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -39,13 +39,13 @@ import (
 // # Constants
 
 const (
-	// MaxInt __
+	// MaxInt _ _
 	MaxInt = int(MaxUint >> 1)
 
-	// MaxUint __
+	// MaxUint _ _
 	MaxUint = ^uint(0)
 
-	// MinInt __
+	// MinInt _ _
 	MinInt = -MaxInt - 1
 )
 
@@ -467,8 +467,8 @@ func AmountInWordsEN(n Currency, fmt string) string {
 		i = -n.i64
 	}
 	var (
-		bigUnits = i / 1E4
-		smlUnits = (i - bigUnits*1E4) / 100
+		bigUnits = i / 1e4
+		smlUnits = (i - bigUnits*1e4) / 100
 		hasOnly  = strings.HasSuffix(strings.ToLower(fmt), "only")
 	)
 	if hasOnly {

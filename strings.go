@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-22 23:55:42 C26D56                                zr/[strings.go]
+// :v: 2020-04-10 11:30:34 6F574F                                zr/[strings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -212,12 +212,12 @@ func EqualStringSlices(a, b []string) bool {
 	return true
 } //                                                           EqualStringSlices
 
-// FindChar __
+// FindChar _ _
 func FindChar(s string, ch byte, beginIndex int) int {
 	return beginIndex + strings.IndexByte(s[beginIndex:], ch)
 } //                                                                    FindChar
 
-// FindInSlice __
+// FindInSlice _ _
 func FindInSlice(s string, start, end int, substr string) int {
 	if start == 0 && end == -1 {
 		return strings.Index(s, substr)
@@ -241,7 +241,7 @@ func FindInSlice(s string, start, end int, substr string) int {
 	return start + strings.Index(s[start:end], substr)
 } //                                                                 FindInSlice
 
-// First __
+// First _ _
 func First(s string, count int) string {
 	if count < 0 {
 		mod.Error("Negative count:", count)
@@ -387,7 +387,7 @@ func JSUnescapeStruct(structPtr interface{}) {
 	}
 } //                                                            JSUnescapeStruct
 
-// Last __
+// Last _ _
 func Last(s string, count int) string {
 	if count < 0 {
 		mod.Error("Negative count:", count)
@@ -401,7 +401,7 @@ func Last(s string, count int) string {
 	return s[sLen-count : sLen]
 } //                                                                        Last
 
-// LineBeginIndex __
+// LineBeginIndex _ _
 func LineBeginIndex(s string, index int) int {
 	sLen := len(s)
 	if index == -1 {
@@ -423,7 +423,7 @@ func LineBeginIndex(s string, index int) int {
 	return lf + 1
 } //                                                              LineBeginIndex
 
-// LineBeginIndexB __
+// LineBeginIndexB _ _
 func LineBeginIndexB(s []byte, index int) int {
 	sLen := len(s)
 	if index == -1 {
@@ -445,7 +445,7 @@ func LineBeginIndexB(s []byte, index int) int {
 	return lf + 1
 } //                                                             LineBeginIndexB
 
-// LineEndIndex __
+// LineEndIndex _ _
 func LineEndIndex(s string, index int) int {
 	sLen := len(s)
 	if index == -1 {
@@ -472,7 +472,7 @@ func LineEndIndex(s string, index int) int {
 	return index + i
 } //                                                                LineEndIndex
 
-// LineEndIndexB __
+// LineEndIndexB _ _
 func LineEndIndexB(s []byte, index int) int {
 	sLen := len(s)
 	if index == -1 {
@@ -499,7 +499,7 @@ func LineEndIndexB(s []byte, index int) int {
 	return index + i
 } //                                                               LineEndIndexB
 
-// LineOfIndex __
+// LineOfIndex _ _
 func LineOfIndex(s string, index int) string {
 	if index < 0 || index > len(s) {
 		return ""
@@ -600,7 +600,7 @@ func Padf(minLength int, s string, args ...interface{}) string {
 	return s
 } //                                                                        Padf
 
-// ReplaceEx1 __
+// ReplaceEx1 _ _
 // Specify MatchCase or IgnoreCase for case mode.
 func ReplaceEx1(s, find, repl string, count int, caseMode CaseMode) string {
 	if find == repl || count == 0 {
@@ -717,14 +717,14 @@ func ReplaceMany(
 		return s // avoid allocation
 	}
 
-	// batch __
+	// batch _ _
 	type batch struct {
 		findLen int
 		finds   []string
 		repls   []string
 	}
 
-	// tree __
+	// tree _ _
 	type tree struct {
 		find string         // what to find
 		repl string         // what to replace with
@@ -732,7 +732,7 @@ func ReplaceMany(
 		sub  map[rune]*tree // a 'branch' of the tree
 	}
 
-	// getBatches __
+	// getBatches _ _
 	getBatches := func(finds, repls []string) ([]int, map[int]*batch) {
 		var lengths []int
 		batches := map[int]*batch{}
@@ -754,7 +754,7 @@ func ReplaceMany(
 		return lengths, batches
 	}
 
-	// getTree __
+	// getTree _ _
 	getTree := func(finds, repls []string, caseMode CaseMode) (ret tree) {
 		ret.sub = make(map[rune]*tree)
 		for f, find := range finds {
@@ -784,7 +784,7 @@ func ReplaceMany(
 		return ret
 	}
 
-	// replaceMany __
+	// replaceMany _ _
 	replaceMany := func(
 		s string,
 		finds []string,
@@ -886,7 +886,7 @@ func ReplaceMany(
 	return run()
 } //                                                                 ReplaceMany
 
-// ReplaceWord replaces a word in a string. __
+// ReplaceWord replaces a word in a string. _ _
 // Specify MatchCase or IgnoreCase for case mode.
 //
 // Examples:
@@ -970,7 +970,7 @@ func SetPart(s, prefix, suffix, part string) string {
 	return head + part + tail
 } //                                                                     SetPart
 
-// SetSlice __
+// SetSlice _ _
 func SetSlice(s string, start, end int, substr string) string {
 	if start == 0 && end == -1 {
 		return substr
@@ -1018,7 +1018,7 @@ func ShowSpaces(s string) string {
 	return s
 } //                                                                  ShowSpaces
 
-// SkipChars __
+// SkipChars _ _
 func SkipChars(s string, start int, chars string) int {
 	n := len(s)
 	if start >= n {
@@ -1042,7 +1042,7 @@ func SkipChars(s string, start int, chars string) int {
 	return n
 } //                                                                   SkipChars
 
-// SkipName __
+// SkipName _ _
 func SkipName(s string, start int) int {
 	n := len(s)
 	if start >= n {
@@ -1061,7 +1061,7 @@ func SkipName(s string, start int) int {
 	return n
 } //                                                                    SkipName
 
-// SkipSpaces __
+// SkipSpaces _ _
 func SkipSpaces(s string, start int) int {
 	return SkipChars(s, start, SPACES)
 } //                                                                  SkipSpaces
@@ -1314,7 +1314,7 @@ func TokenGet(list string, index int, sep string) string {
 	return TokenGetEx(list, index, sep, false)
 } //                                                                    TokenGet
 
-// TokenGetEx __
+// TokenGetEx _ _
 func TokenGetEx(list string, index int, sep string, ignoreEnd bool) string {
 	listLen := len(list)
 	sepLen := len(sep)

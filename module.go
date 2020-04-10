@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-18 17:29:49 FFE90B                                 zr/[module.go]
+// :v: 2020-04-10 11:30:34 E790C6                                 zr/[module.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -34,12 +34,12 @@ func VersionTime() string {
 // -----------------------------------------------------------------------------
 // # Global Settings
 
-// DebugMode __
+// DebugMode _ _
 func DebugMode() bool {
 	return debugMode
 } //                                                                   DebugMode
 
-// SetDebugMode __
+// SetDebugMode _ _
 func SetDebugMode(val bool) {
 	debugMode = val
 } //                                                                SetDebugMode

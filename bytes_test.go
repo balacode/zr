@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 17:50:20 8CE2F9                             zr/[bytes_test.go]
+// :v: 2020-04-10 11:30:34 E7FE73                             zr/[bytes_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -32,11 +32,11 @@ package zr
 //   Test_byts_Bytes_Slice_
 
 //  to test all items in bytes.go use:
-//  	go test --run Test_byts_
+//      go test --run Test_byts_
 //
 //  to generate a test coverage report for the whole module use:
-//  	go test -coverprofile cover.out
-//  	go tool cover -html=cover.out
+//      go test -coverprofile cover.out
+//      go tool cover -html=cover.out
 
 import (
 	"testing"

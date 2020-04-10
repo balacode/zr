@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 17:50:20 AAB918                                  zr/[bytes.go]
+// :v: 2020-04-10 11:30:34 3A1F31                                  zr/[bytes.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -244,7 +244,7 @@ func (ob *Bytes) Resize(size int) {
 	}
 } //                                                                      Resize
 
-// SetByte __
+// SetByte _ _
 func (ob *Bytes) SetByte(index int, val byte) {
 	if ob == nil {
 		mod.Error(ENilReceiver)

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-16 17:40:50 19001E                                zr/[logging.go]
+// :v: 2020-04-10 11:30:34 218D9D                                zr/[logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -120,7 +120,7 @@ var (
 // -----------------------------------------------------------------------------
 // # Async Logging Type
 
-// logArgs __
+// logArgs _ _
 type logArgs struct {
 	msg       string
 	writeFile bool
@@ -136,22 +136,22 @@ func GetLastLogMessage() string {
 	return lastLogMessage
 } //                                                           GetLastLogMessage
 
-// GetShowSourceFileNames __
+// GetShowSourceFileNames _ _
 func GetShowSourceFileNames() bool {
 	return showSourceFileNames
 } //                                                      GetShowSourceFileNames
 
-// SetShowSourceFileNames __
+// SetShowSourceFileNames _ _
 func SetShowSourceFileNames(val bool) {
 	showSourceFileNames = val
 } //                                                      SetShowSourceFileNames
 
-// GetVerboseMode __
+// GetVerboseMode _ _
 func GetVerboseMode() bool {
 	return verboseMode
 } //                                                              GetVerboseMode
 
-// SetVerboseMode __
+// SetVerboseMode _ _
 func SetVerboseMode(val bool) {
 	verboseMode = val
 } //                                                              SetVerboseMode
@@ -162,7 +162,7 @@ func SetVerboseMode(val bool) {
 // disableErrors disables or enables logging of errors.
 var disableErrors bool
 
-// DisableErrors __
+// DisableErrors _ _
 func DisableErrors(optDisable ...bool) {
 	switch n := len(optDisable); {
 	case n == 1:
@@ -178,7 +178,7 @@ func DisableErrors(optDisable ...bool) {
 	}
 } //                                                               DisableErrors
 
-// EnableErrors __
+// EnableErrors _ _
 func EnableErrors(optEnable ...bool) {
 	switch n := len(optEnable); {
 	case n == 1:
@@ -221,7 +221,7 @@ func Assert(expect bool) bool {
 	return expect
 } //                                                                      Assert
 
-// Base64ErrorDetails __
+// Base64ErrorDetails _ _
 func Base64ErrorDetails(err error, data string) {
 	const atInputByte = " at input byte "
 	errStr := err.Error()

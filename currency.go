@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-22 23:55:42 0F5A59                               zr/[currency.go]
+// :v: 2020-04-10 11:30:34 884BC7                               zr/[currency.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -101,7 +101,7 @@ const (
 )
 
 // big1E4 scales the int64 to provide 4 decimal places.
-var big1E4 = big.NewInt(1E4)
+var big1E4 = big.NewInt(1e4)
 
 // -----------------------------------------------------------------------------
 // # Currency Type:
@@ -139,7 +139,7 @@ func CurrencyE(value interface{}) (Currency, error) {
 			if n < -CurrencyIntLimit || n > CurrencyIntLimit {
 				return currencyOverflow(n < 0, n), errors.New(EOverflow)
 			}
-			return Currency{n * 1E4}, nil
+			return Currency{n * 1e4}, nil
 		}
 	case float64, float32:
 		{
@@ -148,7 +148,7 @@ func CurrencyE(value interface{}) (Currency, error) {
 				n > float64(CurrencyIntLimit)+0.9999 {
 				return currencyOverflow(n < 0, n), errors.New(EOverflow)
 			}
-			return Currency{int64(n * 1E4)}, nil
+			return Currency{int64(n * 1e4)}, nil
 		}
 	case string:
 		{
@@ -160,7 +160,7 @@ func CurrencyE(value interface{}) (Currency, error) {
 			if n > CurrencyIntLimit {
 				return currencyOverflow(n < 0, n), errors.New(EOverflow)
 			}
-			return Currency{int64(n) * 1E4}, nil
+			return Currency{int64(n) * 1e4}, nil
 		}
 	case Currency:
 		{
@@ -169,7 +169,7 @@ func CurrencyE(value interface{}) (Currency, error) {
 	case bool:
 		{
 			if v {
-				return Currency{1 * 1E4}, nil
+				return Currency{1 * 1e4}, nil
 			}
 			return Currency{0}, nil
 		}
@@ -283,8 +283,8 @@ func (n Currency) Fmt(decimalPlaces int) string {
 		ws      = retBuf.WriteString
 		wr      = retBuf.WriteRune
 		intLen  = 0
-		intPart = n.i64 / 1E4         // integer part of the number
-		decPart = n.i64 - intPart*1E4 // decimal part (as an int)
+		intPart = n.i64 / 1e4         // integer part of the number
+		decPart = n.i64 - intPart*1e4 // decimal part (as an int)
 		neg     = n.i64 < 0           // is it negative? use absolute value
 	)
 	if neg {
@@ -390,8 +390,8 @@ func (n Currency) InWordsEN(fmt string) string {
 		i = -n.i64
 	}
 	var (
-		bigUnits = i / 1E4
-		smlUnits = (i - bigUnits*1E4) / 100
+		bigUnits = i / 1e4
+		smlUnits = (i - bigUnits*1e4) / 100
 		hasOnly  = strings.HasSuffix(strings.ToLower(fmt), "only")
 	)
 	if hasOnly {
@@ -460,8 +460,8 @@ func (n Currency) InWordsEN(fmt string) string {
 // and implements the fmt.Stringer interface.
 func (n Currency) String() string {
 	var (
-		i    = n.i64 / 1E4              // integer value
-		d    = n.i64 - i*1E4            // decimal value
+		i    = n.i64 / 1e4              // integer value
+		d    = n.i64 - i*1e4            // decimal value
 		sint = strconv.FormatInt(i, 10) // integer part
 		sdec string                     // decimal part
 	)
@@ -473,7 +473,7 @@ func (n Currency) String() string {
 			}
 		}
 		sdec = "." + strings.TrimRight(
-			strconv.FormatInt(d+1E4, 10)[1:],
+			strconv.FormatInt(d+1e4, 10)[1:],
 			"0",
 		)
 	}
@@ -487,7 +487,7 @@ func (n Currency) String() string {
 // and returns the result. The object's value isn't changed.
 func (n Currency) Div(nums ...Currency) Currency {
 	for _, num := range nums {
-		n.i64 *= 1E4
+		n.i64 *= 1e4
 		n.i64 /= num.i64
 	}
 	return n
@@ -497,8 +497,8 @@ func (n Currency) Div(nums ...Currency) Currency {
 // numbers and returns the result. The object's value isn't changed.
 func (n Currency) DivFloat(nums ...float64) Currency {
 	for _, num := range nums {
-		n.i64 *= 1E4
-		n.i64 /= int64(num * 1E4)
+		n.i64 *= 1e4
+		n.i64 /= int64(num * 1e4)
 	}
 	return n
 } //                                                                    DivFloat
@@ -507,8 +507,8 @@ func (n Currency) DivFloat(nums ...float64) Currency {
 // and returns the result. The object's value isn't changed.
 func (n Currency) DivInt(nums ...int) Currency {
 	for _, num := range nums {
-		n.i64 *= 1E4
-		n.i64 /= (int64(num) * 1E4)
+		n.i64 *= 1e4
+		n.i64 /= (int64(num) * 1e4)
 	}
 	return n
 } //                                                                      DivInt
@@ -556,7 +556,7 @@ func (n Currency) Mul(nums ...Currency) Currency {
 			}
 			return Currency{ret}
 		}
-		n.i64 = a * b / 1E4
+		n.i64 = a * b / 1e4
 	}
 	return n
 } //                                                                         Mul
@@ -586,7 +586,7 @@ func (n Currency) MulFloat(nums ...float64) Currency {
 // and returns the result. The object's value isn't changed.
 func (n Currency) MulInt(nums ...int) Currency {
 	for _, num := range nums {
-		n = n.Mul(Currency{int64(num * 1E4)})
+		n = n.Mul(Currency{int64(num * 1e4)})
 	}
 	return n
 } //                                                                      MulInt
@@ -620,7 +620,7 @@ func (n Currency) Add(nums ...Currency) Currency {
 // AddFloat adds one or more floating-point numbers to a currency
 // object and returns the result. The object's value isn't changed.
 func (n Currency) AddFloat(nums ...float64) Currency {
-	const lim float64 = math.MaxInt64 / 1E4
+	const lim float64 = math.MaxInt64 / 1e4
 	a := n.i64
 	for _, b := range nums {
 		//
@@ -631,7 +631,7 @@ func (n Currency) AddFloat(nums ...float64) Currency {
 				a, " * ", b, " = ", float64(a)*b)
 		}
 		// use Add() because it has other overflow checks
-		n = n.Add(Currency{int64(b * 1E4)})
+		n = n.Add(Currency{int64(b * 1e4)})
 	}
 	return n
 } //                                                                    AddFloat
@@ -640,7 +640,7 @@ func (n Currency) AddFloat(nums ...float64) Currency {
 // and returns the result. The object's value isn't changed.
 func (n Currency) AddInt(nums ...int) Currency {
 	for _, num := range nums {
-		n = n.Add(Currency{int64(num) * 1E4})
+		n = n.Add(Currency{int64(num) * 1e4})
 	}
 	return n
 } //                                                                      AddInt
@@ -673,7 +673,7 @@ func (n Currency) Sub(nums ...Currency) Currency {
 // object and returns the result. The object's value isn't changed.
 func (n Currency) SubFloat(nums ...float64) Currency {
 	for _, num := range nums {
-		n.i64 -= int64(num * 1E4)
+		n.i64 -= int64(num * 1e4)
 	}
 	return n
 } //                                                                    SubFloat
@@ -682,7 +682,7 @@ func (n Currency) SubFloat(nums ...float64) Currency {
 // and returns the result. The object's value isn't changed.
 func (n Currency) SubInt(nums ...int) Currency {
 	for _, num := range nums {
-		n.i64 -= int64(num) * 1E4
+		n.i64 -= int64(num) * 1e4
 	}
 	return n
 } //                                                                      SubInt
@@ -692,17 +692,17 @@ func (n Currency) SubInt(nums ...int) Currency {
 
 // Float64 returns the currency value as a float64 value.
 func (n Currency) Float64() float64 {
-	return float64(n.i64) / 1E4
+	return float64(n.i64) / 1e4
 } //                                                                     Float64
 
 // Int returns the currency value as an int value.
 func (n Currency) Int() int64 {
-	return n.i64 / 1E4
+	return n.i64 / 1e4
 } //                                                                         Int
 
 // Int64 returns the currency value as an int64 value.
 func (n Currency) Int64() int64 {
-	return n.i64 / 1E4
+	return n.i64 / 1e4
 } //                                                                       Int64
 
 // IsEqual returns true if the value of the currency object is negative.
@@ -771,13 +771,13 @@ func (n Currency) MarshalJSON() ([]byte, error) {
 	//       There are faster ways to build a number with 4 decimals.
 	//       Create a benchmark to find the fastest method.
 	var (
-		i   = n.i64 / 1E4   // integer part
-		d   = n.i64 - i*1E4 // decimal part
+		i   = n.i64 / 1e4   // integer part
+		d   = n.i64 - i*1e4 // decimal part
 		ret = fmt.Sprintf("%d", i)
 	)
 	if d != 0 {
 		ret += strings.TrimRight(
-			fmt.Sprintf("%0.4f", float32(d)/1E4)[1:],
+			fmt.Sprintf("%0.4f", float32(d)/1e4)[1:],
 			"0",
 		)
 	}
@@ -796,7 +796,7 @@ func (n *Currency) UnmarshalJSON(data []byte) error {
 	if err != nil {
 		return err
 	}
-	n.i64 = int64(num * 1E4)
+	n.i64 = int64(num * 1e4)
 	return nil
 } //                                                               UnmarshalJSON
 

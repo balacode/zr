@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 10:58:17 829651                               zr/[settings.go]
+// :v: 2020-04-10 11:30:34 C0A41B                               zr/[settings.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -30,7 +30,7 @@ import (
 	"strings"
 )
 
-// SettingsAccessor __
+// SettingsAccessor _ _
 type SettingsAccessor interface {
 	GetSetting(name string) string
 	HasSetting(name string) bool
@@ -38,7 +38,7 @@ type SettingsAccessor interface {
 	Dump()
 } //                                                            SettingsAccessor
 
-// Settings __
+// Settings _ _
 type Settings struct {
 	m         map[string]string
 	extendGet func(name, value string, exists bool) string
@@ -62,7 +62,7 @@ func (ob *Settings) Dump() {
 	fmt.Println("end")
 } //                                                                        Dump
 
-// GetSetting __
+// GetSetting _ _
 func (ob *Settings) GetSetting(name string) string {
 	const erv = ""
 	if ob == nil {
@@ -81,7 +81,7 @@ func (ob *Settings) GetSetting(name string) string {
 	return ret
 } //                                                                  GetSetting
 
-// HasSetting __
+// HasSetting _ _
 func (ob *Settings) HasSetting(name string) bool {
 	const erv = false
 	if ob == nil {
@@ -100,7 +100,7 @@ func (ob *Settings) HasSetting(name string) bool {
 	return exists
 } //                                                                  HasSetting
 
-// SetSetting __
+// SetSetting _ _
 func (ob *Settings) SetSetting(name string, value interface{}) {
 	if ob == nil {
 		mod.Error(ENilReceiver)

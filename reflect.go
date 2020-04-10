@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-11 04:43:28 8A2A6C                                zr/[reflect.go]
+// :v: 2020-04-10 11:30:34 0A6904                                zr/[reflect.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -8,8 +8,8 @@ package zr
 // # Slices
 //   IndexSliceStructValue(
 //       input interface{},
-//	     fieldName string,
-//	     checker func(value interface{}) bool,
+//       fieldName string,
+//       checker func(value interface{}) bool,
 //   ) (int, error)
 //
 // # Structs
@@ -29,7 +29,7 @@ import (
 // -----------------------------------------------------------------------------
 // # Slices
 
-// IndexSliceStructValue __
+// IndexSliceStructValue _ _
 func IndexSliceStructValue(
 	input interface{},
 	fieldName string,
@@ -69,7 +69,7 @@ func IndexSliceStructValue(
 // -----------------------------------------------------------------------------
 // # Structs
 
-// DescribeStruct __
+// DescribeStruct _ _
 func DescribeStruct(structPtr interface{}) string {
 	// the function is recursive, so it needs to be declared before use
 	var unwrap func(interface{}, int) string
@@ -179,7 +179,7 @@ func GetStructType(structPtr interface{}) (reflect.Type, bool) {
 	return ty, true
 } //                                                               GetStructType
 
-// SetStructInt __
+// SetStructInt _ _
 func SetStructInt(structPtr interface{}, field string, val int) bool {
 	ty, ok := GetStructType(structPtr)
 	if !ok {
@@ -194,7 +194,7 @@ func SetStructInt(structPtr interface{}, field string, val int) bool {
 	return false
 } //                                                                SetStructInt
 
-// SetStructString __
+// SetStructString _ _
 func SetStructString(structPtr interface{}, field, val string) bool {
 	ty, ok := GetStructType(structPtr)
 	if !ok {

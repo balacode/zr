@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-22 23:47:49 9AB0C1                               zr/[unittest.go]
+// :v: 2020-04-10 11:30:34 9E2E98                               zr/[unittest.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -59,7 +59,7 @@ type TStringer struct {
 	s string
 } //                                                                   TStringer
 
-// NewTStringer __
+// NewTStringer _ _
 func NewTStringer(s string) TStringer {
 	return TStringer{s}
 } //                                                                NewTStringer
@@ -70,12 +70,12 @@ func (ob *TStringer) Set(s string) {
 	ob.s = s
 } //                                                                         Set
 
-// GoString __
+// GoString _ _
 func (ob TStringer) GoString() string {
 	return ob.s
 } //                                                                    GoString
 
-// String __
+// String _ _
 func (ob TStringer) String() string {
 	return ob.s
 } //                                                                      String
@@ -310,14 +310,14 @@ func TCheckError(t *testing.T, expectMessages ...string) {
 	TFail(t, "Unexpected error '", errm, "'")
 } //                                                                 TCheckError
 
-// TFail __
+// TFail _ _
 func TFail(t *testing.T, a ...interface{}) {
 	msg := failedLocation() + fmt.Sprint(a...)
 	t.Error(msg)
 	t.Fail()
 } //                                                                       TFail
 
-// TFailf __
+// TFailf _ _
 func TFailf(t *testing.T, format string, a ...interface{}) {
 	format = failedLocation() + format
 	t.Errorf(format, a...)

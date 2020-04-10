@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-22 14:44:36 EDD97F                                  zr/[dates.go]
+// :v: 2020-04-10 11:30:34 F09D17                                  zr/[dates.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -60,7 +60,7 @@ var MonthNamesEN = []string{
 // -----------------------------------------------------------------------------
 // # Day-Month-Year Date Formats
 
-// DateFormatsDMY __
+// DateFormatsDMY _ _
 var DateFormatsDMY = []struct {
 	Pat string // regular expression pattern to match
 	In  string // use this date format to parse inupt
@@ -149,7 +149,7 @@ func DateOf(value interface{}) time.Time {
 	return time.Time{}
 } //                                                                      DateOf
 
-// DateRangeOf creates and returns a DateRange structure from a string. __
+// DateRangeOf creates and returns a DateRange structure from a string. _ _
 func DateRangeOf(s string) DateRange {
 	// pre-format
 	s = strings.ToUpper(strings.TrimSpace(s))
@@ -554,7 +554,7 @@ func StringDateYMD(s string) string {
 	return fmt.Sprintf("%04d-%02d-%02d", y, m, d)
 } //                                                               StringDateYMD
 
-// StringYear __
+// StringYear _ _
 func StringYear(value interface{}) string {
 	if IsNumber(value) {
 		year := Int(value)
@@ -614,7 +614,7 @@ func YMD(t time.Time) string {
 // -----------------------------------------------------------------------------
 // # Private Functions
 
-// stringDate __
+// stringDate _ _
 func stringDate(value interface{}, format string) string {
 	const erv = ""
 	var date time.Time

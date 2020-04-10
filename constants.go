@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-15 01:41:01 2A61CB                              zr/[constants.go]
+// :v: 2020-04-10 11:30:34 FE9DDB                              zr/[constants.go]
 // -----------------------------------------------------------------------------
 
 // # Error Message Constants
@@ -12,37 +12,37 @@ package zr
 // # Error Message Constants
 
 const (
-	// EFailedParsing __
+	// EFailedParsing _ _
 	EFailedParsing = "Failed parsing"
 
-	// EFailedReading __
+	// EFailedReading _ _
 	EFailedReading = "Failed reading"
 
-	// EFailedWriting __
+	// EFailedWriting _ _
 	EFailedWriting = "Failed writing"
 
-	// EInvalid __
+	// EInvalid _ _
 	EInvalid = "Invalid"
 
-	// EInvalidArg __
+	// EInvalidArg _ _
 	EInvalidArg = "Invalid argument"
 
-	// EInvalidType __
+	// EInvalidType _ _
 	EInvalidType = "Invalid type"
 
-	// ENil __
+	// ENil _ _
 	ENil = "Value is nil"
 
 	// ENilReceiver indicates a method call on a nil object.
 	ENilReceiver = "nil receiver"
 
-	// ENoDef __
+	// ENoDef _ _
 	ENoDef = "Not defined"
 
-	// ENotFound __
+	// ENotFound _ _
 	ENotFound = "Not found"
 
-	// ENotHandled __
+	// ENotHandled _ _
 	ENotHandled = "Not handled"
 
 	// EOverflow indicates an arithmetic overflow.

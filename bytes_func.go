@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-11 04:43:28 F4AB64                             zr/[bytes_func.go]
+// :v: 2020-04-10 11:30:34 8F77EB                             zr/[bytes_func.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -241,7 +241,7 @@ func UncompressBytes(data []byte) []byte {
 	return ret.Bytes()
 } //                                                             UncompressBytes
 
-// XorBytes __
+// XorBytes _ _
 func XorBytes(data, cipher []byte) []byte {
 	if len(data) == 0 || len(cipher) == 0 {
 		return data

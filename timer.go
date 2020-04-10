@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-19 17:50:20 37D343                                  zr/[timer.go]
+// :v: 2020-04-10 11:30:34 AA8E20                                  zr/[timer.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -139,7 +139,7 @@ func (ob *Timer) Stop(taskName string) {
 	task.TotalMs += ms
 } //                                                                        Stop
 
-// StopLast __
+// StopLast _ _
 func (ob *Timer) StopLast() {
 	if ob.LastTaskName == "" {
 		return
