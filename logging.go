@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2020-04-10 11:36:50 45F529                                zr/[logging.go]
+// :v: 2020-06-20 09:39:10 B74B92                                zr/[logging.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -520,9 +520,11 @@ func PrintfAsync(format string, args ...interface{}) {
 	}
 } //                                                                 PrintfAsync
 
-// RunningLogFilename returns the name of the current process
+// RunningLogFilename returns the name of the
+// log file used by the current process
 func RunningLogFilename() string {
-	return filepath.Base(os.Args[0])
+	name := filepath.Base(os.Args[0])
+	return name + ".log"
 } //                                                          RunningLogFilename
 
 // TM outputs milliseconds elapsed between calls to TM() to standard output.
