@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-17 11:08:47 C6D3CF                               zr/[calendar.go]
+// :v: 2020-08-05 09:04:34 F1937B                               zr/[calendar.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -24,6 +24,7 @@ package zr
 import (
 	"bytes"
 	"fmt"
+	"sort"
 	"strings"
 	"time"
 )
@@ -224,6 +225,11 @@ func (ob *Calendar) String() string {
 		}
 		return ret
 	}
+	sort.Slice(ob.months, func(i, j int) bool {
+		a := ob.months[i]
+		b := ob.months[j]
+		return a.year < b.year || (a.year == b.year && a.month < b.month)
+	})
 	for _, mth := range ob.months {
 		//
 		// month heading
