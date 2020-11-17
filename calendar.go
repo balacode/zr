@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2020-08-05 09:04:34 F1937B                               zr/[calendar.go]
+// :v: 2020-11-17 12:05:15 001BD3                               zr/[calendar.go]
 // -----------------------------------------------------------------------------
 
 package zr
@@ -82,15 +82,24 @@ func (ob *Calendar) AddMonth(year int, month time.Month) error {
 		return Error("Month", month, year, "already added")
 	}
 	var (
-		mth      = calendarMonth{year: year, month: month}
-		weekday1 = ob.firstWeekday(year, month)
-		last     = DaysInMonth(year, month)
-		day      = 1
+		mth  = calendarMonth{year: year, month: month}
+		last = DaysInMonth(year, month)
+		day  = 1
 	)
+	// calculate the starting weekday's column (0 - 6, i.e. Mon. - Sun.)
+	var startCol = func() int {
+		// rotate the columns, since time.Weekday starts on Sunday
+		// but this calendar's first column starts on Monday
+		var col = int(ob.firstWeekday(year, month)) - 1
+		if col < 0 {
+			col = 6
+		}
+		return col
+	}()
 loop:
 	for row := 0; row < 6; row++ {
 		for col := 0; col < 7; col++ {
-			if day == 1 && col < int(weekday1)-1 {
+			if day == 1 && col < startCol {
 				continue
 			}
 			mth.cells[row][col].day = day
