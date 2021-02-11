@@ -100,7 +100,7 @@ func DescribeStruct(structPtr interface{}) string {
 				{
 					stype := reflect.TypeOf(val.Interface()).String()
 					if strings.Contains(stype, "[]main.") {
-						stype = strings.Replace(stype, "[]main.", "[]", -1)
+						stype = strings.ReplaceAll(stype, "[]main.", "[]")
 					}
 					printf("%s: %s {\r\n", name, stype)
 					indentAt += 1

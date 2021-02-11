@@ -181,7 +181,7 @@ func DV(label string, values ...interface{}) {
 		typeName := "<" + reflect.TypeOf(v).String() + ">"
 		changeType := func(find, repl string) {
 			for strings.Contains(typeName, find) {
-				typeName = strings.Replace(typeName, find, repl, -1)
+				typeName = strings.ReplaceAll(typeName, find, repl)
 			}
 		}
 		changeType("bool", "t")

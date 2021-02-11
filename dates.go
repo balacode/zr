@@ -155,14 +155,14 @@ func DateRangeOf(s string) DateRange {
 	s = strings.ToUpper(strings.TrimSpace(s))
 	for _, sep := range []string{" ", ".", "/", "\\", "_"} {
 		for strings.Contains(s, sep) {
-			s = strings.Replace(s, sep, "-", -1)
+			s = strings.ReplaceAll(s, sep, "-")
 		}
 	}
 	for strings.Contains(s, "--") {
-		s = strings.Replace(s, "--", "-", -1)
+		s = strings.ReplaceAll(s, "--", "-")
 	}
 	for strings.Contains(s, "-TO-") {
-		s = strings.Replace(s, "-TO-", "~", -1)
+		s = strings.ReplaceAll(s, "-TO-", "~")
 	}
 	var (
 		y1, m1, d1 = 0, time.January, 1
@@ -470,7 +470,7 @@ func ParseDate(s string) (year, month, day int) {
 	}
 	change := func(from, to string) {
 		if strings.Contains(s, from) {
-			s = strings.Replace(s, from, to, -1)
+			s = strings.ReplaceAll(s, from, to)
 		}
 	}
 	change("-", "/")
@@ -599,7 +599,7 @@ func Timestamp(optWithMS ...bool) string {
 	//
 	// longer way to get the same result:
 	// ret := time.Now().Format(time.RFC3339)[:19]
-	// ret = strings.Replace(ret, "T", " ", -1)
+	// ret = strings.ReplaceAll(ret, "T", " ")
 } //                                                                   Timestamp
 
 // YMD returns a date using the 'yyyy-mm-dd' format.

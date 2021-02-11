@@ -160,11 +160,11 @@ func CamelCase(s string) string {
 func CompactSpaces(s string) string {
 	for _, ch := range "\a\b\f\n\r\t\v" { // <- no need to include a space here
 		if strings.Contains(s, string(ch)) {
-			s = strings.Replace(s, string(ch), " ", -1)
+			s = strings.ReplaceAll(s, string(ch), " ")
 		}
 	}
 	for strings.Contains(s, "  ") {
-		s = strings.Replace(s, "  ", " ", -1)
+		s = strings.ReplaceAll(s, "  ", " ")
 	}
 	return s
 } //                                                               CompactSpaces
@@ -1009,22 +1009,22 @@ func SetSlice(s string, start, end int, substr string) string {
 // line breaks with visible placeholders.
 func ShowSpaces(s string) string {
 	if strings.Contains(s, " ") {
-		s = strings.Replace(s, " ", "-", -1)
+		s = strings.ReplaceAll(s, " ", "-")
 	}
 	if strings.Contains(s, "\t") {
-		s = strings.Replace(s, "\t", "--->", -1)
+		s = strings.ReplaceAll(s, "\t", "--->")
 	}
 	if strings.Contains(s, "\r\n") {
-		s = strings.Replace(s, "\r\n", "CRLF\x00", -1)
+		s = strings.ReplaceAll(s, "\r\n", "CRLF\x00")
 	}
 	if strings.Contains(s, "\r") {
-		s = strings.Replace(s, "\r", "CR\r", -1)
+		s = strings.ReplaceAll(s, "\r", "CR\r")
 	}
 	if strings.Contains(s, "\n") {
-		s = strings.Replace(s, "\n", "LF\n", -1)
+		s = strings.ReplaceAll(s, "\n", "LF\n")
 	}
 	if strings.Contains(s, "CRLF") {
-		s = strings.Replace(s, "CRLF\x00", "CRLF\r\n", -1)
+		s = strings.ReplaceAll(s, "CRLF\x00", "CRLF\r\n")
 	}
 	return s
 } //                                                                  ShowSpaces

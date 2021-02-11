@@ -46,7 +46,7 @@ func GoName(s string) string {
 	}
 	// replace undserscores with spaces to isolate words
 	if strings.Contains(ret, "_") {
-		ret = strings.Replace(ret, "_", " ", -1)
+		ret = strings.ReplaceAll(ret, "_", " ")
 	}
 	// capitalize the fist letter of every word
 	ret = TitleCase(ret)
@@ -57,7 +57,7 @@ func GoName(s string) string {
 	}
 	// remove spaces to get a camel-case string
 	if strings.Contains(ret, " ") {
-		ret = strings.Replace(ret, " ", "", -1)
+		ret = strings.ReplaceAll(ret, " ", "")
 	}
 	return ret
 } //                                                                      GoName
@@ -218,7 +218,7 @@ func WriteGoString(
 		}
 	case reflect.String:
 		{
-			ws(`"`, strings.Replace(value.(string), `"`, `\"`, -1), `"`)
+			ws(`"`, strings.ReplaceAll(value.(string), `"`, `\"`), `"`)
 			return
 		}
 	case reflect.Struct:

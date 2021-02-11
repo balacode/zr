@@ -161,7 +161,7 @@ func TEqual(t *testing.T, result interface{}, expect interface{}) bool {
 						buf.WriteString(", ")
 					}
 					buf.WriteString(`"`)
-					buf.WriteString(strings.Replace(s, `"`, `\"`, -1))
+					buf.WriteString(strings.ReplaceAll(s, `"`, `\"`))
 					buf.WriteString(`"`)
 				}
 				buf.WriteString("]")

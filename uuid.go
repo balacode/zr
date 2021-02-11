@@ -30,7 +30,7 @@ func IsUUID(value interface{}) bool {
 	case string:
 		{
 			for strings.Contains(v, "-") {
-				v = strings.Replace(v, "-", "", -1)
+				v = strings.ReplaceAll(v, "-", "")
 			}
 			if len(v) != 32 {
 				return false

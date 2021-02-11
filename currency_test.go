@@ -1203,8 +1203,8 @@ func Test_crcy_Currency_MarshalJSON_(t *testing.T) {
 		jsn, _ := json.MarshalIndent(ty, "", " ")
 		//                 ^  calls the object's MarshalIndent() method
 		got := string(jsn)
-		got = strings.Replace(got, "\n", "", -1)
-		got = strings.Replace(got, "{ ", "{", -1)
+		got = strings.ReplaceAll(got, "\n", "")
+		got = strings.ReplaceAll(got, "{ ", "{")
 		TEqual(t, got, (expect))
 	}
 	test(-1, `{"Val": -1}`)

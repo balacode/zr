@@ -97,7 +97,7 @@ func Test_date_DateRangeOf_(t *testing.T) {
 	// replaces 'yyyy' with current year
 	thisYear := func(s string) string {
 		year := String(int(time.Now().Year()))
-		return strings.Replace(s, "yyyy", year, -1)
+		return strings.ReplaceAll(s, "yyyy", year)
 	}
 	// month only
 	test("MAY", thisYear("yyyy-05-01 yyyy-05-31"))

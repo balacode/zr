@@ -286,8 +286,8 @@ func CallerList() []string {
 		// let the file name's path use the right kind of OS path separator
 		// (by default, the file name contains '/' on all platforms)
 		if string(os.PathSeparator) != "/" {
-			filename = strings.Replace(filename, "/", string(os.PathSeparator),
-				-1)
+			filename = strings.ReplaceAll(filename, "/",
+				string(os.PathSeparator))
 		}
 		// remove parent module/function names
 		if index := strings.LastIndex(funcName, "/"); index != -1 {
@@ -299,7 +299,7 @@ func CallerList() []string {
 		// remove unneeded punctuation from function names
 		for _, find := range []string{"(", ")", "*"} {
 			if strings.Contains(funcName, find) {
-				funcName = strings.Replace(funcName, find, "", -1)
+				funcName = strings.ReplaceAll(funcName, find, "")
 			}
 		}
 		var line string
@@ -376,8 +376,8 @@ func Callers(options ...interface{}) string {
 		// let the file name's path use the right kind of OS path separator
 		// (by default, the file name contains '/' on all platforms)
 		if string(os.PathSeparator) != "/" {
-			filename = strings.Replace(filename, "/", string(os.PathSeparator),
-				-1)
+			filename = strings.ReplaceAll(filename, "/",
+				string(os.PathSeparator))
 		}
 		// remove parent module/function names
 		if index := strings.LastIndex(funcName, "/"); index != -1 {
@@ -389,7 +389,7 @@ func Callers(options ...interface{}) string {
 		// remove unneeded punctuation from function names
 		for _, find := range []string{"(", ")", "*"} {
 			if strings.Contains(funcName, find) {
-				funcName = strings.Replace(funcName, find, "", -1)
+				funcName = strings.ReplaceAll(funcName, find, "")
 			}
 		}
 		ws(callerPrefix)

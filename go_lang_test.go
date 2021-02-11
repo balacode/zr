@@ -40,14 +40,14 @@ func Test_gola_GoName_(t *testing.T) {
 	//X 		return ""
 	//X 	}
 	//X 	if Contains(ret, "_") {
-	//X 		ret = Replace(ret, "_", " ", -1)
+	//X 		ret = ReplaceAll(ret, "_", " ")
 	//X 	}
 	//X 	ret = TitleCase(ret)
 	//X 	if ContainsI(ret, "id") {
 	//X 		ret = ReplaceWord(ret, "id", "ID", IgnoreCase)
 	//X 	}
 	//X 	if Contains(ret, " ") {
-	//X 		ret = Replace(ret, " ", "", -1)
+	//X 		ret = ReplaceAll(ret, " ", "")
 	//X 	}
 	//X 	return ret
 } //                                                           Test_gola_GoName_
