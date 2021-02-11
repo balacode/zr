@@ -412,7 +412,7 @@ func Error(args ...interface{}) error {
 	if len(args) == 0 {
 		return nil
 	}
-	msg := joinArgs("ERR: ", args...)
+	msg := joinArgs("ERROR: ", args...)
 	lastLogMessage = msg
 	if !disableErrors {
 		logAsync(msg + Callers(args...))
