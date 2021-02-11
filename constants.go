@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
+// ZR Library                                                  zr/[constants.go]
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2020-04-10 11:30:34 FE9DDB                              zr/[constants.go]
 // -----------------------------------------------------------------------------
 
 // # Error Message Constants

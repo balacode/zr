@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
+// ZR Library                                        zr/[string_aligner_test.go]
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-15 01:41:01 C10F3B                    zr/[string_aligner_test.go]
 // -----------------------------------------------------------------------------
 
 package zr
