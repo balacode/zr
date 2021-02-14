@@ -1398,4 +1398,4 @@ func WordIndex(s, word string, caseMode CaseMode) int {
 
 // TODO: IMPORTANT: check FindChar() usage
 
-//end
+// end

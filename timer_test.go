@@ -43,4 +43,4 @@ func Test_timr_(t *testing.T) {
 	TEqual(t, lines[3], "")
 } //                                                                  Test_timr_
 
-//end
+// end

@@ -167,4 +167,4 @@ func Test_cldr_2(t *testing.T) {
 	TEqual(t, got, strings.TrimSpace(expect))
 } //                                                                 Test_cldr_2
 
-//end
+// end

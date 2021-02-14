@@ -260,4 +260,4 @@ func XorBytes(data, cipher []byte) []byte {
 	return ret.Bytes()
 } //                                                                    XorBytes
 
-//end
+// end

@@ -1415,4 +1415,4 @@ func Test_strs_WordIndex_(t *testing.T) {
 	}
 } //                                                        Test_strs_WordIndex_
 
-//end
+// end

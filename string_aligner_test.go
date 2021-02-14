@@ -67,4 +67,4 @@ func Test_stra_StringAligner_(t *testing.T) {
 	}
 } //                                                    Test_stra_StringAligner_
 
-//end
+// end

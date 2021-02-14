@@ -752,4 +752,4 @@ func removeLogOptions(args []interface{}) (ret []interface{}) {
 
 // TODO: send errors to standard error: fmt.Fprintf(os.Stderr, "%s\n", err)
 
-//end
+// end

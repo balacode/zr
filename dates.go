@@ -586,7 +586,7 @@ func Timestamp(optWithMS ...bool) string {
 		withMS = optWithMS[0]
 	}
 	if withMS {
-		ret := time.Now().String()
+		ret := time.Now().Round(0).String()
 		if len(ret) > 24 {
 			ret = ret[:24]
 		}
@@ -648,6 +648,7 @@ func stringDate(value interface{}, format string) string {
 } //                                                                  stringDate
 
 // TODO: merge StringDateYMD() and YMD()
+
 // TODO: DateOf(): add unit test for zero-length string
 
-//end
+// end

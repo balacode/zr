@@ -58,4 +58,4 @@ const (
 	SPACES = " \a\b\f\n\r\t\v"
 )
 
-//end
+// end

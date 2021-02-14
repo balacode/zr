@@ -415,4 +415,4 @@ func Test_bool_TrueCount_(t *testing.T) {
 	test(1, false, false, true)
 } //                                                        Test_bool_TrueCount_
 
-//end
+// end

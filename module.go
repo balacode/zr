@@ -98,4 +98,4 @@ func (ob *thisMod) Reset() {
 	ob.rand.Read = rand.Read
 } //                                                                       Reset
 
-//end
+// end

@@ -821,4 +821,4 @@ func currencyOverflow(isNegative bool, a ...interface{}) Currency {
 	return Currency{math.MaxInt64}
 } //                                                            currencyOverflow
 
-//end
+// end

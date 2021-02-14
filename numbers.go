@@ -696,4 +696,4 @@ func IntInWordsEN(number int64) string {
 	return strings.TrimSpace(retBuf.String())
 } //                                                                IntInWordsEN
 
-//end
+// end

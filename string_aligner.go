@@ -77,4 +77,4 @@ func (ob *StringAligner) String() string {
 	return retBuf.String()
 } //                                                                      String
 
-//end
+// end

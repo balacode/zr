@@ -197,4 +197,4 @@ func (ob *Timer) makeTasks() {
 	ob.Tasks = make(map[string]*TimerTask)
 } //                                                                   makeTasks
 
-//end
+// end

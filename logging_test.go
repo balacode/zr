@@ -79,4 +79,4 @@ func Test_logg_NoE_(t *testing.T) {
 	TTrue(t, s == check)
 } //                                                              Test_logg_NoE_
 
-//end
+// end

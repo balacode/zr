@@ -58,4 +58,4 @@ func (ob IntTuple) String() string {
 	return fmt.Sprintf("IntTuple{A:%d, B:%d}", ob.A, ob.B)
 } //                                                                      String
 
-//end
+// end

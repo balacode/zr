@@ -209,4 +209,4 @@ func SetStructString(structPtr interface{}, field, val string) bool {
 	return false
 } //                                                             SetStructString
 
-//end
+// end

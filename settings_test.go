@@ -217,4 +217,4 @@ func Test_sett_Settings_ExtendSet_(t *testing.T) {
 	// TODO: check if extender's result is used
 } //                                               Test_sett_Settings_ExtendSet_
 
-//end
+// end

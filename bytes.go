@@ -282,4 +282,4 @@ func (ob *Bytes) Slice(beginIndex, endIndex int) Bytes {
 	return Bytes(Bytes{ar: ob.ar[beginIndex:endIndex]})
 } //                                                                       Slice
 
-//end
+// end

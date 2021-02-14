@@ -498,4 +498,4 @@ func Test_nums_MaxIntOf_(t *testing.T) {
 	test([]int{789, 456, 23, 1}, 789, true)
 } //                                                         Test_nums_MaxIntOf_
 
-//end
+// end

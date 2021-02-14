@@ -404,4 +404,4 @@ func Test_bytf_XorBytes_(t *testing.T) {
 	// 	return ret.Bytes()
 } //                                                         Test_bytf_XorBytes_
 
-//end
+// end

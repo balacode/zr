@@ -1,25 +1,25 @@
-# ------------------------------------------------------------------------------
-# ZR Library                                                     zr/[.gitignore]
-# (c) balarabe@protonmail.com                                       License: MIT
-# ------------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
+## ZR Library                                                    zr/[.gitignore]
+## (c) balarabe@protonmail.com                                      License: MIT
+## -----------------------------------------------------------------------------
 
-# scripts, shortcuts, zip archives
+## scripts, shortcuts, zip archives
 *.bat
 *.lnk
 *.sh
 *.zip
 
-# log and debugging files
+## log and debugging files
 *.log
 *.test
 cover.out
 
-# drafts and temporary files
+## drafts and temporary files
 *`*
 _*
 tmp.*
 
-# misc. files
+## misc. files
 line_counts.txt
 
-#eof
+## end
