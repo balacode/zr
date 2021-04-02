@@ -12,6 +12,9 @@ package zr
 // # Error Message Constants
 
 const (
+	// EFailedOperation _ _
+	EFailedOperation = "Failed operation"
+
 	// EFailedParsing _ _
 	EFailedParsing = "Failed parsing"
 
