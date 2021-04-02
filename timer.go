@@ -11,7 +11,7 @@ package zr
 //
 // # Methods (ob *Timer)
 //   ) GetTasks() map[string]*TimerTask
-//   ) Print()
+//   ) Print(prefix ...string)
 //   ) Start(taskName string)
 //   ) Stop(taskName string)
 //   ) StopLast()
@@ -24,6 +24,7 @@ package zr
 import (
 	"bytes"
 	"fmt"
+	"strings"
 	"sync"
 	"time"
 )
@@ -158,7 +159,7 @@ func (ob *Timer) Reset() {
 // Shows the name of each task, the total time spent on the task, the
 // number of times the task was executed, and the average running time
 // in seconds rounded to 4 decimal places.
-func (ob *Timer) Print() {
+func (ob *Timer) Print(prefix ...string) {
 	if ob == nil {
 		Error(ENilReceiver)
 		return
@@ -167,6 +168,14 @@ func (ob *Timer) Print() {
 		ob.makeTasks()
 	}
 	s := ob.String()
+	if len(prefix) > 0 {
+		pre := strings.Join(prefix, "")
+		lines := strings.Split(s, "\n")
+		for i, line := range lines {
+			lines[i] = pre + line
+		}
+		s = strings.Join(lines, "\n")
+	}
 	fmt.Println(s)
 } //                                                                       Print
 
