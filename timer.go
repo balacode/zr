@@ -55,6 +55,7 @@ type Timer struct {
 	Mutex        sync.RWMutex
 	Tasks        map[string]*TimerTask
 	LastTaskName string
+	PrintEvents  bool
 } //                                                                       Timer
 
 // TimerTask holds the timing statistics of a timed task.
@@ -82,6 +83,9 @@ func (ob *Timer) Start(taskName string) string {
 		Error(ENilReceiver)
 		return taskName
 	}
+	if ob.PrintEvents {
+		fmt.Println("start", taskName+":", time.Now().String()[11:19])
+	}
 	ob.Mutex.Lock()
 	defer ob.Mutex.Unlock()
 	if ob.Tasks == nil {
@@ -106,6 +110,9 @@ func (ob *Timer) Stop(taskName string) {
 	if ob == nil {
 		Error(ENilReceiver)
 		return
+	}
+	if ob.PrintEvents {
+		fmt.Println("stop", taskName+":", time.Now().String()[11:19])
 	}
 	ob.Mutex.Lock()
 	defer ob.Mutex.Unlock()
