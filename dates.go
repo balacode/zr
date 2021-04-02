@@ -11,6 +11,11 @@ package zr
 // # Day-Month-Year Date Formats
 //   DateFormatsDMY = []struct
 //
+// # Date Regular Expressions
+//   ISODateTimeEx
+//   ISODateEx
+//   ISOTimeEx
+//
 // # DateRange
 //   DateRange struct
 //   (ob DateRange) IsNull() bool
@@ -77,6 +82,25 @@ var DateFormatsDMY = []struct {
 		Out: "2/Jan/2006",
 	},
 } //                                                              DateFormatsDMY
+
+// -----------------------------------------------------------------------------
+// # Date Regular Expressions
+
+var (
+	// ISODateEx is a regular expression that matches
+	// date strings in "YYYY-MM-DD" format.
+	ISODateEx = regexp.MustCompile(`^\d\d\d\d-\d\d-\d\d$`)
+
+	// ISODateTimeEx is a regular expression that matches
+	// date and time strings in "YYYY-MM-DDThh:mm:ss"
+	// format or "YYYY-MM-DD hh:mm:ss" format.
+	ISODateTimeEx = regexp.MustCompile(
+		`^\d\d\d\d-\d\d-\d\d[ T]\d\d:\d\d:\d\d$`)
+
+	// ISODateTimeEx is a regular expression that matches
+	// time strings in "hh:mm:ss" format.
+	ISOTimeEx = regexp.MustCompile(`^\d\d:\d\d:\d\d$`)
+)
 
 // -----------------------------------------------------------------------------
 // # DateRange

@@ -10,6 +10,9 @@ package zr
 //   MaxUint
 //   MinInt
 //
+// # Regular Expressions
+//   NumberEx
+//
 // # Numeric Functions
 //   Float64(value interface{}) float64
 //   Float64E(value interface{}) (float64, error)
@@ -30,6 +33,7 @@ import (
 	"fmt"
 	"math"
 	"reflect"
+	"regexp"
 	"sort"
 	"strconv"
 	"strings"
@@ -69,6 +73,14 @@ var TensEN = []string{
 	"Ten", "Twenty", "Thirty", "Forty", "Fifty",
 	"Sixty", "Seventy", "Eighty", "Ninety",
 }
+
+// -----------------------------------------------------------------------------
+// # Regular Expressions
+
+// NumberEx is a regular expression that matches positive or negative decimal
+// real numbers. A single '-' precedes negative numbers but '+' is not matched
+// for positive numbers. A number can contain a single decimal point.
+var NumberEx = regexp.MustCompile(`^[-]?\d+[.]?\d*$`)
 
 // -----------------------------------------------------------------------------
 // # Numeric Functions
