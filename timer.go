@@ -24,6 +24,7 @@ package zr
 import (
 	"bytes"
 	"fmt"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -66,6 +67,39 @@ type TimerTask struct {
 	StartTime time.Time
 	TotalMs   float32
 } //                                                                   TimerTask
+
+// -----------------------------------------------------------------------------
+// # tmNameTask Sortable Slice
+
+type tmNameTask struct {
+	name string
+	task *TimerTask
+}
+
+type tmNameTasks []tmNameTask
+
+// Len is the number of elements in the collection. (sort.Interface)
+func (ob tmNameTasks) Len() int {
+	return len(ob)
+} //                                                                         Len
+
+// Less reports whether the element with index
+// 'i' should sort before element[j].
+// (sort.Interface)
+//
+// This particular implementation sorts items
+// by time spent in descending order.
+//
+func (ob tmNameTasks) Less(i, j int) bool {
+	ti := ob[i].task.TotalMs
+	tj := ob[j].task.TotalMs
+	return ti > tj
+} //                                                                        Less
+
+// Swap swaps the elements with indexes i and j. (sort.Interface)
+func (ob tmNameTasks) Swap(i, j int) {
+	ob[i], ob[j] = ob[j], ob[i]
+} //                                                                        Swap
 
 // -----------------------------------------------------------------------------
 // # Methods (ob *Timer)
@@ -178,6 +212,39 @@ func (ob *Timer) Print(prefix ...string) {
 	}
 	fmt.Println(s)
 } //                                                                       Print
+
+// ReportByTimeSpent returns the timing report as a string,
+// with items sorted by time spent in descending order.
+func (ob *Timer) ReportByTimeSpent() string {
+	ob.Mutex.RLock()
+	defer ob.Mutex.RUnlock()
+	//
+	serialMax := 0
+	for _, task := range ob.Tasks {
+		if task.SerialNo > serialMax {
+			serialMax = task.SerialNo
+		}
+	}
+	// sort the tasks
+	var ar []tmNameTask
+	for name, task := range ob.Tasks {
+		ar = append(ar, tmNameTask{name, task})
+	}
+	sort.Sort(tmNameTasks(ar))
+	//
+	var buf bytes.Buffer
+	ws := buf.WriteString
+	ws("    --------------------------------- SECONDS:\r\n")
+	sum := float64(0)
+	for _, it := range ar {
+		seconds := float64(it.task.TotalMs) / float64(1000)
+		sum += seconds
+		ws(fmt.Sprintf("%14.5f: %s\r\n", seconds, it.name))
+	}
+	ws(fmt.Sprintf("%14.5f\r\n", sum))
+	ret := buf.String()
+	return ret
+} //                                                           ReportByTimeSpent
 
 // String returns the timing report as a string,
 // and implements the fmt.Stringer interface.
