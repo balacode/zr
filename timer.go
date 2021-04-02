@@ -76,11 +76,11 @@ func (ob *Timer) GetTasks() map[string]*TimerTask {
 // Start begins timing the named task. Make sure you call Stop() when
 // the task is complete. You can start and stop the same task multiple
 // times, provided you call Stop() after every Start().
-func (ob *Timer) Start(taskName string) {
+func (ob *Timer) Start(taskName string) string {
 	now := time.Now()
 	if ob == nil {
 		Error(ENilReceiver)
-		return
+		return taskName
 	}
 	ob.Mutex.Lock()
 	defer ob.Mutex.Unlock()
@@ -91,12 +91,13 @@ func (ob *Timer) Start(taskName string) {
 	task, exists := ob.Tasks[taskName]
 	if exists {
 		task.StartTime = now
-		return
+		return taskName
 	}
 	ob.Tasks[taskName] = &TimerTask{
 		SerialNo:  len(ob.Tasks) + 1,
 		StartTime: now,
 	}
+	return taskName
 } //                                                                       Start
 
 // Stop stops timing the named task and stores the time spent in the Timer.
