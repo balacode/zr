@@ -43,7 +43,7 @@ func Test_bytf_AppendRuneBytes_(t *testing.T) {
 	buf := make([]byte, 0, 10)
 	AppendRuneBytes(&buf, r)
 	expect := []byte{208, 145}
-	if bytes.Compare(buf, expect) != 0 {
+	if !bytes.Equal(buf, expect) {
 		t.Errorf("FAILED: buf became %v instead of %v", buf, expect)
 	}
 } //                                                  Test_bytf_AppendRuneBytes_
@@ -152,7 +152,7 @@ func Test_bytf_ClearBytes_(t *testing.T) {
 	//
 	//   ClearBytes(slice *[]byte)
 	//
-	slice := make([]byte, 0, 0)
+	slice := make([]byte, 0)
 	slice = append(slice, []byte{1, 2, 3}...)
 	initialCap := cap(slice)
 	ClearBytes(&slice)
@@ -263,7 +263,7 @@ func Test_bytf_InsertBytes_(t *testing.T) {
 		}
 	}
 	{
-		slc := make([]byte, 0, 0)
+		slc := make([]byte, 0)
 		slc = append(slc, []byte{1, 2, 3}...)
 		InsertBytes(&slc, 1, []byte{10, 20, 30})
 		if !bytes.Equal(slc, []byte{1, 10, 20, 30, 2, 3}) {

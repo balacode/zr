@@ -73,22 +73,6 @@ func (ob *Timer) GetTasks() map[string]*TimerTask {
 	return ob.Tasks
 } //                                                                    GetTasks
 
-// Print prints out a timing report to the console (i.e. standard output)
-// Shows the name of each task, the total time spent on the task,
-// the number of times the task was executed, and the average running time
-// in seconds rounded to 4 decimal places.
-func (ob *Timer) Print() {
-	if ob == nil {
-		Error(ENilReceiver)
-		return
-	}
-	if ob.Tasks == nil {
-		ob.makeTasks()
-	}
-	s := ob.String()
-	fmt.Println(s)
-} //                                                                       Print
-
 // Start begins timing the named task. Make sure you call Stop() when
 // the task is complete. You can start and stop the same task multiple
 // times, provided you call Stop() after every Start().
@@ -148,6 +132,36 @@ func (ob *Timer) StopLast() {
 	ob.LastTaskName = ""
 } //                                                                    StopLast
 
+// Reset clears all timing data from the timer.
+func (ob *Timer) Reset() {
+	if ob == nil {
+		Error(ENilReceiver)
+		return
+	}
+	ob.Mutex.Lock()
+	defer ob.Mutex.Unlock()
+	ob.makeTasks()
+} //                                                                       Reset
+
+// -----------------------------------------------------------------------------
+// # Reporting Methods (ob *Timer)
+
+// Print prints out a timing report to the console (i.e. standard output)
+// Shows the name of each task, the total time spent on the task, the
+// number of times the task was executed, and the average running time
+// in seconds rounded to 4 decimal places.
+func (ob *Timer) Print() {
+	if ob == nil {
+		Error(ENilReceiver)
+		return
+	}
+	if ob.Tasks == nil {
+		ob.makeTasks()
+	}
+	s := ob.String()
+	fmt.Println(s)
+} //                                                                       Print
+
 // String returns the timing report as a string,
 // and implements the fmt.Stringer interface.
 func (ob *Timer) String() string {
@@ -177,17 +191,6 @@ func (ob *Timer) String() string {
 	ret := buf.String()
 	return ret
 } //                                                                      String
-
-// Reset clears all timing data from the timer.
-func (ob *Timer) Reset() {
-	if ob == nil {
-		Error(ENilReceiver)
-		return
-	}
-	ob.Mutex.Lock()
-	defer ob.Mutex.Unlock()
-	ob.makeTasks()
-} //                                                                       Reset
 
 // -----------------------------------------------------------------------------
 // # Private Method (ob *Timer)

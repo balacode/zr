@@ -6,7 +6,7 @@
 package zr
 
 //  to test all items in timer.go use:
-//      go test --run Test_timr_
+//      go test --run Test_Timer_1_
 //
 //  to generate a test coverage report for the whole module use:
 //      go test -coverprofile cover.out
@@ -18,8 +18,8 @@ import (
 	"time"
 )
 
-// go test --run Test_timr_
-func Test_timr_(t *testing.T) {
+// go test --run Test_Timer_1_
+func Test_Timer_1_(t *testing.T) {
 	TBegin(t)
 	//
 	var tm Timer
@@ -41,6 +41,6 @@ func Test_timr_(t *testing.T) {
 	TTrue(t, strings.Contains(lines[1], ": task"))
 	TTrue(t, strings.Contains(lines[2], "0.3"))
 	TEqual(t, lines[3], "")
-} //                                                                  Test_timr_
+} //                                                               Test_Timer_1_
 
 // end

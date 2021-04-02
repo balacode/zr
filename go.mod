@@ -1,4 +1,4 @@
-// X:\user\projects\code\go\src\base\hub\zr\go.mod
+// zr/[go.mod]
 
 module github.com/balacode/zr
 
