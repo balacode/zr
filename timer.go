@@ -12,6 +12,7 @@ package zr
 // # Methods (ob *Timer)
 //   ) GetTasks() map[string]*TimerTask
 //   ) Print(prefix ...string)
+//   ) Rename(taskName, newName string) string
 //   ) Start(taskName string)
 //   ) Stop(taskName string)
 //   ) StopLast()
@@ -108,6 +109,37 @@ func (ob tmNameTasks) Swap(i, j int) {
 func (ob *Timer) GetTasks() map[string]*TimerTask {
 	return ob.Tasks
 } //                                                                    GetTasks
+
+// Rename renames a timed task. If there is an existing task with the same
+// name as newTaskName, the old task will be merged with the existing task.
+// The times of the two tasks will be combined.
+//
+// Returns newTaskName
+//
+func (ob *Timer) Rename(taskName, newName string) string {
+	old, hasOld := ob.Tasks[taskName]
+	if taskName == newName || taskName == "" || newName == "" {
+		goto exit
+	}
+	if !hasOld {
+		goto exit
+	}
+	if new, hasNew := ob.Tasks[newName]; hasNew {
+		new.Count += old.Count
+		if new.SerialNo > old.SerialNo {
+			new.SerialNo = old.SerialNo
+		}
+		if new.StartTime.After(old.StartTime) {
+			new.StartTime = old.StartTime
+		}
+		new.TotalMs += old.TotalMs
+	} else {
+		ob.Tasks[newName] = old
+	}
+	delete(ob.Tasks, taskName)
+exit:
+	return newName
+} //                                                                      Rename
 
 // Start begins timing the named task. Make sure you call Stop() when
 // the task is complete. You can start and stop the same task multiple

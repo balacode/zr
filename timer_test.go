@@ -19,6 +19,8 @@ import (
 	"time"
 )
 
+const TIMER_VERBOSE = false
+
 // go test --run Test_Timer_1_
 func Test_Timer_1_(t *testing.T) {
 	TBegin(t)
@@ -91,5 +93,51 @@ func Test_Timer_ReportByTimeSpent_(t *testing.T) {
 	TTrue(t, strings.Contains(lines[6], "1.7"))
 	TEqual(t, lines[7], "")
 } //                                               Test_Timer_ReportByTimeSpent_
+
+// go test --run Test_Timer_Rename_
+func Test_Timer_Rename_(t *testing.T) {
+	TBegin(t)
+	//
+	var tm Timer
+	for _, ms := range []int{100, 200, 300} {
+		task := tm.Start(fmt.Sprint("task", ms))
+		time.Sleep(time.Duration(ms) * time.Millisecond)
+		tm.Stop(task)
+	}
+	tm.Rename("task100", "task100") // do nothing (no change)
+	tm.Rename("task100", "taskA")   // rename
+	tm.Rename("taskABC", "taskA")   // do nothing (non-existent task)
+	tm.Rename("task200", "taskB")   // rename
+	tm.Rename("task300", "taskB")   // merge
+	tm.Rename("taskXYZ", "taskB")   // do nothing (non-existent task)
+	//
+	got := tm.ReportByTimeSpent()
+	lines := strings.Split(got, "\n")
+	if TIMER_VERBOSE {
+		for i, line := range lines {
+			PL(i, line)
+		}
+	}
+	// Expected output (with minor timing differences):
+	// 0     --------------------------------- SECONDS:
+	// 1        0.52151: taskB
+	// 2        0.10393: taskA
+	// 3        0.62545
+	// 4
+	//
+	TEqual(t, len(lines), 5)
+	//
+	TTrue(t, strings.Contains(lines[0], "---"))
+	TTrue(t, strings.Contains(lines[0], "SECONDS:"))
+	//
+	TTrue(t, strings.Contains(lines[1], "0.5"))
+	TTrue(t, strings.Contains(lines[1], ": taskB"))
+	//
+	TTrue(t, strings.Contains(lines[2], "0.1"))
+	TTrue(t, strings.Contains(lines[2], ": taskA"))
+	//
+	TTrue(t, strings.Contains(lines[3], "0.6"))
+	TEqual(t, lines[4], "")
+} //                                                          Test_Timer_Rename_
 
 // end
