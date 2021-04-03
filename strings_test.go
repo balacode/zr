@@ -1138,74 +1138,11 @@ func Test_strs_Substr_(t *testing.T) {
 	//
 	// Substr(s string, charIndex, charCount int) string
 	//
-	const IntMin = -2147483648
-	const GB1 = 1073741824
-	//
 	TEqual(t, Substr("ABC", 0, 3), ("ABC"))
 	TEqual(t, Substr("ABC", 0, 2), ("AB"))
 	TEqual(t, Substr("ABC", 0, 1), ("A"))
 	TEqual(t, Substr("ABC", 0, 0), (""))
-	//    // ? Mid( "", -1073741824, -2147483647) = ""
-	//    TEST( MidS( "", -1073741824, int(-2147483647)) == "" )
 	//
-	//    // ? Mid( "False", -2147483647, -2147483647) = "F"
-	//    TEST( MidS( "False", -2147483647, int(-2147483647)) == "F" )
-	//
-	//    // ? Mid( "abc", 1, -2147483648) = ""
-	//    // ? Mid( "abc", 1, -2147483647) = "a"
-	//    // ? Mid( "abc", 1, -2147483646) = "ab"
-	//    // ? Mid( "abc", 1, -2147483645) = "abc"
-	//
-	//    TEST( MidS( "abc", 1, int(-2147483648)) == "" )
-	//
-	//#pragma warning(pop)
-	//
-	//    TEST( MidS( "abc", 1, int(-2147483647)) == "a"   )
-	//    TEST( MidS( "abc", 1, int(-2147483646)) == "ab"  )
-	//    TEST( MidS( "abc", 1, int(-2147483645)) == "abc" )
-	//
-	//    // ? Mid( "abc", 1, -1073741825) = "abc"
-	//    TEST( MidS( "abc", 1, int(-1073741825)) == "abc" )
-	//
-	//    // ? Mid( "abc", 2, -2147483647) = "b"
-	//    TEST( MidS( "abc", 2, int(-2147483647)) == "b" )
-	//
-	//    // ? Mid( "abcdefghij", 9, -2147483647) = "i"
-	//    TEST( MidS( "abcdefghij", 9, int(-2147483647)) == "i" )
-	//
-	//    TEST( MidS( "abc", 1, int(-2147483647)) == "a"   )
-	//    TEST( MidS( "abc", 1, int(-2147483646)) == "ab"  )
-	//    TEST( MidS( "abc", 1, int(-2147483645)) == "abc" )
-	//
-	//    TEST( MidS( "abcdefghi", -1073741824, 65536) == "" )
-	//    //TEST( MidS( "abc", 1, int(-2147483648)) == "" )
-	//
-	//    TEST( MidS( "abc",   1, int(1))      == "a"           )
-	//    TEST( MidS( "abc",   1, int(3))      == "abc"         )
-	//    TEST( MidS( "abc",   1, int(300))    == "abc"         )
-	//    TEST( MidS( "abc",   1, "")          == ""            )
-	//    TEST( MidS( "abc",   2, int(300))    == "bc"          )
-	//    TEST( MidS( "abc",   3, int(300))    == "c"           )
-	//    TEST( MidS( "abc",   4, int(300))    == ""            )
-	//    TEST( MidS( "abc", 777, ZERO)        == ""            )
-	//    TEST( MidS( "abc", 777, int(1))      == ""            )
-	//    TEST( MidS(NULL,    -1, int(-65536)) == "" )
-	//    TEST( MidS(NULL,     0, int(-65536)) == "" )
-	//    TEST( MidS(NULL,     1, int(1))      == "" )
-	//    TEST( MidS(NULL,    10, int(-1))     == "" )
-	//    TEST( MidS(NULL,    10, int(-65536)) == "" )
-	//    TEST( MidS(NULL,    10, ZERO)        == "" )
-	//    TEST( MidS(NULL,    10, int(1))      == "" )
-	//    TEST( MidS("",       1, int(1))      == ""            )
-	//
-	//    // Run-time error '5': Invalid procedure call or argument
-	//    //TEST( MidS( "abc", 77777777, -1 )
-	//    //TEST( MidS(empty, 0, 1 )
-	//    //TEST( MidS( "abc", 0, 1 )
-	//    //TEST( MidS( "abc", -1, 300 )
-	//
-	//    // Run-time error '94': Invalid use of Null
-	//    //TEST( Mid( "abc", 77777777, Null )
 	tests := []struct {
 		text      string
 		charIndex int

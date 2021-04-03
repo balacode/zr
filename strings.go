@@ -754,7 +754,7 @@ func ReplaceMany(
 				batches[n] = &batch{findLen: n}
 				lengths = append(lengths, n)
 			}
-			b, _ = batches[n]
+			b = batches[n]
 			if find == repls[i] {
 				continue
 			}
