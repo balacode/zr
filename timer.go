@@ -9,15 +9,25 @@ package zr
 //   Timer struct
 //   TimerTask struct
 //
+// # tmNameTask Sortable Slice
+//   tmNameTask struct
+//   tmNameTasks []tmNameTask
+//       ) Len() int
+//       ) Less(i, j int) bool
+//       ) Swap(i, j int)
+//
 // # Methods (ob *Timer)
 //   ) GetTasks() map[string]*TimerTask
-//   ) Print(prefix ...string)
 //   ) Rename(taskName, newName string) string
-//   ) Start(taskName string)
+//   ) Start(taskName string) string
 //   ) Stop(taskName string)
 //   ) StopLast()
-//   ) String()
 //   ) Reset()
+//
+// # Reporting Methods (ob *Timer)
+//   ) Print(prefix ...string)
+//   ) ReportByTimeSpent() string
+//   ) String() string
 //
 // # Private Method (ob *Timer)
 //   ) makeTasks()

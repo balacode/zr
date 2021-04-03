@@ -31,13 +31,13 @@ func Test_Timer_1_(t *testing.T) {
 	tm.Stop("task")
 	//
 	lines := strings.Split(tm.String(), "\n")
-	TEqual(t, len(lines), 4)
 	//
-	// Expected output like:
+	// Expected output (with minor timing differences):
 	// 0:     --------------------------------- SECONDS:
 	// 1:        0.31356: task
 	// 2:        0.31356
 	// 3:
+	TEqual(t, len(lines), 4)
 	TTrue(t, strings.Contains(lines[0], "---"))
 	TTrue(t, strings.Contains(lines[0], "SECONDS:"))
 	TTrue(t, strings.Contains(lines[1], "0.3"))
@@ -58,11 +58,12 @@ func Test_Timer_ReportByTimeSpent_(t *testing.T) {
 	}
 	got := tm.ReportByTimeSpent()
 	lines := strings.Split(got, "\n")
-	TEqual(t, len(lines), 8)
-	for i, line := range lines {
-		PL(i, line)
+	if TIMER_VERBOSE {
+		for i, line := range lines {
+			PL(i, line)
+		}
 	}
-	// Expected output like:
+	// Expected output (with minor timing differences):
 	// 0     --------------------------------- SECONDS:
 	// 1        0.60583: task4
 	// 2        0.50635: task2
@@ -71,6 +72,7 @@ func Test_Timer_ReportByTimeSpent_(t *testing.T) {
 	// 5        0.10201: task3
 	// 6        1.71859
 	// 7
+	TEqual(t, len(lines), 8)
 	//
 	TTrue(t, strings.Contains(lines[0], "---"))
 	TTrue(t, strings.Contains(lines[0], "SECONDS:"))
