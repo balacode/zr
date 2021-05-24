@@ -652,7 +652,7 @@ func Test_strs_LineOffsetUTF8_(t *testing.T) {
 func Test_strs_Padf_(t *testing.T) {
 	TBegin(t)
 	//
-	// Padf(minLength int, s string, args ...interface{}) string
+	// Padf(minLength int, format string, args ...interface{}) string
 	//
 	TEqual(t, Padf(6, "%s", "abc"), "abc   ")
 	//

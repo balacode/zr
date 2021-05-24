@@ -64,6 +64,10 @@ import (
 //
 // The current version of Timer should not be used
 // to time the same task running in parallel.
+//
+// Example:
+//     import "github.com/balacode/zr"
+//
 type Timer struct {
 	Mutex        sync.RWMutex
 	Tasks        map[string]*TimerTask

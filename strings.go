@@ -30,7 +30,7 @@ package zr
 //   LineEndIndexB(s []byte, index int) int
 //   LineOfIndex(s string, index int) string
 //   LineOffsetUTF8(data []byte, lineIndex int) (byteOffset, charOffset int)
-//   Padf(minLength int, s string, args ...interface{}) string
+//   Padf(minLength int, format string, args ...interface{}) string
 //   ReplaceEx1(s, find, repl string, count int, caseMode CaseMode) string
 //   ReplaceI(s, find, repl string, optCount ...int) string
 //   ReplaceMany(
@@ -603,12 +603,12 @@ func LineOffsetUTF8(data []byte, lineIndex int) (byteOffset, charOffset int) {
 // Padf suffixes a string with spaces to make sure it is at least
 // 'minLength' characters wide. I.e. the string is left-aligned.
 // If the string is wider than 'minLength', returns the string as it is.
-func Padf(minLength int, s string, args ...interface{}) string {
-	s = fmt.Sprintf(s, args...)
-	if len(s) < minLength {
-		return s + strings.Repeat(" ", minLength-len(s))
+func Padf(minLength int, format string, args ...interface{}) string {
+	format = fmt.Sprintf(format, args...)
+	if len(format) < minLength {
+		return format + strings.Repeat(" ", minLength-len(format))
 	}
-	return s
+	return format
 } //                                                                        Padf
 
 // ReplaceEx1 _ _
@@ -749,12 +749,12 @@ func ReplaceMany(
 		batches := map[int]*batch{}
 		for i, find := range finds {
 			n := utf8.RuneCountInString(find)
-			b, has := batches[n]
+			_, has := batches[n]
 			if !has {
 				batches[n] = &batch{findLen: n}
 				lengths = append(lengths, n)
 			}
-			b = batches[n]
+			b := batches[n]
 			if find == repls[i] {
 				continue
 			}
