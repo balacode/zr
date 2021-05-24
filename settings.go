@@ -51,10 +51,6 @@ type Settings struct {
 
 // Dump prints out all settings and their stored values to console.
 func (ob *Settings) Dump() {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return
-	}
 	fmt.Println("Dump:", len(ob.m), "settings")
 	for name, v := range ob.m {
 		fmt.Println("name:", name, "value:", v)
@@ -65,10 +61,6 @@ func (ob *Settings) Dump() {
 // GetSetting _ _
 func (ob *Settings) GetSetting(name string) string {
 	const erv = ""
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return erv
-	}
 	name = strings.TrimSpace(name)
 	if name == "" {
 		mod.Error(EInvalidArg, "^name")
@@ -84,10 +76,6 @@ func (ob *Settings) GetSetting(name string) string {
 // HasSetting _ _
 func (ob *Settings) HasSetting(name string) bool {
 	const erv = false
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return erv
-	}
 	name = strings.TrimSpace(name)
 	if name == "" {
 		mod.Error(EInvalidArg, "^name")
@@ -102,10 +90,6 @@ func (ob *Settings) HasSetting(name string) bool {
 
 // SetSetting _ _
 func (ob *Settings) SetSetting(name string, value interface{}) {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return
-	}
 	name = strings.TrimSpace(name)
 	if name == "" {
 		mod.Error(EInvalidArg, "^name")
@@ -133,10 +117,6 @@ func (ob *Settings) SetSetting(name string, value interface{}) {
 func (ob *Settings) ExtendGet(
 	handler func(name, value string, exists bool) string,
 ) {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return
-	}
 	ob.extendGet = handler
 } //                                                                   ExtendGet
 
@@ -144,10 +124,6 @@ func (ob *Settings) ExtendGet(
 func (ob *Settings) ExtendHas(
 	handler func(name, value string, exists bool) bool,
 ) {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return
-	}
 	ob.extendHas = handler
 } //                                                                   ExtendHas
 
@@ -155,10 +131,6 @@ func (ob *Settings) ExtendHas(
 func (ob *Settings) ExtendSet(
 	handler func(name string, old, value interface{}) *string,
 ) {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return
-	}
 	ob.extendSet = handler
 } //                                                                   ExtendSet
 

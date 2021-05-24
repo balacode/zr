@@ -788,9 +788,6 @@ func (n Currency) MarshalJSON() ([]byte, error) {
 // This method alters the object's value.
 func (n *Currency) UnmarshalJSON(data []byte) error {
 	//   ^  don't remove pointer receiver, it is necessary
-	if n == nil {
-		return mod.Error(ENilReceiver)
-	}
 	var num float64
 	err := mod.json.Unmarshal(data, &num)
 	if err != nil {

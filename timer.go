@@ -156,10 +156,6 @@ exit:
 // times, provided you call Stop() after every Start().
 func (ob *Timer) Start(taskName string) string {
 	now := time.Now()
-	if ob == nil {
-		Error(ENilReceiver)
-		return taskName
-	}
 	if ob.PrintEvents {
 		fmt.Println("start", taskName+":", time.Now().String()[11:19])
 	}
@@ -184,10 +180,6 @@ func (ob *Timer) Start(taskName string) string {
 // Stop stops timing the named task and stores the time spent in the Timer.
 func (ob *Timer) Stop(taskName string) {
 	now := time.Now()
-	if ob == nil {
-		Error(ENilReceiver)
-		return
-	}
 	if ob.PrintEvents {
 		fmt.Println("stop", taskName+":", time.Now().String()[11:19])
 	}
@@ -219,10 +211,6 @@ func (ob *Timer) StopLast() {
 
 // Reset clears all timing data from the timer.
 func (ob *Timer) Reset() {
-	if ob == nil {
-		Error(ENilReceiver)
-		return
-	}
 	ob.Mutex.Lock()
 	defer ob.Mutex.Unlock()
 	ob.makeTasks()
@@ -236,10 +224,6 @@ func (ob *Timer) Reset() {
 // number of times the task was executed, and the average running time
 // in seconds rounded to 4 decimal places.
 func (ob *Timer) Print(prefix ...string) {
-	if ob == nil {
-		Error(ENilReceiver)
-		return
-	}
 	if ob.Tasks == nil {
 		ob.makeTasks()
 	}

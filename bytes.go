@@ -71,28 +71,16 @@ func BytesWrap(ar []byte) Bytes {
 
 // Cap returns the allocated capacity of this object.
 func (ob *Bytes) Cap() int {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return 0
-	}
 	return cap(ob.ar)
 } //                                                                         Cap
 
 // FindByte returns the index of the first occurrence of byte 'b'.
 func (ob *Bytes) FindByte(b byte) int {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return 0
-	}
 	return bytes.IndexByte(ob.ar, b)
 } //                                                                    FindByte
 
 // GetByte returns the byte at the specified byte index.
 func (ob *Bytes) GetByte(index int) byte {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return 0
-	}
 	return ob.ar[index]
 } //                                                                     GetByte
 
@@ -100,20 +88,12 @@ func (ob *Bytes) GetByte(index int) byte {
 // Assumes that the data is encoded in UTF-8 format.
 // Note that the index is the byte index, not the character number.
 func (ob *Bytes) GetChar(index int) CharSize {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return CharSize{}
-	}
 	r, size := utf8.DecodeRune(ob.ar[index:])
 	return CharSize{Val: r, Size: size}
 } //                                                                     GetChar
 
 // Size returns the written size of this object. (Always less than capacity)
 func (ob *Bytes) Size() int {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return 0
-	}
 	return len(ob.ar)
 } //                                                                        Size
 
@@ -123,10 +103,6 @@ func (ob *Bytes) Size() int {
 // String returns a string based on previously-written bytes
 // and implements the fmt.Stringer interface.
 func (ob *Bytes) String() string {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return ""
-	}
 	return string(ob.ar)
 } //                                                                      String
 
@@ -135,10 +111,6 @@ func (ob *Bytes) String() string {
 
 // Append appends another Bytes object to the end of this object.
 func (ob *Bytes) Append(b Bytes) {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return
-	}
 	ob.ar = append(ob.ar, b.ar...)
 } //                                                                      Append
 
@@ -147,10 +119,6 @@ func (ob *Bytes) Append(b Bytes) {
 // used to encode the character. If the character is not
 // valid, returns -1 and doesn't change the object.
 func (ob *Bytes) AppendChar(ch rune) int {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return 0
-	}
 	size := utf8.RuneLen(ch)
 	if size == -1 {
 		mod.Error("utf8.RuneLen(ch) == -1")
@@ -164,10 +132,6 @@ func (ob *Bytes) AppendChar(ch rune) int {
 
 // GetBytes returns a raw byte array of bytes in this object.
 func (ob *Bytes) GetBytes() []byte {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return []byte{}
-	}
 	return ob.ar
 } //                                                                    GetBytes
 
@@ -175,10 +139,6 @@ func (ob *Bytes) GetBytes() []byte {
 // at position 'index' into object.
 // Returns the number of bytes inserted.
 func (ob *Bytes) Insert(index int, data Bytes, count int) int {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return 0
-	}
 	if index < 0 || index > len(ob.ar) {
 		mod.Error("Index", index, "out of range; array:", len(ob.ar))
 		return 0
@@ -199,10 +159,6 @@ func (ob *Bytes) Insert(index int, data Bytes, count int) int {
 
 // Remove removes 'count' bytes from position starting at 'index'.
 func (ob *Bytes) Remove(index, count int) {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return
-	}
 	if index < 0 || index >= len(ob.ar) {
 		mod.Error("Index", index, "out of range; array:", len(ob.ar))
 		return
@@ -216,10 +172,6 @@ func (ob *Bytes) Remove(index, count int) {
 // Reset empties the contents of this object making Size() equal zero,
 // but does not release the allocated memory, so Cap() remains the same.
 func (ob *Bytes) Reset() {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return
-	}
 	ob.ar = ob.ar[:0]
 } //                                                                       Reset
 
@@ -227,10 +179,6 @@ func (ob *Bytes) Reset() {
 // If the new size is smaller than the old size, the contents is truncated.
 // If it is bigger, appends zeros to pad the contents.
 func (ob *Bytes) Resize(size int) {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return
-	}
 	current := len(ob.ar)
 	if size == current {
 		return
@@ -246,10 +194,6 @@ func (ob *Bytes) Resize(size int) {
 
 // SetByte _ _
 func (ob *Bytes) SetByte(index int, val byte) {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return
-	}
 	IMPLEMENT()
 } //                                                                     SetByte
 
@@ -264,10 +208,6 @@ func (ob *Bytes) SetByte(index int, val byte) {
 // endIndex is the ending position, just after the last required element.
 // If endIndex is -1, returns everything from beginIndex up to the end.
 func (ob *Bytes) Slice(beginIndex, endIndex int) Bytes {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return Bytes{}
-	}
 	if beginIndex < 0 {
 		mod.Error("Treating beginIndex", beginIndex, "as 0")
 		beginIndex = 0

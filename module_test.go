@@ -76,7 +76,6 @@ func Test_mdle_consts_(t *testing.T) {
 	TEqual(t, EInvalidArg, ("Invalid argument"))
 	TEqual(t, EInvalidType, ("Invalid type"))
 	TEqual(t, ENil, ("Value is nil"))
-	TEqual(t, ENilReceiver, ("nil receiver"))
 	TEqual(t, ENoDef, ("Not defined"))
 	TEqual(t, ENotFound, ("Not found"))
 	TEqual(t, ENotHandled, ("Not handled"))

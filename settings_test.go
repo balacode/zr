@@ -36,13 +36,6 @@ func Test_sett_Settings_GetSetting_(t *testing.T) {
 	// (ob *Settings) GetSetting(name string) string
 	//
 	{
-		// method call on a nil receiver must log an error
-		TBeginError()
-		var nulp *Settings
-		TEqual(t, nulp.GetSetting("alpha"), (""))
-		TCheckError(t, ENilReceiver)
-	}
-	{
 		// zero-length name must log an error
 		TBeginError()
 		var o Settings
@@ -80,14 +73,6 @@ func Test_sett_Settings_HasSetting_(t *testing.T) {
 	//
 	// (ob *Settings) HasSetting(name string) bool
 	{
-		// method call on a nil receiver must log an error
-		TBeginError()
-		var nulp *Settings
-		res := nulp.HasSetting("alpha")
-		TEqual(t, res, (false))
-		TCheckError(t, ENilReceiver)
-	}
-	{
 		// zero-length name must log an error
 		TBeginError()
 		var o Settings
@@ -120,13 +105,6 @@ func Test_sett_Settings_SetSetting_(t *testing.T) {
 	TBegin(t)
 	//
 	// (ob *Settings) SetSetting(name string, value interface{})
-	{
-		// method call on a nil receiver must log an error
-		TBeginError()
-		var nulp *Settings
-		nulp.SetSetting("alpha", 1)
-		TCheckError(t, ENilReceiver)
-	}
 	{
 		// zero-length name must log an error
 		TBeginError()
@@ -164,13 +142,6 @@ func Test_sett_Settings_ExtendGet_(t *testing.T) {
 	// (ob *Settings) ExtendGet(
 	//     handler func(name, value string, exists bool) string,
 	// )
-	{
-		// method call on a nil receiver must log an error
-		TBeginError()
-		var nulp *Settings
-		nulp.ExtendGet(nil)
-		TCheckError(t, ENilReceiver)
-	}
 	// TODO: check if extender function is called after this is set
 	// TODO: must not call extender function after being set to nil
 	// TODO: check if extender is passed correct arguments
@@ -184,13 +155,6 @@ func Test_sett_Settings_ExtendHas_(t *testing.T) {
 	// (ob *Settings) ExtendHas(
 	//     handler func(name, value string, exists bool) bool,
 	// )
-	{
-		// method call on a nil receiver must log an error
-		TBeginError()
-		var nulp *Settings
-		nulp.ExtendHas(nil)
-		TCheckError(t, ENilReceiver)
-	}
 	// TODO: check if extender function is called after this is set
 	// TODO: must not call extender function after being set to nil
 	// TODO: check if extender is passed correct arguments
@@ -204,13 +168,6 @@ func Test_sett_Settings_ExtendSet_(t *testing.T) {
 	// (ob *Settings) ExtendSet(
 	//     handler func(name string, old, value interface{}) *string,
 	// )
-	{
-		// method call on a nil receiver must log an error
-		TBeginError()
-		var nulp *Settings
-		nulp.ExtendSet(nil)
-		TCheckError(t, ENilReceiver)
-	}
 	// TODO: check if extender function is called after this is set
 	// TODO: must not call extender function after being set to nil
 	// TODO: check if extender is passed correct arguments

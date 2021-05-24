@@ -19,10 +19,6 @@ type StringStack struct {
 // string in the stack. It returns the existing string.
 // If the stack was empty, appends the string.
 func (ob *StringStack) ChangeTop(s string) string {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return ""
-	}
 	max := len(ob.ar) - 1
 	if max < 0 {
 		ob.ar = append(ob.ar, s)
@@ -35,10 +31,6 @@ func (ob *StringStack) ChangeTop(s string) string {
 
 // Pop returns and removes the most recently added string from the stack.
 func (ob *StringStack) Pop() string {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return ""
-	}
 	max := len(ob.ar) - 1
 	if max < 0 {
 		mod.Error("Pop() on empty stack")
@@ -51,10 +43,6 @@ func (ob *StringStack) Pop() string {
 
 // Push adds string 's' to the top of the stack. It returns 's'.
 func (ob *StringStack) Push(s string) string {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return ""
-	}
 	ob.ar = append(ob.ar, s)
 	return s
 } //                                                                        Push
@@ -62,10 +50,6 @@ func (ob *StringStack) Push(s string) string {
 // Top returns the topmost, most recently added string
 // on the stack, without altering the stack.
 func (ob *StringStack) Top() string {
-	if ob == nil {
-		mod.Error(ENilReceiver)
-		return ""
-	}
 	max := len(ob.ar) - 1
 	if max < 0 {
 		mod.Error("Top() on empty stack")
