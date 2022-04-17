@@ -189,10 +189,10 @@ func (ob *Calendar) String() string {
 	// *--------------------------------------------------------------*
 	// 95.98
 	const (
-		EDGE      = "*"
-		HDIV      = "-"
-		VDIV      = "|"
-		CELLWIDTH = 8
+		Edge      = "*"
+		HDiv      = "-"
+		VDiv      = "|"
+		CellWidth = 8
 	)
 	var retBuf bytes.Buffer
 	ws := func(a ...string) {
@@ -202,28 +202,28 @@ func (ob *Calendar) String() string {
 	}
 	ws("\n")
 	var (
-		blank   = strings.Repeat(" ", CELLWIDTH)
-		wdayFmt = fmt.Sprintf("  %%-%ds", CELLWIDTH-2)
-		dayFmt  = fmt.Sprintf(" %%-%dd", CELLWIDTH-1)
-		valFmt  = fmt.Sprintf(" %%%dv ", CELLWIDTH-2)
+		blank      = strings.Repeat(" ", CellWidth)
+		weekdayFmt = fmt.Sprintf("  %%-%ds", CellWidth-2)
+		dayFmt     = fmt.Sprintf(" %%-%dd", CellWidth-1)
+		valFmt     = fmt.Sprintf(" %%%dv ", CellWidth-2)
 	)
 	// draws the outer (top or bottom) horizontal divider
 	outerHLine := func() {
-		ws(EDGE)
+		ws(Edge)
 		for i := 0; i < 7; i++ {
 			if i > 0 {
-				ws(HDIV)
+				ws(HDiv)
 			}
-			ws(strings.Repeat(HDIV, CELLWIDTH))
+			ws(strings.Repeat(HDiv, CellWidth))
 		}
-		ws(EDGE, "\n")
+		ws(Edge, "\n")
 	}
 	// draws the inner horizontal divider
 	innerHLine := func() {
 		for i := 0; i < 7; i++ {
-			ws(VDIV, strings.Repeat(HDIV, CELLWIDTH))
+			ws(VDiv, strings.Repeat(HDiv, CellWidth))
 		}
-		ws(VDIV, "\n")
+		ws(VDiv, "\n")
 	}
 	// formats numbers
 	numStr := func(n float64) string {
@@ -247,19 +247,19 @@ func (ob *Calendar) String() string {
 		//
 		// weekday names
 		for i := 0; i < 7; i++ {
-			ws(VDIV)
-			ws(fmt.Sprintf(wdayFmt, calendarWeekdaysEN[i][:3]))
+			ws(VDiv)
+			ws(fmt.Sprintf(weekdayFmt, calendarWeekdaysEN[i][:3]))
 		}
-		ws(VDIV, "\n")
+		ws(VDiv, "\n")
 		var sum float64
 		//
 		// draw the grid
 		for row := 0; row < 6; row++ {
 			innerHLine()
 			//
-			// days on current row
+			// date numbers on current row
 			for col := 0; col < 7; col++ {
-				ws(VDIV)
+				ws(VDiv)
 				day := mth.cells[row][col].day
 				if day == 0 {
 					ws(blank)
@@ -267,25 +267,25 @@ func (ob *Calendar) String() string {
 					ws(fmt.Sprintf(dayFmt, day))
 				}
 			}
-			ws(VDIV, "\n")
+			ws(VDiv, "\n")
 			//
 			// values on current row
 			for col := 0; col < 7; col++ {
-				ws(VDIV)
+				ws(VDiv)
 				v := mth.cells[row][col].value
 				if v == nil {
 					ws(blank)
 					continue
 				}
 				if v, ok := v.(float64); ok {
-					s := numStr(v)
 					sum += v
+					s := numStr(v)
 					ws(fmt.Sprintf(valFmt, s))
 					continue
 				}
 				ws(fmt.Sprintf(valFmt, v))
 			}
-			ws(VDIV, "\n")
+			ws(VDiv, "\n")
 		}
 		outerHLine()
 		ws(numStr(sum), "\n\n")

@@ -11,14 +11,14 @@ import (
 )
 
 //  to test all items in calendar.go use:
-//      go test --run Test_cldr_
+//      go test --run Test_Calendar_
 //
 //  to generate a test coverage report use:
 //      go test -coverprofile cover.out
 //      go tool cover -html=cover.out
 
-// go test --run Test_cldr_1
-func Test_cldr_1(t *testing.T) {
+// go test --run Test_Calendar_1
+func Test_Calendar_1(t *testing.T) {
 	TBegin(t)
 	//
 	var ret Calendar
@@ -124,10 +124,10 @@ func Test_cldr_1(t *testing.T) {
 	`
 	got = strings.TrimSpace(got)
 	TEqual(t, got, strings.TrimSpace(expect))
-} //                                                                 Test_cldr_1
+} //                                                             Test_Calendar_1
 
-// go test --run Test_cldr_2
-func Test_cldr_2(t *testing.T) {
+// go test --run Test_Calendar_2
+func Test_Calendar_2(t *testing.T) {
 	TBegin(t)
 	//
 	var ret Calendar
@@ -165,6 +165,6 @@ func Test_cldr_2(t *testing.T) {
 56.71`
 	got = strings.TrimSpace(got)
 	TEqual(t, got, strings.TrimSpace(expect))
-} //                                                                 Test_cldr_2
+} //                                                             Test_Calendar_2
 
 // end
