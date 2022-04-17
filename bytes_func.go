@@ -59,9 +59,9 @@ func ByteSizeString(sizeInBytes int64, useSI bool) string {
 	if !useSI && sizeInBytes == math.MinInt64 {
 		return "-7.9 EiB"
 	}
-	neg := sizeInBytes < 0
+	negative := sizeInBytes < 0
 	var ret string
-	if neg {
+	if negative {
 		sizeInBytes = -sizeInBytes
 		ret = "-"
 	}
