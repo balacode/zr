@@ -570,8 +570,8 @@ func BlankZero(s string) string {
 // Numbers are not rounded, just cut at the required number of decimals.
 func CommaDelimit(number string, decimalPlaces int) string {
 	var (
-		retBuf = bytes.NewBuffer(make([]byte, 0, 32))
-		ws     = retBuf.WriteString
+		buf    = bytes.NewBuffer(make([]byte, 0, 32))
+		ws     = buf.WriteString
 		intLen = 0
 		decAt  = strings.Index(number, ".")
 	)
@@ -617,7 +617,7 @@ func CommaDelimit(number string, decimalPlaces int) string {
 			decLen++
 		}
 	}
-	return retBuf.String()
+	return buf.String()
 } //                                                                CommaDelimit
 
 // IntInWordsEN returns the given number as a description in words.

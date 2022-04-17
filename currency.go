@@ -279,15 +279,15 @@ func (n Currency) GoString() string {
 // number's decimals will vary.
 func (n Currency) Fmt(decimalPlaces int) string {
 	var (
-		retBuf  = bytes.NewBuffer(make([]byte, 0, 25))
-		ws      = retBuf.WriteString
-		wr      = retBuf.WriteRune
-		intLen  = 0
-		intPart = n.i64 / 1e4         // integer part of the number
-		decPart = n.i64 - intPart*1e4 // decimal part (as an int)
-		neg     = n.i64 < 0           // is it negative? use absolute value
+		retBuf   = bytes.NewBuffer(make([]byte, 0, 25))
+		ws       = retBuf.WriteString
+		wr       = retBuf.WriteRune
+		intLen   = 0
+		intPart  = n.i64 / 1e4         // integer part of the number
+		decPart  = n.i64 - intPart*1e4 // decimal part (as an int)
+		negative = n.i64 < 0           // is it negative? use absolute value
 	)
-	if neg {
+	if negative {
 		intPart = -intPart
 		ws("-")
 	}

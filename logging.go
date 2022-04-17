@@ -476,7 +476,7 @@ func Logf(format string, args ...interface{}) {
 // NoE strips the error result from a function returning
 // a value and an error. Cast the result to the correct type.
 // For example:
-// Eg. data := NoE(ioutil.ReadFile(sourceFile)).([]byte)
+// Eg. data := NoE(os.ReadFile(sourceFile)).([]byte)
 func NoE(any interface{}, err error) interface{} {
 	return any
 } //                                                                         NoE
