@@ -617,7 +617,12 @@ func CommaDelimit(number string, decimalPlaces int) string {
 			decLen++
 		}
 	}
-	return buf.String()
+	// TODO: fix "-," in code above, so this patch wont be needed:
+	ret := buf.String()
+	if strings.Contains(ret, "-,") {
+		ret = strings.Replace(ret, "-,", "-", 1)
+	}
+	return ret
 } //                                                                CommaDelimit
 
 // IntInWordsEN returns the given number as a description in words.
