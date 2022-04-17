@@ -96,6 +96,7 @@ func Test_Calendar_1(t *testing.T) {
 |        |        |        |        |        |        |        |
 |        |        |        |        |        |        |        |
 *--------------------------------------------------------------*
+(375)
 382.06
 
 2018 FEBRUARY
@@ -120,6 +121,7 @@ func Test_Calendar_1(t *testing.T) {
 |        |        |        |        |        |        |        |
 |        |        |        |        |        |        |        |
 *--------------------------------------------------------------*
+(91)
 95.98
 	`
 	got = strings.TrimSpace(got)
@@ -162,6 +164,7 @@ func Test_Calendar_2(t *testing.T) {
 | 30     |        |        |        |        |        |        |
 |   10.5 |        |        |        |        |        |        |
 *--------------------------------------------------------------*
+(56)
 56.71`
 	got = strings.TrimSpace(got)
 	TEqual(t, got, strings.TrimSpace(expect))
