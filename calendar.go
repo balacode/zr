@@ -311,8 +311,12 @@ func (ob *Calendar) String() string {
 			for col := 0; col < columns; col++ {
 				ws(VDiv)
 				if col == 7 {
-					s := numStr(weekSum)
-					ws(fmt.Sprintf(valFmt, s))
+					s := blank
+					if weekSum > 0 {
+						s = numStr(weekSum)
+						s = fmt.Sprintf(valFmt, s)
+					}
+					ws(s)
 					continue
 				}
 				v := mth.cells[row][col].value
