@@ -329,7 +329,8 @@ func (ob *Calendar) String() string {
 					sumFH += int(math.Floor(v))
 					weekSum += v
 					s := numStr(v)
-					ws(fmt.Sprintf(valFmt, s))
+					s = fmt.Sprintf(valFmt, s)
+					ws(s)
 					continue
 				}
 				ws(fmt.Sprintf(valFmt, v))
