@@ -35,7 +35,8 @@ import (
 // Calendar provides logic for generating
 // calendar grids from dates and values.
 type Calendar struct {
-	months []calendarMonth
+	weekTotals bool
+	months     []calendarMonth
 } //                                                                    Calendar
 
 // calendarDay holds the calendar entry for a single day
@@ -154,6 +155,11 @@ func (ob *Calendar) Set(date, value interface{}) {
 	}
 } //                                                                         Set
 
+// SetWeekTotals disables or enables weekly subtotals.
+func (ob *Calendar) SetWeekTotals(v bool) {
+	ob.weekTotals = v
+}
+
 // String returns the calendar as a text string
 // and implements the fmt.Stringer interface.
 //
@@ -207,10 +213,14 @@ func (ob *Calendar) String() string {
 		dayFmt     = fmt.Sprintf(" %%-%dd", CellWidth-1)
 		valFmt     = fmt.Sprintf(" %%%dv ", CellWidth-2)
 	)
+	columns := 7
+	if ob.weekTotals {
+		columns = 8
+	}
 	// draws the outer (top or bottom) horizontal divider
 	outerHLine := func() {
 		ws(Edge)
-		for i := 0; i < 7; i++ {
+		for i := 0; i < columns; i++ {
 			if i > 0 {
 				ws(HDiv)
 			}
@@ -220,7 +230,7 @@ func (ob *Calendar) String() string {
 	}
 	// draws the inner horizontal divider
 	innerHLine := func() {
-		for i := 0; i < 7; i++ {
+		for i := 0; i < columns; i++ {
 			ws(VDiv, strings.Repeat(HDiv, CellWidth))
 		}
 		ws(VDiv, "\n")
@@ -246,8 +256,12 @@ func (ob *Calendar) String() string {
 		outerHLine()
 		//
 		// weekday names
-		for i := 0; i < 7; i++ {
+		for i := 0; i < columns; i++ {
 			ws(VDiv)
+			if i == 7 {
+				ws(fmt.Sprintf(weekdayFmt, "SUM"))
+				continue
+			}
 			ws(fmt.Sprintf(weekdayFmt, calendarWeekdaysEN[i][:3]))
 		}
 		ws(VDiv, "\n")
@@ -258,9 +272,16 @@ func (ob *Calendar) String() string {
 			innerHLine()
 			//
 			// date numbers on current row
-			for col := 0; col < 7; col++ {
+			for col := 0; col < columns; col++ {
 				ws(VDiv)
-				day := mth.cells[row][col].day
+				if ob.weekTotals && col == 7 {
+					ws(blank)
+					continue
+				}
+				day := 0
+				if col >= 0 && col <= 6 {
+					day = mth.cells[row][col].day
+				}
 				if day == 0 {
 					ws(blank)
 				} else {
@@ -270,8 +291,14 @@ func (ob *Calendar) String() string {
 			ws(VDiv, "\n")
 			//
 			// values on current row
-			for col := 0; col < 7; col++ {
+			weekSum := 0.0
+			for col := 0; col < columns; col++ {
 				ws(VDiv)
+				if col == 7 {
+					s := numStr(weekSum)
+					ws(fmt.Sprintf(valFmt, s))
+					continue
+				}
 				v := mth.cells[row][col].value
 				if v == nil {
 					ws(blank)
@@ -279,6 +306,7 @@ func (ob *Calendar) String() string {
 				}
 				if v, ok := v.(float64); ok {
 					sum += v
+					weekSum += v
 					s := numStr(v)
 					ws(fmt.Sprintf(valFmt, s))
 					continue
