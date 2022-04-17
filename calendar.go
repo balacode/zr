@@ -24,7 +24,9 @@ package zr
 import (
 	"bytes"
 	"fmt"
+	"math"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -266,17 +268,31 @@ func (ob *Calendar) String() string {
 		}
 		ws(VDiv, "\n")
 		var sum float64
+		var sumFH int // sum of full hours (daily hours rounded-down)
 		//
 		// draw the grid
 		for row := 0; row < 6; row++ {
 			innerHLine()
 			//
 			// date numbers on current row
+			weekSumFH := 0 // weekly summary of full hours
 			for col := 0; col < columns; col++ {
 				ws(VDiv)
-				if ob.weekTotals && col == 7 {
-					ws(blank)
-					continue
+				if ob.weekTotals {
+					if col >= 0 && col <= 6 {
+						v := mth.cells[row][col].value
+						if v, ok := v.(float64); ok {
+							weekSumFH += int(math.Floor(v))
+						}
+					} else if col == 7 {
+						s := blank
+						if weekSumFH != 0 {
+							s = "(" + strconv.Itoa(weekSumFH) + ")"
+							s = fmt.Sprintf(valFmt, s)
+						}
+						ws(s)
+						continue
+					}
 				}
 				day := 0
 				if col >= 0 && col <= 6 {
@@ -306,6 +322,7 @@ func (ob *Calendar) String() string {
 				}
 				if v, ok := v.(float64); ok {
 					sum += v
+					sumFH += int(math.Floor(v))
 					weekSum += v
 					s := numStr(v)
 					ws(fmt.Sprintf(valFmt, s))
@@ -316,6 +333,7 @@ func (ob *Calendar) String() string {
 			ws(VDiv, "\n")
 		}
 		outerHLine()
+		ws("(" + strconv.Itoa(sumFH) + ")\n")
 		ws(numStr(sum), "\n\n")
 	} // mth
 	return retBuf.String()
