@@ -3,6 +3,9 @@
 ## (c) balarabe@protonmail.com                                      License: MIT
 ## -----------------------------------------------------------------------------
 
+## executable files
+*.exe
+
 ## scripts, shortcuts, zip archives
 *.bat
 *.lnk
