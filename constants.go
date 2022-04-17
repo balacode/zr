@@ -13,43 +13,43 @@ package zr
 
 const (
 	// EFailedOperation _ _
-	EFailedOperation = "Failed operation"
+	EFailedOperation = "failed operation"
 
 	// EFailedParsing _ _
-	EFailedParsing = "Failed parsing"
+	EFailedParsing = "failed parsing"
 
 	// EFailedReading _ _
-	EFailedReading = "Failed reading"
+	EFailedReading = "failed reading"
 
 	// EFailedWriting _ _
-	EFailedWriting = "Failed writing"
+	EFailedWriting = "failed writing"
 
 	// EInvalid _ _
-	EInvalid = "Invalid"
+	EInvalid = "invalid"
 
 	// EInvalidArg _ _
-	EInvalidArg = "Invalid argument"
+	EInvalidArg = "invalid argument"
 
 	// EInvalidType _ _
-	EInvalidType = "Invalid type"
+	EInvalidType = "invalid type"
 
 	// ENil _ _
-	ENil = "Value is nil"
+	ENil = "value is nil"
 
 	// ENilReceiver indicates a method call on a nil object.
 	ENilReceiver = "nil receiver"
 
 	// ENoDef _ _
-	ENoDef = "Not defined"
+	ENoDef = "not defined"
 
 	// ENotFound _ _
-	ENotFound = "Not found"
+	ENotFound = "not found"
 
 	// ENotHandled _ _
-	ENotHandled = "Not handled"
+	ENotHandled = "not handled"
 
 	// EOverflow indicates an arithmetic overflow.
-	EOverflow = "Overflow"
+	EOverflow = "overflow"
 )
 
 // -----------------------------------------------------------------------------
