@@ -261,7 +261,7 @@ func (ob *Calendar) String() string {
 		for i := 0; i < columns; i++ {
 			ws(VDiv)
 			if i == 7 {
-				ws(fmt.Sprintf(weekdayFmt, "SUM"))
+				ws(fmt.Sprintf(weekdayFmt, "TOTAL"))
 				continue
 			}
 			ws(fmt.Sprintf(weekdayFmt, calendarWeekdaysEN[i][:3]))
